@@ -54,6 +54,8 @@ struct Instrument {
 
     double radius_at_nut = 254.0; // 10"
     double radius_at_last_fret = 508.0; // 20"
+    
+    double fretboard_thickness = 7.0;
 };
 
 struct Quad {
@@ -79,16 +81,16 @@ private:
     int first_fret;
     int last_fret;
 
-    double construction_distance_at_nut_side;
-    double construction_distance_at_heel;
-    double construction_distance_at_nut;
-    double construction_distance_at_last_fret;
-    double construction_distance_at_12th_fret;
+    double _construction_distance_at_nut_side;
+    double _construction_distance_at_heel;
+    double _construction_distance_at_nut;
+    double _construction_distance_at_last_fret;
+    double _construction_distance_at_12th_fret;
     
-    Quad board_shape;
-    Quad nut_shape;
-    Quad nut_slot_shape;
-    Quad strings_shape;
+    Quad _board_shape;
+    Quad _nut_shape;
+    Quad _nut_slot_shape;
+    Quad _strings_shape;
     
 public:
     Fretboard(const Instrument& instrument) {
@@ -161,25 +163,25 @@ public:
         
         // board shape
         Line board_cut_at_nut = nut_line.offset(nut_sign * instrument.space_before_nut);
-        Quad board_shape = {
+        _board_shape = {
             board_cut_at_nut.intersection(first_border),
             last_fret_cut.intersection(first_border),
             last_fret_cut.intersection(last_border),
             board_cut_at_nut.intersection(last_border)
         };
 
-        construction_distance_at_nut_side = std::min(board_shape.points[0].x, board_shape.points[3].x);
-        construction_distance_at_heel = std::max(board_shape.points[1].x, board_shape.points[2].x);
-        construction_distance_at_nut = (_strings.at(0).x_at_nut() + _strings.at(1).x_at_nut()) / 2;
-        construction_distance_at_last_fret = (_strings.at(0).point_at_fret(number_of_frets).x + _strings.at(1).point_at_fret(number_of_frets).x) / 2;
+        _construction_distance_at_nut_side = std::min(_board_shape.points[0].x, _board_shape.points[3].x);
+        _construction_distance_at_heel = std::max(_board_shape.points[1].x, _board_shape.points[2].x);
+        _construction_distance_at_nut = (_strings.at(0).x_at_nut() + _strings.at(1).x_at_nut()) / 2;
+        _construction_distance_at_last_fret = (_strings.at(0).point_at_fret(number_of_frets).x + _strings.at(1).point_at_fret(number_of_frets).x) / 2;
 
         if (number_of_frets > 12) {
-            construction_distance_at_12th_fret = (_strings.at(0).point_at_fret(12).x + _strings.at(1).point_at_fret(12).x) / 2;
+            _construction_distance_at_12th_fret = (_strings.at(0).point_at_fret(12).x + _strings.at(1).point_at_fret(12).x) / 2;
         }
 
         // nut shape
         auto nut_line_2 = nut_line.offset(nut_sign * instrument.nut_thickness);
-        nut_shape = {
+        _nut_shape = {
             nut_line_2.intersection(first_border),
             nut_line.intersection(first_border),
             nut_line.intersection(last_border),
@@ -188,14 +190,14 @@ public:
 
         auto external_line_1 = first_border.offset(5);
         auto external_line_2 = last_border.offset(-5);
-        nut_slot_shape = {
+        _nut_slot_shape = {
             nut_line_2.intersection(external_line_1),
             nut_line.intersection(external_line_1),
             nut_line.intersection(external_line_2),
             nut_line_2.intersection(external_line_2)
         };
 
-        strings_shape = {
+        _strings_shape = {
             _strings.at(0).point_at_nut(),
             _strings.at(0).point_at_bridge(),
             _strings.at(1).point_at_bridge(),
@@ -206,6 +208,17 @@ public:
     const std::vector<Vector>& fret_slots() const { return _fret_slots; }
     const std::vector<Quad>& fret_slot_shapes() const { return _fret_slot_shapes; }
     const std::vector<String>& strings() const { return _strings; }
+
+    double construction_distance_at_nut_side() { return _construction_distance_at_nut_side; }
+    double construction_distance_at_heel() { return _construction_distance_at_heel; }
+    double construction_distance_at_nut() { return _construction_distance_at_nut; }
+    double construction_distance_at_last_fret() { return _construction_distance_at_last_fret; }
+    double construction_distance_at_12th_fret() { return _construction_distance_at_12th_fret; }
+
+    const Quad& board_shape() { return _board_shape; }
+    const Quad& nut_shape() { return _nut_shape; }
+    const Quad& nut_slot_shape() { return _nut_slot_shape; }
+    const Quad& strings_shape() { return _strings_shape; }
 
 };
 
