@@ -1,0 +1,12 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"script",
+	"author":	"Sebastien Metrot",
+	"description":	{
+		"":	"Create fretboards easily"
+	},
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true,
+	"sourcewindows":	"Fretboarder.vcxproj",
+	"sourcemac":	"Fretboarder.xcodeproj"
+}

@@ -1,0 +1,1715 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BB196C51AD5940800164CD3 /* Fretboarder.cpp */; };
+		C3557F95243BE34600EF30FA /* fretboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F93243BE34600EF30FA /* fretboard.cpp */; };
+		C3557F96243BE34600EF30FA /* fretboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F94243BE34600EF30FA /* fretboard.hpp */; };
+		C3557F99243BE39000EF30FA /* string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F97243BE39000EF30FA /* string.cpp */; };
+		C3557F9A243BE39000EF30FA /* string.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F98243BE39000EF30FA /* string.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Fretboarder.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BB196C51AD5940800164CD3 /* Fretboarder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboarder.cpp; sourceTree = "<group>"; };
+		C3557D12243BDDA200EF30FA /* ModelParameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelParameters.h; sourceTree = "<group>"; };
+		C3557D13243BDDA200EF30FA /* STEPExportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STEPExportOptions.h; sourceTree = "<group>"; };
+		C3557D14243BDDA200EF30FA /* UserParameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserParameters.h; sourceTree = "<group>"; };
+		C3557D15243BDDA200EF30FA /* FusionProductPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FusionProductPreferences.h; sourceTree = "<group>"; };
+		C3557D16243BDDA200EF30FA /* TimelineGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimelineGroup.h; sourceTree = "<group>"; };
+		C3557D17243BDDA200EF30FA /* SATExportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SATExportOptions.h; sourceTree = "<group>"; };
+		C3557D18243BDDA200EF30FA /* InterferenceResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterferenceResults.h; sourceTree = "<group>"; };
+		C3557D19243BDDA200EF30FA /* Parameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parameter.h; sourceTree = "<group>"; };
+		C3557D1A243BDDA200EF30FA /* AreaProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AreaProperties.h; sourceTree = "<group>"; };
+		C3557D1B243BDDA200EF30FA /* InterferenceInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterferenceInput.h; sourceTree = "<group>"; };
+		C3557D1C243BDDA200EF30FA /* Design.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Design.h; sourceTree = "<group>"; };
+		C3557D1D243BDDA200EF30FA /* InterferenceResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterferenceResult.h; sourceTree = "<group>"; };
+		C3557D1E243BDDA200EF30FA /* PhysicalProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhysicalProperties.h; sourceTree = "<group>"; };
+		C3557D1F243BDDA200EF30FA /* FusionArchiveExportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FusionArchiveExportOptions.h; sourceTree = "<group>"; };
+		C3557D20243BDDA200EF30FA /* SMTExportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMTExportOptions.h; sourceTree = "<group>"; };
+		C3557D21243BDDA200EF30FA /* UserParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserParameter.h; sourceTree = "<group>"; };
+		C3557D22243BDDA200EF30FA /* FusionUnitsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FusionUnitsManager.h; sourceTree = "<group>"; };
+		C3557D23243BDDA200EF30FA /* IGESExportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGESExportOptions.h; sourceTree = "<group>"; };
+		C3557D24243BDDA200EF30FA /* ExportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportOptions.h; sourceTree = "<group>"; };
+		C3557D25243BDDA200EF30FA /* STLExportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STLExportOptions.h; sourceTree = "<group>"; };
+		C3557D26243BDDA200EF30FA /* TimelineObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimelineObject.h; sourceTree = "<group>"; };
+		C3557D27243BDDA200EF30FA /* ExportManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportManager.h; sourceTree = "<group>"; };
+		C3557D28243BDDA200EF30FA /* ModelParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelParameter.h; sourceTree = "<group>"; };
+		C3557D29243BDDA200EF30FA /* Snapshots.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snapshots.h; sourceTree = "<group>"; };
+		C3557D2A243BDDA200EF30FA /* FusionDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FusionDocument.h; sourceTree = "<group>"; };
+		C3557D2B243BDDA200EF30FA /* ParameterList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParameterList.h; sourceTree = "<group>"; };
+		C3557D2C243BDDA200EF30FA /* Snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snapshot.h; sourceTree = "<group>"; };
+		C3557D2D243BDDA200EF30FA /* TimelineGroups.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimelineGroups.h; sourceTree = "<group>"; };
+		C3557D2E243BDDA200EF30FA /* Timeline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Timeline.h; sourceTree = "<group>"; };
+		C3557D2F243BDDA200EF30FA /* FusionDefaultUnitsPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FusionDefaultUnitsPreferences.h; sourceTree = "<group>"; };
+		C3557D31243BDDA200EF30FA /* TriangleMeshCalculator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleMeshCalculator.h; sourceTree = "<group>"; };
+		C3557D32243BDDA200EF30FA /* TriangleMeshList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleMeshList.h; sourceTree = "<group>"; };
+		C3557D33243BDDA200EF30FA /* TextureImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureImage.h; sourceTree = "<group>"; };
+		C3557D34243BDDA200EF30FA /* MeshManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshManager.h; sourceTree = "<group>"; };
+		C3557D35243BDDA200EF30FA /* PolygonMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonMesh.h; sourceTree = "<group>"; };
+		C3557D36243BDDA200EF30FA /* TriangleMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleMesh.h; sourceTree = "<group>"; };
+		C3557D37243BDDA200EF30FA /* FusionTypeDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FusionTypeDefs.h; sourceTree = "<group>"; };
+		C3557D39243BDDA200EF30FA /* LoftTangentEndCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftTangentEndCondition.h; sourceTree = "<group>"; };
+		C3557D3A243BDDA200EF30FA /* PatchFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatchFeatureInput.h; sourceTree = "<group>"; };
+		C3557D3B243BDDA200EF30FA /* RibFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RibFeature.h; sourceTree = "<group>"; };
+		C3557D3C243BDDA200EF30FA /* OffsetFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OffsetFeatures.h; sourceTree = "<group>"; };
+		C3557D3D243BDDA200EF30FA /* SplitBodyFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitBodyFeatures.h; sourceTree = "<group>"; };
+		C3557D3E243BDDA200EF30FA /* ScaleFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScaleFeatures.h; sourceTree = "<group>"; };
+		C3557D3F243BDDA200EF30FA /* ExtendFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtendFeature.h; sourceTree = "<group>"; };
+		C3557D40243BDDA200EF30FA /* ThickenFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThickenFeatures.h; sourceTree = "<group>"; };
+		C3557D41243BDDA200EF30FA /* ExtrudeFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtrudeFeatures.h; sourceTree = "<group>"; };
+		C3557D42243BDDA200EF30FA /* CombineFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CombineFeatureInput.h; sourceTree = "<group>"; };
+		C3557D43243BDDA200EF30FA /* ExtendFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtendFeatureInput.h; sourceTree = "<group>"; };
+		C3557D44243BDDA200EF30FA /* RemoveFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoveFeature.h; sourceTree = "<group>"; };
+		C3557D45243BDDA200EF30FA /* LoftCenterLineOrRail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftCenterLineOrRail.h; sourceTree = "<group>"; };
+		C3557D46243BDDA200EF30FA /* TwoSidesToExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwoSidesToExtentDefinition.h; sourceTree = "<group>"; };
+		C3557D47243BDDA200EF30FA /* SweepFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SweepFeatureInput.h; sourceTree = "<group>"; };
+		C3557D48243BDDA200EF30FA /* SilhouetteSplitFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SilhouetteSplitFeature.h; sourceTree = "<group>"; };
+		C3557D49243BDDA200EF30FA /* LoftSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftSection.h; sourceTree = "<group>"; };
+		C3557D4A243BDDA200EF30FA /* LoftPointTangentEndCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftPointTangentEndCondition.h; sourceTree = "<group>"; };
+		C3557D4B243BDDA200EF30FA /* MirrorFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MirrorFeature.h; sourceTree = "<group>"; };
+		C3557D4C243BDDA200EF30FA /* AngleExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AngleExtentDefinition.h; sourceTree = "<group>"; };
+		C3557D4D243BDDA200EF30FA /* ChamferTypeDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChamferTypeDefinition.h; sourceTree = "<group>"; };
+		C3557D4E243BDDA200EF30FA /* ExtrudeFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtrudeFeature.h; sourceTree = "<group>"; };
+		C3557D4F243BDDA200EF30FA /* ConstantRadiusFilletEdgeSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstantRadiusFilletEdgeSet.h; sourceTree = "<group>"; };
+		C3557D50243BDDA200EF30FA /* PathPatternFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathPatternFeatures.h; sourceTree = "<group>"; };
+		C3557D51243BDDA200EF30FA /* CutPasteBody.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CutPasteBody.h; sourceTree = "<group>"; };
+		C3557D52243BDDA200EF30FA /* FilletFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilletFeature.h; sourceTree = "<group>"; };
+		C3557D53243BDDA200EF30FA /* DistanceExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DistanceExtentDefinition.h; sourceTree = "<group>"; };
+		C3557D54243BDDA200EF30FA /* OffsetFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OffsetFeatureInput.h; sourceTree = "<group>"; };
+		C3557D55243BDDA200EF30FA /* RevolveFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RevolveFeature.h; sourceTree = "<group>"; };
+		C3557D56243BDDA200EF30FA /* CoilFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoilFeatures.h; sourceTree = "<group>"; };
+		C3557D57243BDDA200EF30FA /* TrimFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrimFeatures.h; sourceTree = "<group>"; };
+		C3557D58243BDDA200EF30FA /* FilletEdgeSets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilletEdgeSets.h; sourceTree = "<group>"; };
+		C3557D59243BDDA200EF30FA /* CylinderFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CylinderFeatures.h; sourceTree = "<group>"; };
+		C3557D5A243BDDA200EF30FA /* LoftEndCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftEndCondition.h; sourceTree = "<group>"; };
+		C3557D5B243BDDA200EF30FA /* RibFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RibFeatures.h; sourceTree = "<group>"; };
+		C3557D5C243BDDA200EF30FA /* RectangularPatternFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangularPatternFeatureInput.h; sourceTree = "<group>"; };
+		C3557D5D243BDDA200EF30FA /* OffsetFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OffsetFeature.h; sourceTree = "<group>"; };
+		C3557D5E243BDDA200EF30FA /* AllExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllExtentDefinition.h; sourceTree = "<group>"; };
+		C3557D5F243BDDA200EF30FA /* BoxFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxFeature.h; sourceTree = "<group>"; };
+		C3557D60243BDDA200EF30FA /* HoleFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoleFeature.h; sourceTree = "<group>"; };
+		C3557D61243BDDA200EF30FA /* ReverseNormalFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReverseNormalFeatures.h; sourceTree = "<group>"; };
+		C3557D62243BDDA200EF30FA /* BoxFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxFeatures.h; sourceTree = "<group>"; };
+		C3557D63243BDDA200EF30FA /* ThickenFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThickenFeature.h; sourceTree = "<group>"; };
+		C3557D64243BDDA200EF30FA /* PathEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathEntity.h; sourceTree = "<group>"; };
+		C3557D65243BDDA200EF30FA /* LoftDirectionEndCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftDirectionEndCondition.h; sourceTree = "<group>"; };
+		C3557D66243BDDA200EF30FA /* BoundaryFillFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoundaryFillFeature.h; sourceTree = "<group>"; };
+		C3557D67243BDDA200EF30FA /* Features.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Features.h; sourceTree = "<group>"; };
+		C3557D68243BDDA200EF30FA /* Path.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
+		C3557D69243BDDA200EF30FA /* LoftFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftFeature.h; sourceTree = "<group>"; };
+		C3557D6A243BDDA200EF30FA /* SweepFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SweepFeatures.h; sourceTree = "<group>"; };
+		C3557D6B243BDDA200EF30FA /* ThreadFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThreadFeature.h; sourceTree = "<group>"; };
+		C3557D6C243BDDA200EF30FA /* RectangularPatternFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangularPatternFeatures.h; sourceTree = "<group>"; };
+		C3557D6D243BDDA200EF30FA /* HolePositionDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HolePositionDefinition.h; sourceTree = "<group>"; };
+		C3557D6E243BDDA200EF30FA /* DeleteFaceFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteFaceFeatures.h; sourceTree = "<group>"; };
+		C3557D6F243BDDA200EF30FA /* Feature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Feature.h; sourceTree = "<group>"; };
+		C3557D70243BDDA200EF30FA /* LoftSmoothEndCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftSmoothEndCondition.h; sourceTree = "<group>"; };
+		C3557D71243BDDA200EF30FA /* FormFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFeature.h; sourceTree = "<group>"; };
+		C3557D72243BDDA200EF30FA /* ReplaceFaceFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceFaceFeature.h; sourceTree = "<group>"; };
+		C3557D73243BDDA200EF30FA /* DraftFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DraftFeatureInput.h; sourceTree = "<group>"; };
+		C3557D74243BDDA200EF30FA /* PointHolePositionDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointHolePositionDefinition.h; sourceTree = "<group>"; };
+		C3557D75243BDDA200EF30FA /* RuleFilletFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleFilletFeature.h; sourceTree = "<group>"; };
+		C3557D76243BDDA200EF30FA /* PathPatternFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathPatternFeature.h; sourceTree = "<group>"; };
+		C3557D77243BDDA200EF30FA /* SketchPointHolePositionDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPointHolePositionDefinition.h; sourceTree = "<group>"; };
+		C3557D78243BDDA200EF30FA /* MirrorFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MirrorFeatures.h; sourceTree = "<group>"; };
+		C3557D79243BDDA200EF30FA /* ThreadDataQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThreadDataQuery.h; sourceTree = "<group>"; };
+		C3557D7A243BDDA200EF30FA /* SplitFaceFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitFaceFeatureInput.h; sourceTree = "<group>"; };
+		C3557D7B243BDDA200EF30FA /* FromEntityStartDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FromEntityStartDefinition.h; sourceTree = "<group>"; };
+		C3557D7C243BDDA200EF30FA /* SplitBodyFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitBodyFeatureInput.h; sourceTree = "<group>"; };
+		C3557D7D243BDDA200EF30FA /* ThroughAllExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughAllExtentDefinition.h; sourceTree = "<group>"; };
+		C3557D7E243BDDA200EF30FA /* SweepFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SweepFeature.h; sourceTree = "<group>"; };
+		C3557D7F243BDDA200EF30FA /* SphereFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SphereFeatures.h; sourceTree = "<group>"; };
+		C3557D80243BDDA200EF30FA /* ShellFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShellFeatureInput.h; sourceTree = "<group>"; };
+		C3557D81243BDDA200EF30FA /* CircularPatternFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircularPatternFeatureInput.h; sourceTree = "<group>"; };
+		C3557D82243BDDA200EF30FA /* WebFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebFeature.h; sourceTree = "<group>"; };
+		C3557D83243BDDA200EF30FA /* RevolveFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RevolveFeatureInput.h; sourceTree = "<group>"; };
+		C3557D84243BDDA200EF30FA /* MoveFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoveFeatureInput.h; sourceTree = "<group>"; };
+		C3557D85243BDDA200EF30FA /* ReplaceFaceFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceFaceFeatureInput.h; sourceTree = "<group>"; };
+		C3557D86243BDDA200EF30FA /* ExtrudeFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtrudeFeatureInput.h; sourceTree = "<group>"; };
+		C3557D87243BDDA200EF30FA /* RemoveFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoveFeatures.h; sourceTree = "<group>"; };
+		C3557D88243BDDA200EF30FA /* ShellFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShellFeatures.h; sourceTree = "<group>"; };
+		C3557D89243BDDA200EF30FA /* DistanceAndAngleChamferTypeDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DistanceAndAngleChamferTypeDefinition.h; sourceTree = "<group>"; };
+		C3557D8A243BDDA200EF30FA /* ChamferFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChamferFeature.h; sourceTree = "<group>"; };
+		C3557D8B243BDDA200EF30FA /* UnstitchFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnstitchFeatures.h; sourceTree = "<group>"; };
+		C3557D8C243BDDA200EF30FA /* DraftFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DraftFeature.h; sourceTree = "<group>"; };
+		C3557D8D243BDDA200EF30FA /* ShellFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShellFeature.h; sourceTree = "<group>"; };
+		C3557D8E243BDDA200EF30FA /* ThreadFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThreadFeatureInput.h; sourceTree = "<group>"; };
+		C3557D8F243BDDA200EF30FA /* SplitFaceFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitFaceFeature.h; sourceTree = "<group>"; };
+		C3557D90243BDDA200EF30FA /* FilletEdgeSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilletEdgeSet.h; sourceTree = "<group>"; };
+		C3557D91243BDDA200EF30FA /* TorusFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorusFeature.h; sourceTree = "<group>"; };
+		C3557D92243BDDA200EF30FA /* SphereFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SphereFeature.h; sourceTree = "<group>"; };
+		C3557D93243BDDA200EF30FA /* DeleteFaceFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteFaceFeature.h; sourceTree = "<group>"; };
+		C3557D94243BDDA200EF30FA /* SurfaceDeleteFaceFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceDeleteFaceFeature.h; sourceTree = "<group>"; };
+		C3557D95243BDDA200EF30FA /* ExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtentDefinition.h; sourceTree = "<group>"; };
+		C3557D96243BDDA200EF30FA /* TwoSidesDistanceExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwoSidesDistanceExtentDefinition.h; sourceTree = "<group>"; };
+		C3557D97243BDDA200EF30FA /* SketchPointsHolePositionDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPointsHolePositionDefinition.h; sourceTree = "<group>"; };
+		C3557D98243BDDA200EF30FA /* StitchFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StitchFeature.h; sourceTree = "<group>"; };
+		C3557D99243BDDA200EF30FA /* MoveFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoveFeatures.h; sourceTree = "<group>"; };
+		C3557D9A243BDDA200EF30FA /* EqualDistanceChamferTypeDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EqualDistanceChamferTypeDefinition.h; sourceTree = "<group>"; };
+		C3557D9B243BDDA200EF30FA /* TwoDistancesChamferTypeDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwoDistancesChamferTypeDefinition.h; sourceTree = "<group>"; };
+		C3557D9C243BDDA200EF30FA /* ScaleFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScaleFeature.h; sourceTree = "<group>"; };
+		C3557D9D243BDDA200EF30FA /* OffsetFacesFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OffsetFacesFeature.h; sourceTree = "<group>"; };
+		C3557D9E243BDDA200EF30FA /* LoftFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftFeatureInput.h; sourceTree = "<group>"; };
+		C3557D9F243BDDA200EF30FA /* MoveFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoveFeature.h; sourceTree = "<group>"; };
+		C3557DA0243BDDA200EF30FA /* RectangularPatternFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangularPatternFeature.h; sourceTree = "<group>"; };
+		C3557DA1243BDDA200EF30FA /* TwoSidesAngleExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwoSidesAngleExtentDefinition.h; sourceTree = "<group>"; };
+		C3557DA2243BDDA200EF30FA /* OffsetFacesFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OffsetFacesFeatures.h; sourceTree = "<group>"; };
+		C3557DA3243BDDA200EF30FA /* UnstitchFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnstitchFeature.h; sourceTree = "<group>"; };
+		C3557DA4243BDDA200EF30FA /* CircularPatternFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircularPatternFeatures.h; sourceTree = "<group>"; };
+		C3557DA5243BDDA200EF30FA /* DraftFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DraftFeatures.h; sourceTree = "<group>"; };
+		C3557DA6243BDDA200EF30FA /* CombineFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CombineFeature.h; sourceTree = "<group>"; };
+		C3557DA7243BDDA200EF30FA /* ExtendFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtendFeatures.h; sourceTree = "<group>"; };
+		C3557DA8243BDDA200EF30FA /* OffsetStartDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OffsetStartDefinition.h; sourceTree = "<group>"; };
+		C3557DA9243BDDA200EF30FA /* AtCenterHolePositionDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtCenterHolePositionDefinition.h; sourceTree = "<group>"; };
+		C3557DAA243BDDA200EF30FA /* CoilFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoilFeature.h; sourceTree = "<group>"; };
+		C3557DAB243BDDA200EF30FA /* PipeFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PipeFeature.h; sourceTree = "<group>"; };
+		C3557DAC243BDDA200EF30FA /* CircularPatternFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircularPatternFeature.h; sourceTree = "<group>"; };
+		C3557DAD243BDDA200EF30FA /* WebFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebFeatures.h; sourceTree = "<group>"; };
+		C3557DAE243BDDA200EF30FA /* PatchFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatchFeature.h; sourceTree = "<group>"; };
+		C3557DAF243BDDA200EF30FA /* VariableRadiusFilletEdgeSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariableRadiusFilletEdgeSet.h; sourceTree = "<group>"; };
+		C3557DB0243BDDA200EF30FA /* ScaleFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScaleFeatureInput.h; sourceTree = "<group>"; };
+		C3557DB1243BDDA200EF30FA /* BoundaryFillFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoundaryFillFeatures.h; sourceTree = "<group>"; };
+		C3557DB2243BDDA200EF30FA /* ToEntityExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToEntityExtentDefinition.h; sourceTree = "<group>"; };
+		C3557DB3243BDDA200EF30FA /* BoundaryFillFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoundaryFillFeatureInput.h; sourceTree = "<group>"; };
+		C3557DB4243BDDA200EF30FA /* MirrorFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MirrorFeatureInput.h; sourceTree = "<group>"; };
+		C3557DB5243BDDA200EF30FA /* FilletFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilletFeatureInput.h; sourceTree = "<group>"; };
+		C3557DB6243BDDA200EF30FA /* ThreadFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThreadFeatures.h; sourceTree = "<group>"; };
+		C3557DB7243BDDA200EF30FA /* LoftFreeEndCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftFreeEndCondition.h; sourceTree = "<group>"; };
+		C3557DB8243BDDA200EF30FA /* FormFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFeatures.h; sourceTree = "<group>"; };
+		C3557DB9243BDDA200EF30FA /* BaseFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseFeatures.h; sourceTree = "<group>"; };
+		C3557DBA243BDDA200EF30FA /* HoleFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoleFeatureInput.h; sourceTree = "<group>"; };
+		C3557DBB243BDDA200EF30FA /* ChamferFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChamferFeatureInput.h; sourceTree = "<group>"; };
+		C3557DBC243BDDA200EF30FA /* ThickenFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThickenFeatureInput.h; sourceTree = "<group>"; };
+		C3557DBD243BDDA200EF30FA /* FeatureList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeatureList.h; sourceTree = "<group>"; };
+		C3557DBE243BDDA200EF30FA /* ThreadInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThreadInfo.h; sourceTree = "<group>"; };
+		C3557DBF243BDDA200EF30FA /* CombineFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CombineFeatures.h; sourceTree = "<group>"; };
+		C3557DC0243BDDA200EF30FA /* StitchFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StitchFeatureInput.h; sourceTree = "<group>"; };
+		C3557DC1243BDDA200EF30FA /* BaseFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseFeature.h; sourceTree = "<group>"; };
+		C3557DC2243BDDA200EF30FA /* CylinderFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CylinderFeature.h; sourceTree = "<group>"; };
+		C3557DC3243BDDA200EF30FA /* ReverseNormalFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReverseNormalFeature.h; sourceTree = "<group>"; };
+		C3557DC4243BDDA200EF30FA /* CopyPasteBody.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CopyPasteBody.h; sourceTree = "<group>"; };
+		C3557DC5243BDDA200EF30FA /* ReplaceFaceFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceFaceFeatures.h; sourceTree = "<group>"; };
+		C3557DC6243BDDA200EF30FA /* StitchFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StitchFeatures.h; sourceTree = "<group>"; };
+		C3557DC7243BDDA200EF30FA /* PatternElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatternElement.h; sourceTree = "<group>"; };
+		C3557DC8243BDDA200EF30FA /* RevolveFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RevolveFeatures.h; sourceTree = "<group>"; };
+		C3557DC9243BDDA200EF30FA /* ChordLengthFilletEdgeSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChordLengthFilletEdgeSet.h; sourceTree = "<group>"; };
+		C3557DCA243BDDA200EF30FA /* ProfilePlaneStartDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilePlaneStartDefinition.h; sourceTree = "<group>"; };
+		C3557DCB243BDDA200EF30FA /* FilletFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilletFeatures.h; sourceTree = "<group>"; };
+		C3557DCC243BDDA200EF30FA /* SymmetricExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymmetricExtentDefinition.h; sourceTree = "<group>"; };
+		C3557DCD243BDDA200EF30FA /* SilhouetteSplitFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SilhouetteSplitFeatures.h; sourceTree = "<group>"; };
+		C3557DCE243BDDA200EF30FA /* SplitBodyFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitBodyFeature.h; sourceTree = "<group>"; };
+		C3557DCF243BDDA200EF30FA /* LoftPointSharpEndCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftPointSharpEndCondition.h; sourceTree = "<group>"; };
+		C3557DD0243BDDA200EF30FA /* PathPatternFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathPatternFeatureInput.h; sourceTree = "<group>"; };
+		C3557DD1243BDDA200EF30FA /* TrimFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrimFeature.h; sourceTree = "<group>"; };
+		C3557DD2243BDDA200EF30FA /* SurfaceDeleteFaceFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceDeleteFaceFeatures.h; sourceTree = "<group>"; };
+		C3557DD3243BDDA200EF30FA /* RuleFilletFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleFilletFeatures.h; sourceTree = "<group>"; };
+		C3557DD4243BDDA200EF30FA /* BRepCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepCells.h; sourceTree = "<group>"; };
+		C3557DD5243BDDA200EF30FA /* PipeFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PipeFeatures.h; sourceTree = "<group>"; };
+		C3557DD6243BDDA200EF30FA /* PlaneAndOffsetsHolePositionDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaneAndOffsetsHolePositionDefinition.h; sourceTree = "<group>"; };
+		C3557DD7243BDDA200EF30FA /* OnEdgeHolePositionDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OnEdgeHolePositionDefinition.h; sourceTree = "<group>"; };
+		C3557DD8243BDDA200EF30FA /* TrimFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrimFeatureInput.h; sourceTree = "<group>"; };
+		C3557DD9243BDDA200EF30FA /* SplitFaceFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitFaceFeatures.h; sourceTree = "<group>"; };
+		C3557DDA243BDDA200EF30FA /* HoleFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoleFeatures.h; sourceTree = "<group>"; };
+		C3557DDB243BDDA200EF30FA /* SilhouetteSplitFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SilhouetteSplitFeatureInput.h; sourceTree = "<group>"; };
+		C3557DDC243BDDA200EF30FA /* CopyPasteBodies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CopyPasteBodies.h; sourceTree = "<group>"; };
+		C3557DDD243BDDA200EF30FA /* CutPasteBodies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CutPasteBodies.h; sourceTree = "<group>"; };
+		C3557DDE243BDDA200EF30FA /* TorusFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorusFeatures.h; sourceTree = "<group>"; };
+		C3557DDF243BDDA200EF30FA /* OneSideToExtentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneSideToExtentDefinition.h; sourceTree = "<group>"; };
+		C3557DE0243BDDA200EF30FA /* PatchFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatchFeatures.h; sourceTree = "<group>"; };
+		C3557DE1243BDDA200EF30FA /* ChamferFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChamferFeatures.h; sourceTree = "<group>"; };
+		C3557DE2243BDDA200EF30FA /* LoftCenterLineOrRails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftCenterLineOrRails.h; sourceTree = "<group>"; };
+		C3557DE3243BDDA200EF30FA /* CoilFeatureInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoilFeatureInput.h; sourceTree = "<group>"; };
+		C3557DE4243BDDA200EF30FA /* LoftSections.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftSections.h; sourceTree = "<group>"; };
+		C3557DE5243BDDA200EF30FA /* LoftFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoftFeatures.h; sourceTree = "<group>"; };
+		C3557DE6243BDDA200EF30FA /* PatternElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatternElements.h; sourceTree = "<group>"; };
+		C3557DE7243BDDA200EF30FA /* BRepCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepCell.h; sourceTree = "<group>"; };
+		C3557DE9243BDDA200EF30FA /* BRepLoops.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepLoops.h; sourceTree = "<group>"; };
+		C3557DEA243BDDA200EF30FA /* BRepBodies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepBodies.h; sourceTree = "<group>"; };
+		C3557DEB243BDDA200EF30FA /* BRepLoop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepLoop.h; sourceTree = "<group>"; };
+		C3557DEC243BDDA200EF30FA /* BRepVertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepVertex.h; sourceTree = "<group>"; };
+		C3557DED243BDDA200EF30FA /* BRepWires.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepWires.h; sourceTree = "<group>"; };
+		C3557DEE243BDDA200EF30FA /* BRepLump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepLump.h; sourceTree = "<group>"; };
+		C3557DEF243BDDA200EF30FA /* BRepShells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepShells.h; sourceTree = "<group>"; };
+		C3557DF0243BDDA200EF30FA /* BRepFace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepFace.h; sourceTree = "<group>"; };
+		C3557DF1243BDDA200EF30FA /* BRepFaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepFaces.h; sourceTree = "<group>"; };
+		C3557DF2243BDDA200EF30FA /* BRepVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepVertices.h; sourceTree = "<group>"; };
+		C3557DF3243BDDA200EF30FA /* BRepCoEdges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepCoEdges.h; sourceTree = "<group>"; };
+		C3557DF4243BDDA200EF30FA /* BRepEdges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepEdges.h; sourceTree = "<group>"; };
+		C3557DF5243BDDA200EF30FA /* BRepEdge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepEdge.h; sourceTree = "<group>"; };
+		C3557DF6243BDDA200EF30FA /* BRepCoEdge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepCoEdge.h; sourceTree = "<group>"; };
+		C3557DF7243BDDA200EF30FA /* BRepWire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepWire.h; sourceTree = "<group>"; };
+		C3557DF8243BDDA200EF30FA /* BRepLumps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepLumps.h; sourceTree = "<group>"; };
+		C3557DF9243BDDA200EF30FA /* TemporaryBRepManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemporaryBRepManager.h; sourceTree = "<group>"; };
+		C3557DFA243BDDA200EF30FA /* BRepShell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepShell.h; sourceTree = "<group>"; };
+		C3557DFB243BDDA200EF30FA /* BRepBody.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRepBody.h; sourceTree = "<group>"; };
+		C3557DFD243BDDA200EF30FA /* ContactSets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactSets.h; sourceTree = "<group>"; };
+		C3557DFE243BDDA200EF30FA /* Occurrences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Occurrences.h; sourceTree = "<group>"; };
+		C3557DFF243BDDA200EF30FA /* AsBuiltJointInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsBuiltJointInput.h; sourceTree = "<group>"; };
+		C3557E00243BDDA200EF30FA /* JointOrigins.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointOrigins.h; sourceTree = "<group>"; };
+		C3557E01243BDDA200EF30FA /* OccurrenceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OccurrenceList.h; sourceTree = "<group>"; };
+		C3557E02243BDDA200EF30FA /* AsBuiltJoints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsBuiltJoints.h; sourceTree = "<group>"; };
+		C3557E03243BDDA200EF30FA /* JointMotion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointMotion.h; sourceTree = "<group>"; };
+		C3557E04243BDDA200EF30FA /* PinSlotJointMotion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PinSlotJointMotion.h; sourceTree = "<group>"; };
+		C3557E05243BDDA200EF30FA /* AsBuiltJoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsBuiltJoint.h; sourceTree = "<group>"; };
+		C3557E06243BDDA200EF30FA /* RigidGroups.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigidGroups.h; sourceTree = "<group>"; };
+		C3557E07243BDDA200EF30FA /* CylindricalJointMotion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CylindricalJointMotion.h; sourceTree = "<group>"; };
+		C3557E08243BDDA200EF30FA /* JointOriginList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointOriginList.h; sourceTree = "<group>"; };
+		C3557E09243BDDA200EF30FA /* BaseComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseComponent.h; sourceTree = "<group>"; };
+		C3557E0A243BDDA200EF30FA /* JointOriginInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointOriginInput.h; sourceTree = "<group>"; };
+		C3557E0B243BDDA200EF30FA /* BallJointMotion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BallJointMotion.h; sourceTree = "<group>"; };
+		C3557E0C243BDDA200EF30FA /* ComponentList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComponentList.h; sourceTree = "<group>"; };
+		C3557E0D243BDDA200EF30FA /* Joint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Joint.h; sourceTree = "<group>"; };
+		C3557E0E243BDDA200EF30FA /* JointGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointGeometry.h; sourceTree = "<group>"; };
+		C3557E0F243BDDA200EF30FA /* RigidGroupList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigidGroupList.h; sourceTree = "<group>"; };
+		C3557E10243BDDA200EF30FA /* Components.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Components.h; sourceTree = "<group>"; };
+		C3557E11243BDDA200EF30FA /* JointOrigin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointOrigin.h; sourceTree = "<group>"; };
+		C3557E12243BDDA200EF30FA /* Occurrence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Occurrence.h; sourceTree = "<group>"; };
+		C3557E13243BDDA200EF30FA /* JointLimits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointLimits.h; sourceTree = "<group>"; };
+		C3557E14243BDDA200EF30FA /* JointInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointInput.h; sourceTree = "<group>"; };
+		C3557E15243BDDA200EF30FA /* AsBuiltJointList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsBuiltJointList.h; sourceTree = "<group>"; };
+		C3557E16243BDDA200EF30FA /* Component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
+		C3557E17243BDDA200EF30FA /* SliderJointMotion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderJointMotion.h; sourceTree = "<group>"; };
+		C3557E18243BDDA200EF30FA /* ContactSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactSet.h; sourceTree = "<group>"; };
+		C3557E19243BDDA200EF30FA /* RigidJointMotion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigidJointMotion.h; sourceTree = "<group>"; };
+		C3557E1A243BDDA200EF30FA /* RevoluteJointMotion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RevoluteJointMotion.h; sourceTree = "<group>"; };
+		C3557E1B243BDDA200EF30FA /* RigidGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigidGroup.h; sourceTree = "<group>"; };
+		C3557E1C243BDDA200EF30FA /* PlanarJointMotion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlanarJointMotion.h; sourceTree = "<group>"; };
+		C3557E1D243BDDA200EF30FA /* Joints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Joints.h; sourceTree = "<group>"; };
+		C3557E1E243BDDA200EF30FA /* JointList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JointList.h; sourceTree = "<group>"; };
+		C3557E20243BDDA200EF30FA /* ConstructionAxisNormalToFaceAtPointDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisNormalToFaceAtPointDefinition.h; sourceTree = "<group>"; };
+		C3557E21243BDDA200EF30FA /* ConstructionPlane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlane.h; sourceTree = "<group>"; };
+		C3557E22243BDDA200EF30FA /* ConstructionPoints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPoints.h; sourceTree = "<group>"; };
+		C3557E23243BDDA200EF30FA /* ConstructionAxisPerpendicularAtPointDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisPerpendicularAtPointDefinition.h; sourceTree = "<group>"; };
+		C3557E24243BDDA200EF30FA /* ConstructionPlaneByPlaneDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneByPlaneDefinition.h; sourceTree = "<group>"; };
+		C3557E25243BDDA200EF30FA /* ConstructionPlaneTangentDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneTangentDefinition.h; sourceTree = "<group>"; };
+		C3557E26243BDDA200EF30FA /* ConstructionPlaneAtAngleDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneAtAngleDefinition.h; sourceTree = "<group>"; };
+		C3557E27243BDDA200EF30FA /* ConstructionPointEdgePlaneDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPointEdgePlaneDefinition.h; sourceTree = "<group>"; };
+		C3557E28243BDDA200EF30FA /* ConstructionPointInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPointInput.h; sourceTree = "<group>"; };
+		C3557E29243BDDA200EF30FA /* ConstructionPlaneMidplaneDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneMidplaneDefinition.h; sourceTree = "<group>"; };
+		C3557E2A243BDDA200EF30FA /* ConstructionPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPoint.h; sourceTree = "<group>"; };
+		C3557E2B243BDDA200EF30FA /* ConstructionPlanes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlanes.h; sourceTree = "<group>"; };
+		C3557E2C243BDDA200EF30FA /* ConstructionAxis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxis.h; sourceTree = "<group>"; };
+		C3557E2D243BDDA200EF30FA /* ConstructionPlaneTangentAtPointDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneTangentAtPointDefinition.h; sourceTree = "<group>"; };
+		C3557E2E243BDDA200EF30FA /* ConstructionPointThreePlanesDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPointThreePlanesDefinition.h; sourceTree = "<group>"; };
+		C3557E2F243BDDA200EF30FA /* ConstructionPlaneTwoEdgesDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneTwoEdgesDefinition.h; sourceTree = "<group>"; };
+		C3557E30243BDDA200EF30FA /* ConstructionAxisEdgeDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisEdgeDefinition.h; sourceTree = "<group>"; };
+		C3557E31243BDDA200EF30FA /* ConstructionPointDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPointDefinition.h; sourceTree = "<group>"; };
+		C3557E32243BDDA200EF30FA /* ConstructionPlaneDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneDefinition.h; sourceTree = "<group>"; };
+		C3557E33243BDDA200EF30FA /* ConstructionAxisTwoPlaneDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisTwoPlaneDefinition.h; sourceTree = "<group>"; };
+		C3557E34243BDDA200EF30FA /* ConstructionAxisTwoPointDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisTwoPointDefinition.h; sourceTree = "<group>"; };
+		C3557E35243BDDA200EF30FA /* ConstructionAxisInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisInput.h; sourceTree = "<group>"; };
+		C3557E36243BDDA200EF30FA /* ConstructionAxisCircularFaceDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisCircularFaceDefinition.h; sourceTree = "<group>"; };
+		C3557E37243BDDA200EF30FA /* ConstructionPointTwoEdgesDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPointTwoEdgesDefinition.h; sourceTree = "<group>"; };
+		C3557E38243BDDA200EF30FA /* ConstructionPlaneInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneInput.h; sourceTree = "<group>"; };
+		C3557E39243BDDA200EF30FA /* ConstructionPlaneThreePointsDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneThreePointsDefinition.h; sourceTree = "<group>"; };
+		C3557E3A243BDDA200EF30FA /* ConstructionPlaneOffsetDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneOffsetDefinition.h; sourceTree = "<group>"; };
+		C3557E3B243BDDA200EF30FA /* ConstructionAxisDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisDefinition.h; sourceTree = "<group>"; };
+		C3557E3C243BDDA200EF30FA /* ConstructionPointCenterDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPointCenterDefinition.h; sourceTree = "<group>"; };
+		C3557E3D243BDDA200EF30FA /* ConstructionAxes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxes.h; sourceTree = "<group>"; };
+		C3557E3E243BDDA200EF30FA /* ConstructionPointPointDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPointPointDefinition.h; sourceTree = "<group>"; };
+		C3557E3F243BDDA200EF30FA /* ConstructionAxisByLineDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionAxisByLineDefinition.h; sourceTree = "<group>"; };
+		C3557E40243BDDA200EF30FA /* ConstructionPlaneDistanceOnPathDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstructionPlaneDistanceOnPathDefinition.h; sourceTree = "<group>"; };
+		C3557E42243BDDA200EF30FA /* MeshBody.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBody.h; sourceTree = "<group>"; };
+		C3557E43243BDDA200EF30FA /* MeshBodies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBodies.h; sourceTree = "<group>"; };
+		C3557E44243BDDA200EF30FA /* MeshBodyList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBodyList.h; sourceTree = "<group>"; };
+		C3557E46243BDDA200EF30FA /* CustomGraphicsLines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsLines.h; sourceTree = "<group>"; };
+		C3557E47243BDDA200EF30FA /* CustomGraphicsBRepVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsBRepVertices.h; sourceTree = "<group>"; };
+		C3557E48243BDDA200EF30FA /* CustomGraphicsPointSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsPointSet.h; sourceTree = "<group>"; };
+		C3557E49243BDDA200EF30FA /* CustomGraphicsBasicMaterialColorEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsBasicMaterialColorEffect.h; sourceTree = "<group>"; };
+		C3557E4A243BDDA200EF30FA /* CustomGraphicsBillBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsBillBoard.h; sourceTree = "<group>"; };
+		C3557E4B243BDDA200EF30FA /* CustomGraphicsVertexColorEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsVertexColorEffect.h; sourceTree = "<group>"; };
+		C3557E4C243BDDA200EF30FA /* CustomGraphicsBRepEdges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsBRepEdges.h; sourceTree = "<group>"; };
+		C3557E4D243BDDA200EF30FA /* CustomGraphicsBRepBody.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsBRepBody.h; sourceTree = "<group>"; };
+		C3557E4E243BDDA200EF30FA /* CustomGraphicsViewScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsViewScale.h; sourceTree = "<group>"; };
+		C3557E4F243BDDA200EF30FA /* CustomGraphicsGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsGroup.h; sourceTree = "<group>"; };
+		C3557E50243BDDA200EF30FA /* CustomGraphicsMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsMesh.h; sourceTree = "<group>"; };
+		C3557E51243BDDA200EF30FA /* CustomGraphicsSolidColorEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsSolidColorEffect.h; sourceTree = "<group>"; };
+		C3557E52243BDDA200EF30FA /* CustomGraphicsCoordinates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsCoordinates.h; sourceTree = "<group>"; };
+		C3557E53243BDDA200EF30FA /* CustomGraphicsColorEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsColorEffect.h; sourceTree = "<group>"; };
+		C3557E54243BDDA200EF30FA /* CustomGraphicsCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsCurve.h; sourceTree = "<group>"; };
+		C3557E55243BDDA200EF30FA /* CustomGraphicsGroups.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsGroups.h; sourceTree = "<group>"; };
+		C3557E56243BDDA200EF30FA /* CustomGraphicsBRepFaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsBRepFaces.h; sourceTree = "<group>"; };
+		C3557E57243BDDA200EF30FA /* CustomGraphicsAppearanceColorEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsAppearanceColorEffect.h; sourceTree = "<group>"; };
+		C3557E58243BDDA200EF30FA /* CustomGraphicsViewPlacement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsViewPlacement.h; sourceTree = "<group>"; };
+		C3557E59243BDDA200EF30FA /* CustomGraphicsText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsText.h; sourceTree = "<group>"; };
+		C3557E5A243BDDA200EF30FA /* CustomGraphicsEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomGraphicsEntity.h; sourceTree = "<group>"; };
+		C3557E5B243BDDA200EF30FA /* FusionAll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FusionAll.h; sourceTree = "<group>"; };
+		C3557E5D243BDDA200EF30FA /* ProfileCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCurve.h; sourceTree = "<group>"; };
+		C3557E5E243BDDA200EF30FA /* SketchEllipseMajorRadiusDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchEllipseMajorRadiusDimension.h; sourceTree = "<group>"; };
+		C3557E5F243BDDA200EF30FA /* SketchText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchText.h; sourceTree = "<group>"; };
+		C3557E60243BDDA200EF30FA /* SketchFixedSpline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFixedSpline.h; sourceTree = "<group>"; };
+		C3557E61243BDDA200EF30FA /* SketchCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchCurve.h; sourceTree = "<group>"; };
+		C3557E62243BDDA200EF30FA /* TangentConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TangentConstraint.h; sourceTree = "<group>"; };
+		C3557E63243BDDA200EF30FA /* SketchLinearDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchLinearDimension.h; sourceTree = "<group>"; };
+		C3557E64243BDDA200EF30FA /* SketchConicCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchConicCurve.h; sourceTree = "<group>"; };
+		C3557E65243BDDA200EF30FA /* SketchDiameterDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchDiameterDimension.h; sourceTree = "<group>"; };
+		C3557E66243BDDA200EF30FA /* Profiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Profiles.h; sourceTree = "<group>"; };
+		C3557E67243BDDA200EF30FA /* Profile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
+		C3557E68243BDDA200EF30FA /* SketchConicCurves.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchConicCurves.h; sourceTree = "<group>"; };
+		C3557E69243BDDA200EF30FA /* SketchEllipticalArc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchEllipticalArc.h; sourceTree = "<group>"; };
+		C3557E6A243BDDA200EF30FA /* SketchEllipse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchEllipse.h; sourceTree = "<group>"; };
+		C3557E6B243BDDA200EF30FA /* RectangularPatternConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectangularPatternConstraint.h; sourceTree = "<group>"; };
+		C3557E6C243BDDA200EF30FA /* SketchEntityList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchEntityList.h; sourceTree = "<group>"; };
+		C3557E6D243BDDA200EF30FA /* OffsetConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OffsetConstraint.h; sourceTree = "<group>"; };
+		C3557E6E243BDDA200EF30FA /* SketchCircle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchCircle.h; sourceTree = "<group>"; };
+		C3557E6F243BDDA200EF30FA /* SketchEllipses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchEllipses.h; sourceTree = "<group>"; };
+		C3557E70243BDDA200EF30FA /* SketchDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchDimension.h; sourceTree = "<group>"; };
+		C3557E71243BDDA200EF30FA /* SketchTextInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchTextInput.h; sourceTree = "<group>"; };
+		C3557E72243BDDA200EF30FA /* SketchDimensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchDimensions.h; sourceTree = "<group>"; };
+		C3557E73243BDDA200EF30FA /* SketchFittedSplines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFittedSplines.h; sourceTree = "<group>"; };
+		C3557E74243BDDA200EF30FA /* VerticalPointsConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerticalPointsConstraint.h; sourceTree = "<group>"; };
+		C3557E75243BDDA200EF30FA /* HorizontalPointsConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HorizontalPointsConstraint.h; sourceTree = "<group>"; };
+		C3557E76243BDDA200EF30FA /* CircularPatternConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircularPatternConstraint.h; sourceTree = "<group>"; };
+		C3557E77243BDDA200EF30FA /* ProfileCurves.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCurves.h; sourceTree = "<group>"; };
+		C3557E78243BDDA200EF30FA /* EqualConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EqualConstraint.h; sourceTree = "<group>"; };
+		C3557E79243BDDA200EF30FA /* SketchTexts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchTexts.h; sourceTree = "<group>"; };
+		C3557E7A243BDDA200EF30FA /* ProfileLoops.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileLoops.h; sourceTree = "<group>"; };
+		C3557E7B243BDDA200EF30FA /* SymmetryConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymmetryConstraint.h; sourceTree = "<group>"; };
+		C3557E7C243BDDA200EF30FA /* SketchLines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchLines.h; sourceTree = "<group>"; };
+		C3557E7D243BDDA200EF30FA /* SketchLineList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchLineList.h; sourceTree = "<group>"; };
+		C3557E7E243BDDA200EF30FA /* VerticalConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerticalConstraint.h; sourceTree = "<group>"; };
+		C3557E7F243BDDA200EF30FA /* SketchPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPoint.h; sourceTree = "<group>"; };
+		C3557E80243BDDA200EF30FA /* SketchArcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchArcs.h; sourceTree = "<group>"; };
+		C3557E81243BDDA200EF30FA /* ProfileLoop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileLoop.h; sourceTree = "<group>"; };
+		C3557E82243BDDA200EF30FA /* MidPointConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MidPointConstraint.h; sourceTree = "<group>"; };
+		C3557E83243BDDA300EF30FA /* SketchFixedSplines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFixedSplines.h; sourceTree = "<group>"; };
+		C3557E84243BDDA300EF30FA /* SketchPoints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPoints.h; sourceTree = "<group>"; };
+		C3557E85243BDDA300EF30FA /* CollinearConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollinearConstraint.h; sourceTree = "<group>"; };
+		C3557E86243BDDA300EF30FA /* SketchCurves.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchCurves.h; sourceTree = "<group>"; };
+		C3557E87243BDDA300EF30FA /* SketchRadialDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchRadialDimension.h; sourceTree = "<group>"; };
+		C3557E88243BDDA300EF30FA /* SmoothConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmoothConstraint.h; sourceTree = "<group>"; };
+		C3557E89243BDDA300EF30FA /* SketchOffsetCurvesDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchOffsetCurvesDimension.h; sourceTree = "<group>"; };
+		C3557E8A243BDDA300EF30FA /* Sketch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sketch.h; sourceTree = "<group>"; };
+		C3557E8B243BDDA300EF30FA /* GeometricConstraints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeometricConstraints.h; sourceTree = "<group>"; };
+		C3557E8C243BDDA300EF30FA /* SketchFittedSpline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFittedSpline.h; sourceTree = "<group>"; };
+		C3557E8D243BDDA300EF30FA /* PerpendicularConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpendicularConstraint.h; sourceTree = "<group>"; };
+		C3557E8E243BDDA300EF30FA /* PolygonConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonConstraint.h; sourceTree = "<group>"; };
+		C3557E8F243BDDA300EF30FA /* SketchArc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchArc.h; sourceTree = "<group>"; };
+		C3557E90243BDDA300EF30FA /* SketchPointList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPointList.h; sourceTree = "<group>"; };
+		C3557E91243BDDA300EF30FA /* SketchEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchEntity.h; sourceTree = "<group>"; };
+		C3557E92243BDDA300EF30FA /* SketchDimensionList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchDimensionList.h; sourceTree = "<group>"; };
+		C3557E93243BDDA300EF30FA /* ParallelConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParallelConstraint.h; sourceTree = "<group>"; };
+		C3557E94243BDDA300EF30FA /* SketchEllipticalArcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchEllipticalArcs.h; sourceTree = "<group>"; };
+		C3557E95243BDDA300EF30FA /* ConcentricConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConcentricConstraint.h; sourceTree = "<group>"; };
+		C3557E96243BDDA300EF30FA /* SketchAngularDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchAngularDimension.h; sourceTree = "<group>"; };
+		C3557E97243BDDA300EF30FA /* CoincidentConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoincidentConstraint.h; sourceTree = "<group>"; };
+		C3557E98243BDDA300EF30FA /* GeometricConstraintList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeometricConstraintList.h; sourceTree = "<group>"; };
+		C3557E99243BDDA300EF30FA /* HorizontalConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HorizontalConstraint.h; sourceTree = "<group>"; };
+		C3557E9A243BDDA300EF30FA /* SketchCircles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchCircles.h; sourceTree = "<group>"; };
+		C3557E9B243BDDA300EF30FA /* Sketches.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sketches.h; sourceTree = "<group>"; };
+		C3557E9C243BDDA300EF30FA /* SketchConcentricCircleDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchConcentricCircleDimension.h; sourceTree = "<group>"; };
+		C3557E9D243BDDA300EF30FA /* SketchEllipseMinorRadiusDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchEllipseMinorRadiusDimension.h; sourceTree = "<group>"; };
+		C3557E9E243BDDA300EF30FA /* SketchOffsetDimension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchOffsetDimension.h; sourceTree = "<group>"; };
+		C3557E9F243BDDA300EF30FA /* SketchLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchLine.h; sourceTree = "<group>"; };
+		C3557EA0243BDDA300EF30FA /* GeometricConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeometricConstraint.h; sourceTree = "<group>"; };
+		C3557EA2243BDDA300EF30FA /* TSplineBody.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSplineBody.h; sourceTree = "<group>"; };
+		C3557EA3243BDDA300EF30FA /* TSplineBodies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSplineBodies.h; sourceTree = "<group>"; };
+		C3557EA5243BDDA300EF30FA /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		C3557EA6243BDDA300EF30FA /* Deallocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Deallocator.h; sourceTree = "<group>"; };
+		C3557EA8243BDDA300EF30FA /* FloatProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatProperty.h; sourceTree = "<group>"; };
+		C3557EA9243BDDA300EF30FA /* ChoiceProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChoiceProperty.h; sourceTree = "<group>"; };
+		C3557EAA243BDDA300EF30FA /* AppearanceTextureProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppearanceTextureProperty.h; sourceTree = "<group>"; };
+		C3557EAB243BDDA300EF30FA /* MaterialLibraries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialLibraries.h; sourceTree = "<group>"; };
+		C3557EAC243BDDA300EF30FA /* Materials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Materials.h; sourceTree = "<group>"; };
+		C3557EAD243BDDA300EF30FA /* Material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
+		C3557EAE243BDDA300EF30FA /* FilenameProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilenameProperty.h; sourceTree = "<group>"; };
+		C3557EAF243BDDA300EF30FA /* BooleanProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BooleanProperty.h; sourceTree = "<group>"; };
+		C3557EB0243BDDA300EF30FA /* MaterialLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialLibrary.h; sourceTree = "<group>"; };
+		C3557EB1243BDDA300EF30FA /* Appearance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Appearance.h; sourceTree = "<group>"; };
+		C3557EB2243BDDA300EF30FA /* ColorProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorProperty.h; sourceTree = "<group>"; };
+		C3557EB3243BDDA300EF30FA /* Appearances.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Appearances.h; sourceTree = "<group>"; };
+		C3557EB4243BDDA300EF30FA /* FavoriteAppearances.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoriteAppearances.h; sourceTree = "<group>"; };
+		C3557EB5243BDDA300EF30FA /* StringProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringProperty.h; sourceTree = "<group>"; };
+		C3557EB6243BDDA300EF30FA /* Property.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
+		C3557EB7243BDDA300EF30FA /* AppearanceTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppearanceTexture.h; sourceTree = "<group>"; };
+		C3557EB8243BDDA300EF30FA /* FavoriteMaterials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoriteMaterials.h; sourceTree = "<group>"; };
+		C3557EB9243BDDA300EF30FA /* IntegerProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegerProperty.h; sourceTree = "<group>"; };
+		C3557EBA243BDDA300EF30FA /* Properties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Properties.h; sourceTree = "<group>"; };
+		C3557EBB243BDDA300EF30FA /* CoreAll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreAll.h; sourceTree = "<group>"; };
+		C3557EBD243BDDA300EF30FA /* DataFolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataFolder.h; sourceTree = "<group>"; };
+		C3557EBE243BDDA300EF30FA /* DataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataFile.h; sourceTree = "<group>"; };
+		C3557EBF243BDDA300EF30FA /* Data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
+		C3557EC0243BDDA300EF30FA /* DataFileFuture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataFileFuture.h; sourceTree = "<group>"; };
+		C3557EC1243BDDA300EF30FA /* DataFiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataFiles.h; sourceTree = "<group>"; };
+		C3557EC2243BDDA300EF30FA /* DataFolders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataFolders.h; sourceTree = "<group>"; };
+		C3557EC3243BDDA300EF30FA /* DataHubs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataHubs.h; sourceTree = "<group>"; };
+		C3557EC4243BDDA300EF30FA /* DataProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataProject.h; sourceTree = "<group>"; };
+		C3557EC5243BDDA300EF30FA /* DataProjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataProjects.h; sourceTree = "<group>"; };
+		C3557EC6243BDDA300EF30FA /* DataHub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataHub.h; sourceTree = "<group>"; };
+		C3557EC7243BDDA300EF30FA /* OSMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSMacros.h; sourceTree = "<group>"; };
+		C3557EC8243BDDA300EF30FA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		C3557EC9243BDDA300EF30FA /* CoreTypeDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTypeDefs.h; sourceTree = "<group>"; };
+		C3557ECA243BDDA300EF30FA /* Memory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Memory.h; sourceTree = "<group>"; };
+		C3557ECC243BDDA300EF30FA /* CommandInputs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandInputs.h; sourceTree = "<group>"; };
+		C3557ECD243BDDA300EF30FA /* ToolbarPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarPanel.h; sourceTree = "<group>"; };
+		C3557ECE243BDDA300EF30FA /* TabCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabCommandInput.h; sourceTree = "<group>"; };
+		C3557ECF243BDDA300EF30FA /* ListControlDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListControlDefinition.h; sourceTree = "<group>"; };
+		C3557ED0243BDDA300EF30FA /* FolderDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderDialog.h; sourceTree = "<group>"; };
+		C3557ED1243BDDA300EF30FA /* TableCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableCommandInput.h; sourceTree = "<group>"; };
+		C3557ED2243BDDA300EF30FA /* CommandCreatedEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandCreatedEventHandler.h; sourceTree = "<group>"; };
+		C3557ED3243BDDA300EF30FA /* KeyboardEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardEventArgs.h; sourceTree = "<group>"; };
+		C3557ED4243BDDA300EF30FA /* CommandEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandEvent.h; sourceTree = "<group>"; };
+		C3557ED5243BDDA300EF30FA /* RadialMarkingMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadialMarkingMenu.h; sourceTree = "<group>"; };
+		C3557ED6243BDDA300EF30FA /* InputChangedEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputChangedEventHandler.h; sourceTree = "<group>"; };
+		C3557ED7243BDDA300EF30FA /* ValidateInputsEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidateInputsEventArgs.h; sourceTree = "<group>"; };
+		C3557ED8243BDDA300EF30FA /* KeyboardEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardEventHandler.h; sourceTree = "<group>"; };
+		C3557ED9243BDDA300EF30FA /* FloatSpinnerCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatSpinnerCommandInput.h; sourceTree = "<group>"; };
+		C3557EDA243BDDA300EF30FA /* CommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandInput.h; sourceTree = "<group>"; };
+		C3557EDB243BDDA300EF30FA /* SelectionEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectionEventArgs.h; sourceTree = "<group>"; };
+		C3557EDC243BDDA300EF30FA /* Palettes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Palettes.h; sourceTree = "<group>"; };
+		C3557EDD243BDDA300EF30FA /* UserInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInterface.h; sourceTree = "<group>"; };
+		C3557EDE243BDDA300EF30FA /* SliderCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderCommandInput.h; sourceTree = "<group>"; };
+		C3557EDF243BDDA300EF30FA /* CommandEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandEventHandler.h; sourceTree = "<group>"; };
+		C3557EE0243BDDA300EF30FA /* ApplicationCommandEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationCommandEventHandler.h; sourceTree = "<group>"; };
+		C3557EE1243BDDA300EF30FA /* InputChangedEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputChangedEvent.h; sourceTree = "<group>"; };
+		C3557EE2243BDDA300EF30FA /* ToolbarPanelList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarPanelList.h; sourceTree = "<group>"; };
+		C3557EE3243BDDA300EF30FA /* ToolbarControls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarControls.h; sourceTree = "<group>"; };
+		C3557EE4243BDDA300EF30FA /* TextBoxCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextBoxCommandInput.h; sourceTree = "<group>"; };
+		C3557EE5243BDDA300EF30FA /* DirectionCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectionCommandInput.h; sourceTree = "<group>"; };
+		C3557EE6243BDDA300EF30FA /* CheckBoxControlDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckBoxControlDefinition.h; sourceTree = "<group>"; };
+		C3557EE7243BDDA300EF30FA /* MouseEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MouseEventHandler.h; sourceTree = "<group>"; };
+		C3557EE8243BDDA300EF30FA /* ValidateInputsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidateInputsEvent.h; sourceTree = "<group>"; };
+		C3557EE9243BDDA300EF30FA /* SelectionEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectionEvent.h; sourceTree = "<group>"; };
+		C3557EEA243BDDA300EF30FA /* ListItems.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListItems.h; sourceTree = "<group>"; };
+		C3557EEB243BDDA300EF30FA /* BoolValueCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoolValueCommandInput.h; sourceTree = "<group>"; };
+		C3557EEC243BDDA300EF30FA /* MarkingMenuEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkingMenuEvent.h; sourceTree = "<group>"; };
+		C3557EED243BDDA300EF30FA /* MouseEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MouseEventArgs.h; sourceTree = "<group>"; };
+		C3557EEE243BDDA300EF30FA /* DropDownCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropDownCommandInput.h; sourceTree = "<group>"; };
+		C3557EEF243BDDA300EF30FA /* StringValueCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringValueCommandInput.h; sourceTree = "<group>"; };
+		C3557EF0243BDDA300EF30FA /* CommandCreatedEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandCreatedEventArgs.h; sourceTree = "<group>"; };
+		C3557EF1243BDDA300EF30FA /* TextCommandPalette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextCommandPalette.h; sourceTree = "<group>"; };
+		C3557EF2243BDDA300EF30FA /* LinearMarkingMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearMarkingMenu.h; sourceTree = "<group>"; };
+		C3557EF3243BDDA300EF30FA /* ImageCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCommandInput.h; sourceTree = "<group>"; };
+		C3557EF4243BDDA300EF30FA /* ButtonControlDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonControlDefinition.h; sourceTree = "<group>"; };
+		C3557EF5243BDDA300EF30FA /* ToolbarTab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarTab.h; sourceTree = "<group>"; };
+		C3557EF6243BDDA300EF30FA /* WorkspaceEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkspaceEvent.h; sourceTree = "<group>"; };
+		C3557EF7243BDDA300EF30FA /* GroupCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupCommandInput.h; sourceTree = "<group>"; };
+		C3557EF8243BDDA300EF30FA /* InputChangedEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputChangedEventArgs.h; sourceTree = "<group>"; };
+		C3557EF9243BDDA300EF30FA /* CommandDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandDefinitions.h; sourceTree = "<group>"; };
+		C3557EFA243BDDA300EF30FA /* Workspaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Workspaces.h; sourceTree = "<group>"; };
+		C3557EFB243BDDA300EF30FA /* Workspace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
+		C3557EFC243BDDA300EF30FA /* DistanceValueCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DistanceValueCommandInput.h; sourceTree = "<group>"; };
+		C3557EFD243BDDA300EF30FA /* CommandControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandControl.h; sourceTree = "<group>"; };
+		C3557EFE243BDDA300EF30FA /* Selections.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Selections.h; sourceTree = "<group>"; };
+		C3557EFF243BDDA300EF30FA /* HTMLEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLEvents.h; sourceTree = "<group>"; };
+		C3557F00243BDDA300EF30FA /* ToolbarPanels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarPanels.h; sourceTree = "<group>"; };
+		C3557F01243BDDA300EF30FA /* ToolbarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarControl.h; sourceTree = "<group>"; };
+		C3557F02243BDDA300EF30FA /* Palette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Palette.h; sourceTree = "<group>"; };
+		C3557F03243BDDA300EF30FA /* WorkspaceList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkspaceList.h; sourceTree = "<group>"; };
+		C3557F04243BDDA300EF30FA /* IntegerSliderCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegerSliderCommandInput.h; sourceTree = "<group>"; };
+		C3557F05243BDDA300EF30FA /* MarkingMenuEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkingMenuEventArgs.h; sourceTree = "<group>"; };
+		C3557F06243BDDA300EF30FA /* ButtonRowCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonRowCommandInput.h; sourceTree = "<group>"; };
+		C3557F07243BDDA300EF30FA /* ProgressDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressDialog.h; sourceTree = "<group>"; };
+		C3557F08243BDDA300EF30FA /* ValueCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueCommandInput.h; sourceTree = "<group>"; };
+		C3557F09243BDDA300EF30FA /* SeparatorControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeparatorControl.h; sourceTree = "<group>"; };
+		C3557F0A243BDDA300EF30FA /* SelectionEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectionEventHandler.h; sourceTree = "<group>"; };
+		C3557F0B243BDDA300EF30FA /* UserInterfaceGeneralEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInterfaceGeneralEvents.h; sourceTree = "<group>"; };
+		C3557F0C243BDDA300EF30FA /* MarkingMenuEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkingMenuEventHandler.h; sourceTree = "<group>"; };
+		C3557F0D243BDDA300EF30FA /* ListItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListItem.h; sourceTree = "<group>"; };
+		C3557F0E243BDDA300EF30FA /* DropDownControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DropDownControl.h; sourceTree = "<group>"; };
+		C3557F0F243BDDA300EF30FA /* SelectionCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectionCommandInput.h; sourceTree = "<group>"; };
+		C3557F10243BDDA300EF30FA /* ValidateInputsEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidateInputsEventHandler.h; sourceTree = "<group>"; };
+		C3557F11243BDDA300EF30FA /* MouseEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MouseEvent.h; sourceTree = "<group>"; };
+		C3557F12243BDDA300EF30FA /* CommandDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandDefinition.h; sourceTree = "<group>"; };
+		C3557F13243BDDA300EF30FA /* FloatSliderCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatSliderCommandInput.h; sourceTree = "<group>"; };
+		C3557F14243BDDA300EF30FA /* ApplicationCommandEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationCommandEvent.h; sourceTree = "<group>"; };
+		C3557F15243BDDA300EF30FA /* ToolbarTabList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarTabList.h; sourceTree = "<group>"; };
+		C3557F16243BDDA300EF30FA /* ControlDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControlDefinition.h; sourceTree = "<group>"; };
+		C3557F17243BDDA300EF30FA /* WorkspaceEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkspaceEventHandler.h; sourceTree = "<group>"; };
+		C3557F18243BDDA300EF30FA /* Command.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		C3557F19243BDDA300EF30FA /* Toolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Toolbar.h; sourceTree = "<group>"; };
+		C3557F1A243BDDA300EF30FA /* SplitButtonControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitButtonControl.h; sourceTree = "<group>"; };
+		C3557F1B243BDDA300EF30FA /* IntegerSpinnerCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegerSpinnerCommandInput.h; sourceTree = "<group>"; };
+		C3557F1C243BDDA300EF30FA /* CommandEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandEventArgs.h; sourceTree = "<group>"; };
+		C3557F1D243BDDA300EF30FA /* Toolbars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Toolbars.h; sourceTree = "<group>"; };
+		C3557F1E243BDDA300EF30FA /* CommandCreatedEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandCreatedEvent.h; sourceTree = "<group>"; };
+		C3557F1F243BDDA300EF30FA /* ToolbarControlList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarControlList.h; sourceTree = "<group>"; };
+		C3557F20243BDDA300EF30FA /* Selection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Selection.h; sourceTree = "<group>"; };
+		C3557F21243BDDA300EF30FA /* FileDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileDialog.h; sourceTree = "<group>"; };
+		C3557F22243BDDA300EF30FA /* ToolbarTabs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarTabs.h; sourceTree = "<group>"; };
+		C3557F23243BDDA300EF30FA /* WorkspaceEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorkspaceEventArgs.h; sourceTree = "<group>"; };
+		C3557F24243BDDA300EF30FA /* KeyboardEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardEvent.h; sourceTree = "<group>"; };
+		C3557F25243BDDA300EF30FA /* ApplicationCommandEventArgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationCommandEventArgs.h; sourceTree = "<group>"; };
+		C3557F26243BDDA300EF30FA /* RadioButtonGroupCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadioButtonGroupCommandInput.h; sourceTree = "<group>"; };
+		C3557F27243BDDA300EF30FA /* AngleValueCommandInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AngleValueCommandInput.h; sourceTree = "<group>"; };
+		C3557F29243BDDA300EF30FA /* Cone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cone.h; sourceTree = "<group>"; };
+		C3557F2A243BDDA300EF30FA /* EllipticalArc3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EllipticalArc3D.h; sourceTree = "<group>"; };
+		C3557F2B243BDDA300EF30FA /* NurbsCurve3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NurbsCurve3D.h; sourceTree = "<group>"; };
+		C3557F2C243BDDA300EF30FA /* BoundingBox2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoundingBox2D.h; sourceTree = "<group>"; };
+		C3557F2D243BDDA300EF30FA /* NurbsCurve2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NurbsCurve2D.h; sourceTree = "<group>"; };
+		C3557F2E243BDDA300EF30FA /* BoundingBox3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoundingBox3D.h; sourceTree = "<group>"; };
+		C3557F2F243BDDA300EF30FA /* Surface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Surface.h; sourceTree = "<group>"; };
+		C3557F30243BDDA300EF30FA /* SurfaceEvaluator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceEvaluator.h; sourceTree = "<group>"; };
+		C3557F31243BDDA300EF30FA /* EllipticalArc2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EllipticalArc2D.h; sourceTree = "<group>"; };
+		C3557F32243BDDA300EF30FA /* NurbsSurface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NurbsSurface.h; sourceTree = "<group>"; };
+		C3557F33243BDDA300EF30FA /* Torus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Torus.h; sourceTree = "<group>"; };
+		C3557F34243BDDA300EF30FA /* Sphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
+		C3557F35243BDDA300EF30FA /* OrientedBoundingBox3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrientedBoundingBox3D.h; sourceTree = "<group>"; };
+		C3557F36243BDDA300EF30FA /* Arc3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arc3D.h; sourceTree = "<group>"; };
+		C3557F37243BDDA300EF30FA /* CurveEvaluator2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurveEvaluator2D.h; sourceTree = "<group>"; };
+		C3557F38243BDDA300EF30FA /* Cylinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cylinder.h; sourceTree = "<group>"; };
+		C3557F39243BDDA300EF30FA /* Curve2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Curve2D.h; sourceTree = "<group>"; };
+		C3557F3A243BDDA300EF30FA /* Line3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line3D.h; sourceTree = "<group>"; };
+		C3557F3B243BDDA300EF30FA /* Arc2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arc2D.h; sourceTree = "<group>"; };
+		C3557F3C243BDDA300EF30FA /* CurveEvaluator3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurveEvaluator3D.h; sourceTree = "<group>"; };
+		C3557F3D243BDDA300EF30FA /* EllipticalCylinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EllipticalCylinder.h; sourceTree = "<group>"; };
+		C3557F3E243BDDA300EF30FA /* InfiniteLine3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfiniteLine3D.h; sourceTree = "<group>"; };
+		C3557F3F243BDDA300EF30FA /* Curve3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Curve3D.h; sourceTree = "<group>"; };
+		C3557F40243BDDA300EF30FA /* Plane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+		C3557F41243BDDA300EF30FA /* Line2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line2D.h; sourceTree = "<group>"; };
+		C3557F42243BDDA300EF30FA /* Ellipse2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ellipse2D.h; sourceTree = "<group>"; };
+		C3557F43243BDDA300EF30FA /* Ellipse3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ellipse3D.h; sourceTree = "<group>"; };
+		C3557F44243BDDA300EF30FA /* Matrix2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix2D.h; sourceTree = "<group>"; };
+		C3557F45243BDDA300EF30FA /* Point2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Point2D.h; sourceTree = "<group>"; };
+		C3557F46243BDDA300EF30FA /* EllipticalCone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EllipticalCone.h; sourceTree = "<group>"; };
+		C3557F47243BDDA300EF30FA /* Vector3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector3D.h; sourceTree = "<group>"; };
+		C3557F48243BDDA300EF30FA /* Circle2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Circle2D.h; sourceTree = "<group>"; };
+		C3557F49243BDDA300EF30FA /* Vector2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2D.h; sourceTree = "<group>"; };
+		C3557F4A243BDDA300EF30FA /* Circle3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Circle3D.h; sourceTree = "<group>"; };
+		C3557F4B243BDDA300EF30FA /* Matrix3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix3D.h; sourceTree = "<group>"; };
+		C3557F4C243BDDA300EF30FA /* Point3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Point3D.h; sourceTree = "<group>"; };
+		C3557F4E243BDDA300EF30FA /* ProductUsageData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductUsageData.h; sourceTree = "<group>"; };
+		C3557F4F243BDDA300EF30FA /* NamedValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NamedValues.h; sourceTree = "<group>"; };
+		C3557F50243BDDA300EF30FA /* NetworkPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkPreferences.h; sourceTree = "<group>"; };
+		C3557F51243BDDA300EF30FA /* EventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
+		C3557F52243BDDA300EF30FA /* WebRequestEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebRequestEvents.h; sourceTree = "<group>"; };
+		C3557F53243BDDA300EF30FA /* Product.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		C3557F54243BDDA300EF30FA /* MeasureResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeasureResults.h; sourceTree = "<group>"; };
+		C3557F55243BDDA300EF30FA /* ProductPreferencesCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductPreferencesCollection.h; sourceTree = "<group>"; };
+		C3557F56243BDDA300EF30FA /* Viewport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
+		C3557F57243BDDA300EF30FA /* SMTImportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMTImportOptions.h; sourceTree = "<group>"; };
+		C3557F58243BDDA300EF30FA /* Application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
+		C3557F59243BDDA300EF30FA /* ScriptHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScriptHandler.h; sourceTree = "<group>"; };
+		C3557F5A243BDDA300EF30FA /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		C3557F5B243BDDA300EF30FA /* IGESImportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGESImportOptions.h; sourceTree = "<group>"; };
+		C3557F5C243BDDA300EF30FA /* Events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
+		C3557F5D243BDDA300EF30FA /* ImportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImportOptions.h; sourceTree = "<group>"; };
+		C3557F5E243BDDA300EF30FA /* GridPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridPreferences.h; sourceTree = "<group>"; };
+		C3557F5F243BDDA300EF30FA /* Preferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		C3557F60243BDDA300EF30FA /* GraphicsPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicsPreferences.h; sourceTree = "<group>"; };
+		C3557F61243BDDA300EF30FA /* Color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		C3557F62243BDDA300EF30FA /* ImportManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImportManager.h; sourceTree = "<group>"; };
+		C3557F63243BDDA300EF30FA /* Attributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Attributes.h; sourceTree = "<group>"; };
+		C3557F64243BDDA300EF30FA /* ValueInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueInput.h; sourceTree = "<group>"; };
+		C3557F65243BDDA300EF30FA /* UnitsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitsManager.h; sourceTree = "<group>"; };
+		C3557F66243BDDA300EF30FA /* IAddIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAddIn.h; sourceTree = "<group>"; };
+		C3557F67243BDDA300EF30FA /* MaterialPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialPreferences.h; sourceTree = "<group>"; };
+		C3557F68243BDDA300EF30FA /* FusionArchiveImportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FusionArchiveImportOptions.h; sourceTree = "<group>"; };
+		C3557F69243BDDA300EF30FA /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		C3557F6A243BDDA300EF30FA /* DefaultUnitsPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultUnitsPreferences.h; sourceTree = "<group>"; };
+		C3557F6B243BDDA300EF30FA /* CameraEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraEvents.h; sourceTree = "<group>"; };
+		C3557F6C243BDDA300EF30FA /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		C3557F6D243BDDA300EF30FA /* CustomEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomEvents.h; sourceTree = "<group>"; };
+		C3557F6E243BDDA300EF30FA /* MeasureManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeasureManager.h; sourceTree = "<group>"; };
+		C3557F6F243BDDA300EF30FA /* ObjectCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectCollection.h; sourceTree = "<group>"; };
+		C3557F70243BDDA300EF30FA /* STEPImportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STEPImportOptions.h; sourceTree = "<group>"; };
+		C3557F71243BDDA300EF30FA /* DocumentReferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocumentReferences.h; sourceTree = "<group>"; };
+		C3557F72243BDDA300EF30FA /* ApplicationEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationEvents.h; sourceTree = "<group>"; };
+		C3557F73243BDDA300EF30FA /* Attribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
+		C3557F74243BDDA300EF30FA /* Documents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Documents.h; sourceTree = "<group>"; };
+		C3557F75243BDDA300EF30FA /* DXF2DImportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXF2DImportOptions.h; sourceTree = "<group>"; };
+		C3557F76243BDDA300EF30FA /* DocumentReference.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocumentReference.h; sourceTree = "<group>"; };
+		C3557F77243BDDA300EF30FA /* GeneralPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralPreferences.h; sourceTree = "<group>"; };
+		C3557F78243BDDA300EF30FA /* ProductPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductPreferences.h; sourceTree = "<group>"; };
+		C3557F79243BDDA300EF30FA /* DocumentEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocumentEvents.h; sourceTree = "<group>"; };
+		C3557F7A243BDDA300EF30FA /* DefaultUnitsPreferencesCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultUnitsPreferencesCollection.h; sourceTree = "<group>"; };
+		C3557F7B243BDDA300EF30FA /* Products.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Products.h; sourceTree = "<group>"; };
+		C3557F7C243BDDA300EF30FA /* UnitAndValuePreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitAndValuePreferences.h; sourceTree = "<group>"; };
+		C3557F7D243BDDA300EF30FA /* SATImportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SATImportOptions.h; sourceTree = "<group>"; };
+		C3557F7E243BDDA300EF30FA /* Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
+		C3557F80243BDDA300EF30FA /* CAMTypeDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMTypeDefs.h; sourceTree = "<group>"; };
+		C3557F82243BDDA300EF30FA /* Operations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Operations.h; sourceTree = "<group>"; };
+		C3557F83243BDDA300EF30FA /* OperationBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperationBase.h; sourceTree = "<group>"; };
+		C3557F84243BDDA300EF30FA /* Operation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Operation.h; sourceTree = "<group>"; };
+		C3557F86243BDDA300EF30FA /* ChildOperationList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChildOperationList.h; sourceTree = "<group>"; };
+		C3557F87243BDDA300EF30FA /* PostProcessInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostProcessInput.h; sourceTree = "<group>"; };
+		C3557F88243BDDA300EF30FA /* CAMFolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMFolder.h; sourceTree = "<group>"; };
+		C3557F89243BDDA300EF30FA /* Setup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Setup.h; sourceTree = "<group>"; };
+		C3557F8A243BDDA300EF30FA /* CAMFolders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMFolders.h; sourceTree = "<group>"; };
+		C3557F8B243BDDA300EF30FA /* MachiningTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MachiningTime.h; sourceTree = "<group>"; };
+		C3557F8C243BDDA300EF30FA /* GenerateToolpathFuture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenerateToolpathFuture.h; sourceTree = "<group>"; };
+		C3557F8D243BDDA300EF30FA /* CAM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAM.h; sourceTree = "<group>"; };
+		C3557F8E243BDDA300EF30FA /* CAMPattern.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMPattern.h; sourceTree = "<group>"; };
+		C3557F8F243BDDA300EF30FA /* CAMPatterns.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMPatterns.h; sourceTree = "<group>"; };
+		C3557F90243BDDA300EF30FA /* Setups.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Setups.h; sourceTree = "<group>"; };
+		C3557F91243BDDA300EF30FA /* CAMAll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMAll.h; sourceTree = "<group>"; };
+		C3557F93243BE34600EF30FA /* fretboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fretboard.cpp; sourceTree = "<group>"; };
+		C3557F94243BE34600EF30FA /* fretboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fretboard.hpp; sourceTree = "<group>"; };
+		C3557F97243BE39000EF30FA /* string.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = string.cpp; sourceTree = "<group>"; };
+		C3557F98243BE39000EF30FA /* string.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = string.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2BB196BB1AD586AA00164CD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BB196B51AD586AA00164CD3 = {
+			isa = PBXGroup;
+			children = (
+				C3557F92243BE2F800EF30FA /* sources */,
+				C3557D0E243BDD8700EF30FA /* SDK */,
+				2BB196BF1AD586AA00164CD3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2BB196BF1AD586AA00164CD3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C3557D0E243BDD8700EF30FA /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				C3557D0F243BDDA200EF30FA /* include */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+		C3557D0F243BDDA200EF30FA /* include */ = {
+			isa = PBXGroup;
+			children = (
+				C3557D10243BDDA200EF30FA /* Fusion */,
+				C3557EA4243BDDA300EF30FA /* Core */,
+				C3557F7F243BDDA300EF30FA /* CAM */,
+			);
+			name = include;
+			path = ../../../CPP/include;
+			sourceTree = "<group>";
+		};
+		C3557D10243BDDA200EF30FA /* Fusion */ = {
+			isa = PBXGroup;
+			children = (
+				C3557D11243BDDA200EF30FA /* Fusion */,
+				C3557D30243BDDA200EF30FA /* MeshData */,
+				C3557D37243BDDA200EF30FA /* FusionTypeDefs.h */,
+				C3557D38243BDDA200EF30FA /* Features */,
+				C3557DE8243BDDA200EF30FA /* BRep */,
+				C3557DFC243BDDA200EF30FA /* Components */,
+				C3557E1F243BDDA200EF30FA /* Construction */,
+				C3557E41243BDDA200EF30FA /* MeshBody */,
+				C3557E45243BDDA200EF30FA /* Graphics */,
+				C3557E5B243BDDA200EF30FA /* FusionAll.h */,
+				C3557E5C243BDDA200EF30FA /* Sketch */,
+				C3557EA1243BDDA300EF30FA /* TSpline */,
+			);
+			path = Fusion;
+			sourceTree = "<group>";
+		};
+		C3557D11243BDDA200EF30FA /* Fusion */ = {
+			isa = PBXGroup;
+			children = (
+				C3557D12243BDDA200EF30FA /* ModelParameters.h */,
+				C3557D13243BDDA200EF30FA /* STEPExportOptions.h */,
+				C3557D14243BDDA200EF30FA /* UserParameters.h */,
+				C3557D15243BDDA200EF30FA /* FusionProductPreferences.h */,
+				C3557D16243BDDA200EF30FA /* TimelineGroup.h */,
+				C3557D17243BDDA200EF30FA /* SATExportOptions.h */,
+				C3557D18243BDDA200EF30FA /* InterferenceResults.h */,
+				C3557D19243BDDA200EF30FA /* Parameter.h */,
+				C3557D1A243BDDA200EF30FA /* AreaProperties.h */,
+				C3557D1B243BDDA200EF30FA /* InterferenceInput.h */,
+				C3557D1C243BDDA200EF30FA /* Design.h */,
+				C3557D1D243BDDA200EF30FA /* InterferenceResult.h */,
+				C3557D1E243BDDA200EF30FA /* PhysicalProperties.h */,
+				C3557D1F243BDDA200EF30FA /* FusionArchiveExportOptions.h */,
+				C3557D20243BDDA200EF30FA /* SMTExportOptions.h */,
+				C3557D21243BDDA200EF30FA /* UserParameter.h */,
+				C3557D22243BDDA200EF30FA /* FusionUnitsManager.h */,
+				C3557D23243BDDA200EF30FA /* IGESExportOptions.h */,
+				C3557D24243BDDA200EF30FA /* ExportOptions.h */,
+				C3557D25243BDDA200EF30FA /* STLExportOptions.h */,
+				C3557D26243BDDA200EF30FA /* TimelineObject.h */,
+				C3557D27243BDDA200EF30FA /* ExportManager.h */,
+				C3557D28243BDDA200EF30FA /* ModelParameter.h */,
+				C3557D29243BDDA200EF30FA /* Snapshots.h */,
+				C3557D2A243BDDA200EF30FA /* FusionDocument.h */,
+				C3557D2B243BDDA200EF30FA /* ParameterList.h */,
+				C3557D2C243BDDA200EF30FA /* Snapshot.h */,
+				C3557D2D243BDDA200EF30FA /* TimelineGroups.h */,
+				C3557D2E243BDDA200EF30FA /* Timeline.h */,
+				C3557D2F243BDDA200EF30FA /* FusionDefaultUnitsPreferences.h */,
+			);
+			path = Fusion;
+			sourceTree = "<group>";
+		};
+		C3557D30243BDDA200EF30FA /* MeshData */ = {
+			isa = PBXGroup;
+			children = (
+				C3557D31243BDDA200EF30FA /* TriangleMeshCalculator.h */,
+				C3557D32243BDDA200EF30FA /* TriangleMeshList.h */,
+				C3557D33243BDDA200EF30FA /* TextureImage.h */,
+				C3557D34243BDDA200EF30FA /* MeshManager.h */,
+				C3557D35243BDDA200EF30FA /* PolygonMesh.h */,
+				C3557D36243BDDA200EF30FA /* TriangleMesh.h */,
+			);
+			path = MeshData;
+			sourceTree = "<group>";
+		};
+		C3557D38243BDDA200EF30FA /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				C3557D39243BDDA200EF30FA /* LoftTangentEndCondition.h */,
+				C3557D3A243BDDA200EF30FA /* PatchFeatureInput.h */,
+				C3557D3B243BDDA200EF30FA /* RibFeature.h */,
+				C3557D3C243BDDA200EF30FA /* OffsetFeatures.h */,
+				C3557D3D243BDDA200EF30FA /* SplitBodyFeatures.h */,
+				C3557D3E243BDDA200EF30FA /* ScaleFeatures.h */,
+				C3557D3F243BDDA200EF30FA /* ExtendFeature.h */,
+				C3557D40243BDDA200EF30FA /* ThickenFeatures.h */,
+				C3557D41243BDDA200EF30FA /* ExtrudeFeatures.h */,
+				C3557D42243BDDA200EF30FA /* CombineFeatureInput.h */,
+				C3557D43243BDDA200EF30FA /* ExtendFeatureInput.h */,
+				C3557D44243BDDA200EF30FA /* RemoveFeature.h */,
+				C3557D45243BDDA200EF30FA /* LoftCenterLineOrRail.h */,
+				C3557D46243BDDA200EF30FA /* TwoSidesToExtentDefinition.h */,
+				C3557D47243BDDA200EF30FA /* SweepFeatureInput.h */,
+				C3557D48243BDDA200EF30FA /* SilhouetteSplitFeature.h */,
+				C3557D49243BDDA200EF30FA /* LoftSection.h */,
+				C3557D4A243BDDA200EF30FA /* LoftPointTangentEndCondition.h */,
+				C3557D4B243BDDA200EF30FA /* MirrorFeature.h */,
+				C3557D4C243BDDA200EF30FA /* AngleExtentDefinition.h */,
+				C3557D4D243BDDA200EF30FA /* ChamferTypeDefinition.h */,
+				C3557D4E243BDDA200EF30FA /* ExtrudeFeature.h */,
+				C3557D4F243BDDA200EF30FA /* ConstantRadiusFilletEdgeSet.h */,
+				C3557D50243BDDA200EF30FA /* PathPatternFeatures.h */,
+				C3557D51243BDDA200EF30FA /* CutPasteBody.h */,
+				C3557D52243BDDA200EF30FA /* FilletFeature.h */,
+				C3557D53243BDDA200EF30FA /* DistanceExtentDefinition.h */,
+				C3557D54243BDDA200EF30FA /* OffsetFeatureInput.h */,
+				C3557D55243BDDA200EF30FA /* RevolveFeature.h */,
+				C3557D56243BDDA200EF30FA /* CoilFeatures.h */,
+				C3557D57243BDDA200EF30FA /* TrimFeatures.h */,
+				C3557D58243BDDA200EF30FA /* FilletEdgeSets.h */,
+				C3557D59243BDDA200EF30FA /* CylinderFeatures.h */,
+				C3557D5A243BDDA200EF30FA /* LoftEndCondition.h */,
+				C3557D5B243BDDA200EF30FA /* RibFeatures.h */,
+				C3557D5C243BDDA200EF30FA /* RectangularPatternFeatureInput.h */,
+				C3557D5D243BDDA200EF30FA /* OffsetFeature.h */,
+				C3557D5E243BDDA200EF30FA /* AllExtentDefinition.h */,
+				C3557D5F243BDDA200EF30FA /* BoxFeature.h */,
+				C3557D60243BDDA200EF30FA /* HoleFeature.h */,
+				C3557D61243BDDA200EF30FA /* ReverseNormalFeatures.h */,
+				C3557D62243BDDA200EF30FA /* BoxFeatures.h */,
+				C3557D63243BDDA200EF30FA /* ThickenFeature.h */,
+				C3557D64243BDDA200EF30FA /* PathEntity.h */,
+				C3557D65243BDDA200EF30FA /* LoftDirectionEndCondition.h */,
+				C3557D66243BDDA200EF30FA /* BoundaryFillFeature.h */,
+				C3557D67243BDDA200EF30FA /* Features.h */,
+				C3557D68243BDDA200EF30FA /* Path.h */,
+				C3557D69243BDDA200EF30FA /* LoftFeature.h */,
+				C3557D6A243BDDA200EF30FA /* SweepFeatures.h */,
+				C3557D6B243BDDA200EF30FA /* ThreadFeature.h */,
+				C3557D6C243BDDA200EF30FA /* RectangularPatternFeatures.h */,
+				C3557D6D243BDDA200EF30FA /* HolePositionDefinition.h */,
+				C3557D6E243BDDA200EF30FA /* DeleteFaceFeatures.h */,
+				C3557D6F243BDDA200EF30FA /* Feature.h */,
+				C3557D70243BDDA200EF30FA /* LoftSmoothEndCondition.h */,
+				C3557D71243BDDA200EF30FA /* FormFeature.h */,
+				C3557D72243BDDA200EF30FA /* ReplaceFaceFeature.h */,
+				C3557D73243BDDA200EF30FA /* DraftFeatureInput.h */,
+				C3557D74243BDDA200EF30FA /* PointHolePositionDefinition.h */,
+				C3557D75243BDDA200EF30FA /* RuleFilletFeature.h */,
+				C3557D76243BDDA200EF30FA /* PathPatternFeature.h */,
+				C3557D77243BDDA200EF30FA /* SketchPointHolePositionDefinition.h */,
+				C3557D78243BDDA200EF30FA /* MirrorFeatures.h */,
+				C3557D79243BDDA200EF30FA /* ThreadDataQuery.h */,
+				C3557D7A243BDDA200EF30FA /* SplitFaceFeatureInput.h */,
+				C3557D7B243BDDA200EF30FA /* FromEntityStartDefinition.h */,
+				C3557D7C243BDDA200EF30FA /* SplitBodyFeatureInput.h */,
+				C3557D7D243BDDA200EF30FA /* ThroughAllExtentDefinition.h */,
+				C3557D7E243BDDA200EF30FA /* SweepFeature.h */,
+				C3557D7F243BDDA200EF30FA /* SphereFeatures.h */,
+				C3557D80243BDDA200EF30FA /* ShellFeatureInput.h */,
+				C3557D81243BDDA200EF30FA /* CircularPatternFeatureInput.h */,
+				C3557D82243BDDA200EF30FA /* WebFeature.h */,
+				C3557D83243BDDA200EF30FA /* RevolveFeatureInput.h */,
+				C3557D84243BDDA200EF30FA /* MoveFeatureInput.h */,
+				C3557D85243BDDA200EF30FA /* ReplaceFaceFeatureInput.h */,
+				C3557D86243BDDA200EF30FA /* ExtrudeFeatureInput.h */,
+				C3557D87243BDDA200EF30FA /* RemoveFeatures.h */,
+				C3557D88243BDDA200EF30FA /* ShellFeatures.h */,
+				C3557D89243BDDA200EF30FA /* DistanceAndAngleChamferTypeDefinition.h */,
+				C3557D8A243BDDA200EF30FA /* ChamferFeature.h */,
+				C3557D8B243BDDA200EF30FA /* UnstitchFeatures.h */,
+				C3557D8C243BDDA200EF30FA /* DraftFeature.h */,
+				C3557D8D243BDDA200EF30FA /* ShellFeature.h */,
+				C3557D8E243BDDA200EF30FA /* ThreadFeatureInput.h */,
+				C3557D8F243BDDA200EF30FA /* SplitFaceFeature.h */,
+				C3557D90243BDDA200EF30FA /* FilletEdgeSet.h */,
+				C3557D91243BDDA200EF30FA /* TorusFeature.h */,
+				C3557D92243BDDA200EF30FA /* SphereFeature.h */,
+				C3557D93243BDDA200EF30FA /* DeleteFaceFeature.h */,
+				C3557D94243BDDA200EF30FA /* SurfaceDeleteFaceFeature.h */,
+				C3557D95243BDDA200EF30FA /* ExtentDefinition.h */,
+				C3557D96243BDDA200EF30FA /* TwoSidesDistanceExtentDefinition.h */,
+				C3557D97243BDDA200EF30FA /* SketchPointsHolePositionDefinition.h */,
+				C3557D98243BDDA200EF30FA /* StitchFeature.h */,
+				C3557D99243BDDA200EF30FA /* MoveFeatures.h */,
+				C3557D9A243BDDA200EF30FA /* EqualDistanceChamferTypeDefinition.h */,
+				C3557D9B243BDDA200EF30FA /* TwoDistancesChamferTypeDefinition.h */,
+				C3557D9C243BDDA200EF30FA /* ScaleFeature.h */,
+				C3557D9D243BDDA200EF30FA /* OffsetFacesFeature.h */,
+				C3557D9E243BDDA200EF30FA /* LoftFeatureInput.h */,
+				C3557D9F243BDDA200EF30FA /* MoveFeature.h */,
+				C3557DA0243BDDA200EF30FA /* RectangularPatternFeature.h */,
+				C3557DA1243BDDA200EF30FA /* TwoSidesAngleExtentDefinition.h */,
+				C3557DA2243BDDA200EF30FA /* OffsetFacesFeatures.h */,
+				C3557DA3243BDDA200EF30FA /* UnstitchFeature.h */,
+				C3557DA4243BDDA200EF30FA /* CircularPatternFeatures.h */,
+				C3557DA5243BDDA200EF30FA /* DraftFeatures.h */,
+				C3557DA6243BDDA200EF30FA /* CombineFeature.h */,
+				C3557DA7243BDDA200EF30FA /* ExtendFeatures.h */,
+				C3557DA8243BDDA200EF30FA /* OffsetStartDefinition.h */,
+				C3557DA9243BDDA200EF30FA /* AtCenterHolePositionDefinition.h */,
+				C3557DAA243BDDA200EF30FA /* CoilFeature.h */,
+				C3557DAB243BDDA200EF30FA /* PipeFeature.h */,
+				C3557DAC243BDDA200EF30FA /* CircularPatternFeature.h */,
+				C3557DAD243BDDA200EF30FA /* WebFeatures.h */,
+				C3557DAE243BDDA200EF30FA /* PatchFeature.h */,
+				C3557DAF243BDDA200EF30FA /* VariableRadiusFilletEdgeSet.h */,
+				C3557DB0243BDDA200EF30FA /* ScaleFeatureInput.h */,
+				C3557DB1243BDDA200EF30FA /* BoundaryFillFeatures.h */,
+				C3557DB2243BDDA200EF30FA /* ToEntityExtentDefinition.h */,
+				C3557DB3243BDDA200EF30FA /* BoundaryFillFeatureInput.h */,
+				C3557DB4243BDDA200EF30FA /* MirrorFeatureInput.h */,
+				C3557DB5243BDDA200EF30FA /* FilletFeatureInput.h */,
+				C3557DB6243BDDA200EF30FA /* ThreadFeatures.h */,
+				C3557DB7243BDDA200EF30FA /* LoftFreeEndCondition.h */,
+				C3557DB8243BDDA200EF30FA /* FormFeatures.h */,
+				C3557DB9243BDDA200EF30FA /* BaseFeatures.h */,
+				C3557DBA243BDDA200EF30FA /* HoleFeatureInput.h */,
+				C3557DBB243BDDA200EF30FA /* ChamferFeatureInput.h */,
+				C3557DBC243BDDA200EF30FA /* ThickenFeatureInput.h */,
+				C3557DBD243BDDA200EF30FA /* FeatureList.h */,
+				C3557DBE243BDDA200EF30FA /* ThreadInfo.h */,
+				C3557DBF243BDDA200EF30FA /* CombineFeatures.h */,
+				C3557DC0243BDDA200EF30FA /* StitchFeatureInput.h */,
+				C3557DC1243BDDA200EF30FA /* BaseFeature.h */,
+				C3557DC2243BDDA200EF30FA /* CylinderFeature.h */,
+				C3557DC3243BDDA200EF30FA /* ReverseNormalFeature.h */,
+				C3557DC4243BDDA200EF30FA /* CopyPasteBody.h */,
+				C3557DC5243BDDA200EF30FA /* ReplaceFaceFeatures.h */,
+				C3557DC6243BDDA200EF30FA /* StitchFeatures.h */,
+				C3557DC7243BDDA200EF30FA /* PatternElement.h */,
+				C3557DC8243BDDA200EF30FA /* RevolveFeatures.h */,
+				C3557DC9243BDDA200EF30FA /* ChordLengthFilletEdgeSet.h */,
+				C3557DCA243BDDA200EF30FA /* ProfilePlaneStartDefinition.h */,
+				C3557DCB243BDDA200EF30FA /* FilletFeatures.h */,
+				C3557DCC243BDDA200EF30FA /* SymmetricExtentDefinition.h */,
+				C3557DCD243BDDA200EF30FA /* SilhouetteSplitFeatures.h */,
+				C3557DCE243BDDA200EF30FA /* SplitBodyFeature.h */,
+				C3557DCF243BDDA200EF30FA /* LoftPointSharpEndCondition.h */,
+				C3557DD0243BDDA200EF30FA /* PathPatternFeatureInput.h */,
+				C3557DD1243BDDA200EF30FA /* TrimFeature.h */,
+				C3557DD2243BDDA200EF30FA /* SurfaceDeleteFaceFeatures.h */,
+				C3557DD3243BDDA200EF30FA /* RuleFilletFeatures.h */,
+				C3557DD4243BDDA200EF30FA /* BRepCells.h */,
+				C3557DD5243BDDA200EF30FA /* PipeFeatures.h */,
+				C3557DD6243BDDA200EF30FA /* PlaneAndOffsetsHolePositionDefinition.h */,
+				C3557DD7243BDDA200EF30FA /* OnEdgeHolePositionDefinition.h */,
+				C3557DD8243BDDA200EF30FA /* TrimFeatureInput.h */,
+				C3557DD9243BDDA200EF30FA /* SplitFaceFeatures.h */,
+				C3557DDA243BDDA200EF30FA /* HoleFeatures.h */,
+				C3557DDB243BDDA200EF30FA /* SilhouetteSplitFeatureInput.h */,
+				C3557DDC243BDDA200EF30FA /* CopyPasteBodies.h */,
+				C3557DDD243BDDA200EF30FA /* CutPasteBodies.h */,
+				C3557DDE243BDDA200EF30FA /* TorusFeatures.h */,
+				C3557DDF243BDDA200EF30FA /* OneSideToExtentDefinition.h */,
+				C3557DE0243BDDA200EF30FA /* PatchFeatures.h */,
+				C3557DE1243BDDA200EF30FA /* ChamferFeatures.h */,
+				C3557DE2243BDDA200EF30FA /* LoftCenterLineOrRails.h */,
+				C3557DE3243BDDA200EF30FA /* CoilFeatureInput.h */,
+				C3557DE4243BDDA200EF30FA /* LoftSections.h */,
+				C3557DE5243BDDA200EF30FA /* LoftFeatures.h */,
+				C3557DE6243BDDA200EF30FA /* PatternElements.h */,
+				C3557DE7243BDDA200EF30FA /* BRepCell.h */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		C3557DE8243BDDA200EF30FA /* BRep */ = {
+			isa = PBXGroup;
+			children = (
+				C3557DE9243BDDA200EF30FA /* BRepLoops.h */,
+				C3557DEA243BDDA200EF30FA /* BRepBodies.h */,
+				C3557DEB243BDDA200EF30FA /* BRepLoop.h */,
+				C3557DEC243BDDA200EF30FA /* BRepVertex.h */,
+				C3557DED243BDDA200EF30FA /* BRepWires.h */,
+				C3557DEE243BDDA200EF30FA /* BRepLump.h */,
+				C3557DEF243BDDA200EF30FA /* BRepShells.h */,
+				C3557DF0243BDDA200EF30FA /* BRepFace.h */,
+				C3557DF1243BDDA200EF30FA /* BRepFaces.h */,
+				C3557DF2243BDDA200EF30FA /* BRepVertices.h */,
+				C3557DF3243BDDA200EF30FA /* BRepCoEdges.h */,
+				C3557DF4243BDDA200EF30FA /* BRepEdges.h */,
+				C3557DF5243BDDA200EF30FA /* BRepEdge.h */,
+				C3557DF6243BDDA200EF30FA /* BRepCoEdge.h */,
+				C3557DF7243BDDA200EF30FA /* BRepWire.h */,
+				C3557DF8243BDDA200EF30FA /* BRepLumps.h */,
+				C3557DF9243BDDA200EF30FA /* TemporaryBRepManager.h */,
+				C3557DFA243BDDA200EF30FA /* BRepShell.h */,
+				C3557DFB243BDDA200EF30FA /* BRepBody.h */,
+			);
+			path = BRep;
+			sourceTree = "<group>";
+		};
+		C3557DFC243BDDA200EF30FA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C3557DFD243BDDA200EF30FA /* ContactSets.h */,
+				C3557DFE243BDDA200EF30FA /* Occurrences.h */,
+				C3557DFF243BDDA200EF30FA /* AsBuiltJointInput.h */,
+				C3557E00243BDDA200EF30FA /* JointOrigins.h */,
+				C3557E01243BDDA200EF30FA /* OccurrenceList.h */,
+				C3557E02243BDDA200EF30FA /* AsBuiltJoints.h */,
+				C3557E03243BDDA200EF30FA /* JointMotion.h */,
+				C3557E04243BDDA200EF30FA /* PinSlotJointMotion.h */,
+				C3557E05243BDDA200EF30FA /* AsBuiltJoint.h */,
+				C3557E06243BDDA200EF30FA /* RigidGroups.h */,
+				C3557E07243BDDA200EF30FA /* CylindricalJointMotion.h */,
+				C3557E08243BDDA200EF30FA /* JointOriginList.h */,
+				C3557E09243BDDA200EF30FA /* BaseComponent.h */,
+				C3557E0A243BDDA200EF30FA /* JointOriginInput.h */,
+				C3557E0B243BDDA200EF30FA /* BallJointMotion.h */,
+				C3557E0C243BDDA200EF30FA /* ComponentList.h */,
+				C3557E0D243BDDA200EF30FA /* Joint.h */,
+				C3557E0E243BDDA200EF30FA /* JointGeometry.h */,
+				C3557E0F243BDDA200EF30FA /* RigidGroupList.h */,
+				C3557E10243BDDA200EF30FA /* Components.h */,
+				C3557E11243BDDA200EF30FA /* JointOrigin.h */,
+				C3557E12243BDDA200EF30FA /* Occurrence.h */,
+				C3557E13243BDDA200EF30FA /* JointLimits.h */,
+				C3557E14243BDDA200EF30FA /* JointInput.h */,
+				C3557E15243BDDA200EF30FA /* AsBuiltJointList.h */,
+				C3557E16243BDDA200EF30FA /* Component.h */,
+				C3557E17243BDDA200EF30FA /* SliderJointMotion.h */,
+				C3557E18243BDDA200EF30FA /* ContactSet.h */,
+				C3557E19243BDDA200EF30FA /* RigidJointMotion.h */,
+				C3557E1A243BDDA200EF30FA /* RevoluteJointMotion.h */,
+				C3557E1B243BDDA200EF30FA /* RigidGroup.h */,
+				C3557E1C243BDDA200EF30FA /* PlanarJointMotion.h */,
+				C3557E1D243BDDA200EF30FA /* Joints.h */,
+				C3557E1E243BDDA200EF30FA /* JointList.h */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C3557E1F243BDDA200EF30FA /* Construction */ = {
+			isa = PBXGroup;
+			children = (
+				C3557E20243BDDA200EF30FA /* ConstructionAxisNormalToFaceAtPointDefinition.h */,
+				C3557E21243BDDA200EF30FA /* ConstructionPlane.h */,
+				C3557E22243BDDA200EF30FA /* ConstructionPoints.h */,
+				C3557E23243BDDA200EF30FA /* ConstructionAxisPerpendicularAtPointDefinition.h */,
+				C3557E24243BDDA200EF30FA /* ConstructionPlaneByPlaneDefinition.h */,
+				C3557E25243BDDA200EF30FA /* ConstructionPlaneTangentDefinition.h */,
+				C3557E26243BDDA200EF30FA /* ConstructionPlaneAtAngleDefinition.h */,
+				C3557E27243BDDA200EF30FA /* ConstructionPointEdgePlaneDefinition.h */,
+				C3557E28243BDDA200EF30FA /* ConstructionPointInput.h */,
+				C3557E29243BDDA200EF30FA /* ConstructionPlaneMidplaneDefinition.h */,
+				C3557E2A243BDDA200EF30FA /* ConstructionPoint.h */,
+				C3557E2B243BDDA200EF30FA /* ConstructionPlanes.h */,
+				C3557E2C243BDDA200EF30FA /* ConstructionAxis.h */,
+				C3557E2D243BDDA200EF30FA /* ConstructionPlaneTangentAtPointDefinition.h */,
+				C3557E2E243BDDA200EF30FA /* ConstructionPointThreePlanesDefinition.h */,
+				C3557E2F243BDDA200EF30FA /* ConstructionPlaneTwoEdgesDefinition.h */,
+				C3557E30243BDDA200EF30FA /* ConstructionAxisEdgeDefinition.h */,
+				C3557E31243BDDA200EF30FA /* ConstructionPointDefinition.h */,
+				C3557E32243BDDA200EF30FA /* ConstructionPlaneDefinition.h */,
+				C3557E33243BDDA200EF30FA /* ConstructionAxisTwoPlaneDefinition.h */,
+				C3557E34243BDDA200EF30FA /* ConstructionAxisTwoPointDefinition.h */,
+				C3557E35243BDDA200EF30FA /* ConstructionAxisInput.h */,
+				C3557E36243BDDA200EF30FA /* ConstructionAxisCircularFaceDefinition.h */,
+				C3557E37243BDDA200EF30FA /* ConstructionPointTwoEdgesDefinition.h */,
+				C3557E38243BDDA200EF30FA /* ConstructionPlaneInput.h */,
+				C3557E39243BDDA200EF30FA /* ConstructionPlaneThreePointsDefinition.h */,
+				C3557E3A243BDDA200EF30FA /* ConstructionPlaneOffsetDefinition.h */,
+				C3557E3B243BDDA200EF30FA /* ConstructionAxisDefinition.h */,
+				C3557E3C243BDDA200EF30FA /* ConstructionPointCenterDefinition.h */,
+				C3557E3D243BDDA200EF30FA /* ConstructionAxes.h */,
+				C3557E3E243BDDA200EF30FA /* ConstructionPointPointDefinition.h */,
+				C3557E3F243BDDA200EF30FA /* ConstructionAxisByLineDefinition.h */,
+				C3557E40243BDDA200EF30FA /* ConstructionPlaneDistanceOnPathDefinition.h */,
+			);
+			path = Construction;
+			sourceTree = "<group>";
+		};
+		C3557E41243BDDA200EF30FA /* MeshBody */ = {
+			isa = PBXGroup;
+			children = (
+				C3557E42243BDDA200EF30FA /* MeshBody.h */,
+				C3557E43243BDDA200EF30FA /* MeshBodies.h */,
+				C3557E44243BDDA200EF30FA /* MeshBodyList.h */,
+			);
+			path = MeshBody;
+			sourceTree = "<group>";
+		};
+		C3557E45243BDDA200EF30FA /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				C3557E46243BDDA200EF30FA /* CustomGraphicsLines.h */,
+				C3557E47243BDDA200EF30FA /* CustomGraphicsBRepVertices.h */,
+				C3557E48243BDDA200EF30FA /* CustomGraphicsPointSet.h */,
+				C3557E49243BDDA200EF30FA /* CustomGraphicsBasicMaterialColorEffect.h */,
+				C3557E4A243BDDA200EF30FA /* CustomGraphicsBillBoard.h */,
+				C3557E4B243BDDA200EF30FA /* CustomGraphicsVertexColorEffect.h */,
+				C3557E4C243BDDA200EF30FA /* CustomGraphicsBRepEdges.h */,
+				C3557E4D243BDDA200EF30FA /* CustomGraphicsBRepBody.h */,
+				C3557E4E243BDDA200EF30FA /* CustomGraphicsViewScale.h */,
+				C3557E4F243BDDA200EF30FA /* CustomGraphicsGroup.h */,
+				C3557E50243BDDA200EF30FA /* CustomGraphicsMesh.h */,
+				C3557E51243BDDA200EF30FA /* CustomGraphicsSolidColorEffect.h */,
+				C3557E52243BDDA200EF30FA /* CustomGraphicsCoordinates.h */,
+				C3557E53243BDDA200EF30FA /* CustomGraphicsColorEffect.h */,
+				C3557E54243BDDA200EF30FA /* CustomGraphicsCurve.h */,
+				C3557E55243BDDA200EF30FA /* CustomGraphicsGroups.h */,
+				C3557E56243BDDA200EF30FA /* CustomGraphicsBRepFaces.h */,
+				C3557E57243BDDA200EF30FA /* CustomGraphicsAppearanceColorEffect.h */,
+				C3557E58243BDDA200EF30FA /* CustomGraphicsViewPlacement.h */,
+				C3557E59243BDDA200EF30FA /* CustomGraphicsText.h */,
+				C3557E5A243BDDA200EF30FA /* CustomGraphicsEntity.h */,
+			);
+			path = Graphics;
+			sourceTree = "<group>";
+		};
+		C3557E5C243BDDA200EF30FA /* Sketch */ = {
+			isa = PBXGroup;
+			children = (
+				C3557E5D243BDDA200EF30FA /* ProfileCurve.h */,
+				C3557E5E243BDDA200EF30FA /* SketchEllipseMajorRadiusDimension.h */,
+				C3557E5F243BDDA200EF30FA /* SketchText.h */,
+				C3557E60243BDDA200EF30FA /* SketchFixedSpline.h */,
+				C3557E61243BDDA200EF30FA /* SketchCurve.h */,
+				C3557E62243BDDA200EF30FA /* TangentConstraint.h */,
+				C3557E63243BDDA200EF30FA /* SketchLinearDimension.h */,
+				C3557E64243BDDA200EF30FA /* SketchConicCurve.h */,
+				C3557E65243BDDA200EF30FA /* SketchDiameterDimension.h */,
+				C3557E66243BDDA200EF30FA /* Profiles.h */,
+				C3557E67243BDDA200EF30FA /* Profile.h */,
+				C3557E68243BDDA200EF30FA /* SketchConicCurves.h */,
+				C3557E69243BDDA200EF30FA /* SketchEllipticalArc.h */,
+				C3557E6A243BDDA200EF30FA /* SketchEllipse.h */,
+				C3557E6B243BDDA200EF30FA /* RectangularPatternConstraint.h */,
+				C3557E6C243BDDA200EF30FA /* SketchEntityList.h */,
+				C3557E6D243BDDA200EF30FA /* OffsetConstraint.h */,
+				C3557E6E243BDDA200EF30FA /* SketchCircle.h */,
+				C3557E6F243BDDA200EF30FA /* SketchEllipses.h */,
+				C3557E70243BDDA200EF30FA /* SketchDimension.h */,
+				C3557E71243BDDA200EF30FA /* SketchTextInput.h */,
+				C3557E72243BDDA200EF30FA /* SketchDimensions.h */,
+				C3557E73243BDDA200EF30FA /* SketchFittedSplines.h */,
+				C3557E74243BDDA200EF30FA /* VerticalPointsConstraint.h */,
+				C3557E75243BDDA200EF30FA /* HorizontalPointsConstraint.h */,
+				C3557E76243BDDA200EF30FA /* CircularPatternConstraint.h */,
+				C3557E77243BDDA200EF30FA /* ProfileCurves.h */,
+				C3557E78243BDDA200EF30FA /* EqualConstraint.h */,
+				C3557E79243BDDA200EF30FA /* SketchTexts.h */,
+				C3557E7A243BDDA200EF30FA /* ProfileLoops.h */,
+				C3557E7B243BDDA200EF30FA /* SymmetryConstraint.h */,
+				C3557E7C243BDDA200EF30FA /* SketchLines.h */,
+				C3557E7D243BDDA200EF30FA /* SketchLineList.h */,
+				C3557E7E243BDDA200EF30FA /* VerticalConstraint.h */,
+				C3557E7F243BDDA200EF30FA /* SketchPoint.h */,
+				C3557E80243BDDA200EF30FA /* SketchArcs.h */,
+				C3557E81243BDDA200EF30FA /* ProfileLoop.h */,
+				C3557E82243BDDA200EF30FA /* MidPointConstraint.h */,
+				C3557E83243BDDA300EF30FA /* SketchFixedSplines.h */,
+				C3557E84243BDDA300EF30FA /* SketchPoints.h */,
+				C3557E85243BDDA300EF30FA /* CollinearConstraint.h */,
+				C3557E86243BDDA300EF30FA /* SketchCurves.h */,
+				C3557E87243BDDA300EF30FA /* SketchRadialDimension.h */,
+				C3557E88243BDDA300EF30FA /* SmoothConstraint.h */,
+				C3557E89243BDDA300EF30FA /* SketchOffsetCurvesDimension.h */,
+				C3557E8A243BDDA300EF30FA /* Sketch.h */,
+				C3557E8B243BDDA300EF30FA /* GeometricConstraints.h */,
+				C3557E8C243BDDA300EF30FA /* SketchFittedSpline.h */,
+				C3557E8D243BDDA300EF30FA /* PerpendicularConstraint.h */,
+				C3557E8E243BDDA300EF30FA /* PolygonConstraint.h */,
+				C3557E8F243BDDA300EF30FA /* SketchArc.h */,
+				C3557E90243BDDA300EF30FA /* SketchPointList.h */,
+				C3557E91243BDDA300EF30FA /* SketchEntity.h */,
+				C3557E92243BDDA300EF30FA /* SketchDimensionList.h */,
+				C3557E93243BDDA300EF30FA /* ParallelConstraint.h */,
+				C3557E94243BDDA300EF30FA /* SketchEllipticalArcs.h */,
+				C3557E95243BDDA300EF30FA /* ConcentricConstraint.h */,
+				C3557E96243BDDA300EF30FA /* SketchAngularDimension.h */,
+				C3557E97243BDDA300EF30FA /* CoincidentConstraint.h */,
+				C3557E98243BDDA300EF30FA /* GeometricConstraintList.h */,
+				C3557E99243BDDA300EF30FA /* HorizontalConstraint.h */,
+				C3557E9A243BDDA300EF30FA /* SketchCircles.h */,
+				C3557E9B243BDDA300EF30FA /* Sketches.h */,
+				C3557E9C243BDDA300EF30FA /* SketchConcentricCircleDimension.h */,
+				C3557E9D243BDDA300EF30FA /* SketchEllipseMinorRadiusDimension.h */,
+				C3557E9E243BDDA300EF30FA /* SketchOffsetDimension.h */,
+				C3557E9F243BDDA300EF30FA /* SketchLine.h */,
+				C3557EA0243BDDA300EF30FA /* GeometricConstraint.h */,
+			);
+			path = Sketch;
+			sourceTree = "<group>";
+		};
+		C3557EA1243BDDA300EF30FA /* TSpline */ = {
+			isa = PBXGroup;
+			children = (
+				C3557EA2243BDDA300EF30FA /* TSplineBody.h */,
+				C3557EA3243BDDA300EF30FA /* TSplineBodies.h */,
+			);
+			path = TSpline;
+			sourceTree = "<group>";
+		};
+		C3557EA4243BDDA300EF30FA /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C3557EA5243BDDA300EF30FA /* Utils.h */,
+				C3557EA6243BDDA300EF30FA /* Deallocator.h */,
+				C3557EA7243BDDA300EF30FA /* Materials */,
+				C3557EBB243BDDA300EF30FA /* CoreAll.h */,
+				C3557EBC243BDDA300EF30FA /* Dashboard */,
+				C3557EC7243BDDA300EF30FA /* OSMacros.h */,
+				C3557EC8243BDDA300EF30FA /* .gitignore */,
+				C3557EC9243BDDA300EF30FA /* CoreTypeDefs.h */,
+				C3557ECA243BDDA300EF30FA /* Memory.h */,
+				C3557ECB243BDDA300EF30FA /* UserInterface */,
+				C3557F28243BDDA300EF30FA /* Geometry */,
+				C3557F4D243BDDA300EF30FA /* Application */,
+				C3557F7E243BDDA300EF30FA /* Base.h */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		C3557EA7243BDDA300EF30FA /* Materials */ = {
+			isa = PBXGroup;
+			children = (
+				C3557EA8243BDDA300EF30FA /* FloatProperty.h */,
+				C3557EA9243BDDA300EF30FA /* ChoiceProperty.h */,
+				C3557EAA243BDDA300EF30FA /* AppearanceTextureProperty.h */,
+				C3557EAB243BDDA300EF30FA /* MaterialLibraries.h */,
+				C3557EAC243BDDA300EF30FA /* Materials.h */,
+				C3557EAD243BDDA300EF30FA /* Material.h */,
+				C3557EAE243BDDA300EF30FA /* FilenameProperty.h */,
+				C3557EAF243BDDA300EF30FA /* BooleanProperty.h */,
+				C3557EB0243BDDA300EF30FA /* MaterialLibrary.h */,
+				C3557EB1243BDDA300EF30FA /* Appearance.h */,
+				C3557EB2243BDDA300EF30FA /* ColorProperty.h */,
+				C3557EB3243BDDA300EF30FA /* Appearances.h */,
+				C3557EB4243BDDA300EF30FA /* FavoriteAppearances.h */,
+				C3557EB5243BDDA300EF30FA /* StringProperty.h */,
+				C3557EB6243BDDA300EF30FA /* Property.h */,
+				C3557EB7243BDDA300EF30FA /* AppearanceTexture.h */,
+				C3557EB8243BDDA300EF30FA /* FavoriteMaterials.h */,
+				C3557EB9243BDDA300EF30FA /* IntegerProperty.h */,
+				C3557EBA243BDDA300EF30FA /* Properties.h */,
+			);
+			path = Materials;
+			sourceTree = "<group>";
+		};
+		C3557EBC243BDDA300EF30FA /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				C3557EBD243BDDA300EF30FA /* DataFolder.h */,
+				C3557EBE243BDDA300EF30FA /* DataFile.h */,
+				C3557EBF243BDDA300EF30FA /* Data.h */,
+				C3557EC0243BDDA300EF30FA /* DataFileFuture.h */,
+				C3557EC1243BDDA300EF30FA /* DataFiles.h */,
+				C3557EC2243BDDA300EF30FA /* DataFolders.h */,
+				C3557EC3243BDDA300EF30FA /* DataHubs.h */,
+				C3557EC4243BDDA300EF30FA /* DataProject.h */,
+				C3557EC5243BDDA300EF30FA /* DataProjects.h */,
+				C3557EC6243BDDA300EF30FA /* DataHub.h */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		C3557ECB243BDDA300EF30FA /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				C3557ECC243BDDA300EF30FA /* CommandInputs.h */,
+				C3557ECD243BDDA300EF30FA /* ToolbarPanel.h */,
+				C3557ECE243BDDA300EF30FA /* TabCommandInput.h */,
+				C3557ECF243BDDA300EF30FA /* ListControlDefinition.h */,
+				C3557ED0243BDDA300EF30FA /* FolderDialog.h */,
+				C3557ED1243BDDA300EF30FA /* TableCommandInput.h */,
+				C3557ED2243BDDA300EF30FA /* CommandCreatedEventHandler.h */,
+				C3557ED3243BDDA300EF30FA /* KeyboardEventArgs.h */,
+				C3557ED4243BDDA300EF30FA /* CommandEvent.h */,
+				C3557ED5243BDDA300EF30FA /* RadialMarkingMenu.h */,
+				C3557ED6243BDDA300EF30FA /* InputChangedEventHandler.h */,
+				C3557ED7243BDDA300EF30FA /* ValidateInputsEventArgs.h */,
+				C3557ED8243BDDA300EF30FA /* KeyboardEventHandler.h */,
+				C3557ED9243BDDA300EF30FA /* FloatSpinnerCommandInput.h */,
+				C3557EDA243BDDA300EF30FA /* CommandInput.h */,
+				C3557EDB243BDDA300EF30FA /* SelectionEventArgs.h */,
+				C3557EDC243BDDA300EF30FA /* Palettes.h */,
+				C3557EDD243BDDA300EF30FA /* UserInterface.h */,
+				C3557EDE243BDDA300EF30FA /* SliderCommandInput.h */,
+				C3557EDF243BDDA300EF30FA /* CommandEventHandler.h */,
+				C3557EE0243BDDA300EF30FA /* ApplicationCommandEventHandler.h */,
+				C3557EE1243BDDA300EF30FA /* InputChangedEvent.h */,
+				C3557EE2243BDDA300EF30FA /* ToolbarPanelList.h */,
+				C3557EE3243BDDA300EF30FA /* ToolbarControls.h */,
+				C3557EE4243BDDA300EF30FA /* TextBoxCommandInput.h */,
+				C3557EE5243BDDA300EF30FA /* DirectionCommandInput.h */,
+				C3557EE6243BDDA300EF30FA /* CheckBoxControlDefinition.h */,
+				C3557EE7243BDDA300EF30FA /* MouseEventHandler.h */,
+				C3557EE8243BDDA300EF30FA /* ValidateInputsEvent.h */,
+				C3557EE9243BDDA300EF30FA /* SelectionEvent.h */,
+				C3557EEA243BDDA300EF30FA /* ListItems.h */,
+				C3557EEB243BDDA300EF30FA /* BoolValueCommandInput.h */,
+				C3557EEC243BDDA300EF30FA /* MarkingMenuEvent.h */,
+				C3557EED243BDDA300EF30FA /* MouseEventArgs.h */,
+				C3557EEE243BDDA300EF30FA /* DropDownCommandInput.h */,
+				C3557EEF243BDDA300EF30FA /* StringValueCommandInput.h */,
+				C3557EF0243BDDA300EF30FA /* CommandCreatedEventArgs.h */,
+				C3557EF1243BDDA300EF30FA /* TextCommandPalette.h */,
+				C3557EF2243BDDA300EF30FA /* LinearMarkingMenu.h */,
+				C3557EF3243BDDA300EF30FA /* ImageCommandInput.h */,
+				C3557EF4243BDDA300EF30FA /* ButtonControlDefinition.h */,
+				C3557EF5243BDDA300EF30FA /* ToolbarTab.h */,
+				C3557EF6243BDDA300EF30FA /* WorkspaceEvent.h */,
+				C3557EF7243BDDA300EF30FA /* GroupCommandInput.h */,
+				C3557EF8243BDDA300EF30FA /* InputChangedEventArgs.h */,
+				C3557EF9243BDDA300EF30FA /* CommandDefinitions.h */,
+				C3557EFA243BDDA300EF30FA /* Workspaces.h */,
+				C3557EFB243BDDA300EF30FA /* Workspace.h */,
+				C3557EFC243BDDA300EF30FA /* DistanceValueCommandInput.h */,
+				C3557EFD243BDDA300EF30FA /* CommandControl.h */,
+				C3557EFE243BDDA300EF30FA /* Selections.h */,
+				C3557EFF243BDDA300EF30FA /* HTMLEvents.h */,
+				C3557F00243BDDA300EF30FA /* ToolbarPanels.h */,
+				C3557F01243BDDA300EF30FA /* ToolbarControl.h */,
+				C3557F02243BDDA300EF30FA /* Palette.h */,
+				C3557F03243BDDA300EF30FA /* WorkspaceList.h */,
+				C3557F04243BDDA300EF30FA /* IntegerSliderCommandInput.h */,
+				C3557F05243BDDA300EF30FA /* MarkingMenuEventArgs.h */,
+				C3557F06243BDDA300EF30FA /* ButtonRowCommandInput.h */,
+				C3557F07243BDDA300EF30FA /* ProgressDialog.h */,
+				C3557F08243BDDA300EF30FA /* ValueCommandInput.h */,
+				C3557F09243BDDA300EF30FA /* SeparatorControl.h */,
+				C3557F0A243BDDA300EF30FA /* SelectionEventHandler.h */,
+				C3557F0B243BDDA300EF30FA /* UserInterfaceGeneralEvents.h */,
+				C3557F0C243BDDA300EF30FA /* MarkingMenuEventHandler.h */,
+				C3557F0D243BDDA300EF30FA /* ListItem.h */,
+				C3557F0E243BDDA300EF30FA /* DropDownControl.h */,
+				C3557F0F243BDDA300EF30FA /* SelectionCommandInput.h */,
+				C3557F10243BDDA300EF30FA /* ValidateInputsEventHandler.h */,
+				C3557F11243BDDA300EF30FA /* MouseEvent.h */,
+				C3557F12243BDDA300EF30FA /* CommandDefinition.h */,
+				C3557F13243BDDA300EF30FA /* FloatSliderCommandInput.h */,
+				C3557F14243BDDA300EF30FA /* ApplicationCommandEvent.h */,
+				C3557F15243BDDA300EF30FA /* ToolbarTabList.h */,
+				C3557F16243BDDA300EF30FA /* ControlDefinition.h */,
+				C3557F17243BDDA300EF30FA /* WorkspaceEventHandler.h */,
+				C3557F18243BDDA300EF30FA /* Command.h */,
+				C3557F19243BDDA300EF30FA /* Toolbar.h */,
+				C3557F1A243BDDA300EF30FA /* SplitButtonControl.h */,
+				C3557F1B243BDDA300EF30FA /* IntegerSpinnerCommandInput.h */,
+				C3557F1C243BDDA300EF30FA /* CommandEventArgs.h */,
+				C3557F1D243BDDA300EF30FA /* Toolbars.h */,
+				C3557F1E243BDDA300EF30FA /* CommandCreatedEvent.h */,
+				C3557F1F243BDDA300EF30FA /* ToolbarControlList.h */,
+				C3557F20243BDDA300EF30FA /* Selection.h */,
+				C3557F21243BDDA300EF30FA /* FileDialog.h */,
+				C3557F22243BDDA300EF30FA /* ToolbarTabs.h */,
+				C3557F23243BDDA300EF30FA /* WorkspaceEventArgs.h */,
+				C3557F24243BDDA300EF30FA /* KeyboardEvent.h */,
+				C3557F25243BDDA300EF30FA /* ApplicationCommandEventArgs.h */,
+				C3557F26243BDDA300EF30FA /* RadioButtonGroupCommandInput.h */,
+				C3557F27243BDDA300EF30FA /* AngleValueCommandInput.h */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		C3557F28243BDDA300EF30FA /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				C3557F29243BDDA300EF30FA /* Cone.h */,
+				C3557F2A243BDDA300EF30FA /* EllipticalArc3D.h */,
+				C3557F2B243BDDA300EF30FA /* NurbsCurve3D.h */,
+				C3557F2C243BDDA300EF30FA /* BoundingBox2D.h */,
+				C3557F2D243BDDA300EF30FA /* NurbsCurve2D.h */,
+				C3557F2E243BDDA300EF30FA /* BoundingBox3D.h */,
+				C3557F2F243BDDA300EF30FA /* Surface.h */,
+				C3557F30243BDDA300EF30FA /* SurfaceEvaluator.h */,
+				C3557F31243BDDA300EF30FA /* EllipticalArc2D.h */,
+				C3557F32243BDDA300EF30FA /* NurbsSurface.h */,
+				C3557F33243BDDA300EF30FA /* Torus.h */,
+				C3557F34243BDDA300EF30FA /* Sphere.h */,
+				C3557F35243BDDA300EF30FA /* OrientedBoundingBox3D.h */,
+				C3557F36243BDDA300EF30FA /* Arc3D.h */,
+				C3557F37243BDDA300EF30FA /* CurveEvaluator2D.h */,
+				C3557F38243BDDA300EF30FA /* Cylinder.h */,
+				C3557F39243BDDA300EF30FA /* Curve2D.h */,
+				C3557F3A243BDDA300EF30FA /* Line3D.h */,
+				C3557F3B243BDDA300EF30FA /* Arc2D.h */,
+				C3557F3C243BDDA300EF30FA /* CurveEvaluator3D.h */,
+				C3557F3D243BDDA300EF30FA /* EllipticalCylinder.h */,
+				C3557F3E243BDDA300EF30FA /* InfiniteLine3D.h */,
+				C3557F3F243BDDA300EF30FA /* Curve3D.h */,
+				C3557F40243BDDA300EF30FA /* Plane.h */,
+				C3557F41243BDDA300EF30FA /* Line2D.h */,
+				C3557F42243BDDA300EF30FA /* Ellipse2D.h */,
+				C3557F43243BDDA300EF30FA /* Ellipse3D.h */,
+				C3557F44243BDDA300EF30FA /* Matrix2D.h */,
+				C3557F45243BDDA300EF30FA /* Point2D.h */,
+				C3557F46243BDDA300EF30FA /* EllipticalCone.h */,
+				C3557F47243BDDA300EF30FA /* Vector3D.h */,
+				C3557F48243BDDA300EF30FA /* Circle2D.h */,
+				C3557F49243BDDA300EF30FA /* Vector2D.h */,
+				C3557F4A243BDDA300EF30FA /* Circle3D.h */,
+				C3557F4B243BDDA300EF30FA /* Matrix3D.h */,
+				C3557F4C243BDDA300EF30FA /* Point3D.h */,
+			);
+			path = Geometry;
+			sourceTree = "<group>";
+		};
+		C3557F4D243BDDA300EF30FA /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C3557F4E243BDDA300EF30FA /* ProductUsageData.h */,
+				C3557F4F243BDDA300EF30FA /* NamedValues.h */,
+				C3557F50243BDDA300EF30FA /* NetworkPreferences.h */,
+				C3557F51243BDDA300EF30FA /* EventHandler.h */,
+				C3557F52243BDDA300EF30FA /* WebRequestEvents.h */,
+				C3557F53243BDDA300EF30FA /* Product.h */,
+				C3557F54243BDDA300EF30FA /* MeasureResults.h */,
+				C3557F55243BDDA300EF30FA /* ProductPreferencesCollection.h */,
+				C3557F56243BDDA300EF30FA /* Viewport.h */,
+				C3557F57243BDDA300EF30FA /* SMTImportOptions.h */,
+				C3557F58243BDDA300EF30FA /* Application.h */,
+				C3557F59243BDDA300EF30FA /* ScriptHandler.h */,
+				C3557F5A243BDDA300EF30FA /* Camera.h */,
+				C3557F5B243BDDA300EF30FA /* IGESImportOptions.h */,
+				C3557F5C243BDDA300EF30FA /* Events.h */,
+				C3557F5D243BDDA300EF30FA /* ImportOptions.h */,
+				C3557F5E243BDDA300EF30FA /* GridPreferences.h */,
+				C3557F5F243BDDA300EF30FA /* Preferences.h */,
+				C3557F60243BDDA300EF30FA /* GraphicsPreferences.h */,
+				C3557F61243BDDA300EF30FA /* Color.h */,
+				C3557F62243BDDA300EF30FA /* ImportManager.h */,
+				C3557F63243BDDA300EF30FA /* Attributes.h */,
+				C3557F64243BDDA300EF30FA /* ValueInput.h */,
+				C3557F65243BDDA300EF30FA /* UnitsManager.h */,
+				C3557F66243BDDA300EF30FA /* IAddIn.h */,
+				C3557F67243BDDA300EF30FA /* MaterialPreferences.h */,
+				C3557F68243BDDA300EF30FA /* FusionArchiveImportOptions.h */,
+				C3557F69243BDDA300EF30FA /* User.h */,
+				C3557F6A243BDDA300EF30FA /* DefaultUnitsPreferences.h */,
+				C3557F6B243BDDA300EF30FA /* CameraEvents.h */,
+				C3557F6C243BDDA300EF30FA /* Document.h */,
+				C3557F6D243BDDA300EF30FA /* CustomEvents.h */,
+				C3557F6E243BDDA300EF30FA /* MeasureManager.h */,
+				C3557F6F243BDDA300EF30FA /* ObjectCollection.h */,
+				C3557F70243BDDA300EF30FA /* STEPImportOptions.h */,
+				C3557F71243BDDA300EF30FA /* DocumentReferences.h */,
+				C3557F72243BDDA300EF30FA /* ApplicationEvents.h */,
+				C3557F73243BDDA300EF30FA /* Attribute.h */,
+				C3557F74243BDDA300EF30FA /* Documents.h */,
+				C3557F75243BDDA300EF30FA /* DXF2DImportOptions.h */,
+				C3557F76243BDDA300EF30FA /* DocumentReference.h */,
+				C3557F77243BDDA300EF30FA /* GeneralPreferences.h */,
+				C3557F78243BDDA300EF30FA /* ProductPreferences.h */,
+				C3557F79243BDDA300EF30FA /* DocumentEvents.h */,
+				C3557F7A243BDDA300EF30FA /* DefaultUnitsPreferencesCollection.h */,
+				C3557F7B243BDDA300EF30FA /* Products.h */,
+				C3557F7C243BDDA300EF30FA /* UnitAndValuePreferences.h */,
+				C3557F7D243BDDA300EF30FA /* SATImportOptions.h */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		C3557F7F243BDDA300EF30FA /* CAM */ = {
+			isa = PBXGroup;
+			children = (
+				C3557F80243BDDA300EF30FA /* CAMTypeDefs.h */,
+				C3557F81243BDDA300EF30FA /* Operations */,
+				C3557F85243BDDA300EF30FA /* CAM */,
+				C3557F91243BDDA300EF30FA /* CAMAll.h */,
+			);
+			path = CAM;
+			sourceTree = "<group>";
+		};
+		C3557F81243BDDA300EF30FA /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				C3557F82243BDDA300EF30FA /* Operations.h */,
+				C3557F83243BDDA300EF30FA /* OperationBase.h */,
+				C3557F84243BDDA300EF30FA /* Operation.h */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		C3557F85243BDDA300EF30FA /* CAM */ = {
+			isa = PBXGroup;
+			children = (
+				C3557F86243BDDA300EF30FA /* ChildOperationList.h */,
+				C3557F87243BDDA300EF30FA /* PostProcessInput.h */,
+				C3557F88243BDDA300EF30FA /* CAMFolder.h */,
+				C3557F89243BDDA300EF30FA /* Setup.h */,
+				C3557F8A243BDDA300EF30FA /* CAMFolders.h */,
+				C3557F8B243BDDA300EF30FA /* MachiningTime.h */,
+				C3557F8C243BDDA300EF30FA /* GenerateToolpathFuture.h */,
+				C3557F8D243BDDA300EF30FA /* CAM.h */,
+				C3557F8E243BDDA300EF30FA /* CAMPattern.h */,
+				C3557F8F243BDDA300EF30FA /* CAMPatterns.h */,
+				C3557F90243BDDA300EF30FA /* Setups.h */,
+			);
+			path = CAM;
+			sourceTree = "<group>";
+		};
+		C3557F92243BE2F800EF30FA /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				2BB196C51AD5940800164CD3 /* Fretboarder.cpp */,
+				C3557F93243BE34600EF30FA /* fretboard.cpp */,
+				C3557F94243BE34600EF30FA /* fretboard.hpp */,
+				C3557F97243BE39000EF30FA /* string.cpp */,
+				C3557F98243BE39000EF30FA /* string.hpp */,
+			);
+			path = sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2BB196BC1AD586AA00164CD3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3557F96243BE34600EF30FA /* fretboard.hpp in Headers */,
+				C3557F9A243BE39000EF30FA /* string.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2BB196BD1AD586AA00164CD3 /* Fretboarder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BB196C21AD586AA00164CD3 /* Build configuration list for PBXNativeTarget "Fretboarder" */;
+			buildPhases = (
+				2BB196BA1AD586AA00164CD3 /* Sources */,
+				2BB196BB1AD586AA00164CD3 /* Frameworks */,
+				2BB196BC1AD586AA00164CD3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fretboarder;
+			productName = Fretboarder;
+			productReference = 2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2BB196B61AD586AA00164CD3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Autodesk;
+			};
+			buildConfigurationList = 2BB196B91AD586AA00164CD3 /* Build configuration list for PBXProject "Fretboarder" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 2BB196B51AD586AA00164CD3;
+			productRefGroup = 2BB196BF1AD586AA00164CD3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2BB196BD1AD586AA00164CD3 /* Fretboarder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2BB196BA1AD586AA00164CD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3557F99243BE39000EF30FA /* string.cpp in Sources */,
+				2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */,
+				C3557F95243BE34600EF30FA /* fretboard.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2BB196C01AD586AA00164CD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/include",
+				);
+				LIBRARY_SEARCH_PATHS = "$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2BB196C11AD586AA00164CD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/include",
+				);
+				LIBRARY_SEARCH_PATHS = "$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2BB196C31AD586AA00164CD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				EXECUTABLE_EXTENSION = dylib;
+				EXECUTABLE_PREFIX = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PYTHONINC)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				INSTALL_PATH = "$(SRCROOT)";
+				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = "";
+				OTHER_LDFLAGS = (
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/core.dylib",
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/fusion.dylib",
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/cam.dylib",
+				);
+				PRELINK_LIBS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(SRCROOT)";
+			};
+			name = Debug;
+		};
+		2BB196C41AD586AA00164CD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				EXECUTABLE_EXTENSION = dylib;
+				EXECUTABLE_PREFIX = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PYTHONINC)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				INSTALL_PATH = "$(SRCROOT)";
+				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = "";
+				OTHER_LDFLAGS = (
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/core.dylib",
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/fusion.dylib",
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/cam.dylib",
+				);
+				PRELINK_LIBS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(SRCROOT)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2BB196B91AD586AA00164CD3 /* Build configuration list for PBXProject "Fretboarder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BB196C01AD586AA00164CD3 /* Debug */,
+				2BB196C11AD586AA00164CD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2BB196C21AD586AA00164CD3 /* Build configuration list for PBXNativeTarget "Fretboarder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BB196C31AD586AA00164CD3 /* Debug */,
+				2BB196C41AD586AA00164CD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2BB196B61AD586AA00164CD3 /* Project object */;
+}
