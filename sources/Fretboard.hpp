@@ -25,23 +25,35 @@ namespace fretboarder {
 
 
 struct Instrument {
-    int number_of_strings;
-    double scale_length[2];
-    double perpendicular_fret_index;
-    double string_spacing_at_nut;
-    double string_spacing_at_bridge;
+    int number_of_strings = 6;
+
+    double scale_length[2] = { 635.0, 647.7 };
+    double perpendicular_fret_index = 7;
+
+    double string_spacing_at_nut = 43.0;
+    double string_spacing_at_bridge = 70.0;
+
     double y_at_start = string_spacing_at_nut / 2;
     double y_at_bridge = string_spacing_at_bridge / 2;
-    bool has_zero_fret;
-    double nut_to_zero_fret_offset;
+
+    bool has_zero_fret = true;
+    double nut_to_zero_fret_offset = 3.0;
+
     double number_of_frets_per_octave = 12;
-    int number_of_frets;
-    double overhang;
-    double hidden_tang_length;
-    double fret_slots_width;
-    double last_fret_cut_offset;
-    double space_before_nut;
-    double nut_thickness;
+    int number_of_frets = 24;
+    double overhang = 3.0;
+
+    double hidden_tang_length = 2.0;
+    double fret_slots_width = 0.6;
+    double fret_slots_height = 1.5;
+
+    double last_fret_cut_offset = 0.0;
+
+    double space_before_nut = 12.0;
+    double nut_thickness = 4.0;
+
+    double radius_at_nut = 254.0; // 10"
+    double radius_at_last_fret = 508.0; // 20"
 };
 
 struct Quad {
