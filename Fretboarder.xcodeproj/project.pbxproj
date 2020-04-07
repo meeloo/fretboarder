@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BB196C51AD5940800164CD3 /* Fretboarder.cpp */; };
+		C33C0FEB243CCA44004F8F0F /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33C0FE9243CCA44004F8F0F /* Geometry.cpp */; };
+		C33C0FEC243CCA44004F8F0F /* Geometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C33C0FEA243CCA44004F8F0F /* Geometry.hpp */; };
 		C355821E243C738500EF30FA /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F98243BE39000EF30FA /* String.hpp */; };
 		C355821F243C7D2000EF30FA /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F97243BE39000EF30FA /* String.cpp */; };
+		C3558220243CAD2B00EF30FA /* Fretboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F93243BE34600EF30FA /* Fretboard.cpp */; };
+		C3558221243CAD2C00EF30FA /* Fretboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F94243BE34600EF30FA /* Fretboard.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Fretboarder.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BB196C51AD5940800164CD3 /* Fretboarder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboarder.cpp; sourceTree = "<group>"; };
+		C33C0FE9243CCA44004F8F0F /* Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
+		C33C0FEA243CCA44004F8F0F /* Geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
 		C3557F93243BE34600EF30FA /* Fretboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboard.cpp; sourceTree = "<group>"; };
 		C3557F94243BE34600EF30FA /* Fretboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Fretboard.hpp; sourceTree = "<group>"; };
 		C3557F97243BE39000EF30FA /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
@@ -687,6 +693,8 @@
 				C3557F94243BE34600EF30FA /* Fretboard.hpp */,
 				C3557F97243BE39000EF30FA /* String.cpp */,
 				C3557F98243BE39000EF30FA /* String.hpp */,
+				C33C0FE9243CCA44004F8F0F /* Geometry.cpp */,
+				C33C0FEA243CCA44004F8F0F /* Geometry.hpp */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -1488,7 +1496,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3558221243CAD2C00EF30FA /* Fretboard.hpp in Headers */,
 				C355821E243C738500EF30FA /* String.hpp in Headers */,
+				C33C0FEC243CCA44004F8F0F /* Geometry.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1545,7 +1555,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C355821F243C7D2000EF30FA /* String.cpp in Sources */,
+				C33C0FEB243CCA44004F8F0F /* Geometry.cpp in Sources */,
 				2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */,
+				C3558220243CAD2B00EF30FA /* Fretboard.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

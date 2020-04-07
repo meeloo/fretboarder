@@ -9,28 +9,26 @@
 #ifndef string_hpp
 #define string_hpp
 
-#include <Core/CoreAll.h>
-#include <Fusion/FusionAll.h>
 #include <math.h>
+#include "Geometry.hpp"
 
 namespace fretboarder {
 
 class String {
-public:
-    int index;
-    double scale_length;
-    double perpendicular_fret_index;
-    double perpendicular_fret_from_start;
-    double y_at_start;
-    double x_at_bridge;
-    double y_at_bridge;
-    double number_of_frets_per_octave;
-    double nut_to_zero_fret_offset;
-    double x_at_start;
-    double x_at_nut;
-    adsk::core::Ptr<adsk::core::Point3D> startPoint;
-    adsk::core::Ptr<adsk::core::Point3D> endPoint;
+private:
+    int _index;
+    double _scale_length;
+    double _perpendicular_fret_index;
+    double _perpendicular_fret_from_start;
+    double _x_at_start;
+    double _x_at_nut;
+    double _y_at_start;
+    double _x_at_bridge;
+    double _y_at_bridge;
+    double _number_of_frets_per_octave;
+    double _nut_to_zero_fret_offset;
 
+public:
     String(int index,
            double scale_length,
            double perpendicular_fret_index,
@@ -40,75 +38,91 @@ public:
            double nut_to_zero_fret_offset,
            double number_of_frets_per_octave=12)
     {
-        this->index = index;
-        this->scale_length = scale_length;
-        this->perpendicular_fret_index = perpendicular_fret_index;
-        this->x_at_start = 0;
-        this->y_at_start = y_at_start;
-        this->x_at_bridge = 0;
-        this->y_at_bridge = y_at_bridge;
-        this->number_of_frets_per_octave = number_of_frets_per_octave;
+        _index = index;
+        _scale_length = scale_length;
+        _perpendicular_fret_index = perpendicular_fret_index;
+        _x_at_start = 0;
+        _y_at_start = y_at_start;
+        _x_at_bridge = 0;
+        _y_at_bridge = y_at_bridge;
+        _number_of_frets_per_octave = number_of_frets_per_octave;
         
         if (has_zero_fret) {
-            this->nut_to_zero_fret_offset = nut_to_zero_fret_offset;
+            _nut_to_zero_fret_offset = nut_to_zero_fret_offset;
         }
         else {
-            this->nut_to_zero_fret_offset = 0;
+            _nut_to_zero_fret_offset = 0;
         }
                 
-// init StraightLine
-        perpendicular_fret_from_start = distance_from_start(perpendicular_fret_index);
+        // init StraightLine
+        _perpendicular_fret_from_start = distance_from_start(perpendicular_fret_index);
         
         double y_intersect = (
                        y_at_start
-                       + perpendicular_fret_from_start
+                       + _perpendicular_fret_from_start
                        * (y_at_bridge - y_at_start)
                        / scale_length
                        );
         
-        this->x_at_start = -sqrt( pow(perpendicular_fret_from_start, 2) - pow(y_intersect - y_at_start, 2) );
-        this->x_at_nut = x_at_start - nut_to_zero_fret_offset;
+        _x_at_start = -sqrt( pow(_perpendicular_fret_from_start, 2) - pow(y_intersect - y_at_start, 2) );
+        _x_at_nut = _x_at_start - nut_to_zero_fret_offset;
         
-        double x_at_bridge = pow(scale_length, 2) - pow(y_at_bridge - y_at_start, 2);
-        x_at_bridge = sqrt(x_at_bridge);
-        x_at_bridge -= abs(x_at_start);
-        this->x_at_bridge = x_at_bridge;
-        
-        startPoint = adsk::core::Point3D::create(x_at_start, y_at_start);
-        endPoint = adsk::core::Point3D::create(x_at_bridge, y_at_bridge);
+        double xab = pow(scale_length, 2) - pow(y_at_bridge - y_at_start, 2);
+        xab = sqrt(xab);
+        xab -= abs(xab);
+        _x_at_bridge = xab;
     }
     
-    double distance_from_start(int fret_index) {
-        return scale_length - distance_from_bridge(fret_index);
+    double distance_from_start(int fret_index) const {
+        return _scale_length - distance_from_bridge(fret_index);
     }
     
-    double distance_from_bridge(int fret_index) {
-        return scale_length / pow(2, fret_index / number_of_frets_per_octave);
+    double distance_from_bridge(int fret_index) const {
+        return _scale_length / pow(2, fret_index / _number_of_frets_per_octave);
     }
     
-    double distance_between_frets(int fret_index1, int fret_index2) {
+    double distance_between_frets(int fret_index1, int fret_index2) const {
         return abs(distance_from_start(fret_index1) - distance_from_start(fret_index2));
     }
     
-    double distance_from_perpendicular_fret(int fret_index) {
-        return distance_between_frets(perpendicular_fret_index, fret_index);
+    double distance_from_perpendicular_fret(int fret_index) const {
+        return distance_between_frets(_perpendicular_fret_index, fret_index);
     }
     
-    adsk::core::Ptr<adsk::core::Point3D> point_at_fret(int fret_index) {
+    Point point_at_fret(int fret_index) const {
         double d = distance_from_start(fret_index);
-        double t = d / scale_length;
-        double x = t * (x_at_bridge - x_at_start);
-        double y = t * (y_at_bridge - y_at_start);
-        return adsk::core::Point3D::create(x_at_start + x, y_at_start + y);
+        double t = d / _scale_length;
+        double x = t * (_x_at_bridge - _x_at_start);
+        double y = t * (_y_at_bridge - _y_at_start);
+        return Point(_x_at_start + x, _y_at_start + y);
     }
     
-    adsk::core::Ptr<adsk::core::Point3D> point_at_nut() {
-        return adsk::core::Point3D::create(x_at_start, y_at_start);
+    Point point_at_nut() const {
+        return Point(_x_at_start, _y_at_start);
     }
     
-    adsk::core::Ptr<adsk::core::Point3D> point_at_bridge() {
-        return adsk::core::Point3D::create(x_at_bridge, y_at_bridge);
+    Point point_at_bridge() const {
+        return Point(_x_at_bridge, _y_at_bridge);
     }
+    
+    Line line() const {
+        return Line(point_at_bridge(), point_at_nut());
+    }
+
+
+    // Accessors:
+    int index() const { return _index; }
+    double scale_length() const { return _scale_length; }
+    double perpendicular_fret_index() const { return _perpendicular_fret_index; }
+    double perpendicular_fret_from_start() const { return _perpendicular_fret_from_start; }
+    double x_at_start() const { return _x_at_start; }
+    double x_at_nut() const { return _x_at_nut; }
+    double y_at_start() const { return _y_at_start; }
+    double x_at_bridge() const { return _x_at_bridge; }
+    double y_at_bridge() const { return _y_at_bridge; }
+    double number_of_frets_per_octave() const { return _number_of_frets_per_octave; }
+    double nut_to_zero_fret_offset() const { return _nut_to_zero_fret_offset; }
+
 };
 
 } // namespace
