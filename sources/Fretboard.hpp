@@ -51,6 +51,7 @@ struct Instrument {
 
     double space_before_nut = 12.0;
     double nut_thickness = 4.0;
+    double nut_height_under = 3.0;
 
     double radius_at_nut = 254.0; // 10"
     double radius_at_last_fret = 508.0; // 20"
