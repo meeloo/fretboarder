@@ -9,6 +9,10 @@
 #ifndef fretboard_hpp
 #define fretboard_hpp
 
-#include <stdio.h>
+#include <Core/CoreAll.h>
+#include <Fusion/FusionAll.h>
 
+namespace fretboarder {
+
+}
 #endif /* fretboard_hpp */

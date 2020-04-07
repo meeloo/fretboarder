@@ -8,21 +8,20 @@
 
 #include "fretboard.hpp"
 
-# X origin is where we have the first perpendicular fret of the fretboard
-# on a standard guitar it's the nut, because all frets are perpendicular to the center line of the fretboard.
-# on a fanned fret guitar, it could be 0, but it could be 5, 7, 12 or anything else.
-# The neck goes along the X axis, +X points toward the body of the instrument.
-# -X points toward the headstock.
-# +Y points to the first string of the instrument (for a right handed guitar it would be high E)
-# -Y points to the last string of the instrument (for a right handed guitar it would be low E)
+//# X origin is where we have the first perpendicular fret of the fretboard
+//# on a standard guitar it's the nut, because all frets are perpendicular to the center line of the fretboard.
+//# on a fanned fret guitar, it could be 0, but it could be 5, 7, 12 or anything else.
+//# The neck goes along the X axis, +X points toward the body of the instrument.
+//# -X points toward the headstock.
+//# +Y points to the first string of the instrument (for a right handed guitar it would be high E)
+//# -Y points to the last string of the instrument (for a right handed guitar it would be low E)
 
 
-class Fret:
-    def __init__(self):
-        pass
+class Fret {
+}
 
-
-class FretBoard:
+class FretBoard {
+#if 0
     def __init__(self, config):
         config = config.instrument
         self.first_string = String(
@@ -171,3 +170,6 @@ class FretBoard:
             self.last_string.point_at_bridge(),
             self.last_string.point_at_nut(),
         ]
+
+#endif
+}
