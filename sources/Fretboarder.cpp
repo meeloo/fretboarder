@@ -1,6 +1,6 @@
 #include <Core/CoreAll.h>
 #include <Fusion/FusionAll.h>
-
+#include "Fretboard.hpp"
 
 using namespace adsk::core;
 using namespace adsk::fusion;
@@ -13,11 +13,7 @@ extern "C" XI_EXPORT bool run(const char* context)
     if (!app)
         return false;
 
-    Ptr<Documents> documents = app->documents();
-    if (!documents)
-        return false;
-
-    Ptr<Document> doc = documents->add(DocumentTypes::FusionDesignDocumentType);
+    Ptr<Document> doc = app->activeDocument();
     if (!doc)
         return false;
 
@@ -34,6 +30,9 @@ extern "C" XI_EXPORT bool run(const char* context)
     if(!rootComp)
         return false;
 
+    fretboarder::Instrument instrument;
+    fretboarder::Fretboard fretboard(instrument);
+    
     // Create a new sketch on the xy plane.
     Ptr<Sketches> sketches = rootComp->sketches();
     if(!sketches)
@@ -45,61 +44,81 @@ extern "C" XI_EXPORT bool run(const char* context)
     if(!sketch)
         return false;
 
-    // Draw two connected lines.
+    
     Ptr<SketchCurves> sketchCurves = sketch->sketchCurves();
     if(!sketchCurves)
         return false;
     Ptr<SketchLines> sketchLines = sketchCurves->sketchLines();
     if(!sketchLines)
         return false;
-    Ptr<SketchLine> line1 = sketchLines->addByTwoPoints(Point3D::create(0, 0, 0), Point3D::create(3, 1, 0));
-    if(!line1)
-        return false;
-    Ptr<SketchLine> line2 = sketchLines->addByTwoPoints(line1->endSketchPoint(), Point3D::create(1, 4, 0));
-    if(!line2)
-        return false;
+    
+    printf("Fretboarder online\n");
+    for (int i = 0; i < instrument.number_of_frets; i++) {
+        auto fret = fretboard.fret_slots().at(i);
+        printf("\tfret %d\n", i);
+//        app->userInterface()->messageBox("fret");
 
-    // Draw a rectangle by two points.
-    Ptr<SketchLineList> recLines = sketchLines->addTwoPointRectangle(Point3D::create(4, 0, 0), Point3D::create(7, 2, 0));
-    if(!recLines)
-        return false;
+        Ptr<SketchLine> line = sketchLines->addByTwoPoints(Point3D::create(fret.point1.x * 0.1, fret.point1.y * 0.1, 0), Point3D::create(fret.point2.x * 0.1, fret.point2.y * 0.1, 0));
+    }
 
-    // Use the returned lines to add some constraints.
-    Ptr<GeometricConstraints> constraints = sketch->geometricConstraints();
-    if(!constraints)
-        return false;
+    auto strings = fretboard.strings();
+    for (int i = 0; i < strings.size(); i++) {
+        auto s = strings.at(i);
+        sketchLines->addByTwoPoints(Point3D::create(s.x_at_start() * 0.1, s.y_at_start() * 0.1, 0), Point3D::create(s.x_at_bridge() * 0.1, s.y_at_bridge() * 0.1, 0));
+    }
+    printf("Fretboarder done\n");
 
-    Ptr<HorizontalConstraint> HConstraint = constraints->addHorizontal(recLines->item(0));
-    if(!HConstraint)
-        return false;
-    HConstraint = constraints->addHorizontal(recLines->item(2));
-    if(!HConstraint)
-        return false;
+    if (0)
+    {
+        // Draw two connected lines.
+        Ptr<SketchLine> line1 = sketchLines->addByTwoPoints(Point3D::create(0, 0, 0), Point3D::create(3, 1, 0));
+        if(!line1)
+            return false;
+        Ptr<SketchLine> line2 = sketchLines->addByTwoPoints(line1->endSketchPoint(), Point3D::create(1, 4, 0));
+        if(!line2)
+            return false;
 
-    Ptr<VerticalConstraint> VConstraint = constraints->addVertical(recLines->item(1));
-    if(!VConstraint)
-        return false;
-    VConstraint = constraints->addVertical(recLines->item(3));
-    if(!VConstraint)
-        return false;
+        // Draw a rectangle by two points.
+        Ptr<SketchLineList> recLines = sketchLines->addTwoPointRectangle(Point3D::create(4, 0, 0), Point3D::create(7, 2, 0));
+        if(!recLines)
+            return false;
 
-    Ptr<SketchDimensions> sketchDimensions = sketch->sketchDimensions();
-    if(!sketchDimensions)
-        return false;
-    Ptr<SketchDimension> sketchDimension = sketchDimensions->addDistanceDimension(recLines->item(0)->startSketchPoint(), recLines->item(0)->endSketchPoint(), HorizontalDimensionOrientation, Point3D::create(5.5, -1, 0));
-    if(!sketchDimension)
-        return false;
+        // Use the returned lines to add some constraints.
+        Ptr<GeometricConstraints> constraints = sketch->geometricConstraints();
+        if(!constraints)
+            return false;
 
-    // Draw a rectangle by three points.
-    recLines = sketchLines->addThreePointRectangle(Point3D::create(8, 0, 0), Point3D::create(11, 1, 0), Point3D::create(9, 3, 0));
-    if(!recLines)
-        return false;
+        Ptr<HorizontalConstraint> HConstraint = constraints->addHorizontal(recLines->item(0));
+        if(!HConstraint)
+            return false;
+        HConstraint = constraints->addHorizontal(recLines->item(2));
+        if(!HConstraint)
+            return false;
 
-    // Draw a rectangle by a center point.
-    recLines = sketchLines->addCenterPointRectangle(Point3D::create(14, 3, 0), Point3D::create(16, 4, 0));
-    if(!recLines)
-        return false;
+        Ptr<VerticalConstraint> VConstraint = constraints->addVertical(recLines->item(1));
+        if(!VConstraint)
+            return false;
+        VConstraint = constraints->addVertical(recLines->item(3));
+        if(!VConstraint)
+            return false;
 
+        Ptr<SketchDimensions> sketchDimensions = sketch->sketchDimensions();
+        if(!sketchDimensions)
+            return false;
+        Ptr<SketchDimension> sketchDimension = sketchDimensions->addDistanceDimension(recLines->item(0)->startSketchPoint(), recLines->item(0)->endSketchPoint(), HorizontalDimensionOrientation, Point3D::create(5.5, -1, 0));
+        if(!sketchDimension)
+            return false;
+
+        // Draw a rectangle by three points.
+        recLines = sketchLines->addThreePointRectangle(Point3D::create(8, 0, 0), Point3D::create(11, 1, 0), Point3D::create(9, 3, 0));
+        if(!recLines)
+            return false;
+
+        // Draw a rectangle by a center point.
+        recLines = sketchLines->addCenterPointRectangle(Point3D::create(14, 3, 0), Point3D::create(16, 4, 0));
+        if(!recLines)
+            return false;
+    }
 
     return true;
 }

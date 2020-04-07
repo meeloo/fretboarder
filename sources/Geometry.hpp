@@ -21,6 +21,11 @@ public:
         this->x = x;
         this->y = y;
     }
+    
+    Point(const Point& p) {
+        x = p.x;
+        y = p.y;
+    }
 };
 
 class Vector {
@@ -31,6 +36,11 @@ public:
     Vector(Point p1, Point p2) {
         point1 = p1;
         point2 = p2;
+    }
+    
+    Vector(const Vector& v) {
+        point1 = v.point1;
+        point2 = v.point2;
     }
 };
 
@@ -65,6 +75,13 @@ public:
             is_vertical = false;
             vertical_at_x = NAN;
         }
+    }
+    
+    Line(const Line& l) {
+        slope = l.slope;
+        y_intersect = l.y_intersect;
+        is_vertical = l.is_vertical;
+        vertical_at_x = l.vertical_at_x;
     }
     
     Point intersection(const Line& other_line) const {

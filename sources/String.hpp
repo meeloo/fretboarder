@@ -69,7 +69,7 @@ public:
         
         double xab = pow(scale_length, 2) - pow(y_at_bridge - y_at_start, 2);
         xab = sqrt(xab);
-        xab -= abs(xab);
+        xab -= abs(_x_at_start);
         _x_at_bridge = xab;
     }
     
