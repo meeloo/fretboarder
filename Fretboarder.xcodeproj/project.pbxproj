@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BB196C51AD5940800164CD3 /* Fretboarder.cpp */; };
-		C355821E243C738500EF30FA /* string.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F98243BE39000EF30FA /* string.hpp */; };
-		C355821F243C7D2000EF30FA /* string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F97243BE39000EF30FA /* string.cpp */; };
+		C355821E243C738500EF30FA /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F98243BE39000EF30FA /* String.hpp */; };
+		C355821F243C7D2000EF30FA /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F97243BE39000EF30FA /* String.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Fretboarder.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BB196C51AD5940800164CD3 /* Fretboarder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboarder.cpp; sourceTree = "<group>"; };
-		C3557F93243BE34600EF30FA /* fretboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fretboard.cpp; sourceTree = "<group>"; };
-		C3557F94243BE34600EF30FA /* fretboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fretboard.hpp; sourceTree = "<group>"; };
-		C3557F97243BE39000EF30FA /* string.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = string.cpp; sourceTree = "<group>"; };
-		C3557F98243BE39000EF30FA /* string.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = string.hpp; sourceTree = "<group>"; };
+		C3557F93243BE34600EF30FA /* Fretboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboard.cpp; sourceTree = "<group>"; };
+		C3557F94243BE34600EF30FA /* Fretboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Fretboard.hpp; sourceTree = "<group>"; };
+		C3557F97243BE39000EF30FA /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
+		C3557F98243BE39000EF30FA /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
 		C3557F9E243C6BA500EF30FA /* ModelParameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelParameters.h; sourceTree = "<group>"; };
 		C3557F9F243C6BA500EF30FA /* STEPExportOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STEPExportOptions.h; sourceTree = "<group>"; };
 		C3557FA0243C6BA500EF30FA /* UserParameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserParameters.h; sourceTree = "<group>"; };
@@ -683,10 +683,10 @@
 			isa = PBXGroup;
 			children = (
 				2BB196C51AD5940800164CD3 /* Fretboarder.cpp */,
-				C3557F93243BE34600EF30FA /* fretboard.cpp */,
-				C3557F94243BE34600EF30FA /* fretboard.hpp */,
-				C3557F97243BE39000EF30FA /* string.cpp */,
-				C3557F98243BE39000EF30FA /* string.hpp */,
+				C3557F93243BE34600EF30FA /* Fretboard.cpp */,
+				C3557F94243BE34600EF30FA /* Fretboard.hpp */,
+				C3557F97243BE39000EF30FA /* String.cpp */,
+				C3557F98243BE39000EF30FA /* String.hpp */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -1488,7 +1488,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C355821E243C738500EF30FA /* string.hpp in Headers */,
+				C355821E243C738500EF30FA /* String.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1544,7 +1544,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C355821F243C7D2000EF30FA /* string.cpp in Sources */,
+				C355821F243C7D2000EF30FA /* String.cpp in Sources */,
 				2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

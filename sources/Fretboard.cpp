@@ -1,5 +1,5 @@
 //
-//  fretboard.cpp
+//  Fretboard.cpp
 //  Fretboarder
 //
 //  Created by Sebastien Metrot on 07/04/2020.

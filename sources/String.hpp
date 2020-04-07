@@ -1,5 +1,5 @@
 //
-//  string.hpp
+//  String.hpp
 //  Fretboarder
 //
 //  Created by Sebastien Metrot on 07/04/2020.
