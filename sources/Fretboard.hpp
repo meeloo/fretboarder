@@ -57,6 +57,11 @@ struct Instrument {
     double radius_at_last_fret = 508.0; // 20"
     
     double fretboard_thickness = 7.0;
+    
+    void validate() {
+        y_at_start = string_spacing_at_nut / 2;
+        y_at_bridge = string_spacing_at_bridge / 2;
+    }
 };
 
 struct Quad {
