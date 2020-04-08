@@ -19,6 +19,7 @@
 /* Begin PBXFileReference section */
 		2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Fretboarder.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BB196C51AD5940800164CD3 /* Fretboarder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboarder.cpp; sourceTree = "<group>"; };
+		C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fretboarder.manifest; sourceTree = SOURCE_ROOT; };
 		C33C0FE9243CCA44004F8F0F /* Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		C33C0FEA243CCA44004F8F0F /* Geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
 		C3557F93243BE34600EF30FA /* Fretboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboard.cpp; sourceTree = "<group>"; };
@@ -695,6 +696,7 @@
 				C3557F98243BE39000EF30FA /* String.hpp */,
 				C33C0FE9243CCA44004F8F0F /* Geometry.cpp */,
 				C33C0FEA243CCA44004F8F0F /* Geometry.hpp */,
+				C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -1658,7 +1660,7 @@
 				);
 				INSTALL_PATH = "$(SRCROOT)";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = (
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/core.dylib",
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/fusion.dylib",
@@ -1684,7 +1686,7 @@
 				);
 				INSTALL_PATH = "$(SRCROOT)";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = (
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/core.dylib",
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/fusion.dylib",
