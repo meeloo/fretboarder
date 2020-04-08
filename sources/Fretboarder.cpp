@@ -334,7 +334,7 @@ public:
         Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
         Ptr<FloatSpinnerCommandInput> string_spacing_at_nut = inputs->itemById("string_spacing_at_nut");
         Ptr<FloatSpinnerCommandInput> string_spacing_at_bridge = inputs->itemById("string_spacing_at_bridge");
-        Ptr<BoolValueCommandInput> has_zero_fret = inputs->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
+        Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
         Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
         Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
         Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
@@ -431,8 +431,8 @@ public:
                 
                 auto number_of_strings_slider = inputs->addIntegerSliderCommandInput("number_of_strings", "Number of strings", 1, 20);
                 number_of_strings_slider->valueOne(6);
-                inputs->addFloatSpinnerCommandInput("scale_length_left", "Left scale length", "mm", 50, 10000, 0.1, 647.7);
-                inputs->addFloatSpinnerCommandInput("scale_length_right", "Right scale length", "mm", 50, 10000, 0.1, 635.7);
+                inputs->addFloatSpinnerCommandInput("scale_length_left", "Left scale length", "in", 1, 10000, 0.1, 25.5);
+                inputs->addFloatSpinnerCommandInput("scale_length_right", "Right scale length", "in", 1, 10000, 0.1, 25.0);
 
                 inputs->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", 0, 36, 0.1, 0.0);
 
@@ -445,8 +445,8 @@ public:
                 inputs->addFloatSpinnerCommandInput("nut_thickness", "Nut thickness", "mm", 0, 100, 0.1, 4.0);
                 inputs->addFloatSpinnerCommandInput("nut_height_under", "Nut depth", "mm", 0, 100, 0.1, 3.0);
 
-                inputs->addFloatSpinnerCommandInput("radius_at_nut", "Fretboard radius at nut", "mm", 0, 10000, 0.1, 254.0);
-                inputs->addFloatSpinnerCommandInput("radius_at_last_fret", "Fretboard radius at last fret", "mm", 0, 10000, 0.1, 508.0);
+                inputs->addFloatSpinnerCommandInput("radius_at_nut", "Fretboard radius at nut", "in", 0, 10000, 0.1, 9.5);
+                inputs->addFloatSpinnerCommandInput("radius_at_last_fret", "Fretboard radius at last fret", "in", 0, 10000, 0.1, 20.0);
                 inputs->addFloatSpinnerCommandInput("fretboard_thickness", "Fretboard thickness", "mm", 0, 100, 0.1, 7.0);
 
                 auto number_of_frets_slider = inputs->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 36);
