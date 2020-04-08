@@ -92,6 +92,9 @@ struct Instrument {
     void validate() {
         y_at_start = string_spacing_at_nut / 2;
         y_at_bridge = string_spacing_at_bridge / 2;
+        if (!has_zero_fret) {
+            nut_to_zero_fret_offset = 0;
+        }
     }
 };
 

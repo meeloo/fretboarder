@@ -151,24 +151,24 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 
     // draw radius circle at nut
     auto radius_1 = create_radius_circle(component, construction_plane_at_nut_side, instrument.radius_at_nut, instrument.fretboard_thickness);
-    auto radius_2 = create_radius_circle(component, construction_plane_at_nut, instrument.radius_at_nut, instrument.fretboard_thickness);
-    auto radius_3 = create_radius_circle(component, construction_plane_at_last_fret,  instrument.radius_at_last_fret, instrument.fretboard_thickness);
+//    auto radius_2 = create_radius_circle(component, construction_plane_at_nut, instrument.radius_at_nut, instrument.fretboard_thickness);
+//    auto radius_3 = create_radius_circle(component, construction_plane_at_last_fret,  instrument.radius_at_last_fret, instrument.fretboard_thickness);
     auto radius_4 = create_radius_circle(component, construction_plane_at_heel, instrument.radius_at_last_fret, instrument.fretboard_thickness);
 
     // create loft feature
     auto loft_features = component->features()->loftFeatures();
     auto loft_input = loft_features->createInput(adsk::fusion::FeatureOperations::NewBodyFeatureOperation);
     loft_input->loftSections()->add(radius_1->profiles()->item(0));
-    loft_input->loftSections()->add(radius_2->profiles()->item(0));
-    loft_input->loftSections()->add(radius_3->profiles()->item(0));
+//    loft_input->loftSections()->add(radius_2->profiles()->item(0));
+//    loft_input->loftSections()->add(radius_3->profiles()->item(0));
     loft_input->loftSections()->add(radius_4->profiles()->item(0));
     loft_input->isSolid(true);
     auto feature = loft_features->add(loft_input);
     auto main_body = feature->bodies()->item(0);
     main_body->name("Main");
     radius_1->isVisible(false);
-    radius_2->isVisible(false);
-    radius_3->isVisible(false);
+//    radius_2->isVisible(false);
+//    radius_3->isVisible(false);
     radius_4->isVisible(false);
 
     // duplicate main body to create the fret slot cutter
@@ -206,18 +206,18 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     component->features()->combineFeatures()->add(combine_input);
 
     // duplicate main body to keep an unslotted version
-    auto _unslotted = component->features()->copyPasteBodies()->add(main_body);
-    auto unslotted = _unslotted->bodies()->item(0);
-    unslotted->name("Unslotted");
-    unslotted->isVisible(false);
+//    auto _unslotted = component->features()->copyPasteBodies()->add(main_body);
+//    auto unslotted = _unslotted->bodies()->item(0);
+//    unslotted->name("Unslotted");
+//    unslotted->isVisible(false);
 
     move_features = component->features()->moveFeatures();
     items = ObjectCollection::create();
     items->add(body2);
     transform = Matrix3D::create();
-    transform->translation(Vector3D::create(0.0, 0.0, -instrument.fret_slots_height));
+    transform->translation(Vector3D::create(0.0, 0.0, -instrument.fret_slots_height * 0.1));
     move_input = move_features->createInput(items, transform);
-    component->features()->moveFeatures()->add(move_input);
+    move_features->add(move_input);
 
     main_body->isVisible(false);
 
@@ -243,12 +243,12 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     for (int index = 0; index < fret_slots_sketch->profiles()->count(); index++) {
         collection->add(fret_slots_sketch->profiles()->item(index));
     }
-    feature = component->features()->extrudeFeatures()->addSimple(collection, distance, FeatureOperations::IntersectFeatureOperation);
+    auto last_feature = component->features()->extrudeFeatures()->addSimple(collection, distance, FeatureOperations::IntersectFeatureOperation);
 
     main_body->isVisible(true);
     collection = ObjectCollection::create();
-    for (int index = 0; index < _feature->bodies()->count(); index++) {
-        collection->add(_feature->bodies()->item(index));
+    for (int index = 0; index < last_feature->bodies()->count(); index++) {
+        collection->add(last_feature->bodies()->item(index));
     }
     auto cut_input = component->features()->combineFeatures()->createInput(main_body, collection);
     cut_input->operation(FeatureOperations::CutFeatureOperation);
