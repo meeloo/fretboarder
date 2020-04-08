@@ -371,6 +371,7 @@ public:
         instrument.radius_at_last_fret = radius_at_last_fret->value();
         instrument.fretboard_thickness = fretboard_thickness->value();
         instrument.validate();
+        instrument.scale(10); // cm to mm
         createFretboard(instrument);
     }
 };
@@ -444,9 +445,9 @@ public:
                 inputs->addFloatSpinnerCommandInput("nut_thickness", "Nut thickness", "mm", 0, 100, 0.1, 4.0);
                 inputs->addFloatSpinnerCommandInput("nut_height_under", "Nut depth", "mm", 0, 100, 0.1, 3.0);
 
-                inputs->addFloatSpinnerCommandInput("radius_at_nut", "Fretboard radius at nut", "", 0, 10000, 0.1, 254.0);
-                inputs->addFloatSpinnerCommandInput("radius_at_last_fret", "Fretboard radius at last fret", "", 0, 10000, 0.1, 508.0);
-                inputs->addFloatSpinnerCommandInput("fretboard_thickness", "Fretboard thickness", "", 0, 100, 0.1, 7.0);
+                inputs->addFloatSpinnerCommandInput("radius_at_nut", "Fretboard radius at nut", "mm", 0, 10000, 0.1, 254.0);
+                inputs->addFloatSpinnerCommandInput("radius_at_last_fret", "Fretboard radius at last fret", "mm", 0, 10000, 0.1, 508.0);
+                inputs->addFloatSpinnerCommandInput("fretboard_thickness", "Fretboard thickness", "mm", 0, 100, 0.1, 7.0);
 
                 auto number_of_frets_slider = inputs->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 36);
                 number_of_frets_slider->valueOne(24);

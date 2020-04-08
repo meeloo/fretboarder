@@ -27,37 +27,68 @@ namespace fretboarder {
 struct Instrument {
     int number_of_strings = 6;
 
-    double scale_length[2] = { 635.0, 647.7 };
+    double scale_length[2] = { 63.50, 64.77 };
     double perpendicular_fret_index = 0;
 
-    double string_spacing_at_nut = 43.0;
-    double string_spacing_at_bridge = 70.0;
+    double string_spacing_at_nut = 4.30;
+    double string_spacing_at_bridge = 7.00;
 
     double y_at_start = string_spacing_at_nut / 2;
     double y_at_bridge = string_spacing_at_bridge / 2;
 
     bool has_zero_fret = true;
-    double nut_to_zero_fret_offset = 3.0;
+    double nut_to_zero_fret_offset = 0.30;
 
     double number_of_frets_per_octave = 12;
     int number_of_frets = 24;
-    double overhang = 3.0;
+    double overhang = 0.3;
 
-    double hidden_tang_length = 2.0;
-    double fret_slots_width = 0.6;
-    double fret_slots_height = 1.5;
+    double hidden_tang_length = 0.2;
+    double fret_slots_width = 0.06;
+    double fret_slots_height = 0.15;
 
     double last_fret_cut_offset = 0.0;
 
-    double space_before_nut = 12.0;
-    double nut_thickness = 4.0;
-    double nut_height_under = 3.0;
+    double space_before_nut = 1.2;
+    double nut_thickness = 0.4;
+    double nut_height_under = 0.3;
 
-    double radius_at_nut = 254.0; // 10"
-    double radius_at_last_fret = 508.0; // 20"
+    double radius_at_nut = 25.40; // 10"
+    double radius_at_last_fret = 50.8; // 20"
     
-    double fretboard_thickness = 7.0;
+    double fretboard_thickness = 0.7;
     
+    void scale(double K) {
+        scale_length[0] *= K;
+        scale_length[1] *= K;
+
+        string_spacing_at_nut *= K;
+        string_spacing_at_bridge *= K;
+
+        y_at_start *= K;
+        y_at_bridge *= K;
+
+        nut_to_zero_fret_offset *= K;
+
+        overhang *= K;
+
+        hidden_tang_length *= K;
+        fret_slots_width *= K;
+        fret_slots_height *= K;
+
+        last_fret_cut_offset *= K;
+
+        space_before_nut *= K;
+        nut_thickness *= K;
+        nut_height_under *= K;
+
+        radius_at_nut *= K;
+        radius_at_last_fret *= K;
+        
+        fretboard_thickness *= K;
+
+        validate();
+    }
     void validate() {
         y_at_start = string_spacing_at_nut / 2;
         y_at_bridge = string_spacing_at_bridge / 2;
