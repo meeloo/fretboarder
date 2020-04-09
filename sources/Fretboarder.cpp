@@ -330,9 +330,10 @@ public:
         if (!inputs)
             return;
 
+        Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
         Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
-        Ptr<FloatSpinnerCommandInput> scale_length_left = inputs->itemById("scale_length_left");
-        Ptr<FloatSpinnerCommandInput> scale_length_right = inputs->itemById("scale_length_right");
+        Ptr<FloatSpinnerCommandInput> scale_length_treble = inputs->itemById("scale_length_treble");
+        Ptr<FloatSpinnerCommandInput> scale_length_bass = inputs->itemById("scale_length_bass");
         Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
         Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
         Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
@@ -353,9 +354,10 @@ public:
         Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
 
         fretboarder::Instrument instrument;
+        instrument.right_handed = right_handed->value();
         instrument.number_of_strings = number_of_strings->valueOne();
-        instrument.scale_length[0] = scale_length_right->value();
-        instrument.scale_length[1] = scale_length_left->value();
+        instrument.scale_length[0] = scale_length_bass->value();
+        instrument.scale_length[1] = scale_length_treble->value();
         instrument.perpendicular_fret_index = perpendicular_fret_index->value();
         instrument.inter_string_spacing_at_nut = inter_string_spacing_at_nut->value();
         instrument.inter_string_spacing_at_bridge = inter_string_spacing_at_bridge->value();
@@ -433,34 +435,41 @@ public:
                     return;
 
                 
-                auto number_of_strings_slider = inputs->addIntegerSliderCommandInput("number_of_strings", "Number of strings", 1, 20);
+                auto group = inputs->addGroupCommandInput("strings", "Strings")->children();
+                group->addBoolValueInput("right_handed", "Right handed", true, "", true);
+                auto number_of_strings_slider = group->addIntegerSliderCommandInput("number_of_strings", "Count", 1, 20);
                 number_of_strings_slider->valueOne(6);
-                inputs->addFloatSpinnerCommandInput("scale_length_left", "Left scale length", "in", 1, 10000, 0.1, 25.5);
-                inputs->addFloatSpinnerCommandInput("scale_length_right", "Right scale length", "in", 1, 10000, 0.1, 25.0);
+                group->addFloatSpinnerCommandInput("inter_string_spacing_at_nut", "Spacing at nut", "mm", 0.1, 20, 0.1, 7.5);
+                group->addFloatSpinnerCommandInput("inter_string_spacing_at_bridge", "Spacing at bridge", "mm", 0.1, 20, 0.1, 12.0);
+                group->addFloatSpinnerCommandInput("overhang", "Fret overhang", "mm", 0, 50, 0.1, 3.0);
 
-                inputs->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", 0, 36, 0.1, 0.0);
+                group = inputs->addGroupCommandInput("scale_length", "Scale length")->children();
+                group->addFloatSpinnerCommandInput("scale_length_bass", "Bass side", "in", 1, 10000, 0.1, 25.5);
+                group->addFloatSpinnerCommandInput("scale_length_treble", "Treble side", "in", 1, 10000, 0.1, 25.0);
 
-                inputs->addFloatSpinnerCommandInput("inter_string_spacing_at_nut", "Space in between 2 strings at nut", "mm", 0.1, 20, 0.1, 7.5);
-                inputs->addFloatSpinnerCommandInput("inter_string_spacing_at_bridge", "Space in between 2 strings at bridge", "mm", 0.1, 20, 0.1, 12.0);
+                group = inputs->addGroupCommandInput("fretboard_radius", "Fretboard geometry")->children();
+                group->addFloatSpinnerCommandInput("radius_at_nut", "Radius at nut", "in", 0, 10000, 0.1, 9.5);
+                group->addFloatSpinnerCommandInput("radius_at_last_fret", "Radius at last fret", "in", 0, 10000, 0.1, 20.0);
+                group->addFloatSpinnerCommandInput("fretboard_thickness", "Thickness", "mm", 0, 100, 0.1, 7.0);
 
-                inputs->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
-                inputs->addFloatSpinnerCommandInput("nut_to_zero_fret_offset", "Distance from nut to zero fret", "mm", 0, 200, 0.1, 3.0);
-                inputs->addFloatSpinnerCommandInput("space_before_nut", "Space before nut", "mm", 0, 100, 0.1, 12.0);
-                inputs->addFloatSpinnerCommandInput("nut_thickness", "Nut thickness", "mm", 0, 100, 0.1, 4.0);
-                inputs->addFloatSpinnerCommandInput("nut_height_under", "Nut depth", "mm", 0, 100, 0.1, 3.0);
-
-                inputs->addBoolValueInput("carve_nut_slot", "Carve the nut slot", true, "", true);
-                inputs->addFloatSpinnerCommandInput("radius_at_nut", "Fretboard radius at nut", "in", 0, 10000, 0.1, 9.5);
-                inputs->addFloatSpinnerCommandInput("radius_at_last_fret", "Fretboard radius at last fret", "in", 0, 10000, 0.1, 20.0);
-                inputs->addFloatSpinnerCommandInput("fretboard_thickness", "Fretboard thickness", "mm", 0, 100, 0.1, 7.0);
-
-                auto number_of_frets_slider = inputs->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 36);
+                group = inputs->addGroupCommandInput("frets", "Frets")->children();
+                auto number_of_frets_slider = group->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 36);
                 number_of_frets_slider->valueOne(24);
-                inputs->addFloatSpinnerCommandInput("overhang", "Fret overhang", "mm", 0, 50, 0.1, 3.0);
-                inputs->addFloatSpinnerCommandInput("hidden_tang_length", "Hidden tang length", "mm", 0, 50, 0.1, 2.0);
-                inputs->addFloatSpinnerCommandInput("fret_slots_width", "Fret slots width", "mm", 0, 2, 0.1, 0.6);
-                inputs->addFloatSpinnerCommandInput("fret_slots_height", "Fret slots height", "mm", 0, 10, 0.1, 1.5);
-                inputs->addFloatSpinnerCommandInput("last_fret_cut_offset", "Last fret cut offset", "mm", 0, 10, 0.1, 0);
+                group->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", 0, 36, 0.1, 0.0);
+                group->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
+                group->addFloatSpinnerCommandInput("nut_to_zero_fret_offset", "Distance from nut to zero fret", "mm", 0, 200, 0.1, 3.0);
+
+                group->addFloatSpinnerCommandInput("hidden_tang_length", "Blind tang length", "mm", 0, 50, 0.1, 2.0);
+                group->addFloatSpinnerCommandInput("fret_slots_width", "Fret slots width", "mm", 0, 2, 0.1, 0.6);
+                group->addFloatSpinnerCommandInput("fret_slots_height", "Fret slots height", "mm", 0, 10, 0.1, 1.5);
+                group->addFloatSpinnerCommandInput("last_fret_cut_offset", "Last fret cut offset", "mm", 0, 10, 0.1, 0);
+
+                group = inputs->addGroupCommandInput("nut", "Nut")->children();
+                group->addFloatSpinnerCommandInput("space_before_nut", "Space before nut", "mm", 0, 100, 0.1, 7.0);
+                group->addFloatSpinnerCommandInput("nut_thickness", "Nut thickness", "mm", 0, 100, 0.1, 4.0);
+                group->addBoolValueInput("carve_nut_slot", "Carve the nut slot", true, "", true);
+                group->addFloatSpinnerCommandInput("nut_height_under", "Nut slot depth", "mm", 0, 100, 0.1, 3.0);
+
 
 
                 

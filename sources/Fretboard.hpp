@@ -25,6 +25,7 @@ namespace fretboarder {
 
 
 struct Instrument {
+    bool right_handed = true;
     int number_of_strings = 6;
 
     double scale_length[2] = { 63.50, 64.77 };
@@ -145,7 +146,7 @@ private:
 public:
     Fretboard(const Instrument& instrument) {
         _strings.push_back(String(0,
-                                 instrument.scale_length[0],
+                                 instrument.scale_length[instrument.right_handed? 1 : 0],
                                  instrument.perpendicular_fret_index,
                                  instrument.y_at_start,
                                  instrument.y_at_bridge,
@@ -154,7 +155,7 @@ public:
                                  instrument.number_of_frets_per_octave));
 
         _strings.push_back(String(instrument.number_of_strings - 1,
-                                 instrument.scale_length[1],
+                                 instrument.scale_length[instrument.right_handed? 0 : 1],
                                  instrument.perpendicular_fret_index,
                                  -instrument.y_at_start,
                                  -instrument.y_at_bridge,
