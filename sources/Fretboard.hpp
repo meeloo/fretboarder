@@ -49,6 +49,7 @@ struct Instrument {
 
     double last_fret_cut_offset = 0.0;
 
+    bool carve_nut_slot = true;
     double space_before_nut = 1.2;
     double nut_thickness = 0.4;
     double nut_height_under = 0.3;

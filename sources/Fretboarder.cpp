@@ -184,39 +184,41 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     component->features()->extrudeFeatures()->addSimple(contour_sketch->profiles()->item(0), distance, FeatureOperations::IntersectFeatureOperation);
 
     // create nut slot
-    auto nut_sketch = component->sketches()->add(component->xYConstructionPlane());
-    nut_sketch->name("Nut");
-    nut_sketch->isComputeDeferred(true);
-    create_closed_polygon(nut_sketch->sketchCurves()->sketchLines(), fretboard.nut_slot_shape());
-    nut_sketch->isComputeDeferred(false);
-    distance = ValueInput::createByReal(instrument.fretboard_thickness * 0.1);
-    auto _feature = component->features()->extrudeFeatures()->addSimple(nut_sketch->profiles()->item(0), distance, FeatureOperations::NewBodyFeatureOperation);
-    auto nut_body = _feature->bodies()->item(0);
-    auto transform = Matrix3D::create();
-    transform->translation(Vector3D::create(0.0, 0.0, instrument.nut_height_under * 0.1));
-    auto items = ObjectCollection::create();
-    items->add(nut_body);
-    auto move_features = component->features()->moveFeatures();
-    auto move_input = move_features->createInput(items, transform);
-    component->features()->moveFeatures()->add(move_input);
-    items = ObjectCollection::create();
-    items->add(nut_body);
-    auto combine_input = component->features()->combineFeatures()->createInput(main_body, items);
-    combine_input->operation(FeatureOperations::CutFeatureOperation);
-    component->features()->combineFeatures()->add(combine_input);
-
+    if (instrument.carve_nut_slot) {
+        auto nut_sketch = component->sketches()->add(component->xYConstructionPlane());
+        nut_sketch->name("Nut");
+        nut_sketch->isComputeDeferred(true);
+        create_closed_polygon(nut_sketch->sketchCurves()->sketchLines(), fretboard.nut_slot_shape());
+        nut_sketch->isComputeDeferred(false);
+        distance = ValueInput::createByReal(instrument.fretboard_thickness * 0.1);
+        auto _feature = component->features()->extrudeFeatures()->addSimple(nut_sketch->profiles()->item(0), distance, FeatureOperations::NewBodyFeatureOperation);
+        auto nut_body = _feature->bodies()->item(0);
+        auto transform = Matrix3D::create();
+        transform->translation(Vector3D::create(0.0, 0.0, instrument.nut_height_under * 0.1));
+        auto items = ObjectCollection::create();
+        items->add(nut_body);
+        auto move_features = component->features()->moveFeatures();
+        auto move_input = move_features->createInput(items, transform);
+        component->features()->moveFeatures()->add(move_input);
+        items = ObjectCollection::create();
+        items->add(nut_body);
+        auto combine_input = component->features()->combineFeatures()->createInput(main_body, items);
+        combine_input->operation(FeatureOperations::CutFeatureOperation);
+        component->features()->combineFeatures()->add(combine_input);
+    }
+        
     // duplicate main body to keep an unslotted version
-//    auto _unslotted = component->features()->copyPasteBodies()->add(main_body);
-//    auto unslotted = _unslotted->bodies()->item(0);
-//    unslotted->name("Unslotted");
-//    unslotted->isVisible(false);
+    auto _unslotted = component->features()->copyPasteBodies()->add(main_body);
+    auto unslotted = _unslotted->bodies()->item(0);
+    unslotted->name("Unslotted");
+    unslotted->isVisible(false);
 
-    move_features = component->features()->moveFeatures();
-    items = ObjectCollection::create();
+    auto move_features = component->features()->moveFeatures();
+    auto items = ObjectCollection::create();
     items->add(body2);
-    transform = Matrix3D::create();
+    auto transform = Matrix3D::create();
     transform->translation(Vector3D::create(0.0, 0.0, -instrument.fret_slots_height * 0.1));
-    move_input = move_features->createInput(items, transform);
+    auto move_input = move_features->createInput(items, transform);
     move_features->add(move_input);
 
     main_body->isVisible(false);
@@ -224,7 +226,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     auto combine_features = component->features()->combineFeatures();
     auto tools = ObjectCollection::create();
     tools->add(body2);
-    combine_input = combine_features->createInput(body1, tools);
+    auto combine_input = combine_features->createInput(body1, tools);
     combine_input->isKeepToolBodies(false);
     combine_input->operation(FeatureOperations::CutFeatureOperation);
     combine_features->add(combine_input);
@@ -337,6 +339,7 @@ public:
         Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
         Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
         Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
+        Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
         Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
         Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
         Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
@@ -365,6 +368,7 @@ public:
         instrument.fret_slots_height = fret_slots_height->value();
         instrument.last_fret_cut_offset = last_fret_cut_offset->value();
         instrument.space_before_nut = space_before_nut->value();
+        instrument.carve_nut_slot = carve_nut_slot->value();
         instrument.nut_thickness = nut_thickness->value();
         instrument.nut_height_under = nut_height_under->value();
         instrument.radius_at_nut = radius_at_nut->value();
@@ -445,6 +449,7 @@ public:
                 inputs->addFloatSpinnerCommandInput("nut_thickness", "Nut thickness", "mm", 0, 100, 0.1, 4.0);
                 inputs->addFloatSpinnerCommandInput("nut_height_under", "Nut depth", "mm", 0, 100, 0.1, 3.0);
 
+                inputs->addBoolValueInput("carve_nut_slot", "Carve the nut slot", true, "", true);
                 inputs->addFloatSpinnerCommandInput("radius_at_nut", "Fretboard radius at nut", "in", 0, 10000, 0.1, 9.5);
                 inputs->addFloatSpinnerCommandInput("radius_at_last_fret", "Fretboard radius at last fret", "in", 0, 10000, 0.1, 20.0);
                 inputs->addFloatSpinnerCommandInput("fretboard_thickness", "Fretboard thickness", "mm", 0, 100, 0.1, 7.0);
