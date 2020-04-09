@@ -30,6 +30,9 @@ struct Instrument {
     double scale_length[2] = { 63.50, 64.77 };
     double perpendicular_fret_index = 0;
 
+    double inter_string_spacing_at_nut = 0.75;
+    double inter_string_spacing_at_bridge = 1.2;
+
     double string_spacing_at_nut = 4.30;
     double string_spacing_at_bridge = 7.00;
 
@@ -63,11 +66,14 @@ struct Instrument {
         scale_length[0] *= K;
         scale_length[1] *= K;
 
-        string_spacing_at_nut *= K;
-        string_spacing_at_bridge *= K;
-
-        y_at_start *= K;
-        y_at_bridge *= K;
+        inter_string_spacing_at_nut *= K;
+        inter_string_spacing_at_bridge *= K;
+        
+//        string_spacing_at_nut *= K;
+//        string_spacing_at_bridge *= K;
+//
+//        y_at_start *= K;
+//        y_at_bridge *= K;
 
         nut_to_zero_fret_offset *= K;
 
@@ -91,6 +97,9 @@ struct Instrument {
         validate();
     }
     void validate() {
+        string_spacing_at_nut = inter_string_spacing_at_nut * (std::max(2, number_of_strings) - 1);
+        string_spacing_at_bridge = inter_string_spacing_at_bridge * (std::max(2, number_of_strings) - 1);
+
         y_at_start = string_spacing_at_nut / 2;
         y_at_bridge = string_spacing_at_bridge / 2;
         if (!has_zero_fret) {

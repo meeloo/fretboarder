@@ -334,8 +334,8 @@ public:
         Ptr<FloatSpinnerCommandInput> scale_length_left = inputs->itemById("scale_length_left");
         Ptr<FloatSpinnerCommandInput> scale_length_right = inputs->itemById("scale_length_right");
         Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
-        Ptr<FloatSpinnerCommandInput> string_spacing_at_nut = inputs->itemById("string_spacing_at_nut");
-        Ptr<FloatSpinnerCommandInput> string_spacing_at_bridge = inputs->itemById("string_spacing_at_bridge");
+        Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
+        Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
         Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
         Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
         Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
@@ -354,11 +354,11 @@ public:
 
         fretboarder::Instrument instrument;
         instrument.number_of_strings = number_of_strings->valueOne();
-        instrument.scale_length[0] = scale_length_left->value();
-        instrument.scale_length[1] = scale_length_right->value();
+        instrument.scale_length[0] = scale_length_right->value();
+        instrument.scale_length[1] = scale_length_left->value();
         instrument.perpendicular_fret_index = perpendicular_fret_index->value();
-        instrument.string_spacing_at_nut = string_spacing_at_nut->value();
-        instrument.string_spacing_at_bridge = string_spacing_at_bridge->value();
+        instrument.inter_string_spacing_at_nut = inter_string_spacing_at_nut->value();
+        instrument.inter_string_spacing_at_bridge = inter_string_spacing_at_bridge->value();
         instrument.has_zero_fret = has_zero_fret->value();
         instrument.nut_to_zero_fret_offset = nut_to_zero_fret_offset->value();
         instrument.number_of_frets = number_of_frets->valueOne();
@@ -440,8 +440,8 @@ public:
 
                 inputs->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", 0, 36, 0.1, 0.0);
 
-                inputs->addFloatSpinnerCommandInput("string_spacing_at_nut", "String spacing at nut", "mm", 2, 200, 0.1, 43.0);
-                inputs->addFloatSpinnerCommandInput("string_spacing_at_bridge", "String spacing at bridge", "mm", 2, 200, 0.1, 70.0);
+                inputs->addFloatSpinnerCommandInput("inter_string_spacing_at_nut", "Space in between 2 strings at nut", "mm", 0.1, 20, 0.1, 7.5);
+                inputs->addFloatSpinnerCommandInput("inter_string_spacing_at_bridge", "Space in between 2 strings at bridge", "mm", 0.1, 20, 0.1, 12.0);
 
                 inputs->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
                 inputs->addFloatSpinnerCommandInput("nut_to_zero_fret_offset", "Distance from nut to zero fret", "mm", 0, 200, 0.1, 3.0);
