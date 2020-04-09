@@ -532,12 +532,12 @@ extern "C" XI_EXPORT bool run(const char* context)
         return nullptr;
 
     // Get the existing command definition or create it if it doesn't already exist.
-    Ptr<CommandDefinition> cmdDef = commandDefinitions->itemById("cmdInputsSample");
+    Ptr<CommandDefinition> cmdDef = commandDefinitions->itemById("cmdFretboarder");
     if (!cmdDef)
     {
-        cmdDef = commandDefinitions->addButtonDefinition("cmdInputsSample",
-                                                          "Command Inputs Sample",
-                                                          "Sample to demonstrate various command inputs.");
+        cmdDef = commandDefinitions->addButtonDefinition("cmdFretboarderBtn",
+                                                          "Fretboarder",
+                                                          "Create fretboards for stringed instruments.");
     }
 
     // Connect to the command created event.
