@@ -10,6 +10,7 @@
 #define fretboard_hpp
 
 #include <vector>
+#include <string>
 #include "String.hpp"
 #include "Geometry.hpp"
 
@@ -25,6 +26,56 @@ namespace fretboarder {
 
 
 struct Instrument {
+    Instrument(bool right_handed = true,
+    int number_of_strings = 6,
+    double scale_length_bass = 64.77,
+    double scale_length_treble = 63.50,
+    double perpendicular_fret_index = 0,
+    double inter_string_spacing_at_nut = 0.75,
+    double inter_string_spacing_at_bridge = 1.2,
+    bool has_zero_fret = true,
+    double nut_to_zero_fret_offset = 0.30,
+    int number_of_frets = 24,
+    double overhang = 0.3,
+    double hidden_tang_length = 0.2,
+    double fret_slots_width = 0.06,
+    double fret_slots_height = 0.15,
+    double last_fret_cut_offset = 0.0,
+    bool carve_nut_slot = true,
+    double space_before_nut = 1.2,
+    double nut_thickness = 0.4,
+    double nut_height_under = 0.3,
+    double radius_at_nut = 25.40, // 10"
+    double radius_at_last_fret = 50.8, // 20"
+    double fretboard_thickness = 0.7
+               )
+    {
+        this->right_handed = right_handed;
+        this->number_of_strings = number_of_strings;
+        this->scale_length[1] = scale_length_bass;
+        this->scale_length[0] = scale_length_treble;
+        this->perpendicular_fret_index = perpendicular_fret_index;
+        this->inter_string_spacing_at_nut = inter_string_spacing_at_nut;
+        this->inter_string_spacing_at_bridge = inter_string_spacing_at_bridge;
+        this->has_zero_fret = has_zero_fret;
+        this->nut_to_zero_fret_offset = nut_to_zero_fret_offset;
+        this->number_of_frets = number_of_frets;
+        this->overhang = overhang;
+        this->hidden_tang_length = hidden_tang_length;
+        this->fret_slots_width = fret_slots_width;
+        this->fret_slots_height = fret_slots_height;
+        this->last_fret_cut_offset = last_fret_cut_offset;
+        this->carve_nut_slot = carve_nut_slot;
+        this->space_before_nut = space_before_nut;
+        this->nut_thickness = nut_thickness;
+        this->nut_height_under = nut_height_under;
+        this->radius_at_nut = radius_at_nut;
+        this->radius_at_last_fret = radius_at_last_fret;
+        this->fretboard_thickness = fretboard_thickness;
+        
+        validate();
+    }
+    
     bool right_handed = true;
     int number_of_strings = 6;
 
@@ -97,6 +148,7 @@ struct Instrument {
 
         validate();
     }
+    
     void validate() {
         string_spacing_at_nut = inter_string_spacing_at_nut * (std::max(2, number_of_strings) - 1);
         string_spacing_at_bridge = inter_string_spacing_at_bridge * (std::max(2, number_of_strings) - 1);
@@ -108,6 +160,69 @@ struct Instrument {
         }
     }
 };
+
+static double mmFromInch(double v) { return v * 25.4; }
+static double cmFromInch(double v) { return mmFromInch(v) * 0.1; }
+
+struct Preset {
+public:
+    std::string name;
+    Instrument instrument;
+
+    
+    static std::vector<Preset> presets() {
+        if (_presets.empty()) {
+
+            bool rh = true;
+            double bass = 64.77;
+            double treble = 64.77;
+
+            double spacing_at_nut = 0.72;
+            double spacing_at_bridge = 1.1;
+            
+            double bass_spacing_at_nut = 1.2;
+            double bass_spacing_at_bridge = 1.8;
+
+            double nut_to_zero_fret = 0.30;
+
+            int frets = 24;
+            double overhang = 0.3;
+
+            double hidden_tang = 0.2;
+            double slots_width = 0.06;
+            double slots_height = 0.15;
+
+            double last_fret_offset = 0.0;
+
+            bool nut_slot = true;
+            double space_before_nut = 1.2;
+            double nut_thickness = 0.4;
+            double nut_height = 0.3;
+
+            double thickness = 0.7;
+
+            _presets.push_back({"Telecaster", Instrument(rh, 6, bass, treble, 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(9.5), cmFromInch(9.5), thickness)});
+            _presets.push_back({"Stratocaster", Instrument(rh, 6, bass, treble, 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(10), cmFromInch(10), thickness)});
+            _presets.push_back({"Les paul", Instrument(rh, 6, cmFromInch(24.7), cmFromInch(24.7), 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, 0, nut_thickness, thickness, cmFromInch(12), cmFromInch(12), thickness)});
+            _presets.push_back({"Jazz bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(34), 0, bass_spacing_at_nut, bass_spacing_at_bridge, false, nut_to_zero_fret, frets, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(12), thickness)});
+            _presets.push_back({"Precision bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(34), 0, bass_spacing_at_nut, bass_spacing_at_bridge, false, nut_to_zero_fret, frets, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(12), thickness)});
+            _presets.push_back({"Boden 6", Instrument(rh, 6, cmFromInch(25.5), cmFromInch(25.0), 0, spacing_at_nut, spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(20), thickness)});
+            _presets.push_back({"Boden 7", Instrument(rh, 7, cmFromInch(25.5), cmFromInch(25.0),  0, spacing_at_nut, spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(20), thickness)});
+            _presets.push_back({"Boden bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(32), /*perp_fret_index*/ 7, bass_spacing_at_nut, bass_spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(16), cmFromInch(20), thickness)});
+            _presets.push_back({"Boden bass 5 strings", Instrument(rh, 5, cmFromInch(34), cmFromInch(32), /*perp_fret_index*/ 7, bass_spacing_at_nut, bass_spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, slots_width, slots_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(16), cmFromInch(20), thickness)});
+        }
+        
+        return _presets;
+    }
+
+private:
+    static std::vector<Preset> _presets;
+};
+
+
+
+
+
 
 struct Quad {
     Point points[4];

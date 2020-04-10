@@ -8,3 +8,6 @@
 
 #include "Fretboard.hpp"
 
+namespace fretboarder {
+std::vector<Preset> Preset::_presets;
+}

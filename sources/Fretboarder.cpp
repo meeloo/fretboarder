@@ -294,7 +294,10 @@ class OnInputChangedEventHander : public adsk::core::InputChangedEventHandler
 public:
     void notify(const Ptr<InputChangedEventArgs>& eventArgs) override
     {
-        Ptr<CommandInputs> inputs = eventArgs->inputs();
+        Ptr<Command> command = eventArgs->firingEvent()->sender();
+        if (!command)
+            return;
+        Ptr<CommandInputs> inputs = command->commandInputs();
         if (!inputs)
             return;
 
@@ -302,21 +305,68 @@ public:
         if (!cmdInput)
             return;
 
-        Ptr<TableCommandInput> tableInput = inputs->itemById("table");
-        if (!tableInput)
-            return;
+        Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
+        Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
+        Ptr<FloatSpinnerCommandInput> scale_length_treble = inputs->itemById("scale_length_treble");
+        Ptr<FloatSpinnerCommandInput> scale_length_bass = inputs->itemById("scale_length_bass");
+        Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
+        Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
+        Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
+        Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
+        Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
+        Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
+        Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
+        Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
+        Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
+        Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
+        Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
+        Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
+        Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
+        Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
+        Ptr<FloatSpinnerCommandInput> overhang = inputs->itemById("overhang");
+        Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
+        Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
+        Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
+        Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
 
-        if (cmdInput->id() == "tableAdd") {
-            addRowToTable(tableInput);
-        }
-        else if (cmdInput->id() == "tableDelete") {
-            if (tableInput->selectedRow() == -1) {
-                ui->messageBox("Select one row to delete.");
+        if (cmdInput->id() == "presets") {
+            // Preset has changed
+            Ptr<DropDownCommandInput> presetCombo = cmdInput;
+            auto item = presetCombo->selectedItem();
+            if (!item) {
+                return;
             }
-            else {
-                tableInput->deleteRow(tableInput->selectedRow());
-            }
+            
+            auto index = item->index();
+            auto preset = Preset::presets()[index];
+            preset.instrument.validate();
+
+            // Apply Preset:
+            right_handed->value(preset.instrument.right_handed);
+            number_of_strings->valueOne(preset.instrument.number_of_strings);
+            scale_length_treble->value(preset.instrument.scale_length[1]);
+            scale_length_bass->value(preset.instrument.scale_length[0]);
+            perpendicular_fret_index->value(preset.instrument.perpendicular_fret_index);
+            inter_string_spacing_at_nut->value(preset.instrument.inter_string_spacing_at_nut);
+            inter_string_spacing_at_bridge->value(preset.instrument.inter_string_spacing_at_bridge);
+            has_zero_fret->value(preset.instrument.has_zero_fret);
+            nut_to_zero_fret_offset->value(preset.instrument.nut_to_zero_fret_offset);
+            space_before_nut->value(preset.instrument.space_before_nut);
+            carve_nut_slot->value(preset.instrument.carve_nut_slot);
+            nut_thickness->value(preset.instrument.nut_thickness);
+            nut_height_under->value(preset.instrument.nut_height_under);
+            radius_at_nut->value(preset.instrument.radius_at_nut);
+            radius_at_last_fret->value(preset.instrument.radius_at_last_fret);
+            fretboard_thickness->value(preset.instrument.fretboard_thickness);
+            number_of_frets->valueOne(preset.instrument.number_of_frets);
+            overhang->value(preset.instrument.overhang);
+            hidden_tang_length->value(preset.instrument.hidden_tang_length);
+            fret_slots_width->value(preset.instrument.fret_slots_width);
+            fret_slots_height->value(preset.instrument.fret_slots_height);
+            last_fret_cut_offset->value(preset.instrument.last_fret_cut_offset);
+
         }
+        nut_width->value(std::max(number_of_strings->valueOne() - 1, 1) * inter_string_spacing_at_nut->value() + overhang->value() * 2);
     }
 };
 
@@ -343,6 +393,8 @@ public:
         Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
         Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
         Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
+        Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
+
         Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
         Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
         Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
@@ -434,7 +486,13 @@ public:
                 if (!inputs)
                     return;
 
-                
+                auto presetCombo = inputs->addDropDownCommandInput("presets", "Presets", TextListDropDownStyle);
+                auto presets = presetCombo->listItems();
+                auto allPresets = Preset::presets();
+                for (int i = 0; i < allPresets.size(); i++) {
+                    auto p = allPresets[i];
+                    presets->add(p.name, false);
+                }
                 auto group = inputs->addGroupCommandInput("strings", "Strings")->children();
                 group->addBoolValueInput("right_handed", "Right handed", true, "", true);
                 auto number_of_strings_slider = group->addIntegerSliderCommandInput("number_of_strings", "Count", 1, 20);
@@ -466,11 +524,12 @@ public:
 
                 group = inputs->addGroupCommandInput("nut", "Nut")->children();
                 group->addFloatSpinnerCommandInput("space_before_nut", "Space before nut", "mm", 0, 100, 0.1, 7.0);
-                group->addFloatSpinnerCommandInput("nut_thickness", "Nut thickness", "mm", 0, 100, 0.1, 4.0);
+                group->addFloatSpinnerCommandInput("nut_thickness", "Thickness", "mm", 0, 100, 0.1, 4.0);
                 group->addBoolValueInput("carve_nut_slot", "Carve the nut slot", true, "", true);
-                group->addFloatSpinnerCommandInput("nut_height_under", "Nut slot depth", "mm", 0, 100, 0.1, 3.0);
+                group->addFloatSpinnerCommandInput("nut_height_under", "Slot depth", "mm", 0, 100, 0.1, 3.0);
 
-
+                auto nut_width = group->addFloatSpinnerCommandInput("nut_width", "Width", "mm", 0, 1000, 0.1, 45);
+                nut_width->isEnabled(false);
 
                 
 #if 0
@@ -535,7 +594,7 @@ extern "C" XI_EXPORT bool run(const char* context)
     Ptr<CommandDefinition> cmdDef = commandDefinitions->itemById("cmdFretboarder");
     if (!cmdDef)
     {
-        cmdDef = commandDefinitions->addButtonDefinition("cmdFretboarderBtn",
+        cmdDef = commandDefinitions->addButtonDefinition("cmdFretboarder",
                                                           "Fretboarder",
                                                           "Create fretboards for stringed instruments.");
     }
