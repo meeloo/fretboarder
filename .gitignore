@@ -36,3 +36,10 @@ Fretboarder.xcodeproj/project.xcworkspace/xcuserdata
 Fretboarder.xcodeproj/xcuserdata
 build
 Fretboarder.dylib.dSYM
+*.tlog
+*.log
+*.idb
+*.pdb
+*.db
+*.ipch
+.vs/Fretboarder/v16/.suo
