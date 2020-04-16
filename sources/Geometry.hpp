@@ -11,6 +11,8 @@
 
 #include <math.h>
 #include <cassert>
+#include <algorithm>
+
 
 class Point {
 public:

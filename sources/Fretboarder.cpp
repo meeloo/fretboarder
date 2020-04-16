@@ -3,6 +3,7 @@
 #include "Fretboard.hpp"
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 using namespace adsk::core;
 using namespace adsk::fusion;
