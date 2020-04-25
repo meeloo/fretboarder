@@ -23,7 +23,6 @@
 		C33C0FE9243CCA44004F8F0F /* Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		C33C0FEA243CCA44004F8F0F /* Geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
 		C353296F2451DA3500610C78 /* index.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = index.md; sourceTree = "<group>"; };
-		C35329702451DC0000610C78 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		C3557F93243BE34600EF30FA /* Fretboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboard.cpp; sourceTree = "<group>"; };
 		C3557F94243BE34600EF30FA /* Fretboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Fretboard.hpp; sourceTree = "<group>"; };
 		C3557F97243BE39000EF30FA /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
@@ -684,7 +683,6 @@
 		C353296E2451DA0700610C78 /* docs */ = {
 			isa = PBXGroup;
 			children = (
-				C35329702451DC0000610C78 /* index.html */,
 				C353296F2451DA3500610C78 /* index.md */,
 			);
 			path = docs;
