@@ -3,8 +3,8 @@
 ## Model complex fretboards easily
 
 download for windows
-[Windows 0.1](bin/windows/Fretboarder_win_0.1.zip)
+[Fretboarder Windows v0.1](bin/windows/Fretboarder_win_0.1.zip)
 
 download for mac
-[Windows 0.1](mac/windows/Fretboarder_mac_0.1.zip)
+[Fretboarder macOS v0.1](mac/Fretboarder_mac_0.1.zip)
 
