@@ -15,6 +15,10 @@ Features:
 * configurable nut size
 * blind fret slot support (to hide the end of the fret tangs in the fretboard) 
 
+## Alpha version = Use at your own risks!
+This is only alpha grade software.
+I have tested and used it on my computers and it worked fine. Let me know (<fretboarder@meeloo.net>) if you find anything strange though.  
+
 ## Installation
 Dowload the archive for your OS. In the archive you will find one file name fretboarder.dylib on macOS and fretboarder.dll on windows. Copy it to your Fusion 360 add ins folder. More information on how to do that can be found on the [Autodesk Fusion 360 Help site](https://knowledge.autodesk.com/support/fusion-360/troubleshooting/caas/sfdcarticles/sfdcarticles/How-to-install-an-ADD-IN-and-Script-in-Fusion-360.html)
 
@@ -24,5 +28,5 @@ download [Fretboarder v0.1 for Windows](bin/windows/Fretboarder_win_0.1.zip)
 download [Fretboarder v0.1 macOS](bin/macOS/Fretboarder_mac_0.1.zip)
 
 ## Contact
-For all questions and feedback, please send an email to <fretboarder@meeloo.net> [fretboarder@meeloo.net](<fretboarder@meeloo.net>)
+For all questions and feedback, please send an email to <fretboarder@meeloo.net>
 
