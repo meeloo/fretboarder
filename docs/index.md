@@ -20,3 +20,7 @@ download [Fretboarder v0.1 for Windows](bin/windows/Fretboarder_win_0.1.zip)
 
 download [Fretboarder v0.1 macOS](bin/macOS/Fretboarder_mac_0.1.zip)
 
+# Contact
+
+For all questions and feedback, please send an email to <fretboarder@meeloo.net> [fretboarder@meeloo.net](<fretboarder@meeloo.net>)
+
