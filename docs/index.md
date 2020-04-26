@@ -1,6 +1,8 @@
 #  Fretboarder
 ##  Fusion 360 plugins for luthiers
 
+[![Alt text](https://img.youtube.com/vi/HSuFJhZLFmo/0.jpg)](https://www.youtube.com/watch?v=HSuFJhZLFmo)
+
 ### Easily create models of complex fretboards
 Features:
 * supports up to 24 strings
