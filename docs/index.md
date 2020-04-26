@@ -1,6 +1,8 @@
 #  Fretboarder
 ##  Fusion 360 plugins for luthiers
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HSuFJhZLFmo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 [![Alt text](https://img.youtube.com/vi/HSuFJhZLFmo/0.jpg)](https://www.youtube.com/watch?v=HSuFJhZLFmo)
 
 ### Easily create models of complex fretboards
