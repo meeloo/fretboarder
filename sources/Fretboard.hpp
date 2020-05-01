@@ -261,30 +261,35 @@ private:
     
 public:
     Fretboard(const Instrument& instrument) {
-        _strings.push_back(String(0,
-                                 instrument.scale_length[instrument.right_handed? 1 : 0],
-                                 instrument.perpendicular_fret_index,
-                                 instrument.y_at_start,
-                                 instrument.y_at_bridge,
-                                 instrument.has_zero_fret,
-                                 instrument.nut_to_zero_fret_offset,
-                                 instrument.number_of_frets_per_octave));
+        double first = instrument.scale_length[instrument.right_handed? 1 : 0];
+        double last = instrument.scale_length[instrument.right_handed? 0 : 1];
 
-        _strings.push_back(String(instrument.number_of_strings - 1,
-                                 instrument.scale_length[instrument.right_handed? 0 : 1],
-                                 instrument.perpendicular_fret_index,
-                                 -instrument.y_at_start,
-                                 -instrument.y_at_bridge,
-                                 instrument.has_zero_fret,
-                                 instrument.nut_to_zero_fret_offset,
-                                 instrument.number_of_frets_per_octave));
+        double max = instrument.number_of_strings - 1;
+        double diff = (last - first);
+        double ydiff_start = -instrument.y_at_start * 2;
+        double ydiff_bridge = -instrument.y_at_bridge * 2;
+
+        for (int i = 0; i < instrument.number_of_strings; i++) {
+            double ratio = (double)i / (double)(max ? max : 1);
+            double length = first + ratio * diff;
+            double ystart = instrument.y_at_start + ratio * ydiff_start;
+            double ybridge = instrument.y_at_bridge + ratio * ydiff_bridge;
+            _strings.push_back(String(i,
+                                     length,
+                                     instrument.perpendicular_fret_index,
+                                     ystart,
+                                     ybridge,
+                                     instrument.has_zero_fret,
+                                     instrument.nut_to_zero_fret_offset,
+                                     instrument.number_of_frets_per_octave));
+        }
         
         number_of_frets = instrument.number_of_frets;
         has_zero_fret = instrument.has_zero_fret;
         nut_to_zero_fret_offset = instrument.nut_to_zero_fret_offset;
 
-        first_border = _strings.at(0).line().offset(instrument.overhang);
-        last_border = _strings.at(1).line().offset(-instrument.overhang);
+        first_border = _strings.front().line().offset(instrument.overhang);
+        last_border = _strings.back().line().offset(-instrument.overhang);
 
         first_tang_border = first_border.offset(-instrument.hidden_tang_length);
         last_tang_border = last_border.offset(instrument.hidden_tang_length);
@@ -297,13 +302,13 @@ public:
         
         last_fret = instrument.number_of_frets + 1;
         for (int fret_index = first_fret; fret_index < last_fret; fret_index++) {
-            Line fret_line = Line(_strings.at(0).point_at_fret(fret_index), _strings.at(1).point_at_fret(fret_index));
+            Line fret_line = Line(_strings.front().point_at_fret(fret_index), _strings.back().point_at_fret(fret_index));
             _fret_slots.push_back(Vector(fret_line.intersection(first_tang_border), fret_line.intersection(last_tang_border)));
         }
 
         for (int fret_index = first_fret; fret_index < last_fret; fret_index++) {
-            auto point1 = _strings.at(0).point_at_fret(fret_index);
-            auto point2 = _strings.at(1).point_at_fret(fret_index);
+            auto point1 = _strings.front().point_at_fret(fret_index);
+            auto point2 = _strings.back().point_at_fret(fret_index);
             auto fret_line = Line(point1, point2);
             double sign = point1.x <= point2.x ? 1 : -1;
             Line offset_line1 = fret_line.offset(sign * -instrument.fret_slots_width / 2);
@@ -321,12 +326,12 @@ public:
         
         // last fret cut is like a last+1th fret. If you have 22 frets, the cut is at a virtual 23th fret.
         // you can use last_fret_cut_offset to add an X offset to the cut.
-        auto last_fret_line = Line(_strings.at(0).point_at_fret(last_fret), _strings.at(1).point_at_fret(last_fret));
-        double sign = (_strings.at(0).x_at_bridge() <= _strings.at(1).x_at_bridge()) ? 1 : -1;
+        auto last_fret_line = Line(_strings.front().point_at_fret(last_fret), _strings.back().point_at_fret(last_fret));
+        double sign = (_strings.front().x_at_bridge() <= _strings.back().x_at_bridge()) ? 1 : -1;
         Line last_fret_cut = last_fret_line.offset(sign * instrument.last_fret_cut_offset);
 
-        double nut_sign = _strings.at(0).x_at_nut() > _strings.at(1).x_at_nut() ? 1 : -1;
-        Line nut_line = Line(Point(_strings.at(0).x_at_nut(), _strings.at(0).y_at_start()), Point(_strings.at(1).x_at_nut(), _strings.at(1).y_at_start()));
+        double nut_sign = _strings.front().x_at_nut() > _strings.back().x_at_nut() ? 1 : -1;
+        Line nut_line = Line(Point(_strings.front().x_at_nut(), _strings.front().y_at_start()), Point(_strings.back().x_at_nut(), _strings.back().y_at_start()));
         
         // board shape
         Line board_cut_at_nut = nut_line.offset(nut_sign * instrument.space_before_nut);
@@ -339,11 +344,11 @@ public:
 
         _construction_distance_at_nut_side = std::min(_board_shape.points[0].x, _board_shape.points[3].x);
         _construction_distance_at_heel = std::max(_board_shape.points[1].x, _board_shape.points[2].x);
-        _construction_distance_at_nut = (_strings.at(0).x_at_nut() + _strings.at(1).x_at_nut()) / 2;
-        _construction_distance_at_last_fret = (_strings.at(0).point_at_fret(number_of_frets).x + _strings.at(1).point_at_fret(number_of_frets).x) / 2;
+        _construction_distance_at_nut = (_strings.front().x_at_nut() + _strings.back().x_at_nut()) / 2;
+        _construction_distance_at_last_fret = (_strings.front().point_at_fret(number_of_frets).x + _strings.back().point_at_fret(number_of_frets).x) / 2;
 
         if (number_of_frets > 12) {
-            _construction_distance_at_12th_fret = (_strings.at(0).point_at_fret(12).x + _strings.at(1).point_at_fret(12).x) / 2;
+            _construction_distance_at_12th_fret = (_strings.front().point_at_fret(12).x + _strings.back().point_at_fret(12).x) / 2;
         }
 
         // nut shape
@@ -365,10 +370,10 @@ public:
         };
 
         _strings_shape = {
-            _strings.at(0).point_at_nut(),
-            _strings.at(0).point_at_bridge(),
-            _strings.at(1).point_at_bridge(),
-            _strings.at(1).point_at_nut(),
+            _strings.front().point_at_nut(),
+            _strings.front().point_at_bridge(),
+            _strings.back().point_at_bridge(),
+            _strings.back().point_at_nut(),
         };
     }
     

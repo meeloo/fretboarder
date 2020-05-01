@@ -85,11 +85,25 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     component->name("Fretboard");
 
     // create strings sketch
+    auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
+    strings_area_sketch->name("Strings area");
+    strings_area_sketch->isComputeDeferred(true);
+    create_closed_polygon(strings_area_sketch->sketchCurves()->sketchLines(), fretboard.strings_shape());
+    strings_area_sketch->isComputeDeferred(false);
+    strings_area_sketch->isVisible(false);
+
+    
     auto strings_sketch = component->sketches()->add(component->xYConstructionPlane());
     strings_sketch->name("Strings");
     strings_sketch->isComputeDeferred(true);
-    create_closed_polygon(strings_sketch->sketchCurves()->sketchLines(), fretboard.strings_shape());
+    for (size_t s = 0; s < fretboard.strings().size(); s++) {
+        auto& string = fretboard.strings()[s];
+        auto v = Vector(string.point_at_nut(), string.point_at_bridge());
+        create_line(strings_sketch->sketchCurves()->sketchLines(), v);
+    }
+    //create_closed_polygon(strings_sketch->sketchCurves()->sketchLines(), fretboard.strings_shape());
     strings_sketch->isComputeDeferred(false);
+
 
     // create Contour sketch
     auto contour_sketch = component->sketches()->add(component->xYConstructionPlane());
