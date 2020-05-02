@@ -4,6 +4,8 @@ safe: true
 source: /docs
 incremental: false
 highlighter: rouge
+plugins:
+  - jekyll-seo-tag
 gist:
   noscript: false
 kramdown:
