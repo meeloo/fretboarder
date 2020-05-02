@@ -59,31 +59,14 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         return false;
 
     fretboarder::Fretboard fretboard(instrument);
-    
-    // Create a new sketch on the xy plane.
-    Ptr<Sketches> sketches = rootComp->sketches();
-    if(!sketches)
-        return false;
-    Ptr<ConstructionPlane> xyPlane = rootComp->xYConstructionPlane();
-    if(!xyPlane)
-        return false;
-    Ptr<Sketch> sketch = sketches->add(xyPlane);
-    if(!sketch)
-        return false;
-
-    
-    Ptr<SketchCurves> sketchCurves = sketch->sketchCurves();
-    if(!sketchCurves)
-        return false;
-    Ptr<SketchLines> sketchLines = sketchCurves->sketchLines();
-    if(!sketchLines)
-        return false;
 
     // create Fretboard component
-    auto occurrence = design->rootComponent()->occurrences()->addNewComponent(Matrix3D::create());
+    auto occurrence = rootComp->occurrences()->addNewComponent(Matrix3D::create());
     auto component = occurrence->component();
     component->name("Fretboard");
-
+    occurrence->activate();
+    design->designType(ParametricDesignType);
+    
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
     strings_area_sketch->name("Strings area");
@@ -128,7 +111,6 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     fret_slots_sketch->isVisible(false);
     
     // create construction plane at nut side
-    planes = component->constructionPlanes();
     planeInput = planes->createInput();
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_nut_side() * 0.1);
     planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
@@ -136,7 +118,6 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     construction_plane_at_nut_side->name("Nut Side");
 
     // create construction plane at nut
-    planes = component->constructionPlanes();
     planeInput = planes->createInput();
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_nut() * 0.1);
     planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
@@ -180,19 +161,30 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     loft_input->isSolid(true);
     auto feature = loft_features->add(loft_input);
     auto main_body = feature->bodies()->item(0);
-    main_body->name("Main");
+    main_body->name("Main body");
     radius_1->isVisible(false);
 //    radius_2->isVisible(false);
 //    radius_3->isVisible(false);
     radius_4->isVisible(false);
 
     // duplicate main body to create the fret slot cutter
-    auto _body1 = component->features()->copyPasteBodies()->add(main_body);
-    auto body1 = _body1->bodies()->item(0);
+    auto body1 = main_body->copyToComponent(occurrence);
+    if (!body1) {
+        std::string err = "";
+        app->getLastError(&err);
+        ui->messageBox(err);
+        return false;
+    }
+    
     body1->name("Fret cutter");
 
-    auto _body2 = component->features()->copyPasteBodies()->add(main_body);
-    auto body2 = _body2->bodies()->item(0);
+    auto body2 = main_body->copyToComponent(occurrence);
+    if (!body2) {
+        std::string err = "";
+        app->getLastError(&err);
+        ui->messageBox(err);
+        return false;
+    }
     body2->name("TMP Fret cutter");
 
     auto distance = ValueInput::createByReal(instrument.fretboard_thickness);
@@ -223,8 +215,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     }
         
     // duplicate main body to keep an unslotted version
-    auto _unslotted = component->features()->copyPasteBodies()->add(main_body);
-    auto unslotted = _unslotted->bodies()->item(0);
+    auto unslotted = main_body->copyToComponent(occurrence);
     unslotted->name("Unslotted");
     unslotted->isVisible(false);
 
