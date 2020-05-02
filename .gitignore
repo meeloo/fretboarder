@@ -43,3 +43,8 @@ Fretboarder.dylib.dSYM
 *.db
 *.ipch
 .vs/Fretboarder/v16/.suo
+*.exp
+*.iobj
+*.ipdb
+Release/Fretboarder.vcxproj.FileListAbsolute.txt
+Debug/Fretboarder.vcxproj.FileListAbsolute.txt
