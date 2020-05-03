@@ -14,7 +14,7 @@ Ptr<UserInterface> ui;
 
 
 Ptr<Point3D> create_point(Point point) {
-    return Point3D::create(0.1 * point.x, 0.1 * point.y, 0);
+    return Point3D::create(0.1 * point.x, 0.1 * point.y, 0.1 * point.z);
 }
 
 void create_closed_polygon(const Ptr<SketchLines>& sketch_lines, const Quad& shape) {
@@ -39,6 +39,10 @@ Ptr<Sketch> create_radius_circle(const Ptr<Component>& component, const Ptr<Cons
     return sketch;
 }
 
+double YOnCircleGivenX(double x, Point center, double radius) {
+    auto K = (x - center.x);
+    return center.y - sqrt(radius * radius + K * K);
+}
 
 bool createFretboard(const fretboarder::Instrument& instrument) {
     Ptr<Document> doc = app->activeDocument();
@@ -75,18 +79,36 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     strings_area_sketch->isComputeDeferred(false);
     strings_area_sketch->isVisible(false);
 
-    
-    auto strings_sketch = component->sketches()->add(component->xYConstructionPlane());
-    strings_sketch->name("Strings");
-    strings_sketch->isComputeDeferred(true);
-    for (size_t s = 0; s < fretboard.strings().size(); s++) {
-        auto& string = fretboard.strings()[s];
-        auto v = Vector(string.point_at_nut(), string.point_at_bridge());
-        create_line(strings_sketch->sketchCurves()->sketchLines(), v);
-    }
-    //create_closed_polygon(strings_sketch->sketchCurves()->sketchLines(), fretboard.strings_shape());
-    strings_sketch->isComputeDeferred(false);
 
+    if (instrument.draw_strings) {
+        auto strings_sketch = component->sketches()->add(component->xYConstructionPlane());
+        strings_sketch->name("Strings");
+        strings_sketch->isComputeDeferred(true);
+        {
+            auto radius1 = instrument.radius_at_nut ;
+            //  Find radius at bridge
+            // TODO: not perfect, should be per string and with the correct ratio for the actual last fret
+            double b = instrument.radius_at_last_fret / 1.5; // Scale radius at last fret to find radius at 12th fret
+            auto radius2 = instrument.radius_at_nut + (b - instrument.radius_at_nut) * 2; // scale to get radius at bridge
+            auto center = Point(0.0, 0.0, 0.0);
+
+            for (size_t s = 0; s < fretboard.strings().size(); s++) {
+                const auto& string = fretboard.strings()[s];
+                auto nutSide = string.point_at_nut();
+                auto bridgeSide = string.point_at_bridge();
+
+                auto offset1 = YOnCircleGivenX(nutSide.y, center, radius1);
+                auto offset2 = YOnCircleGivenX(bridgeSide.y, center, radius2);
+
+                nutSide.z += (offset1 + radius1 + instrument.fretboard_thickness) + instrument.fret_crown_height;
+                bridgeSide.z += (offset2 + radius2 + instrument.fretboard_thickness) + instrument.fret_crown_height + 4;
+                auto v = Vector(nutSide, bridgeSide);
+                create_line(strings_sketch->sketchCurves()->sketchLines(), v);
+            }
+        }
+        //create_closed_polygon(strings_sketch->sketchCurves()->sketchLines(), fretboard.strings_shape());
+        strings_sketch->isComputeDeferred(false);
+    }
 
     // create Contour sketch
     auto contour_sketch = component->sketches()->add(component->xYConstructionPlane());
@@ -333,6 +355,7 @@ public:
         Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
         Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
         Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
+        Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
         Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
 
         if (cmdInput->id() == "presets") {
@@ -369,6 +392,7 @@ public:
             hidden_tang_length->value(preset.instrument.hidden_tang_length);
             fret_slots_width->value(preset.instrument.fret_slots_width);
             fret_slots_height->value(preset.instrument.fret_slots_height);
+            fret_crown_height->value(preset.instrument.fret_crown_height);
             last_fret_cut_offset->value(preset.instrument.last_fret_cut_offset);
 
         }
@@ -405,10 +429,13 @@ public:
         Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
         Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
         Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
+        Ptr<BoolValueCommandInput> draw_strings = inputs->itemById("draw_strings");
+        Ptr<BoolValueCommandInput> draw_frets = inputs->itemById("draw_frets");
         Ptr<FloatSpinnerCommandInput> overhang = inputs->itemById("overhang");
         Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
         Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
         Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
+        Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
         Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
 
         fretboarder::Instrument instrument;
@@ -416,16 +443,19 @@ public:
         instrument.number_of_strings = number_of_strings->valueOne();
         instrument.scale_length[0] = scale_length_bass->value();
         instrument.scale_length[1] = scale_length_treble->value();
+        instrument.draw_strings = draw_strings->value();
         instrument.perpendicular_fret_index = perpendicular_fret_index->value();
         instrument.inter_string_spacing_at_nut = inter_string_spacing_at_nut->value();
         instrument.inter_string_spacing_at_bridge = inter_string_spacing_at_bridge->value();
         instrument.has_zero_fret = has_zero_fret->value();
         instrument.nut_to_zero_fret_offset = nut_to_zero_fret_offset->value();
         instrument.number_of_frets = number_of_frets->valueOne();
+        instrument.draw_frets = draw_frets->value();
         instrument.overhang = overhang->value();
         instrument.hidden_tang_length = hidden_tang_length->value();
         instrument.fret_slots_width = fret_slots_width->value();
         instrument.fret_slots_height = fret_slots_height->value();
+        instrument.fret_crown_height = fret_crown_height->value();
         instrument.last_fret_cut_offset = last_fret_cut_offset->value();
         instrument.space_before_nut = space_before_nut->value();
         instrument.carve_nut_slot = carve_nut_slot->value();
@@ -506,6 +536,7 @@ public:
                 group->addFloatSpinnerCommandInput("inter_string_spacing_at_nut", "Spacing at nut", "mm", 0.1, 20, 0.1, 7.5);
                 group->addFloatSpinnerCommandInput("inter_string_spacing_at_bridge", "Spacing at bridge", "mm", 0.1, 20, 0.1, 12.0);
                 group->addFloatSpinnerCommandInput("overhang", "Fret overhang", "mm", 0, 50, 0.1, 3.0);
+                group->addBoolValueInput("draw_strings", "Draw strings", true, "", true);
 
                 group = inputs->addGroupCommandInput("scale_length", "Scale length")->children();
                 group->addFloatSpinnerCommandInput("scale_length_bass", "Bass side", "in", 1, 10000, 0.1, 25.5);
@@ -523,9 +554,11 @@ public:
                 group->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
                 group->addFloatSpinnerCommandInput("nut_to_zero_fret_offset", "Distance from nut to zero fret", "mm", 0, 200, 0.1, 3.0);
 
+                group->addBoolValueInput("draw_frets", "Draw frets", true, "", true);
                 group->addFloatSpinnerCommandInput("hidden_tang_length", "Blind tang length", "mm", 0, 50, 0.1, 2.0);
                 group->addFloatSpinnerCommandInput("fret_slots_width", "Fret slots width", "mm", 0, 2, 0.1, 0.6);
                 group->addFloatSpinnerCommandInput("fret_slots_height", "Fret slots height", "mm", 0, 10, 0.1, 1.5);
+                group->addFloatSpinnerCommandInput("fret_crown_height", "Fret crown height", "mm", 0, 10, 0.1, 1.35);
                 group->addFloatSpinnerCommandInput("last_fret_cut_offset", "Last fret cut offset", "mm", 0, 10, 0.1, 0);
 
                 group = inputs->addGroupCommandInput("nut", "Nut")->children();
