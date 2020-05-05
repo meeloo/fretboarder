@@ -44,6 +44,21 @@ double YOnCircleGivenX(double x, Point center, double radius) {
     return center.y - sqrt(radius * radius + K * K);
 }
 
+void create_fretwire_profile(const Instrument& instrument, const Ptr<SketchLines>& sketch_lines) {
+    auto tangW = instrument.fret_slots_width / 2;
+    auto tangH = instrument.fret_slots_height;
+    auto crownW = instrument.fret_crown_width / 2;
+    auto crownH = instrument.fret_crown_height;
+    sketch_lines->addByTwoPoints(create_point(Point(-tangW,0)), create_point(Point(tangW,0)));
+    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(tangW,0)));
+    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(tangW,-tangH)));
+    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(crownW,-tangH)));
+    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(0,-(tangH + crownH))));
+    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(-crownW,-tangH)));
+    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(-tangW,-tangH)));
+    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(-tangW,0)));
+}
+
 bool createFretboard(const fretboarder::Instrument& instrument) {
     Ptr<Document> doc = app->activeDocument();
     if (!doc)
@@ -132,6 +147,13 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     fret_slots_sketch->isComputeDeferred(false);
     fret_slots_sketch->isVisible(false);
     
+    // create fret wire profile
+    auto fret_wire_profile = component->sketches()->add(component->xZConstructionPlane());
+    fret_wire_profile->name("Fret Wire Profile");
+    create_fretwire_profile(instrument, fret_wire_profile->sketchCurves()->sketchLines());
+    fret_wire_profile->isComputeDeferred(false);
+    fret_wire_profile->isVisible(true);
+
     // create construction plane at nut side
     planeInput = planes->createInput();
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_nut_side() * 0.1);

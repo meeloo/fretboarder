@@ -43,6 +43,7 @@ struct Instrument {
     bool draw_frets = true,
     double fret_slots_width = 0.06,
     double fret_slots_height = 0.15,
+    double fret_crown_width = 0.3,
     double fret_crown_height = 0.3,
     double last_fret_cut_offset = 0.0,
     bool carve_nut_slot = true,
@@ -70,6 +71,7 @@ struct Instrument {
         this->draw_frets = draw_frets;
         this->fret_slots_width = fret_slots_width;
         this->fret_slots_height = fret_slots_height;
+        this->fret_crown_width = fret_crown_width;
         this->fret_crown_height = fret_crown_height;
         this->last_fret_cut_offset = last_fret_cut_offset;
         this->carve_nut_slot = carve_nut_slot;
@@ -110,7 +112,8 @@ struct Instrument {
     bool draw_frets = true;
     double fret_slots_width = 0.06;
     double fret_slots_height = 0.15;
-    double fret_crown_height = 0.135;
+    double fret_crown_width = 0.3;
+    double fret_crown_height = 0.3;
 
     double last_fret_cut_offset = 0.0;
 
@@ -144,6 +147,7 @@ struct Instrument {
         hidden_tang_length *= K;
         fret_slots_width *= K;
         fret_slots_height *= K;
+        fret_crown_width *= K;
         fret_crown_height *= K;
 
         last_fret_cut_offset *= K;
@@ -204,7 +208,8 @@ public:
             double hidden_tang = 0.2;
             double slots_width = 0.06;
             double slots_height = 0.15;
-            double crown_height = 0.135;
+            double crown_width = 0.3;
+            double crown_height = 0.3;
 
             double last_fret_offset = 0.0;
 
@@ -215,15 +220,15 @@ public:
 
             double thickness = 0.7;
 
-            _presets.push_back({"Telecaster", Instrument(rh, 6, bass, treble, 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(9.5), cmFromInch(9.5), thickness)});
-            _presets.push_back({"Stratocaster", Instrument(rh, 6, bass, treble, 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(10), cmFromInch(10), thickness)});
-            _presets.push_back({"Les paul", Instrument(rh, 6, cmFromInch(24.7), cmFromInch(24.7), 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, 0, nut_thickness, thickness, cmFromInch(12), cmFromInch(12), thickness)});
-            _presets.push_back({"Jazz bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(34), 0, bass_spacing_at_nut, bass_spacing_at_bridge, false, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(12), thickness)});
-            _presets.push_back({"Precision bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(34), 0, bass_spacing_at_nut, bass_spacing_at_bridge, false, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(12), thickness)});
-            _presets.push_back({"Boden 6", Instrument(rh, 6, cmFromInch(25.5), cmFromInch(25.0), 0, spacing_at_nut, spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(20), thickness)});
-            _presets.push_back({"Boden 7", Instrument(rh, 7, cmFromInch(25.5), cmFromInch(25.0),  0, spacing_at_nut, spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(20), thickness)});
-            _presets.push_back({"Boden bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(32), /*perp_fret_index*/ 7, bass_spacing_at_nut, bass_spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(16), cmFromInch(20), thickness)});
-            _presets.push_back({"Boden bass 5 strings", Instrument(rh, 5, cmFromInch(34), cmFromInch(32), /*perp_fret_index*/ 7, bass_spacing_at_nut, bass_spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(16), cmFromInch(20), thickness)});
+            _presets.push_back({"Telecaster", Instrument(rh, 6, bass, treble, 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(9.5), cmFromInch(9.5), thickness)});
+            _presets.push_back({"Stratocaster", Instrument(rh, 6, bass, treble, 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(10), cmFromInch(10), thickness)});
+            _presets.push_back({"Les paul", Instrument(rh, 6, cmFromInch(24.7), cmFromInch(24.7), 0, spacing_at_nut, spacing_at_bridge, false, nut_to_zero_fret, 22, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, 0, nut_thickness, thickness, cmFromInch(12), cmFromInch(12), thickness)});
+            _presets.push_back({"Jazz bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(34), 0, bass_spacing_at_nut, bass_spacing_at_bridge, false, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(12), thickness)});
+            _presets.push_back({"Precision bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(34), 0, bass_spacing_at_nut, bass_spacing_at_bridge, false, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(12), thickness)});
+            _presets.push_back({"Boden 6", Instrument(rh, 6, cmFromInch(25.5), cmFromInch(25.0), 0, spacing_at_nut, spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(20), thickness)});
+            _presets.push_back({"Boden 7", Instrument(rh, 7, cmFromInch(25.5), cmFromInch(25.0),  0, spacing_at_nut, spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(12), cmFromInch(20), thickness)});
+            _presets.push_back({"Boden bass", Instrument(rh, 4, cmFromInch(34), cmFromInch(32), /*perp_fret_index*/ 7, bass_spacing_at_nut, bass_spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(16), cmFromInch(20), thickness)});
+            _presets.push_back({"Boden bass 5 strings", Instrument(rh, 5, cmFromInch(34), cmFromInch(32), /*perp_fret_index*/ 7, bass_spacing_at_nut, bass_spacing_at_bridge, true, nut_to_zero_fret, frets, overhang, hidden_tang, drawStrings, drawFrets, slots_width, slots_height, crown_width, crown_height, last_fret_offset, nut_slot, space_before_nut, nut_thickness, nut_height, cmFromInch(16), cmFromInch(20), thickness)});
         }
         
         return _presets;
