@@ -54,11 +54,11 @@ void create_fretwire_profile(const Instrument& instrument, const Ptr<SketchCurve
     sketchLines->addByTwoPoints(create_point(Point(-tangW,0)), create_point(Point(tangW,0)));
     sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(tangW,0)));
     sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(tangW,-tangH)));
-    //sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(crownW,-tangH)));
-    sketchArcs->addByThreePoints(create_point(Point(crownW,-tangH)), create_point(Point(0,-(tangH + crownH))), create_point(Point(-crownW,-tangH)));
-    //sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(0,-(tangH + crownH))));
-    //sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(-crownW,-tangH)));
-    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(-tangW,-tangH)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(crownW,-tangH)));
+    
+    auto arc = sketchArcs->addByThreePoints(create_point(Point(crownW,-tangH)), create_point(Point(0,-(tangH + crownH / 2))), create_point(Point(-crownW,-tangH)));
+    
+    sketchLines->addByTwoPoints(create_point(Point(-crownW,-tangH)), create_point(Point(-tangW,-tangH)));
     sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(-tangW,0)));
 }
 
@@ -155,7 +155,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     fret_wire_profile->name("Fret Wire Profile");
     create_fretwire_profile(instrument, fret_wire_profile->sketchCurves());
     fret_wire_profile->isComputeDeferred(false);
-    fret_wire_profile->isVisible(true);
+    fret_wire_profile->isVisible(false);
 
     // create construction plane at nut side
     planeInput = planes->createInput();
