@@ -62,6 +62,11 @@ void create_fretwire_profile(const Instrument& instrument, const Ptr<SketchCurve
     sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(-tangW,0)));
 }
 
+Ptr<BRepFace> getFretboardTopSurface(const Ptr<Component>& component) {
+    auto entities = component->findBRepUsingRay(Point3D::create(20, 0, 25), Vector3D::create(0, 0, -1), BRepFaceEntityType);
+    return entities->count() > 0 ? entities->item(0) : nullptr;
+}
+
 bool createFretboard(const fretboarder::Instrument& instrument) {
     Ptr<Document> doc = app->activeDocument();
     if (!doc)
@@ -215,24 +220,24 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     radius_4->isVisible(false);
 
     // duplicate main body to create the fret slot cutter
-    auto body1 = main_body->copyToComponent(occurrence);
-    if (!body1) {
-        std::string err = "";
-        app->getLastError(&err);
-        ui->messageBox(err);
-        return false;
-    }
-    
-    body1->name("Fret cutter");
+//    auto body1 = main_body->copyToComponent(occurrence);
+//    if (!body1) {
+//        std::string err = "";
+//        app->getLastError(&err);
+//        ui->messageBox(err);
+//        return false;
+//    }
+//    
+//    body1->name("Fret cutter");
 
-    auto body2 = main_body->copyToComponent(occurrence);
-    if (!body2) {
-        std::string err = "";
-        app->getLastError(&err);
-        ui->messageBox(err);
-        return false;
-    }
-    body2->name("TMP Fret cutter");
+//    auto body2 = main_body->copyToComponent(occurrence);
+//    if (!body2) {
+//        std::string err = "";
+//        app->getLastError(&err);
+//        ui->messageBox(err);
+//        return false;
+//    }
+//    body2->name("TMP Fret cutter");
 
     auto distance = ValueInput::createByReal(instrument.fretboard_thickness);
     component->features()->extrudeFeatures()->addSimple(contour_sketch->profiles()->item(0), distance, FeatureOperations::IntersectFeatureOperation);
@@ -266,48 +271,66 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     unslotted->name("Unslotted");
     unslotted->isVisible(false);
 
-    auto move_features = component->features()->moveFeatures();
-    auto items = ObjectCollection::create();
-    items->add(body2);
-    auto transform = Matrix3D::create();
-    transform->translation(Vector3D::create(0.0, 0.0, -instrument.fret_slots_height * 0.1));
-    auto move_input = move_features->createInput(items, transform);
-    move_features->add(move_input);
+//    auto move_features = component->features()->moveFeatures();
+//    auto items = ObjectCollection::create();
+//    items->add(body2);
+//    auto transform = Matrix3D::create();
+//    transform->translation(Vector3D::create(0.0, 0.0, -instrument.fret_slots_height * 0.1));
+//    auto move_input = move_features->createInput(items, transform);
+//    move_features->add(move_input);
 
     main_body->isVisible(false);
 
-    auto combine_features = component->features()->combineFeatures();
-    auto tools = ObjectCollection::create();
-    tools->add(body2);
-    auto combine_input = combine_features->createInput(body1, tools);
-    combine_input->isKeepToolBodies(false);
-    combine_input->operation(FeatureOperations::CutFeatureOperation);
-    combine_features->add(combine_input);
-
-    // create Fret Slots sketch
-    fret_slots_sketch = component->sketches()->add(component->xYConstructionPlane());
-    fret_slots_sketch->name("Fret slots");
-    fret_slots_sketch->isComputeDeferred(true);
-    for (auto&& shape : fretboard.fret_slot_shapes()) {
-        create_closed_polygon(fret_slots_sketch->sketchCurves()->sketchLines(), shape);
-    }
-    fret_slots_sketch->isComputeDeferred(false);
-
-    distance = ValueInput::createByReal(2 * instrument.fretboard_thickness);
-    auto collection = ObjectCollection::create();
-    for (int index = 0; index < fret_slots_sketch->profiles()->count(); index++) {
-        collection->add(fret_slots_sketch->profiles()->item(index));
-    }
-    auto last_feature = component->features()->extrudeFeatures()->addSimple(collection, distance, FeatureOperations::IntersectFeatureOperation);
+//    auto combine_features = component->features()->combineFeatures();
+//    auto tools = ObjectCollection::create();
+//    tools->add(body2);
+//    auto combine_input = combine_features->createInput(body1, tools);
+//    combine_input->isKeepToolBodies(false);
+//    combine_input->operation(FeatureOperations::CutFeatureOperation);
+//    combine_features->add(combine_input);
+//
+//    // create Fret Slots sketch
+//    fret_slots_sketch = component->sketches()->add(component->xYConstructionPlane());
+//    fret_slots_sketch->name("Fret slots");
+//    fret_slots_sketch->isComputeDeferred(true);
+//    for (auto&& shape : fretboard.fret_slot_shapes()) {
+//        create_closed_polygon(fret_slots_sketch->sketchCurves()->sketchLines(), shape);
+//    }
+//    fret_slots_sketch->isComputeDeferred(false);
+//
+//    distance = ValueInput::createByReal(2 * instrument.fretboard_thickness);
+//    auto collection = ObjectCollection::create();
+//    for (int index = 0; index < fret_slots_sketch->profiles()->count(); index++) {
+//        collection->add(fret_slots_sketch->profiles()->item(index));
+//    }
+//    auto last_feature = component->features()->extrudeFeatures()->addSimple(collection, distance, FeatureOperations::IntersectFeatureOperation);
 
     main_body->isVisible(true);
-    collection = ObjectCollection::create();
-    for (int index = 0; index < last_feature->bodies()->count(); index++) {
-        collection->add(last_feature->bodies()->item(index));
+//    collection = ObjectCollection::create();
+//    for (int index = 0; index < last_feature->bodies()->count(); index++) {
+//        collection->add(last_feature->bodies()->item(index));
+//    }
+//    auto cut_input = component->features()->combineFeatures()->createInput(main_body, collection);
+//    cut_input->operation(FeatureOperations::CutFeatureOperation);
+//    component->features()->combineFeatures()->add(cut_input);
+
+    auto top = getFretboardTopSurface(component);
+    if (top) {
+        std::vector<Ptr<BRepFace>> faces;
+        faces.push_back(top);
+        std::vector<Ptr<Base>> curves;
+        auto C = fret_slots_sketch->sketchCurves();
+        for (int i = 0; i < C->count(); i++) {
+            auto c = C->item(i);
+            curves.push_back(c);
+        }
+        auto sketches = fret_wire_profile->projectToSurface(faces, curves, AlongVectorSurfaceProjectType, component->zConstructionAxis());
+//        sketches->parentSk
     }
-    auto cut_input = component->features()->combineFeatures()->createInput(main_body, collection);
-    cut_input->operation(FeatureOperations::CutFeatureOperation);
-    component->features()->combineFeatures()->add(cut_input);
+    else {
+        ui->messageBox("Top not found");
+    }
+    
 
     return true;
 }
