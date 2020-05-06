@@ -44,19 +44,22 @@ double YOnCircleGivenX(double x, Point center, double radius) {
     return center.y - sqrt(radius * radius + K * K);
 }
 
-void create_fretwire_profile(const Instrument& instrument, const Ptr<SketchLines>& sketch_lines) {
+void create_fretwire_profile(const Instrument& instrument, const Ptr<SketchCurves>& sketch_curves) {
+    auto sketchLines = sketch_curves->sketchLines();
+    auto sketchArcs = sketch_curves->sketchArcs();
     auto tangW = instrument.fret_slots_width / 2;
     auto tangH = instrument.fret_slots_height;
     auto crownW = instrument.fret_crown_width / 2;
     auto crownH = instrument.fret_crown_height;
-    sketch_lines->addByTwoPoints(create_point(Point(-tangW,0)), create_point(Point(tangW,0)));
-    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(tangW,0)));
-    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(tangW,-tangH)));
-    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(crownW,-tangH)));
-    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(0,-(tangH + crownH))));
-    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(-crownW,-tangH)));
-    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(-tangW,-tangH)));
-    sketch_lines->addByTwoPoints(sketch_lines->item(sketch_lines->count() -1)->endSketchPoint(), create_point(Point(-tangW,0)));
+    sketchLines->addByTwoPoints(create_point(Point(-tangW,0)), create_point(Point(tangW,0)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(tangW,0)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(tangW,-tangH)));
+    //sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(crownW,-tangH)));
+    sketchArcs->addByThreePoints(create_point(Point(crownW,-tangH)), create_point(Point(0,-(tangH + crownH))), create_point(Point(-crownW,-tangH)));
+    //sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(0,-(tangH + crownH))));
+    //sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(-crownW,-tangH)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(-tangW,-tangH)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(-tangW,0)));
 }
 
 bool createFretboard(const fretboarder::Instrument& instrument) {
@@ -150,7 +153,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     // create fret wire profile
     auto fret_wire_profile = component->sketches()->add(component->xZConstructionPlane());
     fret_wire_profile->name("Fret Wire Profile");
-    create_fretwire_profile(instrument, fret_wire_profile->sketchCurves()->sketchLines());
+    create_fretwire_profile(instrument, fret_wire_profile->sketchCurves());
     fret_wire_profile->isComputeDeferred(false);
     fret_wire_profile->isVisible(true);
 
@@ -377,6 +380,7 @@ public:
         Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
         Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
         Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
+        Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
         Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
         Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
 
@@ -414,6 +418,7 @@ public:
             hidden_tang_length->value(preset.instrument.hidden_tang_length);
             fret_slots_width->value(preset.instrument.fret_slots_width);
             fret_slots_height->value(preset.instrument.fret_slots_height);
+            fret_crown_width->value(preset.instrument.fret_crown_width);
             fret_crown_height->value(preset.instrument.fret_crown_height);
             last_fret_cut_offset->value(preset.instrument.last_fret_cut_offset);
 
@@ -457,6 +462,7 @@ public:
         Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
         Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
         Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
+        Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
         Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
         Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
 
@@ -477,6 +483,7 @@ public:
         instrument.hidden_tang_length = hidden_tang_length->value();
         instrument.fret_slots_width = fret_slots_width->value();
         instrument.fret_slots_height = fret_slots_height->value();
+        instrument.fret_crown_width = fret_crown_width->value();
         instrument.fret_crown_height = fret_crown_height->value();
         instrument.last_fret_cut_offset = last_fret_cut_offset->value();
         instrument.space_before_nut = space_before_nut->value();
@@ -580,7 +587,8 @@ public:
                 group->addFloatSpinnerCommandInput("hidden_tang_length", "Blind tang length", "mm", 0, 50, 0.1, 2.0);
                 group->addFloatSpinnerCommandInput("fret_slots_width", "Fret slots width", "mm", 0, 2, 0.1, 0.6);
                 group->addFloatSpinnerCommandInput("fret_slots_height", "Fret slots height", "mm", 0, 10, 0.1, 1.5);
-                group->addFloatSpinnerCommandInput("fret_crown_height", "Fret crown height", "mm", 0, 10, 0.1, 1.35);
+                group->addFloatSpinnerCommandInput("fret_crown_width", "Fret crown width", "mm", 0, 10, 0.1, 3);
+                group->addFloatSpinnerCommandInput("fret_crown_height", "Fret crown height", "mm", 0, 10, 0.1, 3);
                 group->addFloatSpinnerCommandInput("last_fret_cut_offset", "Last fret cut offset", "mm", 0, 10, 0.1, 0);
 
                 group = inputs->addGroupCommandInput("nut", "Nut")->children();
