@@ -12,6 +12,15 @@ using namespace fretboarder;
 Ptr<Application> app;
 Ptr<UserInterface> ui;
 
+#define CHECK(X) \
+    if (!X) {\
+        std::string err = "";\
+        app->getLastError(&err);\
+        ui->messageBox(err);\
+        return false;\
+    }
+
+
 
 Ptr<Point3D> create_point(Point point) {
     return Point3D::create(0.1 * point.x, 0.1 * point.y, 0.1 * point.z);
@@ -227,7 +236,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 //        ui->messageBox(err);
 //        return false;
 //    }
-//    
+//
 //    body1->name("Fret cutter");
 
 //    auto body2 = main_body->copyToComponent(occurrence);
@@ -318,14 +327,45 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     if (top) {
         std::vector<Ptr<BRepFace>> faces;
         faces.push_back(top);
-        std::vector<Ptr<Base>> curves;
         auto C = fret_slots_sketch->sketchCurves();
         for (int i = 0; i < C->count(); i++) {
+            std::vector<Ptr<Base>> curves;
             auto c = C->item(i);
             curves.push_back(c);
+
+            std::stringstream str;
+            str << "Fret Profile " << i;
+            auto fret_profile = component->sketches()->add(component->yZConstructionPlane());
+            fret_profile->name(str.str());
+
+            auto sketch = fret_profile->projectToSurface(faces, curves, AlongVectorSurfaceProjectType, component->zConstructionAxis())[0]->parentSketch();
+            //bool constrained = sketch->isFullyConstrained();
+
+            //fret_profile->sketchCurves()->sketchLines()->addByTwoPoints(c->, <#const core::Ptr<core::Base> &endPoint#>)
+            
+//            auto profile = fret_profile->sketchCurves()->item(0);
+            auto profile = sketch->sketchCurves()->item(0);
+            CHECK(profile);
+            auto path = Path::create(profile, connectedChainedCurves);
+//            auto path = component->features()->createPath(fret_profile, true);
+//            auto path = component->features()->createPath(c, true);
+            CHECK(path);
+            auto input = component->features()->sweepFeatures()->createInput(fret_wire_profile, path, NewBodyFeatureOperation);
+            CHECK(input);
+            auto fret = component->features()->sweepFeatures()->add(input);
+            CHECK(fret);
+
+            auto bodies = fret->bodies();
+            CHECK(bodies);
+
+            str << "fret " << i;
+
+            for (int j = 0; j < bodies->count(); j++) {
+                auto body = bodies->item(j);
+                CHECK(body);
+                body->name(str.str());
+            }
         }
-        auto sketches = fret_wire_profile->projectToSurface(faces, curves, AlongVectorSurfaceProjectType, component->zConstructionAxis());
-//        sketches->parentSk
     }
     else {
         ui->messageBox("Top not found");
@@ -333,35 +373,6 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     
 
     return true;
-}
-
-
-// Adds a new row to the table.
-static void addRowToTable(Ptr<TableCommandInput> tableInput)
-{
-    if (!tableInput)
-        return;
-
-    // Define a unique id for each row.
-    static int rowNumber = 0;
-    std::stringstream rowId;
-    rowId << rowNumber;
-
-    // Get the CommandInputs object associated with the parent command.
-    Ptr<CommandInputs> cmdInputs = tableInput->commandInputs();
-
-    // Create three new command inputs.
-    Ptr<CommandInput> childTableValueInput = cmdInputs->addValueInput("TableInput_value" + rowId.str(), "Value", "cm", ValueInput::createByReal(rowNumber));
-    Ptr<CommandInput> childTableStringInput = cmdInputs->addStringValueInput("TableInput_string" + rowId.str(), "String", rowId.str());
-    Ptr<CommandInput> childTableSpinnerInput = cmdInputs->addIntegerSpinnerCommandInput("spinnerInt" + rowId.str(), "Integer Spinner", 0, 100, 2, rowNumber);
-
-    // Add the inputs to the table.
-    int row = tableInput->rowCount();
-    tableInput->addCommandInput(childTableValueInput, row, 0);
-    tableInput->addCommandInput(childTableStringInput, row, 1);
-    tableInput->addCommandInput(childTableSpinnerInput, row, 2);
-
-    rowNumber = rowNumber + 1;
 }
 
 // InputChange event handler.
