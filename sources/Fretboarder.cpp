@@ -53,26 +53,29 @@ double YOnCircleGivenX(double x, Point center, double radius) {
     return center.y - sqrt(radius * radius + K * K);
 }
 
-void create_fretwire_profile(const Instrument& instrument, const Ptr<SketchCurves>& sketch_curves) {
+void create_fretwire_profile(const Instrument& instrument, const Ptr<SketchCurves>& sketch_curves, const Ptr<Point3D>& origin) {
     auto sketchLines = sketch_curves->sketchLines();
     auto sketchArcs = sketch_curves->sketchArcs();
     auto tangW = instrument.fret_slots_width / 2;
     auto tangH = instrument.fret_slots_height;
     auto crownW = instrument.fret_crown_width / 2;
     auto crownH = instrument.fret_crown_height;
-    sketchLines->addByTwoPoints(create_point(Point(-tangW,0)), create_point(Point(tangW,0)));
-    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(tangW,0)));
-    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(tangW,-tangH)));
-    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(crownW,-tangH)));
+    double x = origin->x();
+    double y = origin->y();
+    double z = origin->z();
+    sketchLines->addByTwoPoints(create_point(Point(x + -tangW, y + 0)), create_point(Point(tangW, y + 0)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(x + tangW, y + 0)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(x + tangW, y + -tangH)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(x + crownW, y + -tangH)));
     
-    auto arc = sketchArcs->addByThreePoints(create_point(Point(crownW,-tangH)), create_point(Point(0,-(tangH + crownH / 2))), create_point(Point(-crownW,-tangH)));
+    auto arc = sketchArcs->addByThreePoints(create_point(Point(x + crownW, y + -tangH)), create_point(Point(x + 0, y + -(tangH + crownH / 2))), create_point(Point(x + -crownW, y + -tangH)));
     
-    sketchLines->addByTwoPoints(create_point(Point(-crownW,-tangH)), create_point(Point(-tangW,-tangH)));
-    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(-tangW,0)));
+    sketchLines->addByTwoPoints(create_point(Point(x + -crownW, y + -tangH)), create_point(Point(x + -tangW, y + -tangH)));
+    sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(x + -tangW, y + 0)));
 }
 
 Ptr<BRepFace> getFretboardTopSurface(const Ptr<Component>& component) {
-    auto entities = component->findBRepUsingRay(Point3D::create(20, 0, 25), Vector3D::create(0, 0, -1), BRepFaceEntityType);
+    auto entities = component->findBRepUsingRay(Point3D::create(1, 0, 25), Vector3D::create(0, 0, -1), BRepFaceEntityType);
     return entities->count() > 0 ? entities->item(0) : nullptr;
 }
 
@@ -164,13 +167,6 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     fret_slots_sketch->isComputeDeferred(false);
     fret_slots_sketch->isVisible(false);
     
-    // create fret wire profile
-    auto fret_wire_profile = component->sketches()->add(component->xZConstructionPlane());
-    fret_wire_profile->name("Fret Wire Profile");
-    create_fretwire_profile(instrument, fret_wire_profile->sketchCurves());
-    fret_wire_profile->isComputeDeferred(false);
-    fret_wire_profile->isVisible(false);
-
     // create construction plane at nut side
     planeInput = planes->createInput();
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_nut_side() * 0.1);
@@ -335,36 +331,95 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 
             std::stringstream str;
             str << "Fret Profile " << i;
-            auto fret_profile = component->sketches()->add(component->yZConstructionPlane());
-            fret_profile->name(str.str());
+            auto projected_fret_profile = component->sketches()->add(component->yZConstructionPlane());
+            projected_fret_profile->name(str.str());
 
-            auto sketch = fret_profile->projectToSurface(faces, curves, AlongVectorSurfaceProjectType, component->zConstructionAxis())[0]->parentSketch();
-            //bool constrained = sketch->isFullyConstrained();
-
-            //fret_profile->sketchCurves()->sketchLines()->addByTwoPoints(c->, <#const core::Ptr<core::Base> &endPoint#>)
+            auto profiles = projected_fret_profile->projectToSurface(faces, curves, AlongVectorSurfaceProjectType, component->zConstructionAxis());
             
-//            auto profile = fret_profile->sketchCurves()->item(0);
-            auto profile = sketch->sketchCurves()->item(0);
-            CHECK(profile);
-            auto path = Path::create(profile, connectedChainedCurves);
-//            auto path = component->features()->createPath(fret_profile, true);
-//            auto path = component->features()->createPath(c, true);
-            CHECK(path);
-            auto input = component->features()->sweepFeatures()->createInput(fret_wire_profile, path, NewBodyFeatureOperation);
-            CHECK(input);
-            auto fret = component->features()->sweepFeatures()->add(input);
-            CHECK(fret);
+            Ptr<Path> path;
+            for (int j = 0; j < profiles.size(); j++)
+            {
+                auto profile = profiles[j];
+                CHECK(profile);
+                auto arc3D = profile->cast<SketchArc>();
+                auto fret_profile = component->sketches()->add(component->yZConstructionPlane());
+                if (arc3D) {
+                    auto nurbsCurve = arc3D->geometry()->asNurbsCurve();
+                    std::stringstream str;
+                    str << "fret profile from nurbs " << i;
+                    fret_profile->name(str.str());
+                    fret_profile->sketchCurves()->sketchFittedSplines()->addByNurbsCurve(nurbsCurve);
+                }
+                auto earc3D = profile->cast<SketchEllipticalArc>();
+                if (earc3D) {
+                    auto nurbsCurve = earc3D->geometry()->asNurbsCurve();
+                    std::stringstream str;
+                    str << "fret profile from enurbs " << i;
+                    fret_profile->name(str.str());
+                    fret_profile->sketchCurves()->sketchFittedSplines()->addByNurbsCurve(nurbsCurve);
+                }
 
-            auto bodies = fret->bodies();
-            CHECK(bodies);
+                if (!path) {
+                    path = component->features()->createPath(fret_profile->sketchCurves()->item(0), true);
+                    CHECK(path);
+                } else {
+                    auto res = path->addCurves(fret_profile->sketchCurves()->item(0), connectedChainedCurves);
+                    CHECK(res);
+                }
+                for (int c = 1; c < fret_profile->sketchCurves()->count(); c++) {
+                    auto res = path->addCurves(fret_profile->sketchCurves()->item(c), connectedChainedCurves);
+                    CHECK(res);
+                }
 
-            str << "fret " << i;
+                CHECK(path);
+                Ptr<Point3D> start, end;
+                path->item(0)->curve()->evaluator()->getEndPoints(start, end);
+                
+                // create fret wire profile
+                auto fret_wire_profile = component->sketches()->add(component->xZConstructionPlane());
+                fret_wire_profile->name("Fret Wire Profile");
+                auto pp = fretboard.fret_slots()[i].point1;
+                pp.x *= 10;
+                //pp.y = ;
+                pp.y -= instrument.fretboard_thickness * 10;
+                create_fretwire_profile(instrument, fret_wire_profile->sketchCurves(), create_point(pp));
+                fret_wire_profile->isComputeDeferred(false);
+                fret_wire_profile->isVisible(false);
 
-            for (int j = 0; j < bodies->count(); j++) {
-                auto body = bodies->item(j);
-                CHECK(body);
-                body->name(str.str());
+                auto wire_profile = component->sketches()->add(fret_wire_profile->referencePlane());
+                auto transform = Matrix3D::create();
+                auto v = Vector3D::create(start->x(), start->y(), start->z());
+                transform->translation(start);
+                auto objects = ObjectCollection::create();
+                for (int k = 0; k < fret_wire_profile->sketchCurves()->count(); k++) {
+                    auto o = fret_wire_profile->sketchCurves()->item(k);
+                    objects->add(o);
+                }
+                fret_wire_profile->copy(objects, transform, wire_profile);
+
+                auto p = wire_profile->profiles()->item(0);
+                CHECK(p);
+                auto input = component->features()->sweepFeatures()->createInput(p, path, NewBodyFeatureOperation);
+                CHECK(input);
+                auto fret = component->features()->sweepFeatures()->add(input);
+                CHECK(fret);
+
+                auto bodies = fret->bodies();
+                CHECK(bodies);
+
+                std::stringstream str;
+                str << "fret " << i;
+
+                for (int j = 0; j < bodies->count(); j++) {
+                    auto body = bodies->item(j);
+                    CHECK(body);
+                    body->name(str.str());
+                }
+
+                //fret_profile->deleteMe();
             }
+            
+            projected_fret_profile->deleteMe();
         }
     }
     else {
