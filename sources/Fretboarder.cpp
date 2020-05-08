@@ -378,26 +378,17 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                 // create fret wire profile
                 auto fret_wire_profile = component->sketches()->add(component->xZConstructionPlane());
                 fret_wire_profile->name("Fret Wire Profile");
-                auto pp = fretboard.fret_slots()[i].point1;
+                auto p1 = fretboard.fret_slots()[i].point1;
+                auto p2 = fretboard.fret_slots()[i].point2;
+                Point pp((p1.x + p2.x)/2, (p1.y + p2.y)/2, (p1.z + p2.z)/2);
                 pp.x *= 10;
                 //pp.y = ;
-                pp.y -= instrument.fretboard_thickness * 10;
+                pp.y -= (instrument.fretboard_thickness - instrument.fret_slots_height) * 10 ;
                 create_fretwire_profile(instrument, fret_wire_profile->sketchCurves(), create_point(pp));
-                fret_wire_profile->isComputeDeferred(false);
-                fret_wire_profile->isVisible(false);
+//                fret_wire_profile->isComputeDeferred(false);
+                fret_wire_profile->isVisible(true);
 
-                auto wire_profile = component->sketches()->add(fret_wire_profile->referencePlane());
-                auto transform = Matrix3D::create();
-                auto v = Vector3D::create(start->x(), start->y(), start->z());
-                transform->translation(start);
-                auto objects = ObjectCollection::create();
-                for (int k = 0; k < fret_wire_profile->sketchCurves()->count(); k++) {
-                    auto o = fret_wire_profile->sketchCurves()->item(k);
-                    objects->add(o);
-                }
-                fret_wire_profile->copy(objects, transform, wire_profile);
-
-                auto p = wire_profile->profiles()->item(0);
+                auto p = fret_wire_profile->profiles()->item(0);
                 CHECK(p);
                 auto input = component->features()->sweepFeatures()->createInput(p, path, NewBodyFeatureOperation);
                 CHECK(input);
@@ -416,7 +407,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                     body->name(str.str());
                 }
 
-                //fret_profile->deleteMe();
+                //fret_wire_profile->deleteMe();
             }
             
             projected_fret_profile->deleteMe();
