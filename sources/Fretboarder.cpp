@@ -63,7 +63,7 @@ void create_fretwire_profile(const Instrument& instrument, const Ptr<SketchCurve
     double x = origin->x();
     double y = origin->y();
     double z = origin->z();
-    sketchLines->addByTwoPoints(create_point(Point(x + -tangW, y + 0)), create_point(Point(tangW, y + 0)));
+    sketchLines->addByTwoPoints(create_point(Point(x + -tangW, y + 0)), create_point(Point(x + tangW, y + 0)));
     sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(x + tangW, y + 0)));
     sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(x + tangW, y + -tangH)));
     sketchLines->addByTwoPoints(sketchLines->item(sketchLines->count() -1)->endSketchPoint(), create_point(Point(x + crownW, y + -tangH)));
@@ -386,28 +386,31 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                 pp.y -= (instrument.fretboard_thickness - instrument.fret_slots_height) * 10 ;
                 create_fretwire_profile(instrument, fret_wire_profile->sketchCurves(), create_point(pp));
 //                fret_wire_profile->isComputeDeferred(false);
-                fret_wire_profile->isVisible(true);
+//                fret_wire_profile->isVisible(true);
 
-                auto p = fret_wire_profile->profiles()->item(0);
-                CHECK(p);
-                auto input = component->features()->sweepFeatures()->createInput(p, path, NewBodyFeatureOperation);
-                CHECK(input);
-                auto fret = component->features()->sweepFeatures()->add(input);
-                CHECK(fret);
+                if (1) {
+                    auto p = fret_wire_profile->profiles()->item(0);
+                    CHECK(p);
+                    auto input = component->features()->sweepFeatures()->createInput(p, path, NewBodyFeatureOperation);
+                    CHECK(input);
+                    auto fret = component->features()->sweepFeatures()->add(input);
+                    CHECK(fret);
 
-                auto bodies = fret->bodies();
-                CHECK(bodies);
+                    auto bodies = fret->bodies();
+                    CHECK(bodies);
 
-                std::stringstream str;
-                str << "fret " << i;
+                    std::stringstream str;
+                    str << "fret " << i;
 
-                for (int j = 0; j < bodies->count(); j++) {
-                    auto body = bodies->item(j);
-                    CHECK(body);
-                    body->name(str.str());
+                    for (int j = 0; j < bodies->count(); j++) {
+                        auto body = bodies->item(j);
+                        CHECK(body);
+                        body->name(str.str());
+                    }
                 }
-
-                //fret_wire_profile->deleteMe();
+                
+//                fret_wire_profile->deleteMe();
+//                fret_profile->deleteMe();
             }
             
             projected_fret_profile->deleteMe();
@@ -667,8 +670,8 @@ public:
                 group->addFloatSpinnerCommandInput("hidden_tang_length", "Blind tang length", "mm", 0, 50, 0.1, 2.0);
                 group->addFloatSpinnerCommandInput("fret_slots_width", "Fret slots width", "mm", 0, 2, 0.1, 0.6);
                 group->addFloatSpinnerCommandInput("fret_slots_height", "Fret slots height", "mm", 0, 10, 0.1, 1.5);
-                group->addFloatSpinnerCommandInput("fret_crown_width", "Fret crown width", "mm", 0, 10, 0.1, 3);
-                group->addFloatSpinnerCommandInput("fret_crown_height", "Fret crown height", "mm", 0, 10, 0.1, 3);
+                group->addFloatSpinnerCommandInput("fret_crown_width", "Fret crown width", "mm", 0, 10, 0.1, 2.34);
+                group->addFloatSpinnerCommandInput("fret_crown_height", "Fret crown height", "mm", 0, 10, 0.1, 1.22);
                 group->addFloatSpinnerCommandInput("last_fret_cut_offset", "Last fret cut offset", "mm", 0, 10, 0.1, 0);
 
                 group = inputs->addGroupCommandInput("nut", "Nut")->children();

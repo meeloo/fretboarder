@@ -43,8 +43,8 @@ struct Instrument {
     bool draw_frets = true,
     double fret_slots_width = 0.06,
     double fret_slots_height = 0.15,
-    double fret_crown_width = 0.3,
-    double fret_crown_height = 0.3,
+    double fret_crown_width = 0.234,
+    double fret_crown_height = 0.122,
     double last_fret_cut_offset = 0.0,
     bool carve_nut_slot = true,
     double space_before_nut = 1.2,
@@ -112,8 +112,8 @@ struct Instrument {
     bool draw_frets = true;
     double fret_slots_width = 0.06;
     double fret_slots_height = 0.15;
-    double fret_crown_width = 0.3;
-    double fret_crown_height = 0.3;
+    double fret_crown_width = 0.234;
+    double fret_crown_height = 0.122;
 
     double last_fret_cut_offset = 0.0;
 
