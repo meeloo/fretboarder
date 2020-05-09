@@ -91,7 +91,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     Ptr<Design> design = product;
     if (!design)
         return false;
-
+    
     // Get the root component of the active design
     Ptr<Component> rootComp = design->rootComponent();
     if(!rootComp)
@@ -104,7 +104,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     auto component = occurrence->component();
     component->name("Fretboard");
     occurrence->activate();
-    design->designType(ParametricDesignType);
+    design->designType(DirectDesignType);
     
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
