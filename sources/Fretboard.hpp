@@ -261,6 +261,7 @@ private:
     Line last_tang_border;
 
     std::vector<Vector> _fret_slots;
+    std::vector<Vector> _fret_lines;
     std::vector<Quad> _fret_slot_shapes;
     
     int first_fret;
@@ -322,6 +323,7 @@ public:
         for (int fret_index = first_fret; fret_index < last_fret; fret_index++) {
             Line fret_line = Line(_strings.front().point_at_fret(fret_index), _strings.back().point_at_fret(fret_index));
             _fret_slots.push_back(Vector(fret_line.intersection(first_tang_border), fret_line.intersection(last_tang_border)));
+            _fret_lines.push_back(Vector(fret_line.intersection(first_border), fret_line.intersection(last_border)));
         }
 
         for (int fret_index = first_fret; fret_index < last_fret; fret_index++) {
@@ -396,6 +398,7 @@ public:
     }
     
     const std::vector<Vector>& fret_slots() const { return _fret_slots; }
+    const std::vector<Vector>& fret_lines() const { return _fret_lines; }
     const std::vector<Quad>& fret_slot_shapes() const { return _fret_slot_shapes; }
     const std::vector<String>& strings() const { return _strings; }
 

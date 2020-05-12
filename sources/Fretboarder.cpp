@@ -111,6 +111,38 @@ Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path
     return fret;
 }
 
+Ptr<Path> fill_path_from_profile(const Ptr<Component>& component, const Ptr<Path>& path, const Ptr<SketchEntity>& profile, int index, std::vector<Ptr<Sketch>>& profiles) {
+    Ptr<Path> _path = path;
+    auto fret_profile = component->sketches()->add(component->yZConstructionPlane());
+    profiles.push_back(fret_profile);
+    auto arc3D = profile->cast<SketchArc>();
+    if (arc3D) {
+        auto nurbsCurve = arc3D->geometry()->asNurbsCurve();
+        std::stringstream str;
+        fret_profile->sketchCurves()->sketchFittedSplines()->addByNurbsCurve(nurbsCurve);
+    }
+    auto earc3D = profile->cast<SketchEllipticalArc>();
+    if (earc3D) {
+        auto nurbsCurve = earc3D->geometry()->asNurbsCurve();
+        std::stringstream str;
+        fret_profile->sketchCurves()->sketchFittedSplines()->addByNurbsCurve(nurbsCurve);
+    }
+
+    if (!_path) {
+        _path = component->features()->createPath(fret_profile->sketchCurves()->item(0), true);
+        CHECK(_path, nullptr);
+    } else {
+        auto res = _path->addCurves(fret_profile->sketchCurves()->item(0), connectedChainedCurves);
+        CHECK(res, nullptr);
+    }
+    for (int c = 1; c < fret_profile->sketchCurves()->count(); c++) {
+        auto res = _path->addCurves(fret_profile->sketchCurves()->item(c), connectedChainedCurves);
+        CHECK(res, nullptr);
+    }
+    
+    return _path;
+}
+
 
 bool createFretboard(const fretboarder::Instrument& instrument) {
     Ptr<Document> doc = app->activeDocument();
@@ -199,7 +231,16 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     }
     fret_slots_sketch->isComputeDeferred(false);
     fret_slots_sketch->isVisible(false);
-    
+
+    auto fret_lines_sketch = component->sketches()->add(fret_slots_construction_plane);
+    fret_lines_sketch->name("Fret lines as lines");
+    fret_lines_sketch->isComputeDeferred(true);
+    for (auto &&vector : fretboard.fret_lines()) {
+        create_line(fret_lines_sketch->sketchCurves()->sketchLines(), vector);
+    }
+    fret_lines_sketch->isComputeDeferred(false);
+    fret_lines_sketch->isVisible(false);
+
     // create construction plane at nut side
     planeInput = planes->createInput();
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_nut_side() * 0.1);
@@ -357,53 +398,34 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         std::vector<Ptr<BRepFace>> faces;
         faces.push_back(top);
         auto C = fret_slots_sketch->sketchCurves();
+        auto L = fret_lines_sketch->sketchCurves();
         for (int i = 0; i < C->count(); i++) {
-            std::vector<Ptr<Base>> curves;
+            std::vector<Ptr<Base>> curvesS;
+            std::vector<Ptr<Base>> curvesL;
             auto c = C->item(i);
-            curves.push_back(c);
-            
+            auto l = L->item(i);
+            curvesS.push_back(c);
+            curvesL.push_back(l);
+
             std::stringstream str;
             str << "Fret Profile " << i;
             auto projected_fret_profile = component->sketches()->add(component->yZConstructionPlane());
             projected_fret_profile->name(str.str());
             
-            auto profiles = projected_fret_profile->projectToSurface(faces, curves, AlongVectorSurfaceProjectType, component->zConstructionAxis());
+            auto profilesS = projected_fret_profile->projectToSurface(faces, curvesS, AlongVectorSurfaceProjectType, component->zConstructionAxis());
+            auto profilesL = projected_fret_profile->projectToSurface(faces, curvesL, AlongVectorSurfaceProjectType, component->zConstructionAxis());
             
+
             Ptr<Path> path;
-            for (int j = 0; j < profiles.size(); j++)
+            std::vector<Ptr<Sketch>> profiles;
+            for (int j = 0; j < profilesS.size(); j++)
             {
-                auto profile = profiles[j];
-                CHECK(profile, false);
-                auto arc3D = profile->cast<SketchArc>();
-                auto fret_profile = component->sketches()->add(component->yZConstructionPlane());
-                if (arc3D) {
-                    auto nurbsCurve = arc3D->geometry()->asNurbsCurve();
-                    std::stringstream str;
-                    str << "fret profile from nurbs " << i;
-                    fret_profile->name(str.str());
-                    fret_profile->sketchCurves()->sketchFittedSplines()->addByNurbsCurve(nurbsCurve);
-                }
-                auto earc3D = profile->cast<SketchEllipticalArc>();
-                if (earc3D) {
-                    auto nurbsCurve = earc3D->geometry()->asNurbsCurve();
-                    std::stringstream str;
-                    str << "fret profile from enurbs " << i;
-                    fret_profile->name(str.str());
-                    fret_profile->sketchCurves()->sketchFittedSplines()->addByNurbsCurve(nurbsCurve);
-                }
-                
-                if (!path) {
-                    path = component->features()->createPath(fret_profile->sketchCurves()->item(0), true);
-                    CHECK(path, false);
-                } else {
-                    auto res = path->addCurves(fret_profile->sketchCurves()->item(0), connectedChainedCurves);
-                    CHECK(res, false);
-                }
-                for (int c = 1; c < fret_profile->sketchCurves()->count(); c++) {
-                    auto res = path->addCurves(fret_profile->sketchCurves()->item(c), connectedChainedCurves);
-                    CHECK(res, false);
-                }
-                
+                auto profileS = profilesS[j];
+                CHECK(profileS, false);
+                auto profileL = profilesL[j];
+                CHECK(profileL, false);
+
+                path = fill_path_from_profile(component, path, profileS, i, profiles);
                 CHECK(path, false);
                 Ptr<Point3D> start, end;
                 path->item(0)->curve()->evaluator()->getEndPoints(start, end);
@@ -425,8 +447,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                     str << "fret " << i;
 
                     create_fret_element(fret_wire_profile, path, component, str.str());
-                    
-                    
+                    fret_wire_profile->deleteMe();
                 }
                 
                 if (1) {
@@ -455,10 +476,12 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                     fretTang->deleteMe();
                 }
                 
-                fret_profile->deleteMe();
                 projected_fret_profile->deleteMe();
             }
             
+            for (auto p : profiles) {
+                p->deleteMe();
+            }
         }
         
     }
