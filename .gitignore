@@ -48,3 +48,4 @@ Fretboarder.dylib.dSYM
 *.ipdb
 Release/Fretboarder.vcxproj.FileListAbsolute.txt
 Debug/Fretboarder.vcxproj.FileListAbsolute.txt
+*.opendb
