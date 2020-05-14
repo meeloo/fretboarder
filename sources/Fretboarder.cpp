@@ -58,28 +58,32 @@ double YOnCircleGivenX(double x, Point center, double radius) {
     return center.y - sqrt(radius * radius + K * K);
 }
 
-Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Ptr<Component>& component, const Ptr<Point3D>& origin) {
-    auto fret_wire_profile = component->sketches()->add(component->xZConstructionPlane());
+Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Fretboard& fretboard, int fretIndex, const Ptr<Component>& component, const Ptr<Path>& path) {
+    // Create a construction plane at the end of the path.
+    Ptr<ConstructionPlaneInput> planeInput = component->constructionPlanes()->createInput();
+    planeInput->setByDistanceOnPath(path, ValueInput::createByReal(0));
+    Ptr<ConstructionPlane> profPlane = component->constructionPlanes()->add(planeInput);
+    auto fret_wire_profile = component->sketches()->add(profPlane);
     fret_wire_profile->name("Fret Wire Profile");
 
     auto sketch_curves = fret_wire_profile->sketchCurves();
 
     auto sketchLines = sketch_curves->sketchLines();
     auto sketchArcs = sketch_curves->sketchArcs();
-    auto tangH = instrument.fret_slots_height;
     auto crownW = instrument.fret_crown_width / 2;
     auto crownH = instrument.fret_crown_height;
-    double x = origin->x();
-    double y = origin->y();
-    double z = origin->z();
-    auto arc = sketchArcs->addByThreePoints(create_point(Point(x + crownW, y + -tangH, z)), create_point(Point(x + 0, y + -(tangH + crownH / 2), z)), create_point(Point(x + -crownW, y + -tangH, z)));
-    sketchLines->addByTwoPoints(create_point(Point(x + crownW, y + -tangH, z)), create_point(Point(x + -crownW, y + -tangH, z)));
+    auto arc = sketchArcs->addByThreePoints(create_point(Point(crownW, 0, 0)), create_point(Point(0, (0 + crownH / 2), 0)), create_point(Point(-crownW, 0, 0)));
+    sketchLines->addByTwoPoints(create_point(Point(crownW, 0, 0)), create_point(Point(-crownW, 0, 0)));
 
     return fret_wire_profile;
 }
 
-Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Ptr<Component>& component, const Ptr<Point3D>& origin) {
-    auto fret_tang_profile = component->sketches()->add(component->xZConstructionPlane());
+Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Fretboard& fretboard, int fretIndex, const Ptr<Component>& component, const Ptr<Path>& path) {
+    // Create a construction plane at the end of the path.
+    Ptr<ConstructionPlaneInput> planeInput = component->constructionPlanes()->createInput();
+    planeInput->setByDistanceOnPath(path, ValueInput::createByReal(0));
+    Ptr<ConstructionPlane> profPlane = component->constructionPlanes()->add(planeInput);
+    auto fret_tang_profile = component->sketches()->add(profPlane);
     fret_tang_profile->name("Fret Tang Profile");
 
     auto sketch_curves = fret_tang_profile->sketchCurves();
@@ -88,10 +92,7 @@ Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Ptr<Comp
     auto sketchArcs = sketch_curves->sketchArcs();
     auto tangW = instrument.fret_slots_width / 2;
     auto tangH = instrument.fret_slots_height;
-    double x = origin->x();
-    double y = -tangH + origin->y();
-    double z = origin->z();
-    sketchLines->addTwoPointRectangle(Point3D::create((x - tangW) * 0.1, (y - 0.01) * 0.1, z * 0.1), Point3D::create((x + tangW) * 0.1, (y + tangH) * 0.1, z * 0.1));
+    sketchLines->addTwoPointRectangle(Point3D::create((-tangW) * 0.1, 0.01 * 0.1, 0), Point3D::create(tangW * 0.1, -tangH * 0.1, 0));
     return fret_tang_profile;
 }
 
@@ -105,6 +106,7 @@ Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path
     auto p = profile->profiles()->item(0);
     CHECK(p, nullptr);
     auto input = component->features()->sweepFeatures()->createInput(p, path, NewBodyFeatureOperation);
+    input->orientation(SweepOrientationTypes::PerpendicularOrientationType);
     CHECK(input, nullptr);
     auto fret = component->features()->sweepFeatures()->add(input);
     CHECK(fret, nullptr);
@@ -420,7 +422,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             //pp.y = ;
             pp.y -= (instrument.fretboard_thickness - instrument.fret_slots_height) * 10 ;
             
-            auto fret_tang_profile = create_frettang_profile(instrument, fretsComponent, create_point(pp));
+            auto fret_tang_profile = create_frettang_profile(instrument, fretboard, i, fretsComponent, pathS);
             CHECK(fret_tang_profile, false);
             
             std::stringstream strFret;
@@ -442,7 +444,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             fret_tang_profile->deleteMe();
 
             if (instrument.draw_frets) {
-                auto fret_wire_profile = create_fretwire_profile(instrument, fretsComponent, create_point(pp));
+                auto fret_wire_profile = create_fretwire_profile(instrument, fretboard, i, fretsComponent, pathL);
                 CHECK(fret_wire_profile, false);
                 
                 std::stringstream str;
@@ -453,27 +455,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 
                 
                 // Try to fillet the start and end faces' top edges
-                if (0) {
-                    std::vector<Ptr<BRepFaces>> faces;
-                    faces.push_back(fret->startFaces());
-                    faces.push_back(fret->endFaces());
-                    for (size_t f = 0; f < faces.size(); f++) {
-                        auto filet = fretsComponent->features()->filletFeatures()->createInput();
-                        auto edges = ObjectCollection::create();
-                        auto face = faces[f];
-                        CHECK(face, false);
-                        CHECK((face->count() != 0), false);
-                        auto edge = face->item(0);
-                        CHECK(edge, false);
-                        edges->add(edge);
-
-                        auto radius = ValueInput::createByReal(.1);
-                        bool res = filet->addConstantRadiusEdgeSet(edges, radius, false);
-                        
-                        fretsComponent->features()->filletFeatures()->add(filet);
-                        CHECK(res, false);
-                    }
-                } else {
+                if (1) {
                     auto bodies = fret->bodies();
                     CHECK(bodies, false);
                     auto body = bodies->item(0);
@@ -487,7 +469,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                     auto edgesColl = ObjectCollection::create();
                     CHECK(edgesColl, false);
 
-                    double maxRadius = instrument.fret_crown_height * 2;
+                    double maxRadius = instrument.fret_crown_height * 1.1;
                     
                     for (int e = 0; e < edges->count(); e++) {
                         auto edge = edges->item(e);
@@ -517,7 +499,6 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                     auto filet = fretsComponent->features()->filletFeatures()->add(filetInput);
                     CHECK(filet, false);
                 }
-                
                 
                 
                 auto items = ObjectCollection::create();
