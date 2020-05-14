@@ -306,6 +306,11 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     auto feature = loft_features->add(loft_input);
     auto main_body = feature->bodies()->item(0);
     main_body->name("Main body");
+    auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
+    auto mat = lib->materials()->itemByName("Walnut");
+    main_body->material(mat);
+
+    
     radius_1->isVisible(false);
     //    radius_2->isVisible(false);
     //    radius_3->isVisible(false);
@@ -374,6 +379,10 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         fretsComponent->name("Frets");
         //occurrence->activate();
 
+        // Prepare material for frets
+        //auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
+        auto mat = lib->materials()->itemByName("Steel, Chrome Plated");
+        
         std::vector<Ptr<BRepFace>> faces;
         faces.push_back(top);
         auto C = fret_slots_sketch->sketchCurves();
@@ -514,6 +523,12 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                 combine_input->operation(FeatureOperations::NewBodyFeatureOperation);
                 fretsComponent->features()->combineFeatures()->add(combine_input);
 
+                for (int b = 0; b < fretsComponent->bRepBodies()->count(); b++)
+                {
+                    auto body = fretsComponent->bRepBodies()->item(b);
+                    body->material(mat);
+                }
+                
                 fret_wire_profile->deleteMe();
             }
             
@@ -526,7 +541,6 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         }
         
 //        main_body->isVisible(false);
-        
     }
     else {
         ui->messageBox("Top not found");
