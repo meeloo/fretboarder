@@ -14,6 +14,14 @@ Features:
 * configurable fret tang width and depth
 * configurable nut size
 * blind fret slot support (to hide the end of the fret tangs in the fretboard) 
+* optionnaly create nicely rounded frets for rendering purpose
+
+## New in v0.2
+* more than 200 times faster!
+* more accurate fret slot calculation
+* creates the actual frets in addition to the fret slots! (optional)
+* apply some default materials
+
 
 ## Alpha version = Use at your own risks!
 This is only alpha grade software.
@@ -26,9 +34,9 @@ Here is a small video showing how to install the plugin on Windows:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/e96nMz-E10Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Download
-download [Fretboarder v0.1 for Windows](bin/windows/Fretboarder_win_0.1.zip)
+download [Fretboarder v0.2 for Windows](bin/windows/Fretboarder_win_0.2.zip)
 
-download [Fretboarder v0.1 macOS](bin/macOS/Fretboarder_mac_0.1.zip)
+download [Fretboarder v0.2 macOS](bin/macOS/Fretboarder_mac_0.2.zip)
 
 ## Contact
 For all questions and feedback, please send an email to <fretboarder@meeloo.net>
