@@ -30,6 +30,69 @@ app->getLastError(&err);\
 ui->messageBox(err); }
 
 
+Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
+    Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
+    Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
+    Ptr<FloatSpinnerCommandInput> scale_length_treble = inputs->itemById("scale_length_treble");
+    Ptr<FloatSpinnerCommandInput> scale_length_bass = inputs->itemById("scale_length_bass");
+    Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
+    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
+    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
+    Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
+    Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
+    Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
+    Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
+    Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
+    Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
+    Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
+    
+    Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
+    Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
+    Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
+    Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
+    Ptr<BoolValueCommandInput> draw_strings = inputs->itemById("draw_strings");
+    Ptr<BoolValueCommandInput> draw_frets = inputs->itemById("draw_frets");
+    Ptr<FloatSpinnerCommandInput> overhang = inputs->itemById("overhang");
+    Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
+    Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
+    Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
+    Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
+    Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
+    Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
+    
+    fretboarder::Instrument instrument;
+    instrument.right_handed = right_handed->value();
+    instrument.number_of_strings = number_of_strings->valueOne();
+    instrument.scale_length[0] = scale_length_bass->value();
+    instrument.scale_length[1] = scale_length_treble->value();
+    instrument.draw_strings = draw_strings->value();
+    instrument.perpendicular_fret_index = perpendicular_fret_index->value();
+    instrument.inter_string_spacing_at_nut = inter_string_spacing_at_nut->value();
+    instrument.inter_string_spacing_at_bridge = inter_string_spacing_at_bridge->value();
+    instrument.has_zero_fret = has_zero_fret->value();
+    instrument.nut_to_zero_fret_offset = nut_to_zero_fret_offset->value();
+    instrument.number_of_frets = number_of_frets->valueOne();
+    instrument.draw_frets = draw_frets->value();
+    instrument.overhang = overhang->value();
+    instrument.hidden_tang_length = hidden_tang_length->value();
+    instrument.fret_slots_width = fret_slots_width->value();
+    instrument.fret_slots_height = fret_slots_height->value();
+    instrument.fret_crown_width = fret_crown_width->value();
+    instrument.fret_crown_height = fret_crown_height->value();
+    instrument.last_fret_cut_offset = last_fret_cut_offset->value();
+    instrument.space_before_nut = space_before_nut->value();
+    instrument.carve_nut_slot = carve_nut_slot->value();
+    instrument.nut_thickness = nut_thickness->value();
+    instrument.nut_height_under = nut_height_under->value();
+    instrument.radius_at_nut = radius_at_nut->value();
+    instrument.radius_at_last_fret = radius_at_last_fret->value();
+    instrument.fretboard_thickness = fretboard_thickness->value();
+    instrument.validate();
+    instrument.scale(10); // cm to mm
+
+    return instrument;
+}
+
 
 Ptr<Point3D> create_point(Point point) {
     return Point3D::create(0.1 * point.x, 0.1 * point.y, 0.1 * point.z);
@@ -650,65 +713,8 @@ public:
         Ptr<CommandInputs> inputs = command->commandInputs();
         if (!inputs)
             return;
-        
-        Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
-        Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
-        Ptr<FloatSpinnerCommandInput> scale_length_treble = inputs->itemById("scale_length_treble");
-        Ptr<FloatSpinnerCommandInput> scale_length_bass = inputs->itemById("scale_length_bass");
-        Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
-        Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
-        Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
-        Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
-        Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
-        Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
-        Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
-        Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
-        Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
-        Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
-        
-        Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
-        Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
-        Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
-        Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
-        Ptr<BoolValueCommandInput> draw_strings = inputs->itemById("draw_strings");
-        Ptr<BoolValueCommandInput> draw_frets = inputs->itemById("draw_frets");
-        Ptr<FloatSpinnerCommandInput> overhang = inputs->itemById("overhang");
-        Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
-        Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
-        Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
-        Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
-        Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
-        Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
-        
-        fretboarder::Instrument instrument;
-        instrument.right_handed = right_handed->value();
-        instrument.number_of_strings = number_of_strings->valueOne();
-        instrument.scale_length[0] = scale_length_bass->value();
-        instrument.scale_length[1] = scale_length_treble->value();
-        instrument.draw_strings = draw_strings->value();
-        instrument.perpendicular_fret_index = perpendicular_fret_index->value();
-        instrument.inter_string_spacing_at_nut = inter_string_spacing_at_nut->value();
-        instrument.inter_string_spacing_at_bridge = inter_string_spacing_at_bridge->value();
-        instrument.has_zero_fret = has_zero_fret->value();
-        instrument.nut_to_zero_fret_offset = nut_to_zero_fret_offset->value();
-        instrument.number_of_frets = number_of_frets->valueOne();
-        instrument.draw_frets = draw_frets->value();
-        instrument.overhang = overhang->value();
-        instrument.hidden_tang_length = hidden_tang_length->value();
-        instrument.fret_slots_width = fret_slots_width->value();
-        instrument.fret_slots_height = fret_slots_height->value();
-        instrument.fret_crown_width = fret_crown_width->value();
-        instrument.fret_crown_height = fret_crown_height->value();
-        instrument.last_fret_cut_offset = last_fret_cut_offset->value();
-        instrument.space_before_nut = space_before_nut->value();
-        instrument.carve_nut_slot = carve_nut_slot->value();
-        instrument.nut_thickness = nut_thickness->value();
-        instrument.nut_height_under = nut_height_under->value();
-        instrument.radius_at_nut = radius_at_nut->value();
-        instrument.radius_at_last_fret = radius_at_last_fret->value();
-        instrument.fretboard_thickness = fretboard_thickness->value();
-        instrument.validate();
-        instrument.scale(10); // cm to mm
+
+        auto instrument = InstrumentFromInputs(inputs);
         createFretboard(instrument);
     }
 };
@@ -728,6 +734,16 @@ class OnExecutePreviewEventHandler : public adsk::core::CommandEventHandler
 public:
     void notify(const Ptr<CommandEventArgs>& eventArgs) override
     {
+        // Interpret instrument inputs
+        auto command = eventArgs->command();
+        Ptr<CommandInputs> inputs = command->commandInputs();
+        if (!inputs)
+            return;
+
+        auto instrument = InstrumentFromInputs(inputs);
+        fretboarder::Fretboard fretboard(instrument);
+
+        
         //  get selection entity first since it's fragile and any creation/edit operations will clear the selection.
         if (!cgGroups)
             return;
