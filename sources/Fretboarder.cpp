@@ -1,5 +1,6 @@
 #include <Core/CoreAll.h>
 #include <Fusion/FusionAll.h>
+#include <CAM/CAM/CAM.h>
 #include "Fretboard.hpp"
 #include <iostream>
 #include <sstream>
@@ -7,10 +8,13 @@
 
 using namespace adsk::core;
 using namespace adsk::fusion;
+using namespace adsk::cam;
 using namespace fretboarder;
 
 Ptr<Application> app;
 Ptr<UserInterface> ui;
+Ptr<CustomGraphicsGroups> cgGroups;
+
 
 #define CHECK(X, Y) \
 if (!X) {\
@@ -719,6 +723,33 @@ public:
     }
 };
 
+class OnExecutePreviewEventHandler : public adsk::core::CommandEventHandler
+{
+public:
+    void notify(const Ptr<CommandEventArgs>& eventArgs) override
+    {
+        //  get selection entity first since it's fragile and any creation/edit operations will clear the selection.
+        if (!cgGroups)
+            return;
+        Ptr<CustomGraphicsGroup> cgGroup = cgGroups->add();
+        if (!cgGroup)
+            return;
+
+        Ptr<CustomGraphicsEntity> cgEnt = nullptr;
+
+        std::vector<double> vecCoords;
+        Ptr<CustomGraphicsCoordinates> coordinates = CustomGraphicsCoordinates::create(vecCoords);
+        if (!coordinates)
+            return;
+
+        std::vector<int> vertexIndexList;
+        std::vector<int> vecStripLen;
+
+        Ptr<CustomGraphicsLines> cgLines = cgGroup->addLines(coordinates, vertexIndexList, true, vecStripLen);
+    }
+};
+
+
 // CommandCreated event handler.
 class CommandCreatedEventHandler : public adsk::core::CommandCreatedEventHandler
 {
@@ -747,7 +778,14 @@ public:
                 if (!isOk)
                     return;
                 
-                
+                Ptr<CommandEvent> onExecutePtrview = command->executePreview();
+                if (!onExecutePtrview)
+                    return;
+                isOk = onExecutePtrview->add(&onExecutePreviewHandler);
+                if (!isOk)
+                    return;
+
+
                 // Connect to the input changed event.
                 Ptr<InputChangedEvent> onInputChanged = command->inputChanged();
                 if (!onInputChanged)
@@ -850,6 +888,7 @@ private:
     OnExecuteEventHander onExecuteHandler;
     OnDestroyEventHandler onDestroyHandler;
     OnInputChangedEventHander onInputChangedHandler;
+    OnExecutePreviewEventHandler onExecutePreviewHandler;
 } _cmdCreatedHandler;
 
 
@@ -863,6 +902,30 @@ extern "C" XI_EXPORT bool run(const char* context)
     ui = app->userInterface();
     if (!ui)
         return false;
+    
+    // get the entry for custom graphics
+    Ptr<Product> activeProd = app->activeProduct();
+    if (!activeProd)
+        return false;
+
+    Ptr<CAM> cam = activeProd->cast<CAM>();
+    if (cam) {
+        cgGroups = cam->customGraphicsGroups();
+    }
+    else {
+        auto design = activeProd->cast<Design>();
+        if (!design)
+            return false;
+
+        Ptr<Component> rootComp = design->rootComponent();
+        if (!rootComp)
+            return false;
+        cgGroups = rootComp->customGraphicsGroups();
+    }
+    if (!cgGroups)
+        return false;
+
+
     
     // Create the command definition.
     Ptr<CommandDefinitions> commandDefinitions = ui->commandDefinitions();
