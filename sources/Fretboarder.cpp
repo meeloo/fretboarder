@@ -235,7 +235,7 @@ Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Fretboar
 
 Ptr<BRepFace> getFretboardTopSurface(const Ptr<Component>& component) {
     CHECK(component, nullptr);
-    auto entities = component->findBRepUsingRay(Point3D::create(1, 0, 25), Vector3D::create(0, 0, -1), BRepFaceEntityType);
+    auto entities = component->findBRepUsingRay(Point3D::create(1, 0, 1), Vector3D::create(0, 0, -1), BRepFaceEntityType);
     CHECK(entities, nullptr);
     return entities->count() > 0 ? entities->item(0) : nullptr;
 }
@@ -879,28 +879,74 @@ public:
         Ptr<CommandInputs> inputs = command->commandInputs();
         if (!inputs)
             return;
-
+        
         auto instrument = InstrumentFromInputs(inputs);
         fretboarder::Fretboard fretboard(instrument);
-
+        
         //  get selection entity first since it's fragile and any creation/edit operations will clear the selection.
         if (!cgGroups)
             return;
         Ptr<CustomGraphicsGroup> cgGroup = cgGroups->add();
         if (!cgGroup)
             return;
-
+        
         Ptr<CustomGraphicsEntity> cgEnt = nullptr;
-
+        
         std::vector<double> vecCoords;
+        
+        std::vector<int> vertexIndexList;
+        std::vector<int> vecStripLen;
+        
+        for (auto s : fretboard.strings()) {
+            auto p0 = create_point(s.point_at_nut());
+            auto p1 = create_point(s.point_at_bridge());
+            vecCoords.push_back(p0->x());
+            vecCoords.push_back(p0->y());
+            vecCoords.push_back(p0->z());
+            vecCoords.push_back(p1->x());
+            vecCoords.push_back(p1->y());
+            vecCoords.push_back(p1->z());
+        }
+
+        for (auto s : fretboard.fret_lines()) {
+            auto p0 = create_point(s.point1);
+            auto p1 = create_point(s.point2);
+            vecCoords.push_back(p0->x());
+            vecCoords.push_back(p0->y());
+            vecCoords.push_back(p0->z());
+            vecCoords.push_back(p1->x());
+            vecCoords.push_back(p1->y());
+            vecCoords.push_back(p1->z());
+        }
+
+        for (size_t i = 0; i < 4; i++) {
+            auto p0 = create_point(fretboard.board_shape().points[i % 4]);
+            auto p1 = create_point(fretboard.board_shape().points[(i + 1) % 4]);
+            vecCoords.push_back(p0->x());
+            vecCoords.push_back(p0->y());
+            vecCoords.push_back(p0->z());
+            vecCoords.push_back(p1->x());
+            vecCoords.push_back(p1->y());
+            vecCoords.push_back(p1->z());
+        }
+
+
         Ptr<CustomGraphicsCoordinates> coordinates = CustomGraphicsCoordinates::create(vecCoords);
         if (!coordinates)
             return;
+        
+        Ptr<CustomGraphicsLines> cgLines = cgGroup->addLines(coordinates, vertexIndexList, false, vecStripLen);
+        applyLinesProperties(cgLines);
+    }
+    
+    void applyLinesProperties(Ptr<CustomGraphicsLines> cgLines)
+    {
+        if (!cgLines)
+            return;
 
-        std::vector<int> vertexIndexList;
-        std::vector<int> vecStripLen;
-
-        Ptr<CustomGraphicsLines> cgLines = cgGroup->addLines(coordinates, vertexIndexList, true, vecStripLen);
+        cgLines->lineStylePattern(continuousLineStylePattern);
+//            cgLines->weight(static_cast<float>(_lineStyleWeight->valueOne()));
+//            cgLines->lineStyleScale(static_cast<float>(_lineStyleScale->valueOne()));
     }
 };
 
@@ -987,7 +1033,7 @@ public:
                 auto number_of_frets_slider = group->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 36);
                 CHECK2(number_of_frets_slider);
                 number_of_frets_slider->valueOne(24);
-                group->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", 0, 36, 0.1, 0.0);
+                group->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", -36, 36, 0.1, 0.0);
                 group->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
                 group->addFloatSpinnerCommandInput("nut_to_zero_fret_offset", "Distance from nut to zero fret", "mm", 0, 200, 0.1, 3.0);
                 

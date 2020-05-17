@@ -64,7 +64,8 @@ public:
                        / scale_length
                        );
         
-        _x_at_start = -sqrt( pow(_perpendicular_fret_from_start, 2) - pow(y_intersect - y_at_start, 2) );
+        double sign = _perpendicular_fret_from_start < 0 ? -1 : 1;
+        _x_at_start = -sign * sqrt( pow(_perpendicular_fret_from_start, 2) - pow(y_intersect - y_at_start, 2) );
         _x_at_nut = _x_at_start - nut_to_zero_fret_offset;
         
         double xab = pow(scale_length, 2) - pow(y_at_bridge - y_at_start, 2);
@@ -73,23 +74,31 @@ public:
         _x_at_bridge = xab;
     }
     
-    double distance_from_start(int fret_index) const {
+    double distance_from_start(double fret_index) const {
         return _scale_length - distance_from_bridge(fret_index);
     }
     
-    double distance_from_bridge(int fret_index) const {
-        return _scale_length / pow(2, fret_index / _number_of_frets_per_octave);
+    double distance_from_bridge(double fret_index) const {
+        double l = _scale_length;
+        double i = fret_index;
+        if (i < 0) {
+            // We need to change the scale and recompute the index relative to the new scale
+            int s = (1 + int(-i / 12)) ;
+            l = l * (1 << s);
+            i = 12 * s + i;
+        }
+        return l / pow(2, i / _number_of_frets_per_octave);
     }
     
-    double distance_between_frets(int fret_index1, int fret_index2) const {
-        return abs(distance_from_start(fret_index1) - distance_from_start(fret_index2));
-    }
-    
-    double distance_from_perpendicular_fret(int fret_index) const {
-        return distance_between_frets(_perpendicular_fret_index, fret_index);
-    }
-    
-    Point point_at_fret(int fret_index) const {
+//    double distance_between_frets(double fret_index1, double fret_index2) const {
+//        return abs(distance_from_start(fret_index1) - distance_from_start(fret_index2));
+//    }
+//
+//    double distance_from_perpendicular_fret(double fret_index) const {
+//        return distance_between_frets(_perpendicular_fret_index, fret_index);
+//    }
+//
+    Point point_at_fret(double fret_index) const {
         double d = distance_from_start(fret_index);
         double t = d / _scale_length;
         double x = t * (_x_at_bridge - _x_at_start);
