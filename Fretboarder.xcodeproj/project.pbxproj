@@ -8,13 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BB196C51AD5940800164CD3 /* Fretboarder.cpp */; };
-		C33C0FEB243CCA44004F8F0F /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33C0FE9243CCA44004F8F0F /* Geometry.cpp */; };
-		C33C0FEC243CCA44004F8F0F /* Geometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C33C0FEA243CCA44004F8F0F /* Geometry.hpp */; };
-		C355821E243C738500EF30FA /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F98243BE39000EF30FA /* String.hpp */; };
-		C355821F243C7D2000EF30FA /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F97243BE39000EF30FA /* String.cpp */; };
-		C3558220243CAD2B00EF30FA /* Fretboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F93243BE34600EF30FA /* Fretboard.cpp */; };
-		C3558221243CAD2C00EF30FA /* Fretboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F94243BE34600EF30FA /* Fretboard.hpp */; };
+		C35E25652471CEEC00CCDD11 /* fretboarderLib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C35E25642471CEEC00CCDD11 /* fretboarderLib.hpp */; };
+		C35E25672471CEEC00CCDD11 /* fretboarderLibPriv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C35E25662471CEEC00CCDD11 /* fretboarderLibPriv.hpp */; };
+		C35E25692471CEEC00CCDD11 /* fretboarderLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35E25682471CEEC00CCDD11 /* fretboarderLib.cpp */; };
+		C35E256D2471CEF500CCDD11 /* Fretboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F93243BE34600EF30FA /* Fretboard.cpp */; };
+		C35E256E2471CEF500CCDD11 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3557F97243BE39000EF30FA /* String.cpp */; };
+		C35E256F2471CEF500CCDD11 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33C0FE9243CCA44004F8F0F /* Geometry.cpp */; };
+		C35E25772471CF7100CCDD11 /* Tests.mm in Sources */ = {isa = PBXBuildFile; fileRef = C35E25762471CF7100CCDD11 /* Tests.mm */; };
+		C35E25792471CF7100CCDD11 /* libfretboarderLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C35E25622471CEEC00CCDD11 /* libfretboarderLib.a */; };
+		C35E25822471CF9500CCDD11 /* libfretboarderLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C35E25622471CEEC00CCDD11 /* libfretboarderLib.a */; };
+		C35E25832471D06700CCDD11 /* Geometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C33C0FEA243CCA44004F8F0F /* Geometry.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C35E25842471D06D00CCDD11 /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F98243BE39000EF30FA /* String.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C35E25852471D07600CCDD11 /* Fretboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F94243BE34600EF30FA /* Fretboard.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C35E257A2471CF7100CCDD11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2BB196B61AD586AA00164CD3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C35E25612471CEEC00CCDD11;
+			remoteInfo = fretboarderLib;
+		};
+		C35E257F2471CF8E00CCDD11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2BB196B61AD586AA00164CD3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C35E25612471CEEC00CCDD11;
+			remoteInfo = fretboarderLib;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Fretboarder.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -27,6 +50,13 @@
 		C3557F94243BE34600EF30FA /* Fretboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Fretboard.hpp; sourceTree = "<group>"; };
 		C3557F97243BE39000EF30FA /* String.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
 		C3557F98243BE39000EF30FA /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
+		C35E25622471CEEC00CCDD11 /* libfretboarderLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libfretboarderLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C35E25642471CEEC00CCDD11 /* fretboarderLib.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fretboarderLib.hpp; sourceTree = "<group>"; };
+		C35E25662471CEEC00CCDD11 /* fretboarderLibPriv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fretboarderLibPriv.hpp; sourceTree = "<group>"; };
+		C35E25682471CEEC00CCDD11 /* fretboarderLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fretboarderLib.cpp; sourceTree = "<group>"; };
+		C35E25742471CF7100CCDD11 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C35E25762471CF7100CCDD11 /* Tests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tests.mm; sourceTree = "<group>"; };
+		C35E25782471CF7100CCDD11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +64,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C35E25822471CF9500CCDD11 /* libfretboarderLib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C35E25602471CEEC00CCDD11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C35E25712471CF7100CCDD11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C35E25792471CF7100CCDD11 /* libfretboarderLib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +91,10 @@
 			children = (
 				C353296E2451DA0700610C78 /* docs */,
 				C3557F92243BE2F800EF30FA /* sources */,
+				C35E25632471CEEC00CCDD11 /* fretboarderLib */,
+				C35E25752471CF7100CCDD11 /* Tests */,
 				2BB196BF1AD586AA00164CD3 /* Products */,
+				C35E25812471CF9500CCDD11 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,6 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */,
+				C35E25622471CEEC00CCDD11 /* libfretboarderLib.a */,
+				C35E25742471CF7100CCDD11 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,15 +120,41 @@
 			isa = PBXGroup;
 			children = (
 				2BB196C51AD5940800164CD3 /* Fretboarder.cpp */,
+				C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */,
+			);
+			path = sources;
+			sourceTree = "<group>";
+		};
+		C35E25632471CEEC00CCDD11 /* fretboarderLib */ = {
+			isa = PBXGroup;
+			children = (
 				C3557F93243BE34600EF30FA /* Fretboard.cpp */,
 				C3557F94243BE34600EF30FA /* Fretboard.hpp */,
 				C3557F97243BE39000EF30FA /* String.cpp */,
 				C3557F98243BE39000EF30FA /* String.hpp */,
 				C33C0FE9243CCA44004F8F0F /* Geometry.cpp */,
 				C33C0FEA243CCA44004F8F0F /* Geometry.hpp */,
-				C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */,
+				C35E25642471CEEC00CCDD11 /* fretboarderLib.hpp */,
+				C35E25662471CEEC00CCDD11 /* fretboarderLibPriv.hpp */,
+				C35E25682471CEEC00CCDD11 /* fretboarderLib.cpp */,
 			);
-			path = sources;
+			path = fretboarderLib;
+			sourceTree = "<group>";
+		};
+		C35E25752471CF7100CCDD11 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C35E25762471CF7100CCDD11 /* Tests.mm */,
+				C35E25782471CF7100CCDD11 /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C35E25812471CF9500CCDD11 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,9 +164,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3558221243CAD2C00EF30FA /* Fretboard.hpp in Headers */,
-				C355821E243C738500EF30FA /* String.hpp in Headers */,
-				C33C0FEC243CCA44004F8F0F /* Geometry.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C35E255E2471CEEC00CCDD11 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C35E25672471CEEC00CCDD11 /* fretboarderLibPriv.hpp in Headers */,
+				C35E25652471CEEC00CCDD11 /* fretboarderLib.hpp in Headers */,
+				C35E25852471D07600CCDD11 /* Fretboard.hpp in Headers */,
+				C35E25832471D06700CCDD11 /* Geometry.hpp in Headers */,
+				C35E25842471D06D00CCDD11 /* String.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,11 +193,47 @@
 			buildRules = (
 			);
 			dependencies = (
+				C35E25802471CF8E00CCDD11 /* PBXTargetDependency */,
 			);
 			name = Fretboarder;
 			productName = Fretboarder;
 			productReference = 2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		C35E25612471CEEC00CCDD11 /* fretboarderLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C35E256A2471CEEC00CCDD11 /* Build configuration list for PBXNativeTarget "fretboarderLib" */;
+			buildPhases = (
+				C35E255E2471CEEC00CCDD11 /* Headers */,
+				C35E255F2471CEEC00CCDD11 /* Sources */,
+				C35E25602471CEEC00CCDD11 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = fretboarderLib;
+			productName = fretboarderLib;
+			productReference = C35E25622471CEEC00CCDD11 /* libfretboarderLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C35E25732471CF7100CCDD11 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C35E257C2471CF7100CCDD11 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				C35E25702471CF7100CCDD11 /* Sources */,
+				C35E25712471CF7100CCDD11 /* Frameworks */,
+				C35E25722471CF7100CCDD11 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C35E257B2471CF7100CCDD11 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = C35E25742471CF7100CCDD11 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -121,6 +243,14 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Autodesk;
+				TargetAttributes = {
+					C35E25612471CEEC00CCDD11 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					C35E25732471CF7100CCDD11 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+				};
 			};
 			buildConfigurationList = 2BB196B91AD586AA00164CD3 /* Build configuration list for PBXProject "Fretboarder" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -136,23 +266,64 @@
 			projectRoot = "";
 			targets = (
 				2BB196BD1AD586AA00164CD3 /* Fretboarder */,
+				C35E25612471CEEC00CCDD11 /* fretboarderLib */,
+				C35E25732471CF7100CCDD11 /* Tests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C35E25722471CF7100CCDD11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2BB196BA1AD586AA00164CD3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C355821F243C7D2000EF30FA /* String.cpp in Sources */,
-				C33C0FEB243CCA44004F8F0F /* Geometry.cpp in Sources */,
 				2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */,
-				C3558220243CAD2B00EF30FA /* Fretboard.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C35E255F2471CEEC00CCDD11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C35E25692471CEEC00CCDD11 /* fretboarderLib.cpp in Sources */,
+				C35E256F2471CEF500CCDD11 /* Geometry.cpp in Sources */,
+				C35E256E2471CEF500CCDD11 /* String.cpp in Sources */,
+				C35E256D2471CEF500CCDD11 /* Fretboard.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C35E25702471CF7100CCDD11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C35E25772471CF7100CCDD11 /* Tests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C35E257B2471CF7100CCDD11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C35E25612471CEEC00CCDD11 /* fretboarderLib */;
+			targetProxy = C35E257A2471CF7100CCDD11 /* PBXContainerItemProxy */;
+		};
+		C35E25802471CF8E00CCDD11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C35E25612471CEEC00CCDD11 /* fretboarderLib */;
+			targetProxy = C35E257F2471CF8E00CCDD11 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2BB196C01AD586AA00164CD3 /* Debug */ = {
@@ -246,9 +417,9 @@
 					"$(inherited)",
 					"$(PYTHONINC)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../fretboarderLib,
 				);
 				INSTALL_PATH = "$(SRCROOT)";
-				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = (
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/core.dylib",
@@ -272,9 +443,9 @@
 					"$(inherited)",
 					"$(PYTHONINC)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../fretboarderLib,
 				);
 				INSTALL_PATH = "$(SRCROOT)";
-				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = (
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/core.dylib",
@@ -282,6 +453,126 @@
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib/cam.dylib",
 				);
 				PRELINK_LIBS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(SRCROOT)";
+			};
+			name = Release;
+		};
+		C35E256B2471CEEC00CCDD11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/include",
+					../sources,
+				);
+				INSTALL_PATH = "$(SRCROOT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)";
+			};
+			name = Debug;
+		};
+		C35E256C2471CEEC00CCDD11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/include",
+					../sources,
+				);
+				INSTALL_PATH = "$(SRCROOT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)";
+			};
+			name = Release;
+		};
+		C35E257D2471CF7100CCDD11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = meeloo.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(SRCROOT)";
+			};
+			name = Debug;
+		};
+		C35E257E2471CF7100CCDD11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = meeloo.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYMROOT = "$(SRCROOT)";
 			};
@@ -304,6 +595,24 @@
 			buildConfigurations = (
 				2BB196C31AD586AA00164CD3 /* Debug */,
 				2BB196C41AD586AA00164CD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C35E256A2471CEEC00CCDD11 /* Build configuration list for PBXNativeTarget "fretboarderLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C35E256B2471CEEC00CCDD11 /* Debug */,
+				C35E256C2471CEEC00CCDD11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C35E257C2471CF7100CCDD11 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C35E257D2471CF7100CCDD11 /* Debug */,
+				C35E257E2471CF7100CCDD11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

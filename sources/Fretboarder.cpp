@@ -1042,10 +1042,10 @@ public:
                 group->addFloatSpinnerCommandInput("fretboard_thickness", "Thickness", "mm", 0, 100, 0.1, 7.0);
                 
                 group = inputs->addGroupCommandInput("frets", "Frets")->children();
-                auto number_of_frets_slider = group->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 36);
+                auto number_of_frets_slider = group->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 60);
                 CHECK2(number_of_frets_slider);
                 number_of_frets_slider->valueOne(24);
-                group->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", -36, 36, 0.1, 0.0);
+                group->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", -36, 100, 0.1, 0.0);
                 group->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
                 group->addFloatSpinnerCommandInput("nut_to_zero_fret_offset", "Distance from nut to zero fret", "mm", 0, 200, 0.1, 3.0);
                 

@@ -49,3 +49,5 @@ Fretboarder.dylib.dSYM
 Release/Fretboarder.vcxproj.FileListAbsolute.txt
 Debug/Fretboarder.vcxproj.FileListAbsolute.txt
 *.opendb
+Tests.xctest/Contents/MacOS/Tests
+Tests.xctest/Contents/_CodeSignature/CodeResources

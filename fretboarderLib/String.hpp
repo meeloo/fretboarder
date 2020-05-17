@@ -79,6 +79,10 @@ public:
     }
     
     double distance_from_bridge(double fret_index) const {
+        if (fret_index == 100) {
+            return 0;
+        }
+
         double l = _scale_length;
         double i = fret_index;
         if (i < 0) {
