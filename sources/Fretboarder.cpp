@@ -32,6 +32,14 @@ if (!X) {\
     return Y;\
 }
 
+#define CHECK2(X) \
+if (!X) {\
+    std::string exp = #X;\
+    DisplayError(__FILE__, __LINE__, exp);\
+    return;\
+}
+
+
 #define SHOWERROR() \
 { std::string err = "";\
 app->getLastError(&err);\
@@ -67,8 +75,37 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
     Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
     Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
     Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
-    
+
     fretboarder::Instrument instrument;
+
+    CHECK(right_handed, instrument);
+    CHECK(number_of_strings, instrument);
+    CHECK(scale_length_treble, instrument);
+    CHECK(scale_length_bass, instrument);
+    CHECK(perpendicular_fret_index, instrument);
+    CHECK(inter_string_spacing_at_nut, instrument);
+    CHECK(inter_string_spacing_at_bridge, instrument);
+    CHECK(has_zero_fret, instrument);
+    CHECK(nut_to_zero_fret_offset, instrument);
+    CHECK(space_before_nut, instrument);
+    CHECK(carve_nut_slot, instrument);
+    CHECK(nut_thickness, instrument);
+    CHECK(nut_height_under, instrument);
+    CHECK(nut_width, instrument);
+    CHECK(radius_at_nut, instrument);
+    CHECK(radius_at_last_fret, instrument);
+    CHECK(fretboard_thickness, instrument);
+    CHECK(number_of_frets, instrument);
+    CHECK(draw_strings, instrument);
+    CHECK(draw_frets, instrument);
+    CHECK(overhang, instrument);
+    CHECK(hidden_tang_length, instrument);
+    CHECK(fret_slots_width, instrument);
+    CHECK(fret_slots_height, instrument);
+    CHECK(fret_crown_width, instrument);
+    CHECK(fret_crown_height, instrument);
+    CHECK(last_fret_cut_offset, instrument);
+
     instrument.right_handed = right_handed->value();
     instrument.number_of_strings = number_of_strings->valueOne();
     instrument.scale_length[0] = scale_length_bass->value();
@@ -107,6 +144,7 @@ Ptr<Point3D> create_point(Point point) {
 }
 
 void create_closed_polygon(const Ptr<SketchLines>& sketch_lines, const Quad& shape) {
+    CHECK2(sketch_lines);
     for (int index = 1; index < 4;  index++) {
         sketch_lines->addByTwoPoints(create_point(shape.points[index - 1]), create_point(shape.points[index]));
     }
@@ -115,14 +153,20 @@ void create_closed_polygon(const Ptr<SketchLines>& sketch_lines, const Quad& sha
 }
 
 void create_line(const Ptr<SketchLines>& sketch_lines, const Vector& vector) {
+    CHECK2(sketch_lines);
     sketch_lines->addByTwoPoints(create_point(vector.point1), create_point(vector.point2));
 }
 
 Ptr<Sketch> create_radius_circle(const Ptr<Component>& component, const Ptr<ConstructionPlane>& plane, double radius, double thickness) {
+    CHECK(component, nullptr);
+    CHECK(plane, nullptr);
     auto sketch = component->sketches()->add(plane);
+    CHECK(sketch, nullptr);
     sketch->isComputeDeferred(true);
     auto circles = sketch->sketchCurves()->sketchCircles();
+    CHECK(circles, nullptr);
     auto center = Point3D::create(-(thickness - radius) * 0.1, 0.0, 0.0);
+    CHECK(center, nullptr);
     circles->addByCenterRadius(center, radius * 0.1);
     sketch->isComputeDeferred(false);
     return sketch;
@@ -135,19 +179,28 @@ double YOnCircleGivenX(double x, Point center, double radius) {
 
 Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Fretboard& fretboard, int fretIndex, const Ptr<Component>& component, const Ptr<Path>& path) {
     // Create a construction plane at the end of the path.
+    CHECK(component, nullptr);
+    CHECK(path, nullptr);
     Ptr<ConstructionPlaneInput> planeInput = component->constructionPlanes()->createInput();
+    CHECK(planeInput, nullptr);
     planeInput->setByDistanceOnPath(path, ValueInput::createByReal(0));
     Ptr<ConstructionPlane> profPlane = component->constructionPlanes()->add(planeInput);
+    CHECK(profPlane, nullptr);
     auto fret_wire_profile = component->sketches()->add(profPlane);
+    CHECK(fret_wire_profile, nullptr);
     fret_wire_profile->name("Fret Wire Profile");
 
     auto sketch_curves = fret_wire_profile->sketchCurves();
+    CHECK(sketch_curves, nullptr);
 
     auto sketchLines = sketch_curves->sketchLines();
+    CHECK(sketchLines, nullptr);
     auto sketchArcs = sketch_curves->sketchArcs();
+    CHECK(sketchArcs, nullptr);
     auto crownW = instrument.fret_crown_width / 2;
     auto crownH = instrument.fret_crown_height;
     auto arc = sketchArcs->addByThreePoints(create_point(Point(crownW, 0, 0)), create_point(Point(0, (0 + crownH / 2), 0)), create_point(Point(-crownW, 0, 0)));
+    CHECK(arc, nullptr);
     sketchLines->addByTwoPoints(create_point(Point(crownW, 0, 0)), create_point(Point(-crownW, 0, 0)));
 
     return fret_wire_profile;
@@ -155,16 +208,24 @@ Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Fretboar
 
 Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Fretboard& fretboard, int fretIndex, const Ptr<Component>& component, const Ptr<Path>& path) {
     // Create a construction plane at the end of the path.
+    CHECK(component, nullptr);
+    CHECK(path, nullptr);
     Ptr<ConstructionPlaneInput> planeInput = component->constructionPlanes()->createInput();
+    CHECK(planeInput, nullptr);
     planeInput->setByDistanceOnPath(path, ValueInput::createByReal(0));
     Ptr<ConstructionPlane> profPlane = component->constructionPlanes()->add(planeInput);
+    CHECK(profPlane, nullptr);
     auto fret_tang_profile = component->sketches()->add(profPlane);
+    CHECK(fret_tang_profile, nullptr);
     fret_tang_profile->name("Fret Tang Profile");
 
     auto sketch_curves = fret_tang_profile->sketchCurves();
+    CHECK(sketch_curves, nullptr);
 
     auto sketchLines = sketch_curves->sketchLines();
+    CHECK(sketchLines, nullptr);
     auto sketchArcs = sketch_curves->sketchArcs();
+    CHECK(sketchArcs, nullptr);
     auto tangW = instrument.fret_slots_width / 2;
     auto tangH = instrument.fret_slots_height;
     sketchLines->addTwoPointRectangle(Point3D::create((-tangW) * 0.1, 0.01 * 0.1, 0), Point3D::create(tangW * 0.1, -tangH * 0.1, 0));
@@ -173,14 +234,19 @@ Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Fretboar
 
 
 Ptr<BRepFace> getFretboardTopSurface(const Ptr<Component>& component) {
+    CHECK(component, nullptr);
     auto entities = component->findBRepUsingRay(Point3D::create(1, 0, 25), Vector3D::create(0, 0, -1), BRepFaceEntityType);
+    CHECK(entities, nullptr);
     return entities->count() > 0 ? entities->item(0) : nullptr;
 }
 
 Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path>& path, const Ptr<Component>& component, const std::string& name) {
+    CHECK(component, nullptr);
+    CHECK(profile, nullptr);
     auto p = profile->profiles()->item(0);
     CHECK(p, nullptr);
     auto input = component->features()->sweepFeatures()->createInput(p, path, NewBodyFeatureOperation);
+    CHECK(input, nullptr);
     input->orientation(SweepOrientationTypes::PerpendicularOrientationType);
     CHECK(input, nullptr);
     auto fret = component->features()->sweepFeatures()->add(input);
@@ -200,8 +266,11 @@ Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path
 }
 
 Ptr<Path> fill_path_from_profile(const Ptr<Component>& component, const Ptr<Path>& path, const Ptr<SketchEntity>& profile, int index, std::vector<Ptr<Sketch>>& profiles) {
+    CHECK(component, nullptr);
+    CHECK(profile, nullptr);
     Ptr<Path> _path = path;
     auto fret_profile = component->sketches()->add(component->yZConstructionPlane());
+    CHECK(fret_profile, nullptr);
     profiles.push_back(fret_profile);
     auto arc3D = profile->cast<SketchArc>();
     if (arc3D) {
@@ -234,33 +303,32 @@ Ptr<Path> fill_path_from_profile(const Ptr<Component>& component, const Ptr<Path
 
 bool createFretboard(const fretboarder::Instrument& instrument) {
     Ptr<Document> doc = app->activeDocument();
-    if (!doc)
-        return false;
-    
+    CHECK(doc, false);
+
     Ptr<Product> product = app->activeProduct();
-    if (!product)
-        return false;
-    
+    CHECK(product, false);
+
     Ptr<Design> design = product;
-    if (!design)
-        return false;
-    
+    CHECK(design, false);
+
     // Get the root component of the active design
     Ptr<Component> rootComp = design->rootComponent();
-    if(!rootComp)
-        return false;
-    
+    CHECK(rootComp, false);
+
     fretboarder::Fretboard fretboard(instrument);
     
     // create Fretboard component
     auto occurrence = rootComp->occurrences()->addNewComponent(Matrix3D::create());
+    CHECK(occurrence, false);
     auto component = occurrence->component();
+    CHECK(component, false);
     component->name("Fretboard");
     occurrence->activate();
     design->designType(DirectDesignType);
     
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
+    CHECK(strings_area_sketch, false);
     strings_area_sketch->name("Strings area");
     strings_area_sketch->isComputeDeferred(true);
     create_closed_polygon(strings_area_sketch->sketchCurves()->sketchLines(), fretboard.strings_shape());
@@ -270,6 +338,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     
     if (instrument.draw_strings) {
         auto strings_sketch = component->sketches()->add(component->xYConstructionPlane());
+        CHECK(strings_sketch, false);
         strings_sketch->name("Strings");
         strings_sketch->isComputeDeferred(true);
         {
@@ -300,6 +369,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     
     // create Contour sketch
     auto contour_sketch = component->sketches()->add(component->xYConstructionPlane());
+    CHECK(contour_sketch, false);
     contour_sketch->name("Contour");
     contour_sketch->isComputeDeferred(true);
     create_closed_polygon(contour_sketch->sketchCurves()->sketchLines(), fretboard.board_shape());
@@ -307,11 +377,15 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     
     // create fret slots as lines sketch
     auto planes = component->constructionPlanes();
+    CHECK(planes, false);
     auto planeInput = planes->createInput();
+    CHECK(planeInput, false);
     auto offsetValue = ValueInput::createByReal((instrument.fretboard_thickness + 10.0) * 0.1);
     planeInput->setByOffset(component->xYConstructionPlane(), offsetValue);
     auto fret_slots_construction_plane = planes->add(planeInput);
+    CHECK(fret_slots_construction_plane, false);
     auto fret_slots_sketch = component->sketches()->add(fret_slots_construction_plane);
+    CHECK(fret_slots_sketch, false);
     fret_slots_sketch->name("Fret slots as lines");
     fret_slots_sketch->isComputeDeferred(true);
     for (auto &&vector : fretboard.fret_slots()) {
@@ -321,6 +395,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     fret_slots_sketch->isVisible(false);
 
     auto fret_lines_sketch = component->sketches()->add(fret_slots_construction_plane);
+    CHECK(fret_lines_sketch, false);
     fret_lines_sketch->name("Fret lines as lines");
     fret_lines_sketch->isComputeDeferred(true);
     for (auto &&vector : fretboard.fret_lines()) {
@@ -331,58 +406,82 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 
     // create construction plane at nut side
     planeInput = planes->createInput();
+    CHECK(planeInput, false);
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_nut_side() * 0.1);
+    CHECK(offsetValue, false);
     planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
     auto construction_plane_at_nut_side = planes->add(planeInput);
+    CHECK(construction_plane_at_nut_side, false);
     construction_plane_at_nut_side->name("Nut Side");
     
     // create construction plane at nut
     planeInput = planes->createInput();
+    CHECK(planeInput, false);
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_nut() * 0.1);
+    CHECK(offsetValue, false);
     planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
     auto construction_plane_at_nut = planes->add(planeInput);
+    CHECK(construction_plane_at_nut, false);
     construction_plane_at_nut->name("Nut");
     
     // create construction plane at last fret
     planeInput = planes->createInput();
+    CHECK(planeInput, false);
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_last_fret() * 0.1);
+    CHECK(offsetValue, false);
     planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
     auto construction_plane_at_last_fret = planes->add(planeInput);
+    CHECK(construction_plane_at_last_fret, false);
     construction_plane_at_last_fret->name("Last Fret");
     
     // create construction plane at heel
     planeInput = planes->createInput();
+    CHECK(planeInput, false);
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_heel() * 0.1);
+    CHECK(offsetValue, false);
     planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
+    CHECK(planeInput, false);
     auto construction_plane_at_heel = planes->add(planeInput);
+    CHECK(construction_plane_at_heel, false);
     construction_plane_at_heel->name("Heel Side");
     
     // create construction plane at 12th fret
     planeInput = planes->createInput();
+    CHECK(planeInput, false);
     offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_12th_fret() * 0.1);
+    CHECK(offsetValue, false);
     planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
     auto construction_plane_at_12th_fret = planes->add(planeInput);
+    CHECK(construction_plane_at_12th_fret, false);
     construction_plane_at_12th_fret->name("12th Fret");
     
     // draw radius circle at nut
     auto radius_1 = create_radius_circle(component, construction_plane_at_nut_side, instrument.radius_at_nut, instrument.fretboard_thickness);
+    CHECK(radius_1, false);
     //    auto radius_2 = create_radius_circle(component, construction_plane_at_nut, instrument.radius_at_nut, instrument.fretboard_thickness);
     //    auto radius_3 = create_radius_circle(component, construction_plane_at_last_fret,  instrument.radius_at_last_fret, instrument.fretboard_thickness);
     auto radius_4 = create_radius_circle(component, construction_plane_at_heel, instrument.radius_at_last_fret, instrument.fretboard_thickness);
-    
+    CHECK(radius_4, false);
+
     // create loft feature
     auto loft_features = component->features()->loftFeatures();
+    CHECK(loft_features, false);
     auto loft_input = loft_features->createInput(adsk::fusion::FeatureOperations::NewBodyFeatureOperation);
+    CHECK(loft_input, false);
     loft_input->loftSections()->add(radius_1->profiles()->item(0));
     //    loft_input->loftSections()->add(radius_2->profiles()->item(0));
     //    loft_input->loftSections()->add(radius_3->profiles()->item(0));
     loft_input->loftSections()->add(radius_4->profiles()->item(0));
     loft_input->isSolid(true);
     auto feature = loft_features->add(loft_input);
+    CHECK(feature, false);
     auto main_body = feature->bodies()->item(0);
+    CHECK(main_body, false);
     main_body->name("Main body");
     auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
+    CHECK(lib, false);
     auto mat = lib->materials()->itemByName("Walnut");
+    CHECK(mat, false);
     main_body->material(mat);
 
     
@@ -391,55 +490,46 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     //    radius_3->isVisible(false);
     radius_4->isVisible(false);
     
-    // duplicate main body to create the fret slot cutter
-    //    auto body1 = main_body->copyToComponent(occurrence);
-    //    if (!body1) {
-    //        std::string err = "";
-    //        app->getLastError(&err);
-    //        ui->messageBox(err);
-    //        return false;
-    //    }
-    //
-    //    body1->name("Fret cutter");
-    
-    //    auto body2 = main_body->copyToComponent(occurrence);
-    //    if (!body2) {
-    //        std::string err = "";
-    //        app->getLastError(&err);
-    //        ui->messageBox(err);
-    //        return false;
-    //    }
-    //    body2->name("TMP Fret cutter");
-    
     auto distance = ValueInput::createByReal(instrument.fretboard_thickness);
+    CHECK(distance, false);
     component->features()->extrudeFeatures()->addSimple(contour_sketch->profiles()->item(0), distance, FeatureOperations::IntersectFeatureOperation);
     
     // create nut slot
     if (instrument.carve_nut_slot) {
         auto nut_sketch = component->sketches()->add(component->xYConstructionPlane());
+        CHECK(nut_sketch, false);
         nut_sketch->name("Nut");
         nut_sketch->isComputeDeferred(true);
         create_closed_polygon(nut_sketch->sketchCurves()->sketchLines(), fretboard.nut_slot_shape());
         nut_sketch->isComputeDeferred(false);
         distance = ValueInput::createByReal(instrument.fretboard_thickness * 0.1);
+        CHECK(distance, false);
         auto _feature = component->features()->extrudeFeatures()->addSimple(nut_sketch->profiles()->item(0), distance, FeatureOperations::NewBodyFeatureOperation);
+        CHECK(_feature, false);
         auto nut_body = _feature->bodies()->item(0);
+        CHECK(nut_body, false);
         auto transform = Matrix3D::create();
+        CHECK(transform, false);
         transform->translation(Vector3D::create(0.0, 0.0, instrument.nut_height_under * 0.1));
         auto items = ObjectCollection::create();
+        CHECK(items, false);
         items->add(nut_body);
         auto move_features = component->features()->moveFeatures();
+        CHECK(move_features, false);
         auto move_input = move_features->createInput(items, transform);
+        CHECK(move_input, false);
         component->features()->moveFeatures()->add(move_input);
         items = ObjectCollection::create();
         items->add(nut_body);
         auto combine_input = component->features()->combineFeatures()->createInput(main_body, items);
+        CHECK(combine_input, false);
         combine_input->operation(FeatureOperations::CutFeatureOperation);
         component->features()->combineFeatures()->add(combine_input);
     }
     
     // duplicate main body to keep an unslotted version
     auto unslotted = main_body->copyToComponent(occurrence);
+    CHECK(unslotted, false);
     unslotted->name("Unslotted");
     unslotted->isVisible(false);
     
@@ -448,36 +538,44 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     main_body->isVisible(true);
     
     auto top = getFretboardTopSurface(component);
+    CHECK(top, false);
     if (top) {
         auto fretsOccurrence = component->occurrences()->addNewComponent(Matrix3D::create());
+        CHECK(fretsOccurrence, false);
         auto fretsComponent = fretsOccurrence->component();
+        CHECK(fretsComponent, false);
         fretsComponent->name("Frets");
         //occurrence->activate();
 
         // Prepare material for frets
         //auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
         auto mat = lib->materials()->itemByName("Steel, Chrome Plated");
-        
+        CHECK(mat, false);
+
         std::vector<Ptr<BRepFace>> faces;
         faces.push_back(top);
         auto C = fret_slots_sketch->sketchCurves();
+        CHECK(C, false);
         auto L = fret_lines_sketch->sketchCurves();
+        CHECK(L, false);
         for (int i = 0; i < C->count(); i++) {
             std::vector<Ptr<Base>> curvesS;
             std::vector<Ptr<Base>> curvesL;
             auto c = C->item(i);
+            CHECK(c, false);
             auto l = L->item(i);
+            CHECK(l, false);
             curvesS.push_back(c);
             curvesL.push_back(l);
 
             std::stringstream str;
             str << "Fret Profile " << i;
             auto projected_fret_profile = fretsComponent->sketches()->add(fretsComponent->yZConstructionPlane());
+            CHECK(projected_fret_profile, false);
             projected_fret_profile->name(str.str());
             
             auto profilesS = projected_fret_profile->projectToSurface(faces, curvesS, AlongVectorSurfaceProjectType, fretsComponent->zConstructionAxis());
             auto profilesL = projected_fret_profile->projectToSurface(faces, curvesL, AlongVectorSurfaceProjectType, fretsComponent->zConstructionAxis());
-            
 
             Ptr<Path> pathS;
             Ptr<Path> pathL;
@@ -515,11 +613,14 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             CHECK(fretTang, false);
 
             auto items = ObjectCollection::create();
+            CHECK(items, false);
             for (int j = 0; j < fretTang->bodies()->count(); j++) {
                 auto body = fretTang->bodies()->item(j);
+                CHECK(body, false);
                 items->add(body);
             }
             auto combine_input = fretsComponent->features()->combineFeatures()->createInput(main_body, items);
+            CHECK(combine_input, false);
             combine_input->isKeepToolBodies(true);
             combine_input->operation(FeatureOperations::CutFeatureOperation);
             fretsComponent->features()->combineFeatures()->add(combine_input);
@@ -530,7 +631,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             if (instrument.draw_frets) {
                 auto fret_wire_profile = create_fretwire_profile(instrument, fretboard, i, fretsComponent, pathL);
                 CHECK(fret_wire_profile, false);
-                
+
                 std::stringstream str;
                 str << "fret " << i;
 
@@ -586,12 +687,15 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                 
                 
                 auto items = ObjectCollection::create();
+                CHECK(items, false);
                 for (int j = 0; j < fretTang->bodies()->count(); j++) {
                     auto body = fretTang->bodies()->item(j);
+                    CHECK(body, false);
                     items->add(body);
                 }
 
                 auto bodies = fretsComponent->bRepBodies();
+                CHECK(bodies, false);
                 auto combine_input = fretsComponent->features()->combineFeatures()->createInput(bodies->item(bodies->count()-1), items);
                 CHECK(combine_input, false);
                 combine_input->isKeepToolBodies(false);
@@ -601,6 +705,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                 for (int b = 0; b < fretsComponent->bRepBodies()->count(); b++)
                 {
                     auto body = fretsComponent->bRepBodies()->item(b);
+                    CHECK(body, false);
                     body->material(mat);
                 }
                 
@@ -668,10 +773,37 @@ public:
         Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
         Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
         Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
-        
+
+        CHECK2(right_handed);
+        CHECK2(number_of_strings);
+        CHECK2(scale_length_treble);
+        CHECK2(scale_length_bass);
+        CHECK2(perpendicular_fret_index);
+        CHECK2(inter_string_spacing_at_nut);
+        CHECK2(inter_string_spacing_at_bridge);
+        CHECK2(has_zero_fret);
+        CHECK2(nut_to_zero_fret_offset);
+        CHECK2(space_before_nut);
+        CHECK2(carve_nut_slot);
+        CHECK2(nut_thickness);
+        CHECK2(nut_height_under);
+        CHECK2(nut_width);
+        CHECK2(radius_at_nut);
+        CHECK2(radius_at_last_fret);
+        CHECK2(fretboard_thickness);
+        CHECK2(number_of_frets);
+        CHECK2(overhang);
+        CHECK2(hidden_tang_length);
+        CHECK2(fret_slots_width);
+        CHECK2(fret_slots_height);
+        CHECK2(fret_crown_width);
+        CHECK2(fret_crown_height);
+        CHECK2(last_fret_cut_offset);
+
         if (cmdInput->id() == "presets") {
             // Preset has changed
             Ptr<DropDownCommandInput> presetCombo = cmdInput;
+            CHECK2(presetCombo)
             auto item = presetCombo->selectedItem();
             if (!item) {
                 return;
@@ -751,7 +883,6 @@ public:
         auto instrument = InstrumentFromInputs(inputs);
         fretboarder::Fretboard fretboard(instrument);
 
-        
         //  get selection entity first since it's fragile and any creation/edit operations will clear the selection.
         if (!cgGroups)
             return;
@@ -824,15 +955,19 @@ public:
                     return;
                 
                 auto presetCombo = inputs->addDropDownCommandInput("presets", "Presets", TextListDropDownStyle);
+                CHECK2(presetCombo);
                 auto presets = presetCombo->listItems();
+                CHECK2(presets);
                 auto allPresets = Preset::presets();
                 for (int i = 0; i < allPresets.size(); i++) {
                     auto p = allPresets[i];
                     presets->add(p.name, false);
                 }
                 auto group = inputs->addGroupCommandInput("strings", "Strings")->children();
+                CHECK2(group);
                 group->addBoolValueInput("right_handed", "Right handed", true, "", true);
                 auto number_of_strings_slider = group->addIntegerSliderCommandInput("number_of_strings", "Count", 1, 20);
+                CHECK2(number_of_strings_slider);
                 number_of_strings_slider->valueOne(6);
                 group->addFloatSpinnerCommandInput("inter_string_spacing_at_nut", "Spacing at nut", "mm", 0.1, 20, 0.1, 7.5);
                 group->addFloatSpinnerCommandInput("inter_string_spacing_at_bridge", "Spacing at bridge", "mm", 0.1, 20, 0.1, 12.0);
@@ -850,6 +985,7 @@ public:
                 
                 group = inputs->addGroupCommandInput("frets", "Frets")->children();
                 auto number_of_frets_slider = group->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 36);
+                CHECK2(number_of_frets_slider);
                 number_of_frets_slider->valueOne(24);
                 group->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", 0, 36, 0.1, 0.0);
                 group->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
@@ -870,41 +1006,8 @@ public:
                 group->addFloatSpinnerCommandInput("nut_height_under", "Slot depth", "mm", 0, 100, 0.1, 3.0);
                 
                 auto nut_width = group->addFloatSpinnerCommandInput("nut_width", "Width", "mm", 0, 1000, 0.1, 45);
+                CHECK2(nut_width);
                 nut_width->isEnabled(false);
-                
-                
-#if 0
-                // Create a read only textbox input.
-                //                inputs->addTextBoxCommandInput("readonly_textBox", "Text Box 1", "This is an example of a read-only text box.", 2, true);
-                
-                // Create a message that spans the entire width of the dialog by leaving out the "name" argument.
-                //                std::string message = "<div align=\"center\">A \"full width\" message using <a href=\"http:fusion360.autodesk.com\">html.</a></div>";
-                //                inputs->addTextBoxCommandInput("fullWidth_textBox", "", message, 1, true);
-                
-                // Create value input.
-                inputs->addValueInput("value", "Value", "cm", ValueInput::createByReal(0.0));
-                
-                // Create bool value input with checkbox style.
-                inputs->addBoolValueInput("checkbox", "Checkbox", true, "", false);
-                
-                // Create bool value input with button style that can be clicked.
-                //inputs->addBoolValueInput("buttonClick", "Click Button", false, "resources/button", true);
-                
-                // Create float slider input with two sliders and visible texts
-                Ptr<FloatSliderCommandInput> floatSlider3 = inputs->addFloatSliderCommandInput("floatSlider3", "Float Slider 3", "", 0, 50.0, false);
-                if (!floatSlider3)
-                    return;
-                floatSlider3->setText("Min", "Max");
-                
-                // Create integer slider input with one slider
-                inputs->addIntegerSliderCommandInput("intSlider", "Integer Slider", 0, 10);
-                
-                // Create float spinner input.
-                inputs->addFloatSpinnerCommandInput("spinnerFloat", "Float Spinner", "cm", 0.2, 9.0, 2.2, 1);
-                
-                // Create integer spinner input.
-                inputs->addIntegerSpinnerCommandInput("spinnerInt", "Integer Spinner", 2, 9, 2, 3);
-#endif
             }
         }
     }
@@ -948,8 +1051,6 @@ extern "C" XI_EXPORT bool run(const char* context)
     }
     if (!cgGroups)
         return false;
-
-
     
     // Create the command definition.
     Ptr<CommandDefinitions> commandDefinitions = ui->commandDefinitions();
