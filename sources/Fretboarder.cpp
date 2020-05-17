@@ -869,6 +869,27 @@ public:
     }
 };
 
+static void AddLine(std::vector<double>& vecCoords, const Point& _p0, const Point& _p1) {
+    auto p0 = create_point(_p0);
+    auto p1 = create_point(_p1);
+    vecCoords.push_back(p0->x());
+    vecCoords.push_back(p0->y());
+    vecCoords.push_back(p0->z());
+    vecCoords.push_back(p1->x());
+    vecCoords.push_back(p1->y());
+    vecCoords.push_back(p1->z());
+}
+
+static void AddLine(std::vector<double>& vecCoords, const Vector& v) {
+    AddLine(vecCoords, v.point1, v.point2);
+}
+
+static void AddLines(std::vector<double>& vecCoords, const Quad& q) {
+    for (size_t i = 0; i < 4; i++) {
+        AddLine(vecCoords, q.points[i % 4], q.points[(i + 1) % 4]);
+    }
+}
+
 class OnExecutePreviewEventHandler : public adsk::core::CommandEventHandler
 {
 public:
@@ -900,65 +921,26 @@ public:
         // Draw the strings:
         if (instrument.draw_strings) {
             for (auto s : fretboard.strings()) {
-                auto p0 = create_point(s.point_at_nut());
-                auto p1 = create_point(s.point_at_bridge());
-                vecCoords.push_back(p0->x());
-                vecCoords.push_back(p0->y());
-                vecCoords.push_back(p0->z());
-                vecCoords.push_back(p1->x());
-                vecCoords.push_back(p1->y());
-                vecCoords.push_back(p1->z());
+                AddLine(vecCoords, s.point_at_nut(), s.point_at_bridge());
             }
         }
 
         {
             // Draw bridge line
-            auto p0 = create_point(fretboard.strings().front().point_at_bridge());
-            auto p1 = create_point(fretboard.strings().back().point_at_bridge());
-            vecCoords.push_back(p0->x());
-            vecCoords.push_back(p0->y());
-            vecCoords.push_back(p0->z());
-            vecCoords.push_back(p1->x());
-            vecCoords.push_back(p1->y());
-            vecCoords.push_back(p1->z());
+            AddLine(vecCoords, fretboard.strings().front().point_at_bridge(), fretboard.strings().back().point_at_bridge());
         }
 
         // Draw the fret positions
         for (auto s : fretboard.fret_lines()) {
-            auto p0 = create_point(s.point1);
-            auto p1 = create_point(s.point2);
-            vecCoords.push_back(p0->x());
-            vecCoords.push_back(p0->y());
-            vecCoords.push_back(p0->z());
-            vecCoords.push_back(p1->x());
-            vecCoords.push_back(p1->y());
-            vecCoords.push_back(p1->z());
+            AddLine(vecCoords, s.point1, s.point2);
         }
 
         // Draw the frettboard shape
-        for (size_t i = 0; i < 4; i++) {
-            auto p0 = create_point(fretboard.board_shape().points[i % 4]);
-            auto p1 = create_point(fretboard.board_shape().points[(i + 1) % 4]);
-            vecCoords.push_back(p0->x());
-            vecCoords.push_back(p0->y());
-            vecCoords.push_back(p0->z());
-            vecCoords.push_back(p1->x());
-            vecCoords.push_back(p1->y());
-            vecCoords.push_back(p1->z());
-        }
+        AddLines(vecCoords, fretboard.board_shape());
 
         // Draw the nut slot
         if (instrument.carve_nut_slot) {
-            for (size_t i = 0; i < 4; i++) {
-                auto p0 = create_point(fretboard.nut_shape().points[i % 4]);
-                auto p1 = create_point(fretboard.nut_shape().points[(i + 1) % 4]);
-                vecCoords.push_back(p0->x());
-                vecCoords.push_back(p0->y());
-                vecCoords.push_back(p0->z());
-                vecCoords.push_back(p1->x());
-                vecCoords.push_back(p1->y());
-                vecCoords.push_back(p1->z());
-            }
+            AddLines(vecCoords, fretboard.nut_shape());
         }
 
         Ptr<CustomGraphicsCoordinates> coordinates = CustomGraphicsCoordinates::create(vecCoords);
