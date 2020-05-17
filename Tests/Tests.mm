@@ -100,7 +100,7 @@ using namespace fretboarder;
     printf("X at nut: %lf\n", string.x_at_nut());
     printf("X at bridge: %lf\n", string.x_at_bridge());
     
-    XCTAssertEqual(string.x_at_bridge() - string.x_at_start(), scale);
+    XCTAssertEqualWithAccuracy(string.x_at_bridge() - string.x_at_start(), scale, 0.1);
     XCTAssertEqual(string.x_at_nut(), string.x_at_start() - nut_dist);
 }
 

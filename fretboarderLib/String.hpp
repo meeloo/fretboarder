@@ -55,28 +55,56 @@ public:
             _nut_to_zero_fret_offset = 0;
         }
                 
-        // init StraightLine
-        _perpendicular_fret_from_start = distance_from_start(perpendicular_fret_index);
-        
-        double y_intersect = (
-                       y_at_start
-                       + _perpendicular_fret_from_start
-                       * (y_at_bridge - y_at_start)
-                       / scale_length
-                       );
-        
-        double sign = _perpendicular_fret_from_start < 0 ? 1 : 1;
-        _x_at_start = -sign * sqrt( pow(_perpendicular_fret_from_start, 2) - pow(y_intersect - y_at_start, 2) );
-        _x_at_nut = _x_at_start - nut_to_zero_fret_offset;
-        
-        double l = scale_length;
-        if (_perpendicular_fret_from_start < 0) {
-            l -= _perpendicular_fret_from_start;
+        if (_perpendicular_fret_index < 0) {
+            //distance_from_bridge
+            _perpendicular_fret_from_start = distance_from_start(perpendicular_fret_index);
+            auto virtual_length = distance_from_bridge(_perpendicular_fret_index);
+
+            double y_intersect = (
+                           y_at_start
+                           + _perpendicular_fret_from_start
+                           * (y_at_bridge - y_at_start)
+                           / scale_length
+                           );
+            
+            String virtual_string(index,
+                   virtual_length,
+                   0,
+                   y_intersect,
+                   y_at_bridge,
+                   has_zero_fret,
+                   nut_to_zero_fret_offset,
+                   number_of_frets_per_octave);
+
+            _x_at_start = virtual_string.distance_from_start(-perpendicular_fret_index);
+            _x_at_nut = _x_at_start - nut_to_zero_fret_offset;
+            _x_at_bridge = virtual_string.x_at_bridge();
+            
         }
-        double xab = pow(scale_length, 2) - pow(y_at_bridge - y_at_start, 2);
-        xab = sqrt(xab);
-        xab -= abs(_x_at_start);
-        _x_at_bridge = xab;
+        else {
+            // init StraightLine
+            _perpendicular_fret_from_start = distance_from_start(perpendicular_fret_index);
+            
+            double y_intersect = (
+                           y_at_start
+                           + _perpendicular_fret_from_start
+                           * (y_at_bridge - y_at_start)
+                           / scale_length
+                           );
+            
+            double sign = _perpendicular_fret_from_start < 0 ? 1 : 1;
+            _x_at_start = -sign * sqrt( pow(_perpendicular_fret_from_start, 2) - pow(y_intersect - y_at_start, 2) );
+            _x_at_nut = _x_at_start - nut_to_zero_fret_offset;
+            
+            double l = scale_length;
+            if (_perpendicular_fret_from_start < 0) {
+                l -= _perpendicular_fret_from_start;
+            }
+            double xab = pow(scale_length, 2) - pow(y_at_bridge - y_at_start, 2);
+            xab = sqrt(xab);
+            xab -= abs(_x_at_start);
+            _x_at_bridge = xab;
+        }
     }
     
     double distance_from_start(double fret_index) const {
