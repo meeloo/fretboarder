@@ -897,15 +897,17 @@ public:
         std::vector<int> vertexIndexList;
         std::vector<int> vecStripLen;
         
-        for (auto s : fretboard.strings()) {
-            auto p0 = create_point(s.point_at_nut());
-            auto p1 = create_point(s.point_at_bridge());
-            vecCoords.push_back(p0->x());
-            vecCoords.push_back(p0->y());
-            vecCoords.push_back(p0->z());
-            vecCoords.push_back(p1->x());
-            vecCoords.push_back(p1->y());
-            vecCoords.push_back(p1->z());
+        if (instrument.draw_strings) {
+            for (auto s : fretboard.strings()) {
+                auto p0 = create_point(s.point_at_nut());
+                auto p1 = create_point(s.point_at_bridge());
+                vecCoords.push_back(p0->x());
+                vecCoords.push_back(p0->y());
+                vecCoords.push_back(p0->z());
+                vecCoords.push_back(p1->x());
+                vecCoords.push_back(p1->y());
+                vecCoords.push_back(p1->z());
+            }
         }
 
         for (auto s : fretboard.fret_lines()) {
@@ -930,6 +932,18 @@ public:
             vecCoords.push_back(p1->z());
         }
 
+        if (instrument.carve_nut_slot) {
+            for (size_t i = 0; i < 4; i++) {
+                auto p0 = create_point(fretboard.nut_shape().points[i % 4]);
+                auto p1 = create_point(fretboard.nut_shape().points[(i + 1) % 4]);
+                vecCoords.push_back(p0->x());
+                vecCoords.push_back(p0->y());
+                vecCoords.push_back(p0->z());
+                vecCoords.push_back(p1->x());
+                vecCoords.push_back(p1->y());
+                vecCoords.push_back(p1->z());
+            }
+        }
 
         Ptr<CustomGraphicsCoordinates> coordinates = CustomGraphicsCoordinates::create(vecCoords);
         if (!coordinates)
