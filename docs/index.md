@@ -3,10 +3,10 @@
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/HSuFJhZLFmo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Easily create models of complex fretboards
+## Easily create models of complex fretboards
 Features:
-* supports up to 24 strings
-* simple or compound radius
+* supports up to 20 strings
+* simple and compound radius
 * left and right handed
 * single or multiscale
 * optional zero fret
