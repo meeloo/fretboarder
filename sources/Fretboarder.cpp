@@ -896,7 +896,8 @@ public:
         
         std::vector<int> vertexIndexList;
         std::vector<int> vecStripLen;
-        
+
+        // Draw the strings:
         if (instrument.draw_strings) {
             for (auto s : fretboard.strings()) {
                 auto p0 = create_point(s.point_at_nut());
@@ -910,6 +911,19 @@ public:
             }
         }
 
+        {
+            // Draw bridge line
+            auto p0 = create_point(fretboard.strings().front().point_at_bridge());
+            auto p1 = create_point(fretboard.strings().back().point_at_bridge());
+            vecCoords.push_back(p0->x());
+            vecCoords.push_back(p0->y());
+            vecCoords.push_back(p0->z());
+            vecCoords.push_back(p1->x());
+            vecCoords.push_back(p1->y());
+            vecCoords.push_back(p1->z());
+        }
+
+        // Draw the fret positions
         for (auto s : fretboard.fret_lines()) {
             auto p0 = create_point(s.point1);
             auto p1 = create_point(s.point2);
@@ -921,6 +935,7 @@ public:
             vecCoords.push_back(p1->z());
         }
 
+        // Draw the frettboard shape
         for (size_t i = 0; i < 4; i++) {
             auto p0 = create_point(fretboard.board_shape().points[i % 4]);
             auto p1 = create_point(fretboard.board_shape().points[(i + 1) % 4]);
@@ -932,6 +947,7 @@ public:
             vecCoords.push_back(p1->z());
         }
 
+        // Draw the nut slot
         if (instrument.carve_nut_slot) {
             for (size_t i = 0; i < 4; i++) {
                 auto p0 = create_point(fretboard.nut_shape().points[i % 4]);
