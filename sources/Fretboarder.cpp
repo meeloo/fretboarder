@@ -15,13 +15,21 @@ Ptr<Application> app;
 Ptr<UserInterface> ui;
 Ptr<CustomGraphicsGroups> cgGroups;
 
+static void DisplayError(const std::string& file, int line, const std::string& exp)
+{
+    std::string err = "";
+    app->getLastError(&err);
+    std::stringstream str;
+    str << "ERROR" << file << ":" << line << "\n" << "expression failed: " << exp << "\nError message: " << err;
+    std::string s = str.str();
+    ui->messageBox(s);
+}
 
 #define CHECK(X, Y) \
 if (!X) {\
-std::string err = "";\
-app->getLastError(&err);\
-ui->messageBox(err);\
-return Y;\
+    std::string exp = #X;\
+    DisplayError(__FILE__, __LINE__, exp);\
+    return Y;\
 }
 
 #define SHOWERROR() \
