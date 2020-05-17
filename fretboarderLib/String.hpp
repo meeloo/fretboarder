@@ -27,6 +27,7 @@ private:
     double _y_at_bridge;
     double _number_of_frets_per_octave;
     double _nut_to_zero_fret_offset;
+    double _x_offset = 0;
 
 public:
     String(int index,
@@ -64,10 +65,14 @@ public:
                        / scale_length
                        );
         
-        double sign = _perpendicular_fret_from_start < 0 ? -1 : 1;
+        double sign = _perpendicular_fret_from_start < 0 ? 1 : 1;
         _x_at_start = -sign * sqrt( pow(_perpendicular_fret_from_start, 2) - pow(y_intersect - y_at_start, 2) );
         _x_at_nut = _x_at_start - nut_to_zero_fret_offset;
         
+        double l = scale_length;
+        if (_perpendicular_fret_from_start < 0) {
+            l -= _perpendicular_fret_from_start;
+        }
         double xab = pow(scale_length, 2) - pow(y_at_bridge - y_at_start, 2);
         xab = sqrt(xab);
         xab -= abs(_x_at_start);
@@ -105,17 +110,17 @@ public:
     Point point_at_fret(double fret_index) const {
         double d = distance_from_start(fret_index);
         double t = d / _scale_length;
-        double x = t * (_x_at_bridge - _x_at_start);
-        double y = t * (_y_at_bridge - _y_at_start);
-        return Point(_x_at_start + x, _y_at_start + y);
+        double x = t * (x_at_bridge() - x_at_start());
+        double y = t * (y_at_bridge() - y_at_start());
+        return Point(x_at_start() + x, y_at_start() + y);
     }
     
     Point point_at_nut() const {
-        return Point(_x_at_start, _y_at_start);
+        return Point(x_at_start(), y_at_start());
     }
     
     Point point_at_bridge() const {
-        return Point(_x_at_bridge, _y_at_bridge);
+        return Point(x_at_bridge(), y_at_bridge());
     }
     
     Line line() const {
@@ -128,14 +133,16 @@ public:
     double scale_length() const { return _scale_length; }
     double perpendicular_fret_index() const { return _perpendicular_fret_index; }
     double perpendicular_fret_from_start() const { return _perpendicular_fret_from_start; }
-    double x_at_start() const { return _x_at_start; }
-    double x_at_nut() const { return _x_at_nut; }
+    double x_at_start() const { return _x_offset + _x_at_start; }
+    double x_at_nut() const { return _x_offset + _x_at_nut; }
     double y_at_start() const { return _y_at_start; }
-    double x_at_bridge() const { return _x_at_bridge; }
+    double x_at_bridge() const { return _x_offset + _x_at_bridge; }
     double y_at_bridge() const { return _y_at_bridge; }
     double number_of_frets_per_octave() const { return _number_of_frets_per_octave; }
     double nut_to_zero_fret_offset() const { return _nut_to_zero_fret_offset; }
 
+    double x_offset() const { return _x_offset; }
+    void set_x_offset(double v) { _x_offset = v; }
 };
 
 } // namespace

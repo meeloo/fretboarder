@@ -13,6 +13,7 @@
 #include <cassert>
 #include <algorithm>
 
+namespace fretboarder {
 
 class Point {
 public:
@@ -159,5 +160,7 @@ public:
         return (point.y - get_y_by_x(point.x)) < 10E-6;
     }
 };
+
+}
 
 #endif /* Geometry_hpp */

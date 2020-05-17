@@ -293,7 +293,7 @@ public:
             double length = first + ratio * diff;
             double ystart = instrument.y_at_start + ratio * ydiff_start;
             double ybridge = instrument.y_at_bridge + ratio * ydiff_bridge;
-            _strings.push_back(String(i,
+            _strings.push_back(fretboarder::String(i,
                                      length,
                                      instrument.perpendicular_fret_index,
                                      ystart,
@@ -302,7 +302,18 @@ public:
                                      instrument.nut_to_zero_fret_offset,
                                      instrument.number_of_frets_per_octave));
         }
-        
+
+        // Compute global X offset (average of the X offsets of each string)
+        double offsetSum = 0;
+        for (int i = 0; i < instrument.number_of_strings; i++) {
+            offsetSum += _strings[i].x_at_start();
+        }
+        double offset = offsetSum / (double)instrument.number_of_strings;
+        for (int i = 0; i < instrument.number_of_strings; i++) {
+            _strings[i].set_x_offset(-offset);
+        }
+
+
         number_of_frets = instrument.number_of_frets;
         has_zero_fret = instrument.has_zero_fret;
         nut_to_zero_fret_offset = instrument.nut_to_zero_fret_offset;
@@ -395,6 +406,7 @@ public:
             _strings.back().point_at_bridge(),
             _strings.back().point_at_nut(),
         };
+        
     }
     
     const std::vector<Vector>& fret_slots() const { return _fret_slots; }
