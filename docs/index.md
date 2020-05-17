@@ -22,6 +22,16 @@ Features:
 * creates the actual frets in addition to the fret slots! (optional)
 * apply some default materials
 
+## Known bugs and todo list
+* double string instruments (12 string guitars, mandolins, 8 string basses...)
+* no way to ask for a perpandicular fret at the bridge
+* crash when asking for a perpandicular fret beyond the 23rd
+* we use direct modeling in order to be much faster but some people would like to stay in parametric modeling mode. For the moment the best way is to use fretboarder in a separate design and import the result in your own design.
+* some sketches are unnamed
+* we're missing design time feedback and parameter explanations (tooltips)
+* there is no way to add global shear angle for the fretboard
+* there is no way to ask for a negative perpandicular fret angle
+* one user has reported a crash on a mac that happens every time
 
 ## Alpha version = Use at your own risks!
 This is only alpha grade software.
