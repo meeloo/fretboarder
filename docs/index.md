@@ -5,6 +5,7 @@
 
 ## Easily create models of complex fretboards
 Features:
+* almost WYSIWYG: see what the fretboard will look like in 2D as you change parameters
 * supports up to 20 strings
 * simple and compound radius
 * left and right handed
@@ -14,14 +15,15 @@ Features:
 * configurable fret tang width and depth
 * configurable nut size
 * blind fret slot support (to hide the end of the fret tangs in the fretboard) 
-* optionnaly create nicely rounded frets for rendering purpose
+* create nicely rounded frets for rendering purpose
 
-## Comming in v0.3
-* FIXED: no way to ask for a perpandicular fret at the bridge
+## New in v0.3
+* design time graphics to help you see in real time what the fretboard will look like!
+* Use 100 as the perpendicular fret to make the bridge perpendicular in a multiscale instrument.
+* You can use negative perpandicular fret index to shift the whole fretboard angle.
+* Added tooltips explaining every parameter in the UI
+* Removed some construction planes and sketches
 * FIXED: crash when asking for a perpandicular fret beyond the 23rd
-* FIXED: there is no way to ask for a negative perpandicular fret angle
-* FIXED we're missing design time feedback and parameter explanations (tooltips)
-* Added tooltips
 
 ### New in v0.2
 * more than 200 times faster!
@@ -31,13 +33,7 @@ Features:
 
 ## Known bugs and todo list
 * double string instruments (12 string guitars, mandolins, 8 string basses...)
-* there is no way to add global shear angle for the fretboard
 * we use direct modeling in order to be much faster but some people would like to stay in parametric modeling mode. For the moment the best way is to use fretboarder in a separate design and import the result in your own design.
-* some sketches are unnamed
-* [done] no way to ask for a perpandicular fret at the bridge
-* [done] crash when asking for a perpandicular fret beyond the 23rd
-* [done] we're missing design time feedback and parameter explanations (tooltips)
-* [done] there is no way to ask for a negative perpandicular fret angle
 * [WIP] one user has reported a crash on a mac that happens every time
 
 ## Alpha version = Use at your own risks!
@@ -51,9 +47,9 @@ Here is a small video showing how to install the plugin on Windows:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/e96nMz-E10Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Download
-download [Fretboarder v0.2 for Windows](bin/windows/Fretboarder_win_0.2.zip)
+download [Fretboarder v0.3 for Windows](bin/windows/Fretboarder_win_0.3.zip)
 
-download [Fretboarder v0.2 macOS](bin/macOS/Fretboarder_mac_0.2.zip)
+download [Fretboarder v0.3 macOS](bin/macOS/Fretboarder_mac_0.3.zip)
 
 ## Contact
 For all questions and feedback, please send an email to <fretboarder@meeloo.net>
