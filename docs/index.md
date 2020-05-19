@@ -24,6 +24,8 @@ Features:
 * Added tooltips explaining every parameter in the UI
 * Removed some construction planes and sketches
 * FIXED: crash when asking for a perpandicular fret beyond the 23rd
+### Added in v0.3a
+* moved the UI to tabs, some computers couldn't display the whole UI vertically
 
 ### New in v0.2
 * more than 200 times faster!
@@ -47,9 +49,9 @@ Here is a small video showing how to install the plugin on Windows:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/e96nMz-E10Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Download
-download [Fretboarder v0.3 for Windows](bin/windows/Fretboarder_win_0.3.zip)
+download [Fretboarder v0.3a for Windows](bin/windows/Fretboarder_win_0.3a.zip)
 
-download [Fretboarder v0.3 macOS](bin/macOS/Fretboarder_mac_0.3.zip)
+download [Fretboarder v0.3a macOS](bin/macOS/Fretboarder_mac_0.3a.zip)
 
 ## Contact
 For all questions and feedback, please send an email to <fretboarder@meeloo.net>

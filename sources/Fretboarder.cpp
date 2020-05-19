@@ -1023,7 +1023,7 @@ public:
                     auto p = allPresets[i];
                     presets->add(p.name, false);
                 }
-                auto group = inputs->addGroupCommandInput("strings", "Strings")->children();
+                auto group = inputs->addTabCommandInput("strings", "Strings")->children();
                 CHECK2(group);
                 auto rightHanded = group->addBoolValueInput("right_handed", "Right handed", true, "", true);
                 rightHanded->tooltip("Switch in between right and left handed string layout.");
@@ -1050,7 +1050,7 @@ public:
                 draw_strings->tooltip("Enabling this will create a sketch for the position of the strings following the ideal radius of the fretboard and the bridge.");
                 draw_strings->tooltipDescription("");
 
-                group = inputs->addGroupCommandInput("scale_length", "Scale length")->children();
+                group = inputs->addTabCommandInput("scale_length", "Scale length")->children();
                 auto scale_length_bass = group->addFloatSpinnerCommandInput("scale_length_bass", "Bass side", "in", 1, 10000, 0.1, 25.5);
                 scale_length_bass->tooltip("Enter the scale length of the bass string");
                 scale_length_bass->tooltipDescription("This is independent of the handedness of the instrument you are building. Use the 'right handed' switch above to control that instead.");
@@ -1059,7 +1059,7 @@ public:
                 scale_length_treble->tooltip("Enter the scale length of the treble string");
                 scale_length_treble->tooltipDescription("This is independent of the handedness of the instrument you are building. Use the 'right handed' switch above to control that instead.");
 
-                group = inputs->addGroupCommandInput("fretboard_radius", "Fretboard geometry")->children();
+                group = inputs->addTabCommandInput("fretboard_radius", "Fretboard")->children();
                 auto radius_at_nut = group->addFloatSpinnerCommandInput("radius_at_nut", "Radius at nut", "in", 0, 10000, 0.1, 9.5);
                 radius_at_nut->tooltip("Enter the desired fretboard radius at the nut.");
                 radius_at_nut->tooltipDescription("You can choose a different radius at the nut and at the last fret to create a compound radius.");
@@ -1072,7 +1072,7 @@ public:
                 fretboard_thickness->tooltip("This is the thickness of your fretboard.");
                 fretboard_thickness->tooltipDescription("This has to be less than thickness of the stock plank you will use.");
 
-                group = inputs->addGroupCommandInput("frets", "Frets")->children();
+                group = inputs->addTabCommandInput("frets", "Frets")->children();
                 auto number_of_frets_slider = group->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 60);
                 number_of_frets_slider->tooltip("This is the number of frets not counting the zero fret.");
                 number_of_frets_slider->tooltipDescription("");
@@ -1119,7 +1119,7 @@ public:
                 last_fret_cut_offset->tooltip("This is an offset that is added after the last fret to choose the length of the fretboard.");
                 last_fret_cut_offset->tooltipDescription("Using 0mm here will have your fretboard stopping one half fret after the last fret.");
 
-                group = inputs->addGroupCommandInput("nut", "Nut")->children();
+                group = inputs->addTabCommandInput("nut", "Nut")->children();
                 auto space_before_nut = group->addFloatSpinnerCommandInput("space_before_nut", "Space before nut", "mm", 0, 100, 0.1, 7.0);
                 space_before_nut->tooltip("This is the amount of fretboard you need before in between it's start and the nut.");
                 space_before_nut->tooltipDescription("This is probably 0 if you are using a Gibson type nut. Fender nuts typically need 3 to 5 mm here.");
