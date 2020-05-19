@@ -10,15 +10,15 @@
 #include "fretboarderLib.hpp"
 #include "fretboarderLibPriv.hpp"
 
-void fretboarderLib::HelloWorld(const char * s)
-{
-    fretboarderLibPriv *theObj = new fretboarderLibPriv;
-    theObj->HelloWorldPriv(s);
-    delete theObj;
-};
-
-void fretboarderLibPriv::HelloWorldPriv(const char * s) 
-{
-    std::cout << s << std::endl;
-};
+//void fretboarderLib::HelloWorld(const char * s)
+//{
+//    fretboarderLibPriv *theObj = new fretboarderLibPriv;
+//    theObj->HelloWorldPriv(s);
+//    delete theObj;
+//};
+//
+//void fretboarderLibPriv::HelloWorldPriv(const char * s) 
+//{
+//    std::cout << s << std::endl;
+//};
 

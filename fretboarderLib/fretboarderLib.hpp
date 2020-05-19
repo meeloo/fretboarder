@@ -16,11 +16,11 @@
 #include "String.hpp"
 #include "Geometry.hpp"
 
-class fretboarderLib
-{
-    public:
-    void HelloWorld(const char *);
-};
+//class fretboarderLib
+//{
+//    public:
+//    void HelloWorld(const char *);
+//};
 
 #pragma GCC visibility pop
 #endif
