@@ -48,6 +48,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
+    <IncludePath>fretboarderLib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -90,10 +91,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="sources\Fretboard.cpp" />
+    <ClCompile Include="fretboarderLib\Fretboard.cpp" />
     <ClCompile Include="sources\Fretboarder.cpp" />
-    <ClCompile Include="sources\Geometry.cpp" />
-    <ClCompile Include="sources\String.cpp" />
+    <ClCompile Include="fretboarderLib\Geometry.cpp" />
+    <ClCompile Include="fretboarderLib\String.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Fretboarder.manifest">
@@ -102,9 +103,9 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sources\Fretboard.hpp" />
-    <ClInclude Include="sources\Geometry.hpp" />
-    <ClInclude Include="sources\String.hpp" />
+    <ClInclude Include="fretboarderLib\Fretboard.hpp" />
+    <ClInclude Include="fretboarderLib\Geometry.hpp" />
+    <ClInclude Include="fretboarderLib\String.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
