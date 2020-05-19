@@ -203,6 +203,7 @@ Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Fretboar
     CHECK(arc, nullptr);
     sketchLines->addByTwoPoints(create_point(Point(crownW, 0, 0)), create_point(Point(-crownW, 0, 0)));
 
+    profPlane->deleteMe();
     return fret_wire_profile;
 }
 
@@ -229,6 +230,7 @@ Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Fretboar
     auto tangW = instrument.fret_slots_width / 2;
     auto tangH = instrument.fret_slots_height;
     sketchLines->addTwoPointRectangle(Point3D::create((-tangW) * 0.1, 0.01 * 0.1, 0), Point3D::create(tangW * 0.1, -tangH * 0.1, 0));
+    profPlane->deleteMe();
     return fret_tang_profile;
 }
 
@@ -485,10 +487,10 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     main_body->material(mat);
 
     
-    radius_1->isVisible(false);
+    radius_1->deleteMe();
     //    radius_2->isVisible(false);
     //    radius_3->isVisible(false);
-    radius_4->isVisible(false);
+    radius_4->deleteMe();
     
     auto distance = ValueInput::createByReal(instrument.fretboard_thickness);
     CHECK(distance, false);
