@@ -1098,7 +1098,7 @@ public:
                 hidden_tang_length->tooltipDescription("If you want to have the fret tangs appearing on the border of the fretboard, use 0mm. Any other number will create blind/hidden frets tangs.");
 
                 auto fret_slots_width = group->addFloatSpinnerCommandInput("fret_slots_width", "Fret slots width", "mm", 0, 2, 0.1, 0.6);
-                fret_slots_width->tooltip("This is the kerf of tool you will use to cut the fret slots. 0.5 to 0.6mm is generally a good range.");
+                fret_slots_width->tooltip("This is the kerf of the tool you will use to cut the fret slots and the thickness of the fret's tang. 0.5 to 0.6mm is generally a good range.");
                 fret_slots_width->tooltipDescription("This is also used to model the fret tang bodies if you choose to draw the frets");
 
                 auto fret_slots_height = group->addFloatSpinnerCommandInput("fret_slots_height", "Fret slots height", "mm", 0, 10, 0.1, 1.5);
@@ -1123,18 +1123,18 @@ public:
                 space_before_nut->tooltipDescription("This is probably 0 if you are using a Gibson type nut. Fender nuts typically need 3 to 5 mm here.");
 
                 auto nut_thickness = group->addFloatSpinnerCommandInput("nut_thickness", "Thickness", "mm", 0, 100, 0.1, 4.0);
-                nut_thickness->tooltip("This is the thickness of the nut as seen from above.");
+                nut_thickness->tooltip("This is the thickness/width of the nut (as seen from above).");
                 nut_thickness->tooltipDescription("");
 
                 auto carve_nut_slot = group->addBoolValueInput("carve_nut_slot", "Carve the nut slot", true, "", true);
                 carve_nut_slot->tooltip("You can disable carving the nut.");
-                carve_nut_slot->tooltipDescription("For example some headless instruments use the string holders on the mini head as a nut.");
+                carve_nut_slot->tooltipDescription("Some headless instruments use the their mini head pieces as a nut/string guide.");
 
                 auto nut_height_under = group->addFloatSpinnerCommandInput("nut_height_under", "Slot depth", "mm", 0, 100, 0.1, 3.0);
-                nut_height_under->tooltip("This is the depth of the nut cavity.");
+                nut_height_under->tooltip("This is the depth of the nut cavity from the top of the fretboard.");
                 nut_height_under->tooltipDescription("");
 
-                auto nut_width = group->addFloatSpinnerCommandInput("nut_width", "Width", "mm", 0, 1000, 0.1, 45);
+                auto nut_width = group->addFloatSpinnerCommandInput("nut_width", "Calculated width", "mm", 0, 1000, 0.1, 45);
                 nut_width->tooltip("This is calculated for you.");
                 nut_width->tooltipDescription("It indicates the actual width of the nut/fretboard depending on the other parameters you have used for the other parameters");
                 CHECK2(nut_width);

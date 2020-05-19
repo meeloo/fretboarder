@@ -21,6 +21,7 @@ Features:
 * FIXED: crash when asking for a perpandicular fret beyond the 23rd
 * FIXED: there is no way to ask for a negative perpandicular fret angle
 * FIXED we're missing design time feedback and parameter explanations (tooltips)
+* Added tooltips
 
 ### New in v0.2
 * more than 200 times faster!
