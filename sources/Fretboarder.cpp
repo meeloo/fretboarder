@@ -302,6 +302,10 @@ Ptr<Path> fill_path_from_profile(const Ptr<Component>& component, const Ptr<Path
     return _path;
 }
 
+void progress(const Ptr<ProgressDialog>& dialog, const std::string& message) {
+    dialog->message(message);
+    dialog->progressValue(dialog->progressValue() + 1);
+}
 
 bool createFretboard(const fretboarder::Instrument& instrument) {
     Ptr<Document> doc = app->activeDocument();
@@ -318,7 +322,13 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     CHECK(rootComp, false);
 
     fretboarder::Fretboard fretboard(instrument);
-    
+
+    auto progressDialog = ui->createProgressDialog();
+    progressDialog->isCancelButtonShown(false);
+    //progressDialog->isBackgroundTranslucent(true);
+    progressDialog->show("creating fretboard", "", 0, 3 + instrument.number_of_strings + instrument.number_of_frets);
+
+    progress(progressDialog, "create fretboard plank");
     // create Fretboard component
     auto occurrence = rootComp->occurrences()->addNewComponent(Matrix3D::create());
     CHECK(occurrence, false);
@@ -352,6 +362,9 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             auto center = Point(0.0, 0.0, 0.0);
             
             for (size_t s = 0; s < fretboard.strings().size(); s++) {
+                std::stringstream str;
+                str << "create string " << (int)s;
+                progress(progressDialog, str.str());
                 const auto& string = fretboard.strings()[s];
                 auto nutSide = string.point_at_nut();
                 auto bridgeSide = string.point_at_bridge();
@@ -465,6 +478,8 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     auto radius_4 = create_radius_circle(component, construction_plane_at_heel, instrument.radius_at_last_fret, instrument.fretboard_thickness);
     CHECK(radius_4, false);
 
+    progress(progressDialog, "create fretboard radius");
+
     // create loft feature
     auto loft_features = component->features()->loftFeatures();
     CHECK(loft_features, false);
@@ -497,6 +512,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     component->features()->extrudeFeatures()->addSimple(contour_sketch->profiles()->item(0), distance, FeatureOperations::IntersectFeatureOperation);
     
     // create nut slot
+    progress(progressDialog, "create nut");
     if (instrument.carve_nut_slot) {
         auto nut_sketch = component->sketches()->add(component->xYConstructionPlane());
         CHECK(nut_sketch, false);
@@ -561,6 +577,12 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         auto L = fret_lines_sketch->sketchCurves();
         CHECK(L, false);
         for (int i = 0; i < C->count(); i++) {
+            {
+                std::stringstream str;
+                str << "create fret " << i << " and carve the slot" ;
+                progress(progressDialog, str.str());
+            }
+            
             std::vector<Ptr<Base>> curvesS;
             std::vector<Ptr<Base>> curvesL;
             auto c = C->item(i);
@@ -582,7 +604,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             Ptr<Path> pathS;
             Ptr<Path> pathL;
             std::vector<Ptr<Sketch>> profiles;
-            assert(profilesS.size() == 1);
+            CHECK(profilesS.size() == 1, false);
 
             auto profileS = profilesS[0];
             CHECK(profileS, false);
@@ -728,6 +750,8 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         ui->messageBox("Top not found");
     }
     
+    progressDialog->hide();
+
     return true;
 }
 
@@ -964,6 +988,31 @@ public:
     }
 };
 
+class OnValidateInputsEventHander: public adsk::core::ValidateInputsEventHandler {
+public:
+    virtual void notify(const Ptr<ValidateInputsEventArgs>& eventArgs) {
+        bool valid = true;
+        auto instrument = InstrumentFromInputs(eventArgs->inputs());
+        auto fretboard = Fretboard(instrument);
+        double widthAtNut = abs(fretboard.board_shape().points[3].y - fretboard.board_shape().points[0].y);
+        double widthAtLastFret = abs(fretboard.board_shape().points[2].y - fretboard.board_shape().points[1].y);
+        double thickness = instrument.fretboard_thickness;
+        double radius1 = instrument.radius_at_nut;
+        double radius2 = instrument.radius_at_last_fret;
+        double sin1 = widthAtNut / (2 * radius1);
+        double angle1 = asin(sin1);
+        double minThickness1 = radius1 - (cos(angle1) * radius1);
+
+        double sin2 = widthAtLastFret / (2 * radius2);
+        double angle2 = asin(sin2);
+        double minThickness2 = radius2 - (cos(angle2) * radius2);
+
+        valid = valid && (minThickness1 < thickness - instrument.fret_slots_height - 0.1);
+        valid = valid && (minThickness2 < thickness - instrument.fret_slots_height - 0.11);
+
+        eventArgs->areInputsValid(valid);
+    }
+};
 
 // CommandCreated event handler.
 class CommandCreatedEventHandler : public adsk::core::CommandCreatedEventHandler
@@ -977,6 +1026,8 @@ public:
             Ptr<Command> command = eventArgs->command();
             if (command)
             {
+                command->setDialogMinimumSize(300, 600);
+                
                 // Connect to the command destroyed event.
                 Ptr<CommandEvent> onDestroy = command->destroy();
                 if (!onDestroy)
@@ -1000,7 +1051,14 @@ public:
                 if (!isOk)
                     return;
 
+                Ptr<ValidateInputsEvent> onValidateInputs = command->validateInputs();
+                if (!onValidateInputs)
+                    return;
+                isOk = onValidateInputs->add(&onValidateInputsHandler);
+                if (!isOk)
+                    return;
 
+                
                 // Connect to the input changed event.
                 Ptr<InputChangedEvent> onInputChanged = command->inputChanged();
                 if (!onInputChanged)
@@ -1029,9 +1087,9 @@ public:
                 rightHanded->tooltip("Switch in between right and left handed string layout.");
                 rightHanded->tooltipDescription("The left handed version just mirrors the layout of the strings.");
 
-                auto number_of_strings_slider = group->addIntegerSliderCommandInput("number_of_strings", "Count", 1, 20);
+                auto number_of_strings_slider = group->addIntegerSliderCommandInput("number_of_strings", "Count", 1, 15);
                 number_of_strings_slider->tooltip("Select the number of strings for your instrument.");
-                number_of_strings_slider->tooltipDescription("Minimum is 1 string, maximum 20.");
+                number_of_strings_slider->tooltipDescription("Minimum is 1 string, maximum 15.");
                 CHECK2(number_of_strings_slider);
                 number_of_strings_slider->valueOne(6);
 
@@ -1148,6 +1206,7 @@ private:
     OnExecuteEventHander onExecuteHandler;
     OnDestroyEventHandler onDestroyHandler;
     OnInputChangedEventHander onInputChangedHandler;
+    OnValidateInputsEventHander onValidateInputsHandler;
     OnExecutePreviewEventHandler onExecutePreviewHandler;
 } _cmdCreatedHandler;
 
