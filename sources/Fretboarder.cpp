@@ -26,14 +26,14 @@ static void DisplayError(const std::string& file, int line, const std::string& e
 }
 
 #define CHECK(X, Y) \
-if (!X) {\
+if (!(X)) {\
     std::string exp = #X;\
     DisplayError(__FILE__, __LINE__, exp);\
     return Y;\
 }
 
 #define CHECK2(X) \
-if (!X) {\
+if (!(X)) {\
     std::string exp = #X;\
     DisplayError(__FILE__, __LINE__, exp);\
     return;\
@@ -983,8 +983,6 @@ public:
             return;
 
         cgLines->lineStylePattern(continuousLineStylePattern);
-//            cgLines->weight(static_cast<float>(_lineStyleWeight->valueOne()));
-//            cgLines->lineStyleScale(static_cast<float>(_lineStyleScale->valueOne()));
     }
 };
 
