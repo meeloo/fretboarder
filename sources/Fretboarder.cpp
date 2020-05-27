@@ -912,6 +912,22 @@ public:
             }
             
         }
+
+        UpdateNutWidget(inputs);
+
+    }
+    
+    void UpdateNutWidget(const Ptr<CommandInputs>& inputs) {
+        // update nut width
+        Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
+        Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
+        Ptr<FloatSpinnerCommandInput> overhang = inputs->itemById("overhang");
+        Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
+        CHECK2(number_of_strings);
+        CHECK2(inter_string_spacing_at_nut);
+        CHECK2(overhang);
+        CHECK2(nut_width);
+        nut_width->value(std::max(number_of_strings->valueOne() - 1, 1) * inter_string_spacing_at_nut->value() + overhang->value() * 2);
     }
 };
 
@@ -1242,7 +1258,9 @@ public:
                 nut_height_under->tooltip("This is the depth of the nut cavity from the top of the fretboard.");
                 nut_height_under->tooltipDescription("");
 
-                auto nut_width = group->addFloatSpinnerCommandInput("nut_width", "Calculated width", "mm", 0, 1000, 0.1, 45);
+                auto computed = inputs->addGroupCommandInput("global_values", "Computed values");
+                computed->isEnabled(false);
+                auto nut_width = computed->children()->addFloatSpinnerCommandInput("nut_width", "Computed nut width", "mm", 0, 1000, 0.1, 45);
                 nut_width->tooltip("This is calculated for you.");
                 nut_width->tooltipDescription("It indicates the actual width of the nut/fretboard depending on the other parameters you have used for the other parameters");
                 CHECK2(nut_width);
