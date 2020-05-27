@@ -141,7 +141,6 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
 
 void InstrumentToInputs(const Ptr<CommandInputs>& inputs, const Instrument& i) {
     Instrument instrument = i;
-    instrument.scale(0.1); // mm to cm
 
     Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
     Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
@@ -894,6 +893,7 @@ public:
                     ui->messageBox(str.str());
                     return;
                 }
+                instrument.scale(0.1); // mm to cm
                 InstrumentToInputs(inputs, instrument);
             }
             
