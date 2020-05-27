@@ -71,5 +71,41 @@ void from_json(const json& j, Instrument& i) {
     
 }
 
+bool Instrument::load(const std::string& filename)
+{
+    std::ifstream ifs;
+    ifs.open(filename, std::ifstream::in);
+    if (!ifs.is_open())
+    {
+        return false;
+    }
+    
+    json j;
+    ifs >> j;
+    ifs.close();
+    
+    *this = j.get<fretboarder::Instrument>();
+    validate();
+
+    return true;
+}
+
+bool Instrument::save(const std::string& filename) const
+{
+    std::ofstream ofs;
+    ofs.open(filename, std::ofstream::out);
+    if (!ofs.is_open())
+    {
+        return false;
+    }
+    
+    json j;
+    j = *this;
+    ofs << j;
+
+    ofs.close();
+    
+    return true;
+}
 
 }

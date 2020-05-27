@@ -17,6 +17,8 @@
 
 #include "json.hpp"
 
+#include <fstream>
+
 using nlohmann::json;
 
 namespace fretboarder {
@@ -178,6 +180,9 @@ struct Instrument {
             nut_to_zero_fret_offset = 0;
         }
     }
+    
+    bool load(const std::string& filename);
+    bool save(const std::string& filename) const;
 };
 
 void to_json(json& j, const Instrument& i);

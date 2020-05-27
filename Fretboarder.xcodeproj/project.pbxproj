@@ -21,6 +21,8 @@
 		C35E25842471D06D00CCDD11 /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F98243BE39000EF30FA /* String.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35E25852471D07600CCDD11 /* Fretboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F94243BE34600EF30FA /* Fretboard.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3D18146247E5E68008723E3 /* json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3D18145247E5E68008723E3 /* json.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3D1814A247EA934008723E3 /* breaking.frt in Resources */ = {isa = PBXBuildFile; fileRef = C3D18148247EA934008723E3 /* breaking.frt */; };
+		C3D1814B247EA934008723E3 /* breaking2.frt in Resources */ = {isa = PBXBuildFile; fileRef = C3D18149247EA934008723E3 /* breaking2.frt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		C35E25762471CF7100CCDD11 /* Tests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tests.mm; sourceTree = "<group>"; };
 		C35E25782471CF7100CCDD11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3D18145247E5E68008723E3 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		C3D18148247EA934008723E3 /* breaking.frt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = breaking.frt; sourceTree = "<group>"; };
+		C3D18149247EA934008723E3 /* breaking2.frt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = breaking2.frt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,7 @@
 		C35E25752471CF7100CCDD11 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C3D18147247EA934008723E3 /* boards */,
 				C35E25762471CF7100CCDD11 /* Tests.mm */,
 				C35E25782471CF7100CCDD11 /* Info.plist */,
 			);
@@ -158,6 +163,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C3D18147247EA934008723E3 /* boards */ = {
+			isa = PBXGroup;
+			children = (
+				C3D18148247EA934008723E3 /* breaking.frt */,
+				C3D18149247EA934008723E3 /* breaking2.frt */,
+			);
+			path = boards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +295,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3D1814B247EA934008723E3 /* breaking2.frt in Resources */,
+				C3D1814A247EA934008723E3 /* breaking.frt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

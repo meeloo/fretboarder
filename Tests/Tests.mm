@@ -18,6 +18,14 @@ using namespace fretboarder;
 
 @end
 
+std::string filePath(const std::string& path) {
+    NSString* p = [[NSBundle bundleForClass:Tests.class] resourcePath];
+    std::string pp = p.UTF8String;
+    pp += "/" + path;
+    return pp;
+}
+
+
 @implementation Tests
 
 - (void)setUp {
@@ -103,6 +111,19 @@ using namespace fretboarder;
     XCTAssertEqualWithAccuracy(string.x_at_bridge() - string.x_at_start(), scale, 0.0000000000000000000000000001);
     XCTAssertEqual(string.x_at_nut(), string.x_at_start() - nut_dist);
 }
+
+- (void)testLoadFromJSon {
+    Instrument instrument;
+    
+    XCTAssert(instrument.load(filePath("default.frt")));
+}
+
+- (void)testBreakingPerpendicularFreboard1 {
+    Instrument instrument;
+    
+    XCTAssert(instrument.load(filePath("breaking2.frt")));
+}
+
 
 
 //- (void)testPerformanceExample {

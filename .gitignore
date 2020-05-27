@@ -51,3 +51,6 @@ Debug/Fretboarder.vcxproj.FileListAbsolute.txt
 *.opendb
 Tests.xctest/Contents/MacOS/Tests
 Tests.xctest/Contents/_CodeSignature/CodeResources
+Tests.xctest
+
+Tests.xctest

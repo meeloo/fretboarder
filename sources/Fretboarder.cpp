@@ -685,26 +685,27 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             projected_fret_profile->name(str.str());
             
             auto profilesS = projected_fret_profile->projectToSurface(faces, curvesS, AlongVectorSurfaceProjectType, fretsComponent->zConstructionAxis());
-            auto profilesL = projected_fret_profile->projectToSurface(faces, curvesL, AlongVectorSurfaceProjectType, fretsComponent->zConstructionAxis());
-
-            Ptr<Path> pathS;
-            Ptr<Path> pathL;
             std::vector<Ptr<Sketch>> profiles;
-            assert(profilesS.size() == 1);
             CHECK(profilesS.size() == 1, false);
 
             auto profileS = profilesS[0];
             CHECK(profileS, false);
-            auto profileL = profilesL[0];
-            CHECK(profileL, false);
 
+            Ptr<Path> pathS;
             pathS = fill_path_from_profile(fretsComponent, pathS, profileS, i, profiles);
             CHECK(pathS, false);
+
+            auto profilesL = projected_fret_profile->projectToSurface(faces, curvesL, AlongVectorSurfaceProjectType, fretsComponent->zConstructionAxis());
+            Ptr<Path> pathL;
+            auto profileL = profilesL[0];
+            CHECK(profileL, false);
             pathL = fill_path_from_profile(fretsComponent, pathL, profileL, i, profiles);
             CHECK(pathL, false);
             Ptr<Point3D> startS, endS;
+
             pathS->item(0)->curve()->evaluator()->getEndPoints(startS, endS);
             Ptr<Point3D> startL, endL;
+
             pathL->item(0)->curve()->evaluator()->getEndPoints(startL, endL);
             
             // create fret wire profile
@@ -880,33 +881,32 @@ public:
         } else if (cmdInput->id() == "Load") {
             auto fileDialog = ui->createFileDialog();
             fileDialog->isMultiSelectEnabled(false);
+            fileDialog->title("Choose a file to load the fretboard preset from");
+            fileDialog->filter("Fretboards (*.frt)");
             if (DialogOK == fileDialog->showOpen()) {
                 std::string filename = fileDialog->filename();
-                std::ifstream ifs;
-                ifs.open(filename, std::ifstream::in);
-                json j;
-                ifs >> j;
-                ifs.close();
-                
-                Instrument instrument = j.get<fretboarder::Instrument>();
-                instrument.validate();
+                Instrument instrument;
+                if (!instrument.load(filename)) {
+                    std::stringstream str;
+                    str << "Unable to load fretboard file \"" << filename << "\"";
+                    ui->messageBox(str.str());
+                    return;
+                }
                 InstrumentToInputs(inputs, instrument);
             }
             
         } else if (cmdInput->id() == "Save") {
             auto fileDialog = ui->createFileDialog();
             fileDialog->isMultiSelectEnabled(false);
+            fileDialog->title("Choose a file to save the fretboard preset to");
+            fileDialog->filter("Fretboards (*.frt)");
             if (DialogOK == fileDialog->showSave()) {
                 std::string filename = fileDialog->filename();
-                std::ofstream ofs;
-                ofs.open(filename, std::ofstream::out);
-
                 Instrument instrument = InstrumentFromInputs(inputs);
-                json j;
-                j = instrument;
-                ofs << j;
-
-                ofs.close();
+                if (!instrument.save(filename)) {
+                    std::stringstream str;
+                    str << "Unable to save fretboard file \"" << filename << "\"";
+                }
             }
             
         }
