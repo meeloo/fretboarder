@@ -1141,10 +1141,10 @@ public:
                 CHECK2(number_of_strings_slider);
                 number_of_strings_slider->valueOne(6);
 
-                auto inter_string_spacing_at_nut = group->addFloatSpinnerCommandInput("inter_string_spacing_at_nut", "Spacing at nut", "mm", 0.1, 20, 0.1, 7.5);
+                auto inter_string_spacing_at_nut = group->addFloatSpinnerCommandInput("inter_string_spacing_at_nut", "Spacing at nut", "mm", 0.1, 40, 0.1, 7.5);
                 inter_string_spacing_at_nut->tooltip("This is the distance in between each string on the nut (or the zero string if you have one)");
 
-                auto inter_string_spacing_at_bridge = group->addFloatSpinnerCommandInput("inter_string_spacing_at_bridge", "Spacing at bridge", "mm", 0.1, 20, 0.1, 12.0);
+                auto inter_string_spacing_at_bridge = group->addFloatSpinnerCommandInput("inter_string_spacing_at_bridge", "Spacing at bridge", "mm", 0.1, 40, 0.1, 12.0);
                 inter_string_spacing_at_bridge->tooltip("This is the distance in between each string on the bridge.");
                 inter_string_spacing_at_bridge->tooltipDescription("This may be dictated by the design of your bridge.");
 
