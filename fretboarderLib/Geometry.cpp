@@ -77,8 +77,10 @@ Vector Vector::offset2D(double offset) const {
     double Y = -x;
     Point perp = Point(X, Y, 0);
     double n = norm(perp);
-    
-    assert(n != 0);
+
+    if (n == 0) {
+        return Vector(*this);
+    }
     
     double off = offset / n;
     perp.x *= off;

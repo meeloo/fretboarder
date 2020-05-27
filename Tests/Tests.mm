@@ -118,6 +118,15 @@ std::string filePath(const std::string& path) {
     XCTAssert(instrument.load(filePath("default.frt")));
 }
 
+- (void)testOneStringFromDefault {
+    Instrument instrument;
+    XCTAssert(instrument.load(filePath("default.frt")));
+    instrument.number_of_strings = 1;
+    Fretboard fretboard(instrument);
+    
+}
+
+
 - (void)testBreakingPerpendicularFreboard1 {
     Instrument instrument;
     

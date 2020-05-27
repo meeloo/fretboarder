@@ -302,7 +302,13 @@ public:
         double ydiff_bridge = -instrument.y_at_bridge * 2;
 
         for (int i = 0; i < instrument.number_of_strings; i++) {
-            double ratio = (double)i / (double)(max ? max : 1);
+            double ratio;
+            
+            if (max == 0) {
+                ratio = 0.5;
+            } else {
+                ratio = (double)i / max;
+            }
             double length = first + ratio * diff;
             double ystart = instrument.y_at_start + ratio * ydiff_start;
             double ybridge = instrument.y_at_bridge + ratio * ydiff_bridge;
