@@ -15,6 +15,10 @@
 #include "String.hpp"
 #include "Geometry.hpp"
 
+#include "json.hpp"
+
+using nlohmann::json;
+
 namespace fretboarder {
 
 //# X origin is where we have the first perpendicular fret of the fretboard
@@ -175,6 +179,10 @@ struct Instrument {
         }
     }
 };
+
+void to_json(json& j, const Instrument& i);
+void from_json(const json& j, Instrument& i);
+
 
 static double mmFromInch(double v) { return v * 25.4; }
 static double cmFromInch(double v) { return mmFromInch(v) * 0.1; }

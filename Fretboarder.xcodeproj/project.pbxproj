@@ -20,6 +20,7 @@
 		C35E25832471D06700CCDD11 /* Geometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C33C0FEA243CCA44004F8F0F /* Geometry.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35E25842471D06D00CCDD11 /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F98243BE39000EF30FA /* String.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35E25852471D07600CCDD11 /* Fretboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3557F94243BE34600EF30FA /* Fretboard.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3D18146247E5E68008723E3 /* json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C3D18145247E5E68008723E3 /* json.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,7 @@
 		C35E25742471CF7100CCDD11 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35E25762471CF7100CCDD11 /* Tests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tests.mm; sourceTree = "<group>"; };
 		C35E25782471CF7100CCDD11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C3D4ED5B247DCF42009859D9 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		C3D18145247E5E68008723E3 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +123,6 @@
 			children = (
 				2BB196C51AD5940800164CD3 /* Fretboarder.cpp */,
 				C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */,
-				C3D4ED5B247DCF42009859D9 /* json.hpp */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -130,6 +130,7 @@
 		C35E25632471CEEC00CCDD11 /* fretboarderLib */ = {
 			isa = PBXGroup;
 			children = (
+				C3D18145247E5E68008723E3 /* json.hpp */,
 				C3557F93243BE34600EF30FA /* Fretboard.cpp */,
 				C3557F94243BE34600EF30FA /* Fretboard.hpp */,
 				C3557F97243BE39000EF30FA /* String.cpp */,
@@ -173,6 +174,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3D18146247E5E68008723E3 /* json.hpp in Headers */,
 				C35E25672471CEEC00CCDD11 /* fretboarderLibPriv.hpp in Headers */,
 				C35E25652471CEEC00CCDD11 /* fretboarderLib.hpp in Headers */,
 				C35E25852471D07600CCDD11 /* Fretboard.hpp in Headers */,
