@@ -6,10 +6,14 @@
 #include <sstream>
 #include <algorithm>
 
+#include "json.hpp"
+
 using namespace adsk::core;
 using namespace adsk::fusion;
 using namespace adsk::cam;
 using namespace fretboarder;
+
+using json = nlohmann::json;
 
 Ptr<Application> app;
 Ptr<UserInterface> ui;

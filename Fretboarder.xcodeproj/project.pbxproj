@@ -57,6 +57,7 @@
 		C35E25742471CF7100CCDD11 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35E25762471CF7100CCDD11 /* Tests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tests.mm; sourceTree = "<group>"; };
 		C35E25782471CF7100CCDD11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3D4ED5B247DCF42009859D9 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +122,7 @@
 			children = (
 				2BB196C51AD5940800164CD3 /* Fretboarder.cpp */,
 				C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */,
+				C3D4ED5B247DCF42009859D9 /* json.hpp */,
 			);
 			path = sources;
 			sourceTree = "<group>";
