@@ -122,6 +122,89 @@ std::string filePath(const std::string& path) {
     Instrument instrument;
     
     XCTAssert(instrument.load(filePath("breaking2.frt")));
+    
+    Fretboard fretboard(instrument);
+    auto p0 = fretboard.board_shape().points[1];
+    auto p1 = fretboard.board_shape().points[2];
+    double dist = p0.distanceFrom(p1);
+    XCTAssertGreaterThan(dist, 0);
+}
+
+- (void)testLineIntersection1 {
+    fretboarder::Point p0(0, 0);
+    fretboarder::Point p1(1, 1);
+    fretboarder::Point p2(1, 0);
+    fretboarder::Point p3(0, 1);
+    
+    fretboarder::Vector v0(p0, p1);
+    fretboarder::Vector v1(p2, p3);
+    
+    fretboarder::Point r = v0.intersection(v1);
+    fretboarder::Point e(0.5, 0.5);
+    
+    XCTAssert(r == e);
+}
+
+- (void)testLineIntersection2 {
+    fretboarder::Point p0(0, 0);
+    fretboarder::Point p1(10, 10);
+    fretboarder::Point p2(10, 0);
+    fretboarder::Point p3(0, 10);
+    
+    fretboarder::Vector v0(p0, p1);
+    fretboarder::Vector v1(p2, p3);
+    
+    fretboarder::Point r = v0.intersection(v1);
+    fretboarder::Point e(5, 5);
+    
+    XCTAssert(r == e);
+}
+
+- (void)testLineIntersection3 {
+    fretboarder::Point p0(0, 0);
+    fretboarder::Point p1(1, 10);
+    fretboarder::Point p2(1, 0);
+    fretboarder::Point p3(0, 10);
+    
+    fretboarder::Vector v0(p0, p1);
+    fretboarder::Vector v1(p2, p3);
+    
+    fretboarder::Point r = v0.intersection(v1);
+    fretboarder::Point e(0.5, 5);
+    
+    XCTAssert(r == e);
+}
+
+- (void)testLineOffset1 {
+    fretboarder::Point p0(0, -1);
+    fretboarder::Point p1(0, 1);
+
+    fretboarder::Point p2(10, -1);
+    fretboarder::Point p3(10, 1);
+
+
+    fretboarder::Vector v0(p0, p1);
+
+    Vector r = v0.offset2D(10);
+
+    XCTAssert(p2 == r.point1);
+    XCTAssert(p3 == r.point2);
+}
+
+- (void)testLineOffset2 {
+    fretboarder::Point p0(1, 0);
+    fretboarder::Point p1(-1, 0);
+
+    fretboarder::Point p2(1, 10);
+    fretboarder::Point p3(-1, 10);
+
+
+    fretboarder::Vector v0(p0, p1);
+
+    Vector r = v0.offset2D(10);
+
+    XCTAssert(p2 == r.point1);
+    XCTAssert(p3 == r.point2);
 }
 
 

@@ -151,8 +151,8 @@ public:
         return Point(x_at_bridge(), y_at_bridge());
     }
     
-    Line line() const {
-        return Line(point_at_bridge(), point_at_nut());
+    Vector line() const {
+        return Vector(point_at_bridge(), point_at_nut());
     }
 
 

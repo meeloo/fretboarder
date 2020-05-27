@@ -267,11 +267,11 @@ private:
     bool has_zero_fret;
     double nut_to_zero_fret_offset;
 
-    Line first_border;
-    Line last_border;
+    Vector first_border;
+    Vector last_border;
 
-    Line first_tang_border;
-    Line last_tang_border;
+    Vector first_tang_border;
+    Vector last_tang_border;
 
     std::vector<Vector> _fret_slots;
     std::vector<Vector> _fret_lines;
@@ -331,11 +331,11 @@ public:
         has_zero_fret = instrument.has_zero_fret;
         nut_to_zero_fret_offset = instrument.nut_to_zero_fret_offset;
 
-        first_border = _strings.front().line().offset(instrument.overhang);
-        last_border = _strings.back().line().offset(-instrument.overhang);
+        first_border = _strings.front().line().offset2D(instrument.overhang);
+        last_border = _strings.back().line().offset2D(-instrument.overhang);
 
-        first_tang_border = first_border.offset(-instrument.hidden_tang_length);
-        last_tang_border = last_border.offset(instrument.hidden_tang_length);
+        first_tang_border = first_border.offset2D(-instrument.hidden_tang_length);
+        last_tang_border = last_border.offset2D(instrument.hidden_tang_length);
         
         // Make frets slots:
         first_fret = 1;
@@ -345,7 +345,7 @@ public:
         
         last_fret = instrument.number_of_frets + 1;
         for (int fret_index = first_fret; fret_index < last_fret; fret_index++) {
-            Line fret_line = Line(_strings.front().point_at_fret(fret_index), _strings.back().point_at_fret(fret_index));
+            Vector fret_line = Vector(_strings.front().point_at_fret(fret_index), _strings.back().point_at_fret(fret_index));
             _fret_slots.push_back(Vector(fret_line.intersection(first_tang_border), fret_line.intersection(last_tang_border)));
             _fret_lines.push_back(Vector(fret_line.intersection(first_border), fret_line.intersection(last_border)));
         }
@@ -353,10 +353,10 @@ public:
         for (int fret_index = first_fret; fret_index < last_fret; fret_index++) {
             auto point1 = _strings.front().point_at_fret(fret_index);
             auto point2 = _strings.back().point_at_fret(fret_index);
-            auto fret_line = Line(point1, point2);
+            auto fret_line = Vector(point1, point2);
             double sign = point1.x <= point2.x ? 1 : -1;
-            Line offset_line1 = fret_line.offset(sign * -instrument.fret_slots_width / 2);
-            Line offset_line2 = fret_line.offset(sign * instrument.fret_slots_width / 2);
+            Vector offset_line1 = fret_line.offset2D(sign * -instrument.fret_slots_width / 2);
+            Vector offset_line2 = fret_line.offset2D(sign * instrument.fret_slots_width / 2);
 
             _fret_slot_shapes.push_back(
                 {
@@ -370,15 +370,16 @@ public:
         
         // last fret cut is like a last+1th fret. If you have 22 frets, the cut is at a virtual 23th fret.
         // you can use last_fret_cut_offset to add an X offset to the cut.
-        auto last_fret_line = Line(_strings.front().point_at_fret(last_fret), _strings.back().point_at_fret(last_fret));
+        auto p0 = _strings.front().point_at_fret(last_fret);
+        auto p1 = _strings.back().point_at_fret(last_fret);
+        auto last_fret_line = Vector(p0, p1);
         double sign = (_strings.front().x_at_bridge() <= _strings.back().x_at_bridge()) ? 1 : -1;
-        Line last_fret_cut = last_fret_line.offset(sign * instrument.last_fret_cut_offset);
+        Vector last_fret_cut = last_fret_line.offset2D(sign * instrument.last_fret_cut_offset);
 
-        double nut_sign = _strings.front().x_at_nut() > _strings.back().x_at_nut() ? 1 : -1;
-        Line nut_line = Line(Point(_strings.front().x_at_nut(), _strings.front().y_at_start()), Point(_strings.back().x_at_nut(), _strings.back().y_at_start()));
+        Vector nut_line = Vector(Point(_strings.front().x_at_nut(), _strings.front().y_at_start()), Point(_strings.back().x_at_nut(), _strings.back().y_at_start()));
         
         // board shape
-        Line board_cut_at_nut = nut_line.offset(nut_sign * instrument.space_before_nut);
+        Vector board_cut_at_nut = nut_line.offset2D(instrument.space_before_nut);
         _board_shape = {
             board_cut_at_nut.intersection(first_border),
             last_fret_cut.intersection(first_border),
@@ -396,7 +397,7 @@ public:
         }
 
         // nut shape
-        auto nut_line_2 = nut_line.offset(nut_sign * instrument.nut_thickness);
+        auto nut_line_2 = nut_line.offset2D(instrument.nut_thickness);
         _nut_shape = {
             nut_line_2.intersection(first_border),
             nut_line.intersection(first_border),
@@ -404,8 +405,8 @@ public:
             nut_line_2.intersection(last_border)
         };
 
-        auto external_line_1 = first_border.offset(5);
-        auto external_line_2 = last_border.offset(-5);
+        auto external_line_1 = first_border.offset2D(5);
+        auto external_line_2 = last_border.offset2D(-5);
         _nut_slot_shape = {
             nut_line_2.intersection(external_line_1),
             nut_line.intersection(external_line_1),
