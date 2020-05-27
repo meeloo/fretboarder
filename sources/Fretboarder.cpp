@@ -823,7 +823,9 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                 
                 fret_wire_profile->deleteMe();
             }
-            
+            else {
+                fretTang->deleteMe();
+            }
             //fretTang->deleteMe();
             projected_fret_profile->deleteMe();
 
