@@ -337,9 +337,33 @@ public:
         has_zero_fret = instrument.has_zero_fret;
         nut_to_zero_fret_offset = instrument.nut_to_zero_fret_offset;
 
-        first_border = _strings.front().line().offset2D(instrument.overhang);
-        last_border = _strings.back().line().offset2D(-instrument.overhang);
+        String first_string(_strings.front());
+        String last_string(_strings.back());
+        
+        if (instrument.number_of_strings == 1) {
+            // Create false first and last string
+            first_string = fretboarder::String(0,
+                                               _strings[0].scale_length(),
+                                               instrument.perpendicular_fret_index,
+                                               instrument.overhang,
+                                               instrument.overhang,
+                                               instrument.has_zero_fret,
+                                               instrument.nut_to_zero_fret_offset,
+                                               instrument.number_of_frets_per_octave);
 
+            last_string = fretboarder::String(0,
+                                               _strings[0].scale_length(),
+                                               instrument.perpendicular_fret_index,
+                                               -instrument.overhang,
+                                               -instrument.overhang,
+                                               instrument.has_zero_fret,
+                                               instrument.nut_to_zero_fret_offset,
+                                               instrument.number_of_frets_per_octave);
+        }
+
+        first_border = first_string.line().offset2D(instrument.overhang);
+        last_border = last_string.line().offset2D(-instrument.overhang);
+        
         first_tang_border = first_border.offset2D(-instrument.hidden_tang_length);
         last_tang_border = last_border.offset2D(instrument.hidden_tang_length);
         
@@ -351,14 +375,14 @@ public:
         
         last_fret = instrument.number_of_frets + 1;
         for (int fret_index = first_fret; fret_index < last_fret; fret_index++) {
-            Vector fret_line = Vector(_strings.front().point_at_fret(fret_index), _strings.back().point_at_fret(fret_index));
+            Vector fret_line = Vector(first_string.point_at_fret(fret_index), last_string.point_at_fret(fret_index));
             _fret_slots.push_back(Vector(fret_line.intersection(first_tang_border), fret_line.intersection(last_tang_border)));
             _fret_lines.push_back(Vector(fret_line.intersection(first_border), fret_line.intersection(last_border)));
         }
 
         for (int fret_index = first_fret; fret_index < last_fret; fret_index++) {
-            auto point1 = _strings.front().point_at_fret(fret_index);
-            auto point2 = _strings.back().point_at_fret(fret_index);
+            auto point1 = first_string.point_at_fret(fret_index);
+            auto point2 = last_string.point_at_fret(fret_index);
             auto fret_line = Vector(point1, point2);
             double sign = point1.x <= point2.x ? 1 : -1;
             Vector offset_line1 = fret_line.offset2D(sign * -instrument.fret_slots_width / 2);
@@ -376,13 +400,13 @@ public:
         
         // last fret cut is like a last+1th fret. If you have 22 frets, the cut is at a virtual 23th fret.
         // you can use last_fret_cut_offset to add an X offset to the cut.
-        auto p0 = _strings.front().point_at_fret(last_fret);
-        auto p1 = _strings.back().point_at_fret(last_fret);
+        auto p0 = first_string.point_at_fret(last_fret);
+        auto p1 = last_string.point_at_fret(last_fret);
         auto last_fret_line = Vector(p0, p1);
-        double sign = (_strings.front().x_at_bridge() <= _strings.back().x_at_bridge()) ? 1 : -1;
+        double sign = (first_string.x_at_bridge() <= last_string.x_at_bridge()) ? 1 : -1;
         Vector last_fret_cut = last_fret_line.offset2D(sign * instrument.last_fret_cut_offset);
 
-        Vector nut_line = Vector(Point(_strings.front().x_at_nut(), _strings.front().y_at_start()), Point(_strings.back().x_at_nut(), _strings.back().y_at_start()));
+        Vector nut_line = Vector(Point(first_string.x_at_nut(), first_string.y_at_start()), Point(last_string.x_at_nut(), last_string.y_at_start()));
         
         // board shape
         Vector board_cut_at_nut = nut_line.offset2D(instrument.space_before_nut);
@@ -395,11 +419,11 @@ public:
 
         _construction_distance_at_nut_side = std::min(_board_shape.points[0].x, _board_shape.points[3].x);
         _construction_distance_at_heel = std::max(_board_shape.points[1].x, _board_shape.points[2].x);
-        _construction_distance_at_nut = (_strings.front().x_at_nut() + _strings.back().x_at_nut()) / 2;
-        _construction_distance_at_last_fret = (_strings.front().point_at_fret(number_of_frets).x + _strings.back().point_at_fret(number_of_frets).x) / 2;
+        _construction_distance_at_nut = (first_string.x_at_nut() + last_string.x_at_nut()) / 2;
+        _construction_distance_at_last_fret = (first_string.point_at_fret(number_of_frets).x + last_string.point_at_fret(number_of_frets).x) / 2;
 
         if (number_of_frets > 12) {
-            _construction_distance_at_12th_fret = (_strings.front().point_at_fret(12).x + _strings.back().point_at_fret(12).x) / 2;
+            _construction_distance_at_12th_fret = (first_string.point_at_fret(12).x + last_string.point_at_fret(12).x) / 2;
         }
 
         // nut shape
@@ -421,10 +445,10 @@ public:
         };
 
         _strings_shape = {
-            _strings.front().point_at_nut(),
-            _strings.front().point_at_bridge(),
-            _strings.back().point_at_bridge(),
-            _strings.back().point_at_nut(),
+            first_string.point_at_nut(),
+            first_string.point_at_bridge(),
+            last_string.point_at_bridge(),
+            last_string.point_at_nut(),
         };
         
     }

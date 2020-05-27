@@ -106,7 +106,39 @@ public:
             _x_at_bridge = xab;
         }
     }
+
+    String(const String& source) {
+        _index = source._index;
+        _scale_length = source._scale_length;
+        _perpendicular_fret_index = source._perpendicular_fret_index;
+        _perpendicular_fret_from_start = source._perpendicular_fret_from_start;
+        _x_at_start = source._x_at_start;
+        _x_at_nut = source._x_at_nut;
+        _y_at_start = source._y_at_start;
+        _x_at_bridge = source._x_at_bridge;
+        _y_at_bridge = source._y_at_bridge;
+        _number_of_frets_per_octave = source._number_of_frets_per_octave;
+        _nut_to_zero_fret_offset = source._nut_to_zero_fret_offset;
+        _x_offset = source._x_offset;
+    }
+
+    String& operator =(const String& source) {
+        _index = source._index;
+        _scale_length = source._scale_length;
+        _perpendicular_fret_index = source._perpendicular_fret_index;
+        _perpendicular_fret_from_start = source._perpendicular_fret_from_start;
+        _x_at_start = source._x_at_start;
+        _x_at_nut = source._x_at_nut;
+        _y_at_start = source._y_at_start;
+        _x_at_bridge = source._x_at_bridge;
+        _y_at_bridge = source._y_at_bridge;
+        _number_of_frets_per_octave = source._number_of_frets_per_octave;
+        _nut_to_zero_fret_offset = source._nut_to_zero_fret_offset;
+        _x_offset = source._x_offset;
+        return *this;
+    }
     
+
     double distance_from_start(double fret_index) const {
         return _scale_length - distance_from_bridge(fret_index);
     }
