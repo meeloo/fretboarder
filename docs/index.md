@@ -22,6 +22,10 @@ Features:
 * added a progress dialog to give feedback during the generation of the fretboard and frets
 * added loading and saving of presets to .frt files (using the JSon format)
 * disable the OK button when you are trying to create an impossible fretboard. In case you don't undertand why the OK button is disabled try to increase the fretboard thickness or decrease its radiuses...
+### New in interim v0.4a
+* fixed 1 string instruments
+* fixed presets were scaled to 10% of their real sizes
+* nut width were not correctly computed 
 
 ### New in v0.3
 * design time graphics to help you see in real time what the fretboard will look like!
@@ -57,9 +61,9 @@ Here is a small video showing how to install the plugin on Windows:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/e96nMz-E10Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Download
-download [Fretboarder v0.4 for Windows](bin/windows/Fretboarder_win_0.4.zip)
+download [Fretboarder v0.4a for Windows](bin/windows/Fretboarder_win_0.4a.zip)
 
-download [Fretboarder v0.4 macOS](bin/macOS/Fretboarder_mac_0.4.zip)
+download [Fretboarder v0.4a macOS](bin/macOS/Fretboarder_mac_0.4a.zip)
 
 ## Contact
 For all questions and feedback, please send an email to <fretboarder@meeloo.net>
