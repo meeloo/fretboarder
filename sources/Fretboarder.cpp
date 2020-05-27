@@ -343,7 +343,7 @@ Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path
     auto bodies = fret->bodies();
     CHECK(bodies, nullptr);
     
-    assert(bodies->count() == 1);
+    CHECK(bodies->count() >= 1, nullptr);
     for (int j = 0; j < bodies->count(); j++) {
         auto body = bodies->item(j);
         CHECK(body, nullptr);
