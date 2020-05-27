@@ -17,7 +17,13 @@ Features:
 * blind fret slot support (to hide the end of the fret tangs in the fretboard) 
 * create nicely rounded frets for rendering purpose
 
-## New in v0.3
+## New in v0.4
+* fixed many fretboard calculation bugs that would crash Fusion 360 or display error messages
+* added a progress dialog to give feedback during the generation of the fretboard and frets
+* added loading and saving of presets to .frt files (using the JSon format)
+* disable the OK button when you are trying to create an impossible fretboard. In case you don't undertand why the OK button is disabled try to increase the fretboard thickness or decrease its radiuses...
+
+### New in v0.3
 * design time graphics to help you see in real time what the fretboard will look like!
 * Use 100 as the perpendicular fret to make the bridge perpendicular in a multiscale instrument.
 * You can use negative perpandicular fret index to shift the whole fretboard angle.
@@ -36,7 +42,9 @@ Features:
 ## Known bugs and todo list
 * double string instruments (12 string guitars, mandolins, 8 string basses...)
 * we use direct modeling in order to be much faster but some people would like to stay in parametric modeling mode. For the moment the best way is to use fretboarder in a separate design and import the result in your own design.
-* [WIP] one user has reported a crash on a mac that happens every time
+* better options for string spacing
+* offer a way to compute the fret spacing from the nut width instead of entering inter string spacing
+* add a way to give string gauges and use it for string spacing 
 
 ## Alpha version = Use at your own risks!
 This is only alpha grade software.
@@ -49,9 +57,9 @@ Here is a small video showing how to install the plugin on Windows:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/e96nMz-E10Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Download
-download [Fretboarder v0.3a for Windows](bin/windows/Fretboarder_win_0.3a.zip)
+download [Fretboarder v0.4 for Windows](bin/windows/Fretboarder_win_0.4.zip)
 
-download [Fretboarder v0.3a macOS](bin/macOS/Fretboarder_mac_0.3a.zip)
+download [Fretboarder v0.4 macOS](bin/macOS/Fretboarder_mac_0.4.zip)
 
 ## Contact
 For all questions and feedback, please send an email to <fretboarder@meeloo.net>
