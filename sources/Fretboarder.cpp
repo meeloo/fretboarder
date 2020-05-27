@@ -665,7 +665,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         for (int i = 0; i < C->count(); i++) {
             {
                 std::stringstream str;
-                str << "create fret " << i << " and carve the slot" ;
+                str << "fret " << i;
                 progress(progressDialog, str.str());
             }
             
