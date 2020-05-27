@@ -608,6 +608,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             Ptr<Path> pathS;
             Ptr<Path> pathL;
             std::vector<Ptr<Sketch>> profiles;
+            assert(profilesS.size() == 1);
             CHECK(profilesS.size() == 1, false);
 
             auto profileS = profilesS[0];
