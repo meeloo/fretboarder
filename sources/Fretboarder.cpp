@@ -284,7 +284,7 @@ Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Fretboar
     CHECK(sketchArcs, nullptr);
     auto crownW = instrument.fret_crown_width / 2;
     auto crownH = instrument.fret_crown_height;
-    auto arc = sketchArcs->addByThreePoints(create_point(Point(crownW, 0, 0)), create_point(Point(0, (0 + crownH / 2), 0)), create_point(Point(-crownW, 0, 0)));
+    auto arc = sketchArcs->addByThreePoints(create_point(Point(crownW, 0, 0)), create_point(Point(0, (0 + crownH), 0)), create_point(Point(-crownW, 0, 0)));
     CHECK(arc, nullptr);
     sketchLines->addByTwoPoints(create_point(Point(crownW, 0, 0)), create_point(Point(-crownW, 0, 0)));
 
