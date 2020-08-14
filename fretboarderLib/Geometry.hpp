@@ -81,6 +81,10 @@ public:
     Point intersection(const Vector& other) const;
 
     Vector offset2D(double offset) const;
+    Vector offset2D(double offset0, const Vector& vector0, double offset1, const Vector& vector1) const;
+    
+    Vector unitVector() const;
+    Vector sizedVector(double size) const;
 };
 
 

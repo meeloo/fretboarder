@@ -21,7 +21,8 @@ void to_json(json& j, const Instrument& i) {
         { "has_zero_fret", i.has_zero_fret },
         { "nut_to_zero_fret_offset", i.nut_to_zero_fret_offset },
         { "number_of_frets", i.number_of_frets },
-        { "overhang", i.overhang },
+        { "overhangs", i.overhangs },
+        { "overhang_type", i.overhang_type },
         { "hidden_tang_length", i.hidden_tang_length },
         { "draw_strings", i.draw_strings },
         { "draw_frets", i.draw_frets },
@@ -49,7 +50,20 @@ void from_json(const json& j, Instrument& i) {
     j.at("has_zero_fret").get_to(i.has_zero_fret);
     j.at("nut_to_zero_fret_offset").get_to(i.nut_to_zero_fret_offset);
     j.at("number_of_frets").get_to(i.number_of_frets);
-    j.at("overhang").get_to(i.overhang);
+    if (j.contains("overhang"))
+    {
+        double o = 3;
+        j.at("overhang").get_to(o);
+        for (int n = 0; n < 4; n++)
+        {
+            i.overhangs[n] = o;
+        }
+    }
+    else
+    {
+        j.at("overhang_type").get_to(i.overhang_type);
+        j.at("overhangs").get_to(i.overhangs);
+    }
     j.at("hidden_tang_length").get_to(i.hidden_tang_length);
     j.at("draw_strings").get_to(i.draw_strings);
     j.at("draw_frets").get_to(i.draw_frets);

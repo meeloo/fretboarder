@@ -69,7 +69,11 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
     Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
     Ptr<BoolValueCommandInput> draw_strings = inputs->itemById("draw_strings");
     Ptr<BoolValueCommandInput> draw_frets = inputs->itemById("draw_frets");
-    Ptr<FloatSpinnerCommandInput> overhang = inputs->itemById("overhang");
+    Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
+    Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
+    Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
+    Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
+    Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
     Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
     Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
     Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
@@ -99,7 +103,11 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
     CHECK(number_of_frets, instrument);
     CHECK(draw_strings, instrument);
     CHECK(draw_frets, instrument);
-    CHECK(overhang, instrument);
+    CHECK(overhang_type, instrument);
+    CHECK(overhang0, instrument);
+    CHECK(overhang1, instrument);
+    CHECK(overhang2, instrument);
+    CHECK(overhang3, instrument);
     CHECK(hidden_tang_length, instrument);
     CHECK(fret_slots_width, instrument);
     CHECK(fret_slots_height, instrument);
@@ -119,7 +127,22 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
     instrument.nut_to_zero_fret_offset = nut_to_zero_fret_offset->value();
     instrument.number_of_frets = number_of_frets->valueOne();
     instrument.draw_frets = draw_frets->value();
-    instrument.overhang = overhang->value();
+    OverhangType t = single;
+    auto selected_item = overhang_type->selectedItem();
+    if (selected_item != nullptr) {
+        if (selected_item->name() == "single") {
+            t = single;
+        } else if (selected_item->name() == "nut and last fret") {
+            t = nut_and_last_fret;
+        } else if (selected_item->name() == "all") {
+            t = all;
+        }
+    }
+    instrument.overhang_type = t;
+    instrument.overhangs[0] = overhang0->value();
+    instrument.overhangs[1] = overhang1->value();
+    instrument.overhangs[2] = overhang2->value();
+    instrument.overhangs[3] = overhang3->value();
     instrument.hidden_tang_length = hidden_tang_length->value();
     instrument.fret_slots_width = fret_slots_width->value();
     instrument.fret_slots_height = fret_slots_height->value();
@@ -160,7 +183,11 @@ void InstrumentToInputs(const Ptr<CommandInputs>& inputs, const Instrument& i) {
     Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
     Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
     Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
-    Ptr<FloatSpinnerCommandInput> overhang = inputs->itemById("overhang");
+    Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
+    Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
+    Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
+    Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
+    Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
     Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
     Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
     Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
@@ -186,7 +213,11 @@ void InstrumentToInputs(const Ptr<CommandInputs>& inputs, const Instrument& i) {
     CHECK2(radius_at_last_fret);
     CHECK2(fretboard_thickness);
     CHECK2(number_of_frets);
-    CHECK2(overhang);
+    CHECK2(overhang_type);
+    CHECK2(overhang0);
+    CHECK2(overhang1);
+    CHECK2(overhang2);
+    CHECK2(overhang3);
     CHECK2(hidden_tang_length);
     CHECK2(fret_slots_width);
     CHECK2(fret_slots_height);
@@ -211,7 +242,34 @@ void InstrumentToInputs(const Ptr<CommandInputs>& inputs, const Instrument& i) {
     radius_at_last_fret->value(instrument.radius_at_last_fret);
     fretboard_thickness->value(instrument.fretboard_thickness);
     number_of_frets->valueOne(instrument.number_of_frets);
-    overhang->value(instrument.overhang);
+    OverhangType t = single;
+    auto selected_item = overhang_type->selectedItem();
+    if (selected_item != nullptr) {
+        if (overhang_type->selectedItem()->name() == "single") {
+            t = single;
+            overhang0->isEnabled(true);
+            overhang1->isEnabled(false);
+            overhang2->isEnabled(false);
+            overhang3->isEnabled(false);
+        } else if (selected_item->name() == "nut and last fret") {
+            overhang0->isEnabled(true);
+            overhang1->isEnabled(true);
+            overhang2->isEnabled(false);
+            overhang3->isEnabled(false);
+            t = nut_and_last_fret;
+        } else if (selected_item->name() == "all") {
+            overhang0->isEnabled(true);
+            overhang1->isEnabled(true);
+            overhang2->isEnabled(true);
+            overhang3->isEnabled(true);
+            t = all;
+        }
+    }
+    instrument.overhang_type = t;
+    overhang0->value(instrument.overhangs[0]);
+    overhang1->value(instrument.overhangs[1]);
+    overhang2->value(instrument.overhangs[2]);
+    overhang3->value(instrument.overhangs[3]);
     hidden_tang_length->value(instrument.hidden_tang_length);
     fret_slots_width->value(instrument.fret_slots_width);
     fret_slots_height->value(instrument.fret_slots_height);
@@ -219,7 +277,7 @@ void InstrumentToInputs(const Ptr<CommandInputs>& inputs, const Instrument& i) {
     fret_crown_height->value(instrument.fret_crown_height);
     last_fret_cut_offset->value(instrument.last_fret_cut_offset);
 
-    nut_width->value(std::max(number_of_strings->valueOne() - 1, 1) * inter_string_spacing_at_nut->value() + overhang->value() * 2);
+    nut_width->value(std::max(number_of_strings->valueOne() - 1, 1) * inter_string_spacing_at_nut->value() + overhang0->value() + overhang2->value());
 }
 
 
@@ -911,6 +969,10 @@ public:
                 }
             }
             
+        } else if (cmdInput->id() == "overhang_type") {
+            Instrument instrument = InstrumentFromInputs(inputs);
+            instrument.scale(0.1); // mm to cm
+            InstrumentToInputs(inputs, instrument);
         }
 
         UpdateNutWidget(inputs);
@@ -921,13 +983,21 @@ public:
         // update nut width
         Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
         Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
-        Ptr<FloatSpinnerCommandInput> overhang = inputs->itemById("overhang");
+        Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
+        Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
+        Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
+        Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
+        Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
         Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
         CHECK2(number_of_strings);
         CHECK2(inter_string_spacing_at_nut);
-        CHECK2(overhang);
+        CHECK2(overhang_type);
+        CHECK2(overhang0);
+        CHECK2(overhang1);
+        CHECK2(overhang2);
+        CHECK2(overhang3);
         CHECK2(nut_width);
-        nut_width->value(std::max(number_of_strings->valueOne() - 1, 1) * inter_string_spacing_at_nut->value() + overhang->value() * 2);
+        nut_width->value(std::max(number_of_strings->valueOne() - 1, 1) * inter_string_spacing_at_nut->value() + overhang0->value() + overhang2->value());
     }
 };
 
@@ -1164,10 +1234,36 @@ public:
                 inter_string_spacing_at_bridge->tooltip("This is the distance in between each string on the bridge.");
                 inter_string_spacing_at_bridge->tooltipDescription("This may be dictated by the design of your bridge.");
 
-                auto overhang = group->addFloatSpinnerCommandInput("overhang", "Fret overhang", "mm", 0, 50, 0.1, 3.0);
-                overhang->tooltip("This is the distance in between the first/last string and the border of the fretboard");
-                overhang->tooltipDescription("");
 
+                auto overhang_type = group->addDropDownCommandInput("overhang_type", "Overhang type", TextListDropDownStyle);
+                auto overhang_items = overhang_type->listItems();
+                overhang_items->add("single", true);
+                overhang_items->add("nut and last fret", false);
+                overhang_items->add("all", false);
+
+                auto overhang0 = group->addFloatSpinnerCommandInput("overhang0", "Fret overhang at nut (bass)", "mm", 0, 50, 0.1, 3.0);
+                overhang0->tooltip("This is the distance in between the first string and the border of the fretboard at the nut");
+                overhang0->tooltipDescription("");
+
+                auto overhang1 = group->addFloatSpinnerCommandInput("overhang1", "Fret overhang at last fret (bass)", "mm", 0, 50, 0.1, 3.0);
+                overhang1->tooltip("This is the distance in between the first string and the border of the fretboard at the last fret");
+                overhang1->tooltipDescription("");
+
+                auto overhang2 = group->addFloatSpinnerCommandInput("overhang2", "Fret overhang at nut (treble)", "mm", 0, 50, 0.1, 3.0);
+                overhang2->tooltip("This is the distance in between the last string and the border of the fretboard at the nut");
+                overhang2->tooltipDescription("");
+
+                auto overhang3 = group->addFloatSpinnerCommandInput("overhang3", "Fret overhang at last fret (treble)", "mm", 0, 50, 0.1, 3.0);
+                overhang3->tooltip("This is the distance in between the last string and the border of the fretboard at last fret");
+                overhang3->tooltipDescription("");
+
+                overhang0->isEnabled(true);
+                overhang1->isEnabled(false);
+                overhang2->isEnabled(false);
+                overhang3->isEnabled(false);
+
+                
+                
                 auto draw_strings = group->addBoolValueInput("draw_strings", "Draw strings", true, "", true);
                 draw_strings->tooltip("Enabling this will create a sketch for the position of the strings following the ideal radius of the fretboard and the bridge.");
                 draw_strings->tooltipDescription("");

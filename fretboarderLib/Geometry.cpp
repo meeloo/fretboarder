@@ -88,3 +88,34 @@ Vector Vector::offset2D(double offset) const {
     
     return Vector(point1 + perp, point2 + perp);
 }
+
+Vector Vector::offset2D(double offset0, const Vector& vector0, double offset1, const Vector& vector1) const {
+    Point p0 = intersection(vector0);
+    Point p1 = intersection(vector1);
+    
+    auto e0 = vector0.sizedVector(offset0);
+    auto e1 = vector1.sizedVector(offset1);
+
+    return Vector(p0 + e0.point2, p1 + e1.point2);
+}
+
+Vector Vector::unitVector() const
+{
+    return sizedVector(1.0);
+}
+
+Vector Vector::sizedVector(double size) const
+{
+    auto d = point1.distanceFrom(point2);
+    if (d == 0) {
+        return Vector(point1, point1);
+    }
+
+    auto n = size / d;
+
+    auto x = n * (point1.x - point2.x);
+    auto y = n * (point1.y - point2.y);
+    auto z = n * (point1.z - point2.z);
+    
+    return Vector(Point(), Point(x, y, z));
+}

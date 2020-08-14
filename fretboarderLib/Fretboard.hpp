@@ -31,6 +31,11 @@ namespace fretboarder {
 //# +Y points to the first string of the instrument (for a right handed guitar it would be high E)
 //# -Y points to the last string of the instrument (for a right handed guitar it would be low E)
 
+enum OverhangType {
+    single = 0,
+    nut_and_last_fret = 1,
+    all = 2
+};
 
 struct Instrument {
     Instrument(bool right_handed = true,
@@ -43,7 +48,10 @@ struct Instrument {
     bool has_zero_fret = true,
     double nut_to_zero_fret_offset = 0.30,
     int number_of_frets = 24,
-    double overhang = 0.3,
+               double overhang0 = 0.3,
+               double overhang1 = 0.3,
+               double overhang2 = 0.3,
+               double overhang3 = 0.3,
     double hidden_tang_length = 0.2,
     bool draw_strings = true,
     bool draw_frets = true,
@@ -71,7 +79,10 @@ struct Instrument {
         this->has_zero_fret = has_zero_fret;
         this->nut_to_zero_fret_offset = nut_to_zero_fret_offset;
         this->number_of_frets = number_of_frets;
-        this->overhang = overhang;
+        this->overhangs[0] = overhang0;
+        this->overhangs[1] = overhang1;
+        this->overhangs[2] = overhang2;
+        this->overhangs[3] = overhang3;
         this->hidden_tang_length = hidden_tang_length;
         this->draw_strings = draw_strings;
         this->draw_frets = draw_frets;
@@ -111,7 +122,8 @@ struct Instrument {
 
     double number_of_frets_per_octave = 12;
     int number_of_frets = 24;
-    double overhang = 0.3;
+    OverhangType overhang_type = single;
+    double overhangs[4] = {0.3, 0.3, 0.3, 0.3};
 
     double hidden_tang_length = 0.2;
     bool draw_strings = true;
@@ -148,7 +160,8 @@ struct Instrument {
 
         nut_to_zero_fret_offset *= K;
 
-        overhang *= K;
+        for (int i = 0; i < 4; i++)
+            overhangs[i] *= K;
 
         hidden_tang_length *= K;
         fret_slots_width *= K;
@@ -345,8 +358,8 @@ public:
             first_string = fretboarder::String(0,
                                                _strings[0].scale_length(),
                                                instrument.perpendicular_fret_index,
-                                               instrument.overhang,
-                                               instrument.overhang,
+                                               instrument.overhangs[0],
+                                               instrument.overhangs[1],
                                                instrument.has_zero_fret,
                                                instrument.nut_to_zero_fret_offset,
                                                instrument.number_of_frets_per_octave);
@@ -354,15 +367,21 @@ public:
             last_string = fretboarder::String(0,
                                                _strings[0].scale_length(),
                                                instrument.perpendicular_fret_index,
-                                               -instrument.overhang,
-                                               -instrument.overhang,
+                                               -instrument.overhangs[2],
+                                               -instrument.overhangs[3],
                                                instrument.has_zero_fret,
                                                instrument.nut_to_zero_fret_offset,
                                                instrument.number_of_frets_per_octave);
         }
 
-        first_border = first_string.line().offset2D(instrument.overhang);
-        last_border = last_string.line().offset2D(-instrument.overhang);
+        {
+            // Compute fretboard area by extending the strings with the overhangs at first and last frets
+            Vector first_fret = Vector(first_string.point_at_fret(0), last_string.point_at_fret(0));
+            Vector last_fret = Vector(first_string.point_at_fret(instrument.number_of_frets), last_string.point_at_fret(instrument.number_of_frets));
+
+            first_border = first_string.line().offset2D(instrument.overhangs[0], first_fret, instrument.overhangs[1], last_fret);
+            last_border = last_string.line().offset2D(-instrument.overhangs[2], first_fret, -instrument.overhangs[3], last_fret);
+        }
         
         first_tang_border = first_border.offset2D(-instrument.hidden_tang_length);
         last_tang_border = last_border.offset2D(instrument.hidden_tang_length);
