@@ -429,6 +429,7 @@
 		2BB196C31AD586AA00164CD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				EXECUTABLE_EXTENSION = dylib;
 				EXECUTABLE_PREFIX = "";
@@ -455,6 +456,7 @@
 		2BB196C41AD586AA00164CD3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				EXECUTABLE_EXTENSION = dylib;
 				EXECUTABLE_PREFIX = "";
