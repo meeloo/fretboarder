@@ -670,10 +670,14 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     auto main_body = feature->bodies()->item(0);
     CHECK(main_body, false);
     main_body->name("Main body");
-    auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
+//    auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
+    auto lib = app->materialLibraries()->itemById("C1EEA57C-3F56-45FC-B8CB-A9EC46A9994C"); ////("Fusion 360 Material Library");
     CHECK(lib, false);
-    auto mat = lib->materials()->itemByName("Walnut");
+    auto mat = lib->materials()->itemById("PrismMaterial-271"); //("Walnut");
     CHECK(mat, false);
+//    std::stringstream str;
+//    str << "Material library id:" << lib->id() << " material id: " << mat->id();
+//    ui->messageBox(str.str());
     main_body->material(mat);
 
     
@@ -742,7 +746,11 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 
         // Prepare material for frets
         //auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
-        auto mat = lib->materials()->itemByName("Steel, Chrome Plated");
+//        auto mat = lib->materials()->itemByName("Steel, Chrome Plated");
+        auto mat = lib->materials()->itemById("PrismMaterial-069"); //("Steel, Chrome Plated");
+//        std::stringstream str;
+//        str << "Material library id:" << lib->id() << " material id: " << mat->id();
+//        ui->messageBox(str.str());
         CHECK(mat, false);
 
         std::vector<Ptr<BRepFace>> faces;

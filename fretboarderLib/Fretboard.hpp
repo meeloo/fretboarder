@@ -383,8 +383,8 @@ public:
             last_border = last_string.line().offset2D(-instrument.overhangs[2], first_fret, -instrument.overhangs[3], last_fret);
         }
         
-        first_tang_border = first_border.offset2D(-instrument.hidden_tang_length);
-        last_tang_border = last_border.offset2D(instrument.hidden_tang_length);
+        first_tang_border = first_border.offset2D(instrument.hidden_tang_length);
+        last_tang_border = last_border.offset2D(-instrument.hidden_tang_length);
         
         // Make frets slots:
         first_fret = 1;
@@ -454,8 +454,8 @@ public:
             nut_line_2.intersection(last_border)
         };
 
-        auto external_line_1 = first_border.offset2D(5);
-        auto external_line_2 = last_border.offset2D(-5);
+        auto external_line_1 = first_border.offset2D(-5);
+        auto external_line_2 = last_border.offset2D(5);
         _nut_slot_shape = {
             nut_line_2.intersection(external_line_1),
             nut_line.intersection(external_line_1),

@@ -112,19 +112,19 @@ std::string filePath(const std::string& path) {
     XCTAssertEqual(string.x_at_nut(), string.x_at_start() - nut_dist);
 }
 
-- (void)testLoadFromJSon {
-    Instrument instrument;
-    
-    XCTAssert(instrument.load(filePath("default.frt")));
-}
-
-- (void)testOneStringFromDefault {
-    Instrument instrument;
-    XCTAssert(instrument.load(filePath("default.frt")));
-    instrument.number_of_strings = 1;
-    Fretboard fretboard(instrument);
-    
-}
+//- (void)testLoadFromJSon {
+//    Instrument instrument;
+//    
+//    XCTAssert(instrument.load(filePath("default.frt")));
+//}
+//
+//- (void)testOneStringFromDefault {
+//    Instrument instrument;
+//    XCTAssert(instrument.load(filePath("default.frt")));
+//    instrument.number_of_strings = 1;
+//    Fretboard fretboard(instrument);
+//    
+//}
 
 
 - (void)testBreakingPerpendicularFreboard1 {
