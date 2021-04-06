@@ -1430,7 +1430,7 @@ public:
                 computed->isEnabled(false);
                 auto nut_width = computed->children()->addFloatSpinnerCommandInput("nut_width", "Computed nut width", "mm", 0, 1000, 0.1, 45);
                 nut_width->tooltip("This is calculated for you.");
-                nut_width->tooltipDescription("It indicates the actual width of the nut/fretboard depending on the other parameters you have used for the other parameters");
+                nut_width->tooltipDescription("It indicates the actual width of the nut/fretboard depending on the values you have used for the other parameters");
                 CHECK2(nut_width);
                 nut_width->isEnabled(false);
             }
