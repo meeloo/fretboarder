@@ -1050,8 +1050,7 @@ public:
             if (selected_item->name() == "single") {
                 left = right = overhangSingle->value();
             } else if (selected_item->name() == "nut and last fret") {
-                left = overhangNut->value();
-                right = overhangLast->value();
+                left = right = overhangNut->value();
             } else if (selected_item->name() == "all") {
                 left = overhang0->value();
                 right = overhang2->value();
