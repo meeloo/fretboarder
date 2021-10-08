@@ -262,6 +262,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Autodesk;
 				TargetAttributes = {
+					2BB196BD1AD586AA00164CD3 = {
+						DevelopmentTeam = 3858XBU65M;
+					};
 					C35E25612471CEEC00CCDD11 = {
 						CreatedOnToolsVersion = 12.0;
 					};
@@ -429,8 +432,10 @@
 		2BB196C31AD586AA00164CD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = x86_64;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				DEVELOPMENT_TEAM = 3858XBU65M;
 				EXECUTABLE_EXTENSION = dylib;
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -456,8 +461,10 @@
 		2BB196C41AD586AA00164CD3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = x86_64;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
+				DEVELOPMENT_TEAM = 3858XBU65M;
 				EXECUTABLE_EXTENSION = dylib;
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -483,6 +490,7 @@
 		C35E256B2471CEEC00CCDD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
@@ -506,6 +514,7 @@
 		C35E256C2471CEEC00CCDD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				EXECUTABLE_PREFIX = lib;
