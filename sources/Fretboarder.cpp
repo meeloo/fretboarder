@@ -378,7 +378,6 @@ Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Fretboar
     CHECK(arc, nullptr);
     sketchLines->addByTwoPoints(create_point(Point(crownW, 0, 0)), create_point(Point(-crownW, 0, 0)));
 
-    profPlane->deleteMe();
     return fret_wire_profile;
 }
 
@@ -405,7 +404,6 @@ Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Fretboar
     auto tangW = instrument.fret_slots_width / 2;
     auto tangH = instrument.fret_slots_height;
     sketchLines->addTwoPointRectangle(Point3D::create((-tangW) * 0.1, 0.01 * 0.1, 0), Point3D::create(tangW * 0.1, -tangH * 0.1, 0));
-    profPlane->deleteMe();
     return fret_tang_profile;
 }
 
@@ -511,8 +509,9 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     CHECK(component, false);
     component->name("Fretboard");
     occurrence->activate();
-    design->designType(DirectDesignType);
-    
+//    design->designType(DirectDesignType);
+    design->designType(ParametricDesignType);
+
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
     CHECK(strings_area_sketch, false);
@@ -681,10 +680,8 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     main_body->material(mat);
 
     
-    radius_1->deleteMe();
-    //    radius_2->isVisible(false);
-    //    radius_3->isVisible(false);
-    radius_4->deleteMe();
+    radius_1->isVisible(false);
+    radius_4->isVisible(false);
     
     auto distance = ValueInput::createByReal(instrument.fretboard_thickness);
     CHECK(distance, false);
@@ -835,7 +832,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             fretsComponent->features()->combineFeatures()->add(combine_input);
 
             // remote temp objects
-            fret_tang_profile->deleteMe();
+            fret_tang_profile->isVisible(false);
 
             if (instrument.draw_frets) {
                 auto fret_wire_profile = create_fretwire_profile(instrument, fretboard, i, fretsComponent, pathL);
@@ -918,16 +915,12 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                     body->material(mat);
                 }
                 
-                fret_wire_profile->deleteMe();
+                fret_wire_profile->isVisible(false);
             }
-            else {
-                fretTang->deleteMe();
-            }
-            //fretTang->deleteMe();
-            projected_fret_profile->deleteMe();
+            projected_fret_profile->isVisible(false);
 
             for (auto p : profiles) {
-                p->deleteMe();
+                p->isVisible(false);
             }
         }
         
