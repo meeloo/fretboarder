@@ -65,5 +65,8 @@ Fretboarder::ui->messageBox(err); }
 #include "UIHelpers.hpp"
 #include "OnInputChangedEventHander.hpp"
 #include "OnExecutePreviewEventHandler.hpp"
+#include "CommandCreatedEventHandler.hpp"
+
+bool createFretboard(const fretboarder::Instrument& instrument);
 
 #endif /* Fretboarder_h */

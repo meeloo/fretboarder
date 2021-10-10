@@ -19,6 +19,8 @@
 		9684F287271393CC006BF53E /* OnInputChangedEventHander.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F285271393CC006BF53E /* OnInputChangedEventHander.hpp */; };
 		9684F28A27139516006BF53E /* OnExecutePreviewEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F28827139516006BF53E /* OnExecutePreviewEventHandler.cpp */; };
 		9684F28B27139516006BF53E /* OnExecutePreviewEventHandler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F28927139516006BF53E /* OnExecutePreviewEventHandler.hpp */; };
+		9684F28E27139623006BF53E /* CommandCreatedEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F28C27139623006BF53E /* CommandCreatedEventHandler.cpp */; };
+		9684F28F27139623006BF53E /* CommandCreatedEventHandler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F28D27139623006BF53E /* CommandCreatedEventHandler.hpp */; };
 		C35E25652471CEEC00CCDD11 /* fretboarderLib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C35E25642471CEEC00CCDD11 /* fretboarderLib.hpp */; };
 		C35E25672471CEEC00CCDD11 /* fretboarderLibPriv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C35E25662471CEEC00CCDD11 /* fretboarderLibPriv.hpp */; };
 		C35E25692471CEEC00CCDD11 /* fretboarderLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35E25682471CEEC00CCDD11 /* fretboarderLib.cpp */; };
@@ -67,6 +69,8 @@
 		9684F285271393CC006BF53E /* OnInputChangedEventHander.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OnInputChangedEventHander.hpp; sourceTree = "<group>"; };
 		9684F28827139516006BF53E /* OnExecutePreviewEventHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OnExecutePreviewEventHandler.cpp; sourceTree = "<group>"; };
 		9684F28927139516006BF53E /* OnExecutePreviewEventHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OnExecutePreviewEventHandler.hpp; sourceTree = "<group>"; };
+		9684F28C27139623006BF53E /* CommandCreatedEventHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CommandCreatedEventHandler.cpp; sourceTree = "<group>"; };
+		9684F28D27139623006BF53E /* CommandCreatedEventHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandCreatedEventHandler.hpp; sourceTree = "<group>"; };
 		C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fretboarder.manifest; sourceTree = SOURCE_ROOT; };
 		C33C0FE9243CCA44004F8F0F /* Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		C33C0FEA243CCA44004F8F0F /* Geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 				9684F285271393CC006BF53E /* OnInputChangedEventHander.hpp */,
 				9684F28827139516006BF53E /* OnExecutePreviewEventHandler.cpp */,
 				9684F28927139516006BF53E /* OnExecutePreviewEventHandler.hpp */,
+				9684F28C27139623006BF53E /* CommandCreatedEventHandler.cpp */,
+				9684F28D27139623006BF53E /* CommandCreatedEventHandler.hpp */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -215,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9684F28327139381006BF53E /* UIHelpers.hpp in Headers */,
+				9684F28F27139623006BF53E /* CommandCreatedEventHandler.hpp in Headers */,
 				9684F27F271392C2006BF53E /* SketchHelpers.hpp in Headers */,
 				9684F28B27139516006BF53E /* OnExecutePreviewEventHandler.hpp in Headers */,
 				9684F27B2713924B006BF53E /* Instruments+Inputs.hpp in Headers */,
@@ -352,6 +359,7 @@
 				9684F27E271392C2006BF53E /* SketchHelpers.cpp in Sources */,
 				2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */,
 				9684F27A2713924B006BF53E /* Instruments+Inputs.cpp in Sources */,
+				9684F28E27139623006BF53E /* CommandCreatedEventHandler.cpp in Sources */,
 				9684F28227139381006BF53E /* UIHelpers.cpp in Sources */,
 				9684F28A27139516006BF53E /* OnExecutePreviewEventHandler.cpp in Sources */,
 				9684F286271393CC006BF53E /* OnInputChangedEventHander.cpp in Sources */,

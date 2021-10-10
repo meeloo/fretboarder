@@ -11,4 +11,9 @@
 
 void progress(const Ptr<ProgressDialog>& dialog, const std::string& message);
 
+class OnValidateInputsEventHander: public adsk::core::ValidateInputsEventHandler {
+public:
+    virtual void notify(const Ptr<ValidateInputsEventArgs>& eventArgs);
+};
+
 #endif /* UIHelpers_hpp */
