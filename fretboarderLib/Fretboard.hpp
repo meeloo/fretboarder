@@ -133,6 +133,8 @@ struct Instrument {
     double fret_crown_width = 0.234;
     double fret_crown_height = 0.122;
 
+    bool carve_fret_slots = true;
+
     double last_fret_cut_offset = 0.0;
 
     bool carve_nut_slot = true;

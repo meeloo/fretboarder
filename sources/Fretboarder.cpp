@@ -69,6 +69,7 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
     Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
     Ptr<BoolValueCommandInput> draw_strings = inputs->itemById("draw_strings");
     Ptr<BoolValueCommandInput> draw_frets = inputs->itemById("draw_frets");
+    Ptr<BoolValueCommandInput> carve_fret_slots = inputs->itemById("carve_fret_slots");
     Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
     Ptr<FloatSpinnerCommandInput> overhangSingle = inputs->itemById("overhangSingle");
     Ptr<FloatSpinnerCommandInput> overhangNut = inputs->itemById("overhangNut");
@@ -106,6 +107,7 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
     CHECK(number_of_frets, instrument);
     CHECK(draw_strings, instrument);
     CHECK(draw_frets, instrument);
+    CHECK(carve_fret_slots, instrument);
     CHECK(overhang_type, instrument);
     CHECK(overhangSingle, instrument);
     CHECK(overhangNut, instrument);
@@ -133,6 +135,7 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
     instrument.nut_to_zero_fret_offset = nut_to_zero_fret_offset->value();
     instrument.number_of_frets = number_of_frets->valueOne();
     instrument.draw_frets = draw_frets->value();
+    instrument.carve_fret_slots = carve_fret_slots->value();
     OverhangType t = single;
     auto selected_item = overhang_type->selectedItem();
     if (selected_item != nullptr) {
@@ -490,9 +493,17 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     Ptr<Design> design = product;
     CHECK(design, false);
 
+    Ptr<Timeline> timeline = design->timeline();
+    CHECK(timeline, false);
+
+    Ptr<TimelineGroups> timelineGroups = timeline->timelineGroups();
+    CHECK(timelineGroups, false);
+
     // Get the root component of the active design
     Ptr<Component> rootComp = design->rootComponent();
     CHECK(rootComp, false);
+
+    auto fretboardCreationStartIndex = timeline->markerPosition();
 
     fretboarder::Fretboard fretboard(instrument);
 
@@ -652,6 +663,8 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     auto radius_4 = create_radius_circle(component, construction_plane_at_heel, instrument.radius_at_last_fret, instrument.fretboard_thickness);
     CHECK(radius_4, false);
 
+    auto fretboardCreationMiddleIndex = timeline->markerPosition();
+    timelineGroups->add(fretboardCreationStartIndex + 1, fretboardCreationMiddleIndex - 1);
     progress(progressDialog, "create fretboard radius");
 
     // create loft feature
@@ -682,11 +695,14 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     
     radius_1->isVisible(false);
     radius_4->isVisible(false);
-    
+
+    auto fretboardCreationEndIndex = timeline->markerPosition();
+    timelineGroups->add(fretboardCreationMiddleIndex + 1, fretboardCreationEndIndex - 1);
+
     auto distance = ValueInput::createByReal(instrument.fretboard_thickness);
     CHECK(distance, false);
     component->features()->extrudeFeatures()->addSimple(contour_sketch->profiles()->item(0), distance, FeatureOperations::IntersectFeatureOperation);
-    
+
     // create nut slot
     progress(progressDialog, "create nut");
     if (instrument.carve_nut_slot) {
@@ -720,7 +736,10 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         combine_input->operation(FeatureOperations::CutFeatureOperation);
         component->features()->combineFeatures()->add(combine_input);
     }
-    
+
+    auto nutslotCreationEndIndex = timeline->markerPosition();
+    timelineGroups->add(fretboardCreationEndIndex + 1, nutslotCreationEndIndex - 1);
+
     // duplicate main body to keep an unslotted version
     auto unslotted = main_body->copyToComponent(occurrence);
     CHECK(unslotted, false);
@@ -757,6 +776,8 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         auto L = fret_lines_sketch->sketchCurves();
         CHECK(L, false);
         for (int i = 0; i < C->count(); i++) {
+            auto fretCreationStartIndex = timeline->markerPosition();
+
             {
                 std::stringstream str;
                 str << "fret " << i;
@@ -801,7 +822,10 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
             Ptr<Point3D> startL, endL;
 
             pathL->item(0)->curve()->evaluator()->getEndPoints(startL, endL);
-            
+
+            if (!instrument.carve_fret_slots && !instrument.draw_frets) {
+                continue;
+            }
             // create fret wire profile
             auto p1 = fretboard.fret_slots()[i].point1;
             auto p2 = fretboard.fret_slots()[i].point2;
@@ -833,6 +857,8 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 
             // remote temp objects
             fret_tang_profile->isVisible(false);
+
+            auto fretsCreationStartIndex = timeline->markerPosition();
 
             if (instrument.draw_frets) {
                 auto fret_wire_profile = create_fretwire_profile(instrument, fretboard, i, fretsComponent, pathL);
@@ -916,12 +942,21 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
                 }
                 
                 fret_wire_profile->isVisible(false);
+
+                auto fretCreationEndIndex = timeline->markerPosition();
+                auto group = timelineGroups->add(fretCreationStartIndex + 1, fretCreationEndIndex - 1);
+                group->isCollapsed(true);
+
             }
             projected_fret_profile->isVisible(false);
 
             for (auto p : profiles) {
                 p->isVisible(false);
             }
+
+            auto fretsCreationEndIndex = timeline->markerPosition();
+            timelineGroups->add(fretsCreationStartIndex + 1, fretsCreationEndIndex - 1);
+
         }
         
 //        main_body->isVisible(false);
@@ -1377,6 +1412,9 @@ public:
                 auto draw_frets = group->addBoolValueInput("draw_frets", "Draw frets", true, "", true);
                 draw_frets->tooltip("Enabling this will enable the creation of bodies that represent the frets.");
                 draw_frets->tooltipDescription("This is purely for esthetics, if you want to create renders for a client with a fretboard that looks finished.");
+
+                auto carve_fret_slots = group->addBoolValueInput("carve_fret_slots", "Carve fret slots", true, "", true);
+                carve_fret_slots->tooltip("Enabling this will enable the carving of fret slots in the fretboard.");
 
                 auto hidden_tang_length = group->addFloatSpinnerCommandInput("hidden_tang_length", "Blind tang length", "mm", 0, 50, 0.1, 2.0);
                 hidden_tang_length->tooltip("This is the distance in between the tang of the frets and the border of the fretboard plank");
