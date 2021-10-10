@@ -1,414 +1,8 @@
-#include <Core/CoreAll.h>
-#include <Fusion/FusionAll.h>
-#include <CAM/CAM/CAM.h>
-#include "Fretboard.hpp"
-#include <iostream>
-#include <sstream>
-#include <algorithm>
-#include <fstream>
+#include "Fretboarder.h"
 
-using namespace adsk::core;
-using namespace adsk::fusion;
-using namespace adsk::cam;
-using namespace fretboarder;
-
-Ptr<Application> app;
-Ptr<UserInterface> ui;
-Ptr<CustomGraphicsGroups> cgGroups;
-
-static void DisplayError(const std::string& file, int line, const std::string& exp)
-{
-    std::string err = "";
-    app->getLastError(&err);
-    std::stringstream str;
-    str << "ERROR" << file << ":" << line << "\n" << "expression failed: " << exp << "\nError message: " << err;
-    std::string s = str.str();
-    ui->messageBox(s);
-}
-
-#define CHECK(X, Y) \
-if (!(X)) {\
-    std::string exp = #X;\
-    DisplayError(__FILE__, __LINE__, exp);\
-    return Y;\
-}
-
-#define CHECK2(X) \
-if (!(X)) {\
-    std::string exp = #X;\
-    DisplayError(__FILE__, __LINE__, exp);\
-    return;\
-}
-
-
-#define SHOWERROR() \
-{ std::string err = "";\
-app->getLastError(&err);\
-ui->messageBox(err); }
-
-
-Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
-    Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
-    Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
-    Ptr<FloatSpinnerCommandInput> scale_length_treble = inputs->itemById("scale_length_treble");
-    Ptr<FloatSpinnerCommandInput> scale_length_bass = inputs->itemById("scale_length_bass");
-    Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
-    Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
-    Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
-    Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
-    Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
-    Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
-    Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
-    Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
-    
-    Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
-    Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
-    Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
-    Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
-    Ptr<BoolValueCommandInput> draw_strings = inputs->itemById("draw_strings");
-    Ptr<BoolValueCommandInput> draw_frets = inputs->itemById("draw_frets");
-    Ptr<BoolValueCommandInput> carve_fret_slots = inputs->itemById("carve_fret_slots");
-    Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
-    Ptr<FloatSpinnerCommandInput> overhangSingle = inputs->itemById("overhangSingle");
-    Ptr<FloatSpinnerCommandInput> overhangNut = inputs->itemById("overhangNut");
-    Ptr<FloatSpinnerCommandInput> overhangLast = inputs->itemById("overhangLast");
-    Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
-    Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
-    Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
-    Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
-    Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
-    Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
-    Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
-    Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
-    Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
-    Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
-
-    fretboarder::Instrument instrument;
-
-    CHECK(right_handed, instrument);
-    CHECK(number_of_strings, instrument);
-    CHECK(scale_length_treble, instrument);
-    CHECK(scale_length_bass, instrument);
-    CHECK(perpendicular_fret_index, instrument);
-    CHECK(inter_string_spacing_at_nut, instrument);
-    CHECK(inter_string_spacing_at_bridge, instrument);
-    CHECK(has_zero_fret, instrument);
-    CHECK(nut_to_zero_fret_offset, instrument);
-    CHECK(space_before_nut, instrument);
-    CHECK(carve_nut_slot, instrument);
-    CHECK(nut_thickness, instrument);
-    CHECK(nut_height_under, instrument);
-    CHECK(nut_width, instrument);
-    CHECK(radius_at_nut, instrument);
-    CHECK(radius_at_last_fret, instrument);
-    CHECK(fretboard_thickness, instrument);
-    CHECK(number_of_frets, instrument);
-    CHECK(draw_strings, instrument);
-    CHECK(draw_frets, instrument);
-    CHECK(carve_fret_slots, instrument);
-    CHECK(overhang_type, instrument);
-    CHECK(overhangSingle, instrument);
-    CHECK(overhangNut, instrument);
-    CHECK(overhangLast, instrument);
-    CHECK(overhang0, instrument);
-    CHECK(overhang1, instrument);
-    CHECK(overhang2, instrument);
-    CHECK(overhang3, instrument);
-    CHECK(hidden_tang_length, instrument);
-    CHECK(fret_slots_width, instrument);
-    CHECK(fret_slots_height, instrument);
-    CHECK(fret_crown_width, instrument);
-    CHECK(fret_crown_height, instrument);
-    CHECK(last_fret_cut_offset, instrument);
-
-    instrument.right_handed = right_handed->value();
-    instrument.number_of_strings = number_of_strings->valueOne();
-    instrument.scale_length[0] = scale_length_bass->value();
-    instrument.scale_length[1] = scale_length_treble->value();
-    instrument.draw_strings = draw_strings->value();
-    instrument.perpendicular_fret_index = perpendicular_fret_index->value();
-    instrument.inter_string_spacing_at_nut = inter_string_spacing_at_nut->value();
-    instrument.inter_string_spacing_at_bridge = inter_string_spacing_at_bridge->value();
-    instrument.has_zero_fret = has_zero_fret->value();
-    instrument.nut_to_zero_fret_offset = nut_to_zero_fret_offset->value();
-    instrument.number_of_frets = number_of_frets->valueOne();
-    instrument.draw_frets = draw_frets->value();
-    instrument.carve_fret_slots = carve_fret_slots->value();
-    OverhangType t = single;
-    auto selected_item = overhang_type->selectedItem();
-    if (selected_item != nullptr) {
-        if (selected_item->name() == "single") {
-            t = single;
-            instrument.overhangs[0] =
-            instrument.overhangs[1] =
-            instrument.overhangs[2] =
-            instrument.overhangs[3] = overhangSingle->value();
-        } else if (selected_item->name() == "nut and last fret") {
-            t = nut_and_last_fret;
-            instrument.overhangs[0] =
-            instrument.overhangs[2] = overhangNut->value();
-            instrument.overhangs[1] =
-            instrument.overhangs[3] = overhangLast->value();
-        } else if (selected_item->name() == "all") {
-            t = all;
-            instrument.overhangs[0] = overhang0->value();
-            instrument.overhangs[1] = overhang1->value();
-            instrument.overhangs[2] = overhang2->value();
-            instrument.overhangs[3] = overhang3->value();
-        }
-    }
-    instrument.overhang_type = t;
-    instrument.hidden_tang_length = hidden_tang_length->value();
-    instrument.fret_slots_width = fret_slots_width->value();
-    instrument.fret_slots_height = fret_slots_height->value();
-    instrument.fret_crown_width = fret_crown_width->value();
-    instrument.fret_crown_height = fret_crown_height->value();
-    instrument.last_fret_cut_offset = last_fret_cut_offset->value();
-    instrument.space_before_nut = space_before_nut->value();
-    instrument.carve_nut_slot = carve_nut_slot->value();
-    instrument.nut_thickness = nut_thickness->value();
-    instrument.nut_height_under = nut_height_under->value();
-    instrument.radius_at_nut = radius_at_nut->value();
-    instrument.radius_at_last_fret = radius_at_last_fret->value();
-    instrument.fretboard_thickness = fretboard_thickness->value();
-    instrument.validate();
-    instrument.scale(10); // cm to mm
-
-    return instrument;
-}
-
-void InstrumentToInputs(const Ptr<CommandInputs>& inputs, const Instrument& i) {
-    Instrument instrument = i;
-
-    Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
-    Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
-    Ptr<FloatSpinnerCommandInput> scale_length_treble = inputs->itemById("scale_length_treble");
-    Ptr<FloatSpinnerCommandInput> scale_length_bass = inputs->itemById("scale_length_bass");
-    Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
-    Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
-    Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
-    Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
-    Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
-    Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
-    Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
-    Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
-    Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
-    Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
-    Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
-    Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
-    Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
-    Ptr<FloatSpinnerCommandInput> overhangSingle = inputs->itemById("overhangSingle");
-    Ptr<FloatSpinnerCommandInput> overhangNut = inputs->itemById("overhangNut");
-    Ptr<FloatSpinnerCommandInput> overhangLast = inputs->itemById("overhangLast");
-    Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
-    Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
-    Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
-    Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
-    Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
-    Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
-    Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
-    Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
-    Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
-    Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
-
-    CHECK2(right_handed);
-    CHECK2(number_of_strings);
-    CHECK2(scale_length_treble);
-    CHECK2(scale_length_bass);
-    CHECK2(perpendicular_fret_index);
-    CHECK2(inter_string_spacing_at_nut);
-    CHECK2(inter_string_spacing_at_bridge);
-    CHECK2(has_zero_fret);
-    CHECK2(nut_to_zero_fret_offset);
-    CHECK2(space_before_nut);
-    CHECK2(carve_nut_slot);
-    CHECK2(nut_thickness);
-    CHECK2(nut_height_under);
-    CHECK2(nut_width);
-    CHECK2(radius_at_nut);
-    CHECK2(radius_at_last_fret);
-    CHECK2(fretboard_thickness);
-    CHECK2(number_of_frets);
-    CHECK2(overhang_type);
-    CHECK2(overhangSingle);
-    CHECK2(overhangNut);
-    CHECK2(overhangLast);
-    CHECK2(overhang0);
-    CHECK2(overhang1);
-    CHECK2(overhang2);
-    CHECK2(overhang3);
-    CHECK2(hidden_tang_length);
-    CHECK2(fret_slots_width);
-    CHECK2(fret_slots_height);
-    CHECK2(fret_crown_width);
-    CHECK2(fret_crown_height);
-    CHECK2(last_fret_cut_offset);
-
-    right_handed->value(instrument.right_handed);
-    number_of_strings->valueOne(instrument.number_of_strings);
-    scale_length_treble->value(instrument.scale_length[1]);
-    scale_length_bass->value(instrument.scale_length[0]);
-    perpendicular_fret_index->value(instrument.perpendicular_fret_index);
-    inter_string_spacing_at_nut->value(instrument.inter_string_spacing_at_nut);
-    inter_string_spacing_at_bridge->value(instrument.inter_string_spacing_at_bridge);
-    has_zero_fret->value(instrument.has_zero_fret);
-    nut_to_zero_fret_offset->value(instrument.nut_to_zero_fret_offset);
-    space_before_nut->value(instrument.space_before_nut);
-    carve_nut_slot->value(instrument.carve_nut_slot);
-    nut_thickness->value(instrument.nut_thickness);
-    nut_height_under->value(instrument.nut_height_under);
-    radius_at_nut->value(instrument.radius_at_nut);
-    radius_at_last_fret->value(instrument.radius_at_last_fret);
-    fretboard_thickness->value(instrument.fretboard_thickness);
-    number_of_frets->valueOne(instrument.number_of_frets);
-    OverhangType t = single;
-    auto selected_item = overhang_type->selectedItem();
-    if (selected_item != nullptr) {
-        if (overhang_type->selectedItem()->name() == "single") {
-            t = single;
-            overhangSingle->isVisible(true);
-            overhangNut->isVisible(false);
-            overhangLast->isVisible(false);
-            overhang0->isVisible(false);
-            overhang1->isVisible(false);
-            overhang2->isVisible(false);
-            overhang3->isVisible(false);
-        } else if (selected_item->name() == "nut and last fret") {
-            overhangSingle->isVisible(false);
-            overhangNut->isVisible(true);
-            overhangLast->isVisible(true);
-            overhang0->isVisible(false);
-            overhang1->isVisible(false);
-            overhang2->isVisible(false);
-            overhang3->isVisible(false);
-            t = nut_and_last_fret;
-        } else if (selected_item->name() == "all") {
-            overhangSingle->isVisible(false);
-            overhangNut->isVisible(false);
-            overhangLast->isVisible(false);
-            overhang0->isVisible(true);
-            overhang1->isVisible(true);
-            overhang2->isVisible(true);
-            overhang3->isVisible(true);
-            t = all;
-        }
-    }
-    instrument.overhang_type = t;
-    overhangSingle->value(instrument.overhangs[0]);
-    overhangNut->value(instrument.overhangs[0]);
-    overhangLast->value(instrument.overhangs[1]);
-    overhang0->value(instrument.overhangs[0]);
-    overhang1->value(instrument.overhangs[1]);
-    overhang2->value(instrument.overhangs[2]);
-    overhang3->value(instrument.overhangs[3]);
-    hidden_tang_length->value(instrument.hidden_tang_length);
-    fret_slots_width->value(instrument.fret_slots_width);
-    fret_slots_height->value(instrument.fret_slots_height);
-    fret_crown_width->value(instrument.fret_crown_width);
-    fret_crown_height->value(instrument.fret_crown_height);
-    last_fret_cut_offset->value(instrument.last_fret_cut_offset);
-
-    nut_width->value(std::max(number_of_strings->valueOne() - 1, 1) * inter_string_spacing_at_nut->value() + overhang0->value() + overhang2->value());
-}
-
-
-
-Ptr<Point3D> create_point(Point point) {
-    return Point3D::create(0.1 * point.x, 0.1 * point.y, 0.1 * point.z);
-}
-
-void create_closed_polygon(const Ptr<SketchLines>& sketch_lines, const Quad& shape) {
-    CHECK2(sketch_lines);
-    for (int index = 1; index < 4;  index++) {
-        sketch_lines->addByTwoPoints(create_point(shape.points[index - 1]), create_point(shape.points[index]));
-    }
-    // close
-    sketch_lines->addByTwoPoints(create_point(shape.points[3]), create_point(shape.points[0]));
-}
-
-void create_line(const Ptr<SketchLines>& sketch_lines, const Vector& vector) {
-    CHECK2(sketch_lines);
-    sketch_lines->addByTwoPoints(create_point(vector.point1), create_point(vector.point2));
-}
-
-Ptr<Sketch> create_radius_circle(const Ptr<Component>& component, const Ptr<ConstructionPlane>& plane, double radius, double thickness) {
-    CHECK(component, nullptr);
-    CHECK(plane, nullptr);
-    auto sketch = component->sketches()->add(plane);
-    CHECK(sketch, nullptr);
-    sketch->isComputeDeferred(true);
-    auto circles = sketch->sketchCurves()->sketchCircles();
-    CHECK(circles, nullptr);
-    auto center = Point3D::create(-(thickness - radius) * 0.1, 0.0, 0.0);
-    CHECK(center, nullptr);
-    circles->addByCenterRadius(center, radius * 0.1);
-    sketch->isComputeDeferred(false);
-    return sketch;
-}
-
-double YOnCircleGivenX(double x, Point center, double radius) {
-    auto K = (x - center.x);
-    return center.y - sqrt(radius * radius + K * K);
-}
-
-Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Fretboard& fretboard, int fretIndex, const Ptr<Component>& component, const Ptr<Path>& path) {
-    // Create a construction plane at the end of the path.
-    CHECK(component, nullptr);
-    CHECK(path, nullptr);
-    Ptr<ConstructionPlaneInput> planeInput = component->constructionPlanes()->createInput();
-    CHECK(planeInput, nullptr);
-    planeInput->setByDistanceOnPath(path, ValueInput::createByReal(0));
-    Ptr<ConstructionPlane> profPlane = component->constructionPlanes()->add(planeInput);
-    CHECK(profPlane, nullptr);
-    auto fret_wire_profile = component->sketches()->add(profPlane);
-    CHECK(fret_wire_profile, nullptr);
-    fret_wire_profile->name("Fret Wire Profile");
-
-    auto sketch_curves = fret_wire_profile->sketchCurves();
-    CHECK(sketch_curves, nullptr);
-
-    auto sketchLines = sketch_curves->sketchLines();
-    CHECK(sketchLines, nullptr);
-    auto sketchArcs = sketch_curves->sketchArcs();
-    CHECK(sketchArcs, nullptr);
-    auto crownW = instrument.fret_crown_width / 2;
-    auto crownH = instrument.fret_crown_height;
-    auto arc = sketchArcs->addByThreePoints(create_point(Point(crownW, 0, 0)), create_point(Point(0, (0 + crownH), 0)), create_point(Point(-crownW, 0, 0)));
-    CHECK(arc, nullptr);
-    sketchLines->addByTwoPoints(create_point(Point(crownW, 0, 0)), create_point(Point(-crownW, 0, 0)));
-
-    return fret_wire_profile;
-}
-
-Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Fretboard& fretboard, int fretIndex, const Ptr<Component>& component, const Ptr<Path>& path) {
-    // Create a construction plane at the end of the path.
-    CHECK(component, nullptr);
-    CHECK(path, nullptr);
-    Ptr<ConstructionPlaneInput> planeInput = component->constructionPlanes()->createInput();
-    CHECK(planeInput, nullptr);
-    planeInput->setByDistanceOnPath(path, ValueInput::createByReal(0));
-    Ptr<ConstructionPlane> profPlane = component->constructionPlanes()->add(planeInput);
-    CHECK(profPlane, nullptr);
-    auto fret_tang_profile = component->sketches()->add(profPlane);
-    CHECK(fret_tang_profile, nullptr);
-    fret_tang_profile->name("Fret Tang Profile");
-
-    auto sketch_curves = fret_tang_profile->sketchCurves();
-    CHECK(sketch_curves, nullptr);
-
-    auto sketchLines = sketch_curves->sketchLines();
-    CHECK(sketchLines, nullptr);
-    auto sketchArcs = sketch_curves->sketchArcs();
-    CHECK(sketchArcs, nullptr);
-    auto tangW = instrument.fret_slots_width / 2;
-    auto tangH = instrument.fret_slots_height;
-    sketchLines->addTwoPointRectangle(Point3D::create((-tangW) * 0.1, 0.01 * 0.1, 0), Point3D::create(tangW * 0.1, -tangH * 0.1, 0));
-    return fret_tang_profile;
-}
+Ptr<Application> Fretboarder::app;
+Ptr<UserInterface> Fretboarder::ui;
+Ptr<CustomGraphicsGroups> Fretboarder::cgGroups;
 
 
 Ptr<BRepFace> getFretboardTopSurface(const Ptr<Component>& component) {
@@ -443,51 +37,11 @@ Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path
     return fret;
 }
 
-Ptr<Path> fill_path_from_profile(const Ptr<Component>& component, const Ptr<Path>& path, const Ptr<SketchEntity>& profile, int index, std::vector<Ptr<Sketch>>& profiles) {
-    CHECK(component, nullptr);
-    CHECK(profile, nullptr);
-    Ptr<Path> _path = path;
-    auto fret_profile = component->sketches()->add(component->yZConstructionPlane());
-    CHECK(fret_profile, nullptr);
-    profiles.push_back(fret_profile);
-    auto arc3D = profile->cast<SketchArc>();
-    if (arc3D) {
-        auto nurbsCurve = arc3D->geometry()->asNurbsCurve();
-        std::stringstream str;
-        fret_profile->sketchCurves()->sketchFittedSplines()->addByNurbsCurve(nurbsCurve);
-    }
-    auto earc3D = profile->cast<SketchEllipticalArc>();
-    if (earc3D) {
-        auto nurbsCurve = earc3D->geometry()->asNurbsCurve();
-        std::stringstream str;
-        fret_profile->sketchCurves()->sketchFittedSplines()->addByNurbsCurve(nurbsCurve);
-    }
-
-    if (!_path) {
-        _path = component->features()->createPath(fret_profile->sketchCurves()->item(0), true);
-        CHECK(_path, nullptr);
-    } else {
-        auto res = _path->addCurves(fret_profile->sketchCurves()->item(0), connectedChainedCurves);
-        CHECK(res, nullptr);
-    }
-    for (int c = 1; c < fret_profile->sketchCurves()->count(); c++) {
-        auto res = _path->addCurves(fret_profile->sketchCurves()->item(c), connectedChainedCurves);
-        CHECK(res, nullptr);
-    }
-    
-    return _path;
-}
-
-void progress(const Ptr<ProgressDialog>& dialog, const std::string& message) {
-    dialog->message(message);
-    dialog->progressValue(dialog->progressValue() + 1);
-}
-
 bool createFretboard(const fretboarder::Instrument& instrument) {
-    Ptr<Document> doc = app->activeDocument();
+    Ptr<Document> doc = Fretboarder::app->activeDocument();
     CHECK(doc, false);
 
-    Ptr<Product> product = app->activeProduct();
+    Ptr<Product> product = Fretboarder::app->activeProduct();
     CHECK(product, false);
 
     Ptr<Design> design = product;
@@ -507,7 +61,7 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 
     fretboarder::Fretboard fretboard(instrument);
 
-    auto progressDialog = ui->createProgressDialog();
+    auto progressDialog = Fretboarder::ui->createProgressDialog();
     progressDialog->isCancelButtonShown(false);
     //progressDialog->isBackgroundTranslucent(true);
     progressDialog->show("creating fretboard", "", 0, 3 + instrument.number_of_strings + instrument.number_of_frets);
@@ -682,14 +236,14 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     auto main_body = feature->bodies()->item(0);
     CHECK(main_body, false);
     main_body->name("Main body");
-//    auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
-    auto lib = app->materialLibraries()->itemById("C1EEA57C-3F56-45FC-B8CB-A9EC46A9994C"); ////("Fusion 360 Material Library");
+//    auto lib = Fretboarder::app->materialLibraries()->itemByName("Fusion 360 Material Library");
+    auto lib = Fretboarder::app->materialLibraries()->itemById("C1EEA57C-3F56-45FC-B8CB-A9EC46A9994C"); ////("Fusion 360 Material Library");
     CHECK(lib, false);
     auto mat = lib->materials()->itemById("PrismMaterial-271"); //("Walnut");
     CHECK(mat, false);
 //    std::stringstream str;
 //    str << "Material library id:" << lib->id() << " material id: " << mat->id();
-//    ui->messageBox(str.str());
+//    Fretboarder::ui->messageBox(str.str());
     main_body->material(mat);
 
     
@@ -761,12 +315,12 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
         //occurrence->activate();
 
         // Prepare material for frets
-        //auto lib = app->materialLibraries()->itemByName("Fusion 360 Material Library");
+        //auto lib = Fretboarder::app->materialLibraries()->itemByName("Fusion 360 Material Library");
 //        auto mat = lib->materials()->itemByName("Steel, Chrome Plated");
         auto mat = lib->materials()->itemById("PrismMaterial-069"); //("Steel, Chrome Plated");
 //        std::stringstream str;
 //        str << "Material library id:" << lib->id() << " material id: " << mat->id();
-//        ui->messageBox(str.str());
+//        Fretboarder::ui->messageBox(str.str());
         CHECK(mat, false);
 
         std::vector<Ptr<BRepFace>> faces;
@@ -962,131 +516,13 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
 //        main_body->isVisible(false);
     }
     else {
-        ui->messageBox("Top not found");
+        Fretboarder::ui->messageBox("Top not found");
     }
     
     progressDialog->hide();
 
     return true;
 }
-
-
-
-// InputChange event handler.
-class OnInputChangedEventHander : public adsk::core::InputChangedEventHandler
-{
-public:
-    void notify(const Ptr<InputChangedEventArgs>& eventArgs) override
-    {
-        Ptr<Command> command = eventArgs->firingEvent()->sender();
-        if (!command)
-            return;
-        Ptr<CommandInputs> inputs = command->commandInputs();
-        if (!inputs)
-            return;
-        
-        Ptr<CommandInput> cmdInput = eventArgs->input();
-        if (!cmdInput)
-            return;
-        
-        if (cmdInput->id() == "presets") {
-            // Preset has changed
-            Ptr<DropDownCommandInput> presetCombo = cmdInput;
-            CHECK2(presetCombo)
-            auto item = presetCombo->selectedItem();
-            if (!item) {
-                return;
-            }
-            
-            auto index = item->index();
-            auto preset = Preset::presets()[index];
-            preset.instrument.validate();
-            
-            // Apply Preset:
-            InstrumentToInputs(inputs, preset.instrument);
-            
-        } else if (cmdInput->id() == "Load") {
-            auto fileDialog = ui->createFileDialog();
-            fileDialog->isMultiSelectEnabled(false);
-            fileDialog->title("Choose a file to load the fretboard preset from");
-            fileDialog->filter("Fretboards (*.frt)");
-            if (DialogOK == fileDialog->showOpen()) {
-                std::string filename = fileDialog->filename();
-                Instrument instrument;
-                if (!instrument.load(filename)) {
-                    std::stringstream str;
-                    str << "Unable to load fretboard file \"" << filename << "\"";
-                    ui->messageBox(str.str());
-                    return;
-                }
-                instrument.scale(0.1); // mm to cm
-                InstrumentToInputs(inputs, instrument);
-            }
-            
-        } else if (cmdInput->id() == "Save") {
-            auto fileDialog = ui->createFileDialog();
-            fileDialog->isMultiSelectEnabled(false);
-            fileDialog->title("Choose a file to save the fretboard preset to");
-            fileDialog->filter("Fretboards (*.frt)");
-            if (DialogOK == fileDialog->showSave()) {
-                std::string filename = fileDialog->filename();
-                Instrument instrument = InstrumentFromInputs(inputs);
-                if (!instrument.save(filename)) {
-                    std::stringstream str;
-                    str << "Unable to save fretboard file \"" << filename << "\"";
-                }
-            }
-            
-        } else if (cmdInput->id() == "overhang_type") {
-            Instrument instrument = InstrumentFromInputs(inputs);
-            instrument.scale(0.1); // mm to cm
-            InstrumentToInputs(inputs, instrument);
-        }
-
-        UpdateNutWidget(inputs);
-
-    }
-    
-    void UpdateNutWidget(const Ptr<CommandInputs>& inputs) {
-        // update nut width
-        Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
-        Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
-        Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
-        Ptr<FloatSpinnerCommandInput> overhangSingle = inputs->itemById("overhangSingle");
-        Ptr<FloatSpinnerCommandInput> overhangNut = inputs->itemById("overhangNut");
-        Ptr<FloatSpinnerCommandInput> overhangLast = inputs->itemById("overhangLast");
-        Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
-        Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
-        Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
-        Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
-        Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
-        CHECK2(number_of_strings);
-        CHECK2(inter_string_spacing_at_nut);
-        CHECK2(overhang_type);
-        CHECK2(overhangSingle);
-        CHECK2(overhangNut);
-        CHECK2(overhangLast);
-        CHECK2(overhang0);
-        CHECK2(overhang1);
-        CHECK2(overhang2);
-        CHECK2(overhang3);
-        CHECK2(nut_width);
-        auto selected_item = overhang_type->selectedItem();
-        double left = 0;
-        double right = 0;
-        if (selected_item != nullptr) {
-            if (selected_item->name() == "single") {
-                left = right = overhangSingle->value();
-            } else if (selected_item->name() == "nut and last fret") {
-                left = right = overhangNut->value();
-            } else if (selected_item->name() == "all") {
-                left = overhang0->value();
-                right = overhang2->value();
-            }
-        }
-        nut_width->value(std::max(number_of_strings->valueOne() - 1, 1) * inter_string_spacing_at_nut->value() + left + right);
-    }
-};
 
 class OnExecuteEventHander : public adsk::core::CommandEventHandler
 {
@@ -1149,9 +585,9 @@ public:
         fretboarder::Fretboard fretboard(instrument);
         
         //  get selection entity first since it's fragile and any creation/edit operations will clear the selection.
-        if (!cgGroups)
+        if (!Fretboarder::cgGroups)
             return;
-        Ptr<CustomGraphicsGroup> cgGroup = cgGroups->add();
+        Ptr<CustomGraphicsGroup> cgGroup = Fretboarder::cgGroups->add();
         if (!cgGroup)
             return;
         
@@ -1479,22 +915,22 @@ private:
 
 extern "C" XI_EXPORT bool run(const char* context)
 {
-    app = Application::get();
-    if (!app)
+    Fretboarder::app = Application::get();
+    if (!Fretboarder::app)
         return false;
     
-    ui = app->userInterface();
-    if (!ui)
+    Fretboarder::ui = Fretboarder::app->userInterface();
+    if (!Fretboarder::ui)
         return false;
     
     // get the entry for custom graphics
-    Ptr<Product> activeProd = app->activeProduct();
+    Ptr<Product> activeProd = Fretboarder::app->activeProduct();
     if (!activeProd)
         return false;
 
     Ptr<CAM> cam = activeProd->cast<CAM>();
     if (cam) {
-        cgGroups = cam->customGraphicsGroups();
+        Fretboarder::cgGroups = cam->customGraphicsGroups();
     }
     else {
         auto design = activeProd->cast<Design>();
@@ -1504,13 +940,18 @@ extern "C" XI_EXPORT bool run(const char* context)
         Ptr<Component> rootComp = design->rootComponent();
         if (!rootComp)
             return false;
-        cgGroups = rootComp->customGraphicsGroups();
+        Fretboarder::cgGroups = rootComp->customGraphicsGroups();
     }
-    if (!cgGroups)
+    if (!Fretboarder::cgGroups)
         return false;
-    
+
+    auto customFeatureDefinition = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "");
+    customFeatureDefinition->editCommandId("editFretboard");
+    auto customFratureComputeEvent = customFeatureDefinition->customFeatureCompute();
+//    customFratureComputeEvent->add(customFratureComputeEventHandler);
+
     // Create the command definition.
-    Ptr<CommandDefinitions> commandDefinitions = ui->commandDefinitions();
+    Ptr<CommandDefinitions> commandDefinitions = Fretboarder::ui->commandDefinitions();
     if (!commandDefinitions)
         return nullptr;
     

@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BB196C51AD5940800164CD3 /* Fretboarder.cpp */; };
+		9684F27727139035006BF53E /* Fretboarder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9684F27627139035006BF53E /* Fretboarder.h */; };
+		9684F27A2713924B006BF53E /* Instruments+Inputs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F2782713924B006BF53E /* Instruments+Inputs.cpp */; };
+		9684F27B2713924B006BF53E /* Instruments+Inputs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F2792713924B006BF53E /* Instruments+Inputs.hpp */; };
+		9684F27E271392C2006BF53E /* SketchHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F27C271392C2006BF53E /* SketchHelpers.cpp */; };
+		9684F27F271392C2006BF53E /* SketchHelpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F27D271392C2006BF53E /* SketchHelpers.hpp */; };
+		9684F28227139381006BF53E /* UIHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F28027139381006BF53E /* UIHelpers.cpp */; };
+		9684F28327139381006BF53E /* UIHelpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F28127139381006BF53E /* UIHelpers.hpp */; };
+		9684F286271393CC006BF53E /* OnInputChangedEventHander.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F284271393CC006BF53E /* OnInputChangedEventHander.cpp */; };
+		9684F287271393CC006BF53E /* OnInputChangedEventHander.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F285271393CC006BF53E /* OnInputChangedEventHander.hpp */; };
 		C35E25652471CEEC00CCDD11 /* fretboarderLib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C35E25642471CEEC00CCDD11 /* fretboarderLib.hpp */; };
 		C35E25672471CEEC00CCDD11 /* fretboarderLibPriv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C35E25662471CEEC00CCDD11 /* fretboarderLibPriv.hpp */; };
 		C35E25692471CEEC00CCDD11 /* fretboarderLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35E25682471CEEC00CCDD11 /* fretboarderLib.cpp */; };
@@ -45,6 +54,15 @@
 /* Begin PBXFileReference section */
 		2BB196BE1AD586AA00164CD3 /* Fretboarder.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Fretboarder.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BB196C51AD5940800164CD3 /* Fretboarder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Fretboarder.cpp; sourceTree = "<group>"; };
+		9684F27627139035006BF53E /* Fretboarder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fretboarder.h; sourceTree = "<group>"; };
+		9684F2782713924B006BF53E /* Instruments+Inputs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "Instruments+Inputs.cpp"; sourceTree = "<group>"; };
+		9684F2792713924B006BF53E /* Instruments+Inputs.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Instruments+Inputs.hpp"; sourceTree = "<group>"; };
+		9684F27C271392C2006BF53E /* SketchHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SketchHelpers.cpp; sourceTree = "<group>"; };
+		9684F27D271392C2006BF53E /* SketchHelpers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SketchHelpers.hpp; sourceTree = "<group>"; };
+		9684F28027139381006BF53E /* UIHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIHelpers.cpp; sourceTree = "<group>"; };
+		9684F28127139381006BF53E /* UIHelpers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UIHelpers.hpp; sourceTree = "<group>"; };
+		9684F284271393CC006BF53E /* OnInputChangedEventHander.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OnInputChangedEventHander.cpp; sourceTree = "<group>"; };
+		9684F285271393CC006BF53E /* OnInputChangedEventHander.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OnInputChangedEventHander.hpp; sourceTree = "<group>"; };
 		C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fretboarder.manifest; sourceTree = SOURCE_ROOT; };
 		C33C0FE9243CCA44004F8F0F /* Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		C33C0FEA243CCA44004F8F0F /* Geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
@@ -125,8 +143,17 @@
 		C3557F92243BE2F800EF30FA /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				9684F27627139035006BF53E /* Fretboarder.h */,
 				2BB196C51AD5940800164CD3 /* Fretboarder.cpp */,
 				C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */,
+				9684F2782713924B006BF53E /* Instruments+Inputs.cpp */,
+				9684F2792713924B006BF53E /* Instruments+Inputs.hpp */,
+				9684F27C271392C2006BF53E /* SketchHelpers.cpp */,
+				9684F27D271392C2006BF53E /* SketchHelpers.hpp */,
+				9684F28027139381006BF53E /* UIHelpers.cpp */,
+				9684F28127139381006BF53E /* UIHelpers.hpp */,
+				9684F284271393CC006BF53E /* OnInputChangedEventHander.cpp */,
+				9684F285271393CC006BF53E /* OnInputChangedEventHander.hpp */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -181,6 +208,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9684F28327139381006BF53E /* UIHelpers.hpp in Headers */,
+				9684F27F271392C2006BF53E /* SketchHelpers.hpp in Headers */,
+				9684F27B2713924B006BF53E /* Instruments+Inputs.hpp in Headers */,
+				9684F27727139035006BF53E /* Fretboarder.h in Headers */,
+				9684F287271393CC006BF53E /* OnInputChangedEventHander.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +342,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9684F27E271392C2006BF53E /* SketchHelpers.cpp in Sources */,
 				2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */,
+				9684F27A2713924B006BF53E /* Instruments+Inputs.cpp in Sources */,
+				9684F28227139381006BF53E /* UIHelpers.cpp in Sources */,
+				9684F286271393CC006BF53E /* OnInputChangedEventHander.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
