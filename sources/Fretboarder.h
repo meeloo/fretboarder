@@ -64,5 +64,6 @@ Fretboarder::ui->messageBox(err); }
 #include "SketchHelpers.hpp"
 #include "UIHelpers.hpp"
 #include "OnInputChangedEventHander.hpp"
+#include "OnExecutePreviewEventHandler.hpp"
 
 #endif /* Fretboarder_h */
