@@ -43,6 +43,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -56,7 +57,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SIMPLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(APPDATA)/Autodesk/Autodesk Fusion 360/API/CPP/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)fretboarderLib;$(APPDATA)/Autodesk/Autodesk Fusion 360/API/CPP/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -92,9 +93,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="fretboarderLib\Fretboard.cpp" />
+    <ClCompile Include="sources\CommandCreatedEventHandler.cpp" />
     <ClCompile Include="sources\Fretboarder.cpp" />
     <ClCompile Include="fretboarderLib\Geometry.cpp" />
     <ClCompile Include="fretboarderLib\String.cpp" />
+    <ClCompile Include="sources\Instruments+Inputs.cpp" />
+    <ClCompile Include="sources\OnExecutePreviewEventHandler.cpp" />
+    <ClCompile Include="sources\OnInputChangedEventHander.cpp" />
+    <ClCompile Include="sources\SketchHelpers.cpp" />
+    <ClCompile Include="sources\UIHelpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Fretboarder.manifest">
@@ -106,6 +113,13 @@
     <ClInclude Include="fretboarderLib\Fretboard.hpp" />
     <ClInclude Include="fretboarderLib\Geometry.hpp" />
     <ClInclude Include="fretboarderLib\String.hpp" />
+    <ClInclude Include="sources\CommandCreatedEventHandler.hpp" />
+    <ClInclude Include="sources\Fretboarder.h" />
+    <ClInclude Include="sources\Instruments+Inputs.hpp" />
+    <ClInclude Include="sources\OnExecutePreviewEventHandler.hpp" />
+    <ClInclude Include="sources\OnInputChangedEventHander.hpp" />
+    <ClInclude Include="sources\SketchHelpers.hpp" />
+    <ClInclude Include="sources\UIHelpers.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
