@@ -48,7 +48,6 @@ Features:
 
 ## Known bugs and todo list
 * double string instruments (12 string guitars, mandolins, 8 string basses...)
-* we use direct modeling in order to be much faster but some people would like to stay in parametric modeling mode. For the moment the best way is to use fretboarder in a separate design and import the result in your own design.
 * better options for string spacing
 * offer a way to compute the fret spacing from the nut width instead of entering inter string spacing
 * add a way to give string gauges and use it for string spacing 
