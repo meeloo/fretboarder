@@ -17,7 +17,10 @@ Features:
 * blind fret slot support (to hide the end of the fret tangs in the fretboard) 
 * create nicely rounded frets for rendering purpose
 
-## New in v0.4
+## New in v0.5beta
+* Fretboarder doesn't disable parametric modeling anymore. You will get the full history and objects created by the plugin in the timeline.  
+
+### New in v0.4
 * fixed many fretboard calculation bugs that would crash Fusion 360 or display error messages
 * added a progress dialog to give feedback during the generation of the fretboard and frets
 * added loading and saving of presets to .frt files (using the JSon format)
@@ -61,9 +64,9 @@ Here is a small video showing how to install the plugin on Windows:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/e96nMz-E10Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Download
-download [Fretboarder v0.4a for Windows](bin/windows/Fretboarder_win_0.4a.zip)
+download [Fretboarder v0.4a for Windows](bin/windows/Fretboarder_win_0.5.zip)
 
-download [Fretboarder v0.4a macOS](bin/macOS/Fretboarder_mac_0.4a.zip)
+download [Fretboarder v0.4a macOS](bin/macOS/Fretboarder_mac_0.5.zip)
 
 ## Contact
 For all questions and feedback, please send an email to <fretboarder@meeloo.net>
