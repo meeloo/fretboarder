@@ -556,9 +556,9 @@ extern "C" XI_EXPORT bool run(const char* context)
     if (!Fretboarder::cgGroups)
         return false;
 
-    auto customFeatureDefinition = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "");
-    customFeatureDefinition->editCommandId("editFretboard");
-    auto customFratureComputeEvent = customFeatureDefinition->customFeatureCompute();
+    //auto customFeatureDefinition = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "");
+    //customFeatureDefinition->editCommandId("editFretboard");
+    //auto customFratureComputeEvent = customFeatureDefinition->customFeatureCompute();
 //    customFratureComputeEvent->add(customFratureComputeEventHandler);
 
     // Create the command definition.
