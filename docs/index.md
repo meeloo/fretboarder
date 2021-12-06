@@ -63,9 +63,9 @@ Here is a small video showing how to install the plugin on Windows:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/e96nMz-E10Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Download
-download [Fretboarder v0.4a for Windows](bin/windows/Fretboarder_win_0.5.zip)
+download [Fretboarder v0.5 for Windows](bin/windows/Fretboarder_win_0.5.zip)
 
-download [Fretboarder v0.4a macOS](bin/macOS/Fretboarder_mac_0.5.zip)
+download [Fretboarder v0.5 macOS](bin/macOS/Fretboarder_mac_0.5.zip)
 
 ## Contact
 For all questions and feedback, please send an email to <fretboarder@meeloo.net>
