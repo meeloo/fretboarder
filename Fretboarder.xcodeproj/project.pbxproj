@@ -309,13 +309,15 @@
 				ORGANIZATIONNAME = Autodesk;
 				TargetAttributes = {
 					2BB196BD1AD586AA00164CD3 = {
-						DevelopmentTeam = 3858XBU65M;
+						DevelopmentTeam = D3M3W4GZ54;
 					};
 					C35E25612471CEEC00CCDD11 = {
 						CreatedOnToolsVersion = 12.0;
+						DevelopmentTeam = D3M3W4GZ54;
 					};
 					C35E25732471CF7100CCDD11 = {
 						CreatedOnToolsVersion = 12.0;
+						DevelopmentTeam = D3M3W4GZ54;
 					};
 				};
 			};
@@ -417,6 +419,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = D3M3W4GZ54;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -434,7 +437,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/Applications/Xcode7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/include",
 				);
 				LIBRARY_SEARCH_PATHS = "$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib";
@@ -461,6 +464,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = D3M3W4GZ54;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -472,7 +476,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/Applications/Xcode7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/include",
 				);
 				LIBRARY_SEARCH_PATHS = "$(USER_LIBRARY_DIR)/Application\\ Support/Autodesk/Autodesk\\ Fusion\\ 360/API/CPP/lib";
@@ -484,7 +488,6 @@
 		2BB196C31AD586AA00164CD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				EXECUTABLE_EXTENSION = dylib;
@@ -512,7 +515,6 @@
 		2BB196C41AD586AA00164CD3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				EXECUTABLE_EXTENSION = dylib;
@@ -540,7 +542,6 @@
 		C35E256B2471CEEC00CCDD11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
@@ -564,7 +565,6 @@
 		C35E256C2471CEEC00CCDD11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = x86_64;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				EXECUTABLE_PREFIX = lib;

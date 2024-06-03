@@ -69,9 +69,9 @@ Ptr<Sketch> create_fretwire_profile(const Instrument& instrument, const Fretboar
     CHECK(sketchArcs, nullptr);
     auto crownW = instrument.fret_crown_width / 2;
     auto crownH = instrument.fret_crown_height;
-    auto arc = sketchArcs->addByThreePoints(create_point(Point(crownW, 0, 0)), create_point(Point(0, (0 + crownH), 0)), create_point(Point(-crownW, 0, 0)));
+    auto arc = sketchArcs->addByThreePoints(create_point(Point(0, crownW, 0)), create_point(Point(-crownH, 0, 0)), create_point(Point(0, -crownW, 0)));
     CHECK(arc, nullptr);
-    sketchLines->addByTwoPoints(create_point(Point(crownW, 0, 0)), create_point(Point(-crownW, 0, 0)));
+    sketchLines->addByTwoPoints(create_point(Point(0, crownW, 0)), create_point(Point(0, -crownW, 0)));
 
     return fret_wire_profile;
 }
@@ -94,11 +94,9 @@ Ptr<Sketch> create_frettang_profile(const Instrument& instrument, const Fretboar
 
     auto sketchLines = sketch_curves->sketchLines();
     CHECK(sketchLines, nullptr);
-    auto sketchArcs = sketch_curves->sketchArcs();
-    CHECK(sketchArcs, nullptr);
     auto tangW = instrument.fret_slots_width / 2;
     auto tangH = instrument.fret_slots_height;
-    sketchLines->addTwoPointRectangle(Point3D::create((-tangW) * 0.1, 0.01 * 0.1, 0), Point3D::create(tangW * 0.1, -tangH * 0.1, 0));
+    sketchLines->addTwoPointRectangle(Point3D::create(0.01 * 0.1, -tangW * 0.1, 0), Point3D::create(tangH * 0.1, tangW * 0.1, 0));
     return fret_tang_profile;
 }
 

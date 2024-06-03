@@ -564,7 +564,7 @@ extern "C" XI_EXPORT bool run(const char* context)
     // Create the command definition.
     Ptr<CommandDefinitions> commandDefinitions = Fretboarder::ui->commandDefinitions();
     if (!commandDefinitions)
-        return nullptr;
+        return false;
     
     // Get the existing command definition or create it if it doesn't already exist.
     Ptr<CommandDefinition> cmdDef = commandDefinitions->itemById("cmdFretboarder");
