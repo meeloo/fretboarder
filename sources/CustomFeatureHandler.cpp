@@ -27,13 +27,23 @@ void CustomFeatureComputeEventHandler::notify(const Ptr<CustomFeatureEventArgs>&
     if (!cf)
         return;
 
+    // Roll the timeline to just before this custom feature so that any new
+    // geometry is inserted at the correct position.
+    auto tlo = cf->timelineObject();
+    if (tlo)
+        tlo->rollTo(true);
+
+    // Get the component that owns this custom feature.
+    auto comp = cf->parentComponent();
+    if (!comp)
+        return;
+
     // Reconstruct instrument from the stored parameters (returned in mm).
     auto instrument = InstrumentFromCustomFeature(cf);
 
-    // Fusion has already rolled the timeline back past our grouped features
-    // before firing this event, so the old geometry is gone.  Just recreate it.
+    // Recreate the fretboard geometry inside the owning component.
     Ptr<Base> firstFeature, lastFeature;
-    if (!createFretboard(instrument, firstFeature, lastFeature))
+    if (!createFretboard(instrument, firstFeature, lastFeature, comp))
         return;
 
     // Re-group the new geometry under this custom feature.

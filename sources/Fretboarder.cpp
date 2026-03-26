@@ -43,7 +43,8 @@ Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path
 
 bool createFretboard(const fretboarder::Instrument& instrument,
                      Ptr<Base>& outFirstFeature,
-                     Ptr<Base>& outLastFeature) {
+                     Ptr<Base>& outLastFeature,
+                     Ptr<Component> inComponent) {
     Ptr<Document> doc = Fretboarder::app->activeDocument();
     CHECK(doc, false);
 
@@ -67,10 +68,9 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     progress(progressDialog, "create fretboard plank");
     design->designType(ParametricDesignType);
 
-    // Work directly in the root component rather than creating a sub-component.
-    // In newer Fusion 360 "Part Design" documents addNewComponent() is forbidden;
-    // using rootComp avoids that restriction entirely.
-    auto component = rootComp;
+    // Use the caller-supplied component if provided (compute handler path),
+    // otherwise fall back to the root component (execute handler path).
+    auto component = inComponent ? inComponent : rootComp;
 
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
@@ -288,8 +288,8 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     auto top = getFretboardTopSurface(component);
     CHECK(top, false);
     if (top) {
-        // Use the root component for frets too — no sub-component needed.
-        auto fretsComponent = rootComp;
+        // Use the same component for frets.
+        auto fretsComponent = component;
 
         // Prepare material for frets
         //auto lib = Fretboarder::app->materialLibraries()->itemByName("Fusion 360 Material Library");
