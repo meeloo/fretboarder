@@ -558,7 +558,7 @@ extern "C" XI_EXPORT bool run(const char* context)
 
     // Register custom feature definition so that existing fretboard features can be recomputed
     // and edited after the add-in is reloaded.
-    Fretboarder::customFeatureDef = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "");
+    Fretboarder::customFeatureDef = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "sources/icons");
     if (Fretboarder::customFeatureDef) {
         Fretboarder::customFeatureDef->editCommandId("editFretboard");
         auto computeEvent = Fretboarder::customFeatureDef->customFeatureCompute();

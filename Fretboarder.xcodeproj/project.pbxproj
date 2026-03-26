@@ -23,6 +23,8 @@
 		9684F28F27139623006BF53E /* CommandCreatedEventHandler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F28D27139623006BF53E /* CommandCreatedEventHandler.hpp */; };
 		653B46B4CA80464CAF50649D /* CustomFeatureHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0393ED1F038459D89AA0696 /* CustomFeatureHandler.cpp */; };
 		D46660B933714B8AB805591A /* CustomFeatureHandler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2624678E4DED4160BECC5841 /* CustomFeatureHandler.hpp */; };
+		7A9044926E2E4CA799B2D029 /* 16x16.png in Resources */ = {isa = PBXBuildFile; fileRef = B819ACFAF9714264908D063B /* 16x16.png */; };
+		5D05877AEAA441F1BD127057 /* 32x32.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7B4B67A4AE40EB8EEFCA69 /* 32x32.png */; };
 		C35E25652471CEEC00CCDD11 /* fretboarderLib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C35E25642471CEEC00CCDD11 /* fretboarderLib.hpp */; };
 		C35E25672471CEEC00CCDD11 /* fretboarderLibPriv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C35E25662471CEEC00CCDD11 /* fretboarderLibPriv.hpp */; };
 		C35E25692471CEEC00CCDD11 /* fretboarderLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C35E25682471CEEC00CCDD11 /* fretboarderLib.cpp */; };
@@ -75,6 +77,8 @@
 		9684F28D27139623006BF53E /* CommandCreatedEventHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandCreatedEventHandler.hpp; sourceTree = "<group>"; };
 		F0393ED1F038459D89AA0696 /* CustomFeatureHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CustomFeatureHandler.cpp; sourceTree = "<group>"; };
 		2624678E4DED4160BECC5841 /* CustomFeatureHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CustomFeatureHandler.hpp; sourceTree = "<group>"; };
+		B819ACFAF9714264908D063B /* 16x16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "16x16.png"; sourceTree = "<group>"; };
+		DD7B4B67A4AE40EB8EEFCA69 /* 32x32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "32x32.png"; sourceTree = "<group>"; };
 		C31FDE5E243D3ED800F38C04 /* Fretboarder.manifest */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fretboarder.manifest; sourceTree = SOURCE_ROOT; };
 		C33C0FE9243CCA44004F8F0F /* Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		C33C0FEA243CCA44004F8F0F /* Geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 				9684F28D27139623006BF53E /* CommandCreatedEventHandler.hpp */,
 				F0393ED1F038459D89AA0696 /* CustomFeatureHandler.cpp */,
 				2624678E4DED4160BECC5841 /* CustomFeatureHandler.hpp */,
+				22C6D161DAC54DE380C62858 /* icons */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -208,6 +213,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22C6D161DAC54DE380C62858 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				B819ACFAF9714264908D063B /* 16x16.png */,
+				DD7B4B67A4AE40EB8EEFCA69 /* 32x32.png */,
+			);
+			path = icons;
 			sourceTree = "<group>";
 		};
 		C3D18147247EA934008723E3 /* boards */ = {
