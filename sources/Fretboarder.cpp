@@ -53,17 +53,9 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     Ptr<Design> design = product;
     CHECK(design, false);
 
-    Ptr<Timeline> timeline = design->timeline();
-    CHECK(timeline, false);
-
-    Ptr<TimelineGroups> timelineGroups = timeline->timelineGroups();
-    CHECK(timelineGroups, false);
-
     // Get the root component of the active design
     Ptr<Component> rootComp = design->rootComponent();
     CHECK(rootComp, false);
-
-    auto fretboardCreationStartIndex = timeline->markerPosition();
 
     fretboarder::Fretboard fretboard(instrument);
 
@@ -222,8 +214,6 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     auto radius_4 = create_radius_circle(component, construction_plane_at_heel, instrument.radius_at_last_fret, instrument.fretboard_thickness);
     CHECK(radius_4, false);
 
-    auto fretboardCreationMiddleIndex = timeline->markerPosition();
-    timelineGroups->add(fretboardCreationStartIndex + 1, fretboardCreationMiddleIndex - 1);
     progress(progressDialog, "create fretboard radius");
 
     // create loft feature
@@ -254,9 +244,6 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     
     radius_1->isVisible(false);
     radius_4->isVisible(false);
-
-    auto fretboardCreationEndIndex = timeline->markerPosition();
-    timelineGroups->add(fretboardCreationMiddleIndex + 1, fretboardCreationEndIndex - 1);
 
     auto distance = ValueInput::createByReal(instrument.fretboard_thickness);
     CHECK(distance, false);
@@ -296,9 +283,6 @@ bool createFretboard(const fretboarder::Instrument& instrument,
         component->features()->combineFeatures()->add(combine_input);
     }
 
-    auto nutslotCreationEndIndex = timeline->markerPosition();
-    timelineGroups->add(fretboardCreationEndIndex + 1, nutslotCreationEndIndex - 1);
-
     main_body->isVisible(true);
 
     auto top = getFretboardTopSurface(component);
@@ -323,8 +307,6 @@ bool createFretboard(const fretboarder::Instrument& instrument,
         auto L = fret_lines_sketch->sketchCurves();
         CHECK(L, false);
         for (int i = 0; i < C->count(); i++) {
-            auto fretCreationStartIndex = timeline->markerPosition();
-
             {
                 std::stringstream str;
                 str << "fret " << i;
@@ -405,8 +387,6 @@ bool createFretboard(const fretboarder::Instrument& instrument,
 
             // remote temp objects
             fret_tang_profile->isVisible(false);
-
-            auto fretsCreationStartIndex = timeline->markerPosition();
 
             if (instrument.draw_frets) {
                 auto fret_wire_profile = create_fretwire_profile(instrument, fretboard, i, fretsComponent, pathL);
@@ -492,19 +472,12 @@ bool createFretboard(const fretboarder::Instrument& instrument,
                 
                 fret_wire_profile->isVisible(false);
 
-                auto fretCreationEndIndex = timeline->markerPosition();
-                auto group = timelineGroups->add(fretCreationStartIndex + 1, fretCreationEndIndex - 1);
-                group->isCollapsed(true);
-
             }
             projected_fret_profile->isVisible(false);
 
             for (auto p : profiles) {
                 p->isVisible(false);
             }
-
-            auto fretsCreationEndIndex = timeline->markerPosition();
-            timelineGroups->add(fretsCreationStartIndex + 1, fretsCreationEndIndex - 1);
 
         }
         
@@ -524,40 +497,13 @@ extern "C" XI_EXPORT bool run(const char* context)
     Fretboarder::app = Application::get();
     if (!Fretboarder::app)
         return false;
-    
+
     Fretboarder::ui = Fretboarder::app->userInterface();
     if (!Fretboarder::ui)
         return false;
-    
-    // get the entry for custom graphics
-    Ptr<Product> activeProd = Fretboarder::app->activeProduct();
-    if (!activeProd)
-        return false;
 
-    Ptr<CAM> cam = activeProd->cast<CAM>();
-    if (cam) {
-        Fretboarder::cgGroups = cam->customGraphicsGroups();
-    }
-    else {
-        auto design = activeProd->cast<Design>();
-        if (!design)
-            return false;
-
-        Ptr<Component> rootComp = design->rootComponent();
-        if (!rootComp)
-            return false;
-        Fretboarder::cgGroups = rootComp->customGraphicsGroups();
-    }
-    if (!Fretboarder::cgGroups)
-        return false;
-
-    //auto customFeatureDefinition = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "");
-    //customFeatureDefinition->editCommandId("editFretboard");
-    //auto customFratureComputeEvent = customFeatureDefinition->customFeatureCompute();
-//    customFratureComputeEvent->add(customFratureComputeEventHandler);
-
-    // Register custom feature definition so that existing fretboard features can be recomputed
-    // and edited after the add-in is reloaded.
+    // Register the custom feature definition so that existing Fretboard features
+    // can be recomputed and edited after the add-in is reloaded.
     Fretboarder::customFeatureDef = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "sources/icons");
     if (Fretboarder::customFeatureDef) {
         Fretboarder::customFeatureDef->editCommandId("editFretboard");
@@ -570,8 +516,8 @@ extern "C" XI_EXPORT bool run(const char* context)
     Ptr<CommandDefinitions> commandDefinitions = Fretboarder::ui->commandDefinitions();
     if (!commandDefinitions)
         return false;
-    
-    // Get the existing command definition or create it if it doesn't already exist.
+
+    // Create (or reuse) the main Fretboarder command definition.
     Ptr<CommandDefinition> cmdDef = commandDefinitions->itemById("cmdFretboarder");
     if (!cmdDef)
     {
@@ -579,14 +525,12 @@ extern "C" XI_EXPORT bool run(const char* context)
                                                          "Fretboarder",
                                                          "Create fretboards for stringed instruments.");
     }
-
-    // Connect to the command created event.
     Ptr<CommandCreatedEvent> commandCreatedEvent = cmdDef->commandCreated();
     if (!commandCreatedEvent)
         return false;
     commandCreatedEvent->add(&_cmdCreatedHandler);
 
-    // Register the edit command definition (invoked when user double-clicks the feature).
+    // Create (or reuse) the edit command definition (invoked when user double-clicks the feature).
     Ptr<CommandDefinition> editCmdDef = commandDefinitions->itemById("editFretboard");
     if (!editCmdDef)
     {
@@ -598,14 +542,41 @@ extern "C" XI_EXPORT bool run(const char* context)
     if (!editCommandCreatedEvent)
         return false;
     editCommandCreatedEvent->add(&_editCmdCreatedHandler);
-    
-    // Execute the command definition.
-    cmdDef->execute();
-    
-    // Prevent this module from being terminated when the script returns, because we are waiting for event handlers to fire.
+
+    // Add a button to the Solid > Create panel so the user can invoke the command.
+    auto createPanel = Fretboarder::ui->allToolbarPanels()->itemById("SolidCreatePanel");
+    if (createPanel)
+        createPanel->controls()->addCommand(cmdDef, "", false);
+
+    // Prevent this module from being terminated when the script returns,
+    // because we are waiting for event handlers to fire.
     adsk::autoTerminate(false);
-    
+
     return true;
+}
+
+extern "C" XI_EXPORT void stop(const char* context)
+{
+    if (!Fretboarder::ui)
+        return;
+
+    // Remove the toolbar button.
+    auto createPanel = Fretboarder::ui->allToolbarPanels()->itemById("SolidCreatePanel");
+    if (createPanel) {
+        auto ctrl = createPanel->controls()->itemById("cmdFretboarder");
+        if (ctrl)
+            ctrl->deleteMe();
+    }
+
+    // Remove the command definitions.
+    auto commandDefinitions = Fretboarder::ui->commandDefinitions();
+    if (commandDefinitions) {
+        auto cmdDef = commandDefinitions->itemById("cmdFretboarder");
+        if (cmdDef) cmdDef->deleteMe();
+
+        auto editCmdDef = commandDefinitions->itemById("editFretboard");
+        if (editCmdDef) editCmdDef->deleteMe();
+    }
 }
 
 #ifdef XI_WIN

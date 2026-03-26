@@ -36,9 +36,22 @@ void OnExecutePreviewEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs
     auto instrument = InstrumentFromInputs(inputs);
     fretboarder::Fretboard fretboard(instrument);
 
-    //  get selection entity first since it's fragile and any creation/edit operations will clear the selection.
-    if (!Fretboarder::cgGroups)
-        return;
+    // Get (or refresh) the custom graphics groups from the active product.
+    if (!Fretboarder::cgGroups) {
+        auto activeProd = Fretboarder::app->activeProduct();
+        if (!activeProd) return;
+        auto cam = activeProd->cast<CAM>();
+        if (cam) {
+            Fretboarder::cgGroups = cam->customGraphicsGroups();
+        } else {
+            auto design = activeProd->cast<Design>();
+            if (!design) return;
+            auto rootComp = design->rootComponent();
+            if (!rootComp) return;
+            Fretboarder::cgGroups = rootComp->customGraphicsGroups();
+        }
+        if (!Fretboarder::cgGroups) return;
+    }
     Ptr<CustomGraphicsGroup> cgGroup = Fretboarder::cgGroups->add();
     if (!cgGroup)
         return;

@@ -478,39 +478,44 @@ void InstrumentToCustomFeatureInput(const Ptr<CustomFeatureInput>& cfInput,
     auto L = [](double mm) { return ValueInput::createByReal(mm / 10.0); };
     auto D = [](double v)  { return ValueInput::createByReal(v); };
 
-    cfInput->addCustomParameter("scale_length_bass",             "Bass Scale",            L(instrument.scale_length[0]),             "cm");
-    cfInput->addCustomParameter("scale_length_treble",           "Treble Scale",          L(instrument.scale_length[1]),             "cm");
-    cfInput->addCustomParameter("inter_string_spacing_at_nut",   "String Spacing Nut",    L(instrument.inter_string_spacing_at_nut),  "cm");
-    cfInput->addCustomParameter("inter_string_spacing_at_bridge","String Spacing Bridge", L(instrument.inter_string_spacing_at_bridge),"cm");
-    cfInput->addCustomParameter("nut_to_zero_fret_offset",       "Nut-Zero Offset",       L(instrument.nut_to_zero_fret_offset),     "cm");
-    cfInput->addCustomParameter("overhangs_0",                   "Overhang Bass Nut",     L(instrument.overhangs[0]),                "cm");
-    cfInput->addCustomParameter("overhangs_1",                   "Overhang Bass Last",    L(instrument.overhangs[1]),                "cm");
-    cfInput->addCustomParameter("overhangs_2",                   "Overhang Treble Nut",   L(instrument.overhangs[2]),                "cm");
-    cfInput->addCustomParameter("overhangs_3",                   "Overhang Treble Last",  L(instrument.overhangs[3]),                "cm");
-    cfInput->addCustomParameter("hidden_tang_length",            "Hidden Tang",           L(instrument.hidden_tang_length),          "cm");
-    cfInput->addCustomParameter("fret_slots_width",              "Slot Width",            L(instrument.fret_slots_width),            "cm");
-    cfInput->addCustomParameter("fret_slots_height",             "Slot Height",           L(instrument.fret_slots_height),           "cm");
-    cfInput->addCustomParameter("fret_crown_width",              "Crown Width",           L(instrument.fret_crown_width),            "cm");
-    cfInput->addCustomParameter("fret_crown_height",             "Crown Height",          L(instrument.fret_crown_height),           "cm");
-    cfInput->addCustomParameter("last_fret_cut_offset",          "Last Fret Offset",      L(instrument.last_fret_cut_offset),        "cm");
-    cfInput->addCustomParameter("space_before_nut",              "Space Before Nut",      L(instrument.space_before_nut),            "cm");
-    cfInput->addCustomParameter("nut_thickness",                 "Nut Thickness",         L(instrument.nut_thickness),               "cm");
-    cfInput->addCustomParameter("nut_height_under",              "Nut Slot Depth",        L(instrument.nut_height_under),            "cm");
-    cfInput->addCustomParameter("radius_at_nut",                 "Radius Nut",            L(instrument.radius_at_nut),               "cm");
-    cfInput->addCustomParameter("radius_at_last_fret",           "Radius Last Fret",      L(instrument.radius_at_last_fret),         "cm");
-    cfInput->addCustomParameter("fretboard_thickness",           "Thickness",             L(instrument.fretboard_thickness),         "cm");
+    auto addP = [&](const std::string& id, const std::string& label,
+                    const Ptr<ValueInput>& val, const std::string& units) {
+        cfInput->addCustomParameter(id, label, val, units);
+    };
 
-    // Dimensionless / integer / boolean parameters (stored as plain real)
-    cfInput->addCustomParameter("perpendicular_fret_index", "Perp Fret",       D(instrument.perpendicular_fret_index), "", false);
-    cfInput->addCustomParameter("number_of_strings",        "String Count",    D((double)instrument.number_of_strings),        "", false);
-    cfInput->addCustomParameter("number_of_frets",          "Fret Count",      D((double)instrument.number_of_frets),          "", false);
-    cfInput->addCustomParameter("overhang_type",            "Overhang Type",   D((double)instrument.overhang_type),            "", false);
-    cfInput->addCustomParameter("right_handed",             "Right Handed",    D(instrument.right_handed ? 1.0 : 0.0),         "", false);
-    cfInput->addCustomParameter("has_zero_fret",            "Has Zero Fret",   D(instrument.has_zero_fret ? 1.0 : 0.0),        "", false);
-    cfInput->addCustomParameter("carve_nut_slot",           "Carve Nut Slot",  D(instrument.carve_nut_slot ? 1.0 : 0.0),       "", false);
-    cfInput->addCustomParameter("draw_strings",             "Draw Strings",    D(instrument.draw_strings ? 1.0 : 0.0),         "", false);
-    cfInput->addCustomParameter("draw_frets",               "Draw Frets",      D(instrument.draw_frets ? 1.0 : 0.0),           "", false);
-    cfInput->addCustomParameter("carve_fret_slots",         "Carve Fret Slots",D(instrument.carve_fret_slots ? 1.0 : 0.0),     "", false);
+    addP("scale_length_bass",              "Bass Scale",            L(instrument.scale_length[0]),              "mm");
+    addP("scale_length_treble",            "Treble Scale",          L(instrument.scale_length[1]),              "mm");
+    addP("inter_string_spacing_at_nut",    "String Spacing Nut",    L(instrument.inter_string_spacing_at_nut),  "mm");
+    addP("inter_string_spacing_at_bridge", "String Spacing Bridge", L(instrument.inter_string_spacing_at_bridge),"mm");
+    addP("nut_to_zero_fret_offset",        "Nut-Zero Offset",       L(instrument.nut_to_zero_fret_offset),      "mm");
+    addP("overhangs_0",                    "Overhang Bass Nut",     L(instrument.overhangs[0]),                 "mm");
+    addP("overhangs_1",                    "Overhang Bass Last",    L(instrument.overhangs[1]),                 "mm");
+    addP("overhangs_2",                    "Overhang Treble Nut",   L(instrument.overhangs[2]),                 "mm");
+    addP("overhangs_3",                    "Overhang Treble Last",  L(instrument.overhangs[3]),                 "mm");
+    addP("hidden_tang_length",             "Hidden Tang",           L(instrument.hidden_tang_length),           "mm");
+    addP("fret_slots_width",               "Slot Width",            L(instrument.fret_slots_width),             "mm");
+    addP("fret_slots_height",              "Slot Height",           L(instrument.fret_slots_height),            "mm");
+    addP("fret_crown_width",               "Crown Width",           L(instrument.fret_crown_width),             "mm");
+    addP("fret_crown_height",              "Crown Height",          L(instrument.fret_crown_height),            "mm");
+    addP("last_fret_cut_offset",           "Last Fret Offset",      L(instrument.last_fret_cut_offset),         "mm");
+    addP("space_before_nut",               "Space Before Nut",      L(instrument.space_before_nut),             "mm");
+    addP("nut_thickness",                  "Nut Thickness",         L(instrument.nut_thickness),                "mm");
+    addP("nut_height_under",               "Nut Slot Depth",        L(instrument.nut_height_under),             "mm");
+    addP("radius_at_nut",                  "Radius Nut",            L(instrument.radius_at_nut),                "mm");
+    addP("radius_at_last_fret",            "Radius Last Fret",      L(instrument.radius_at_last_fret),          "mm");
+    addP("fretboard_thickness",            "Thickness",             L(instrument.fretboard_thickness),          "mm");
+
+    // Dimensionless / integer / boolean parameters (stored as plain real, no units).
+    addP("perpendicular_fret_index", "Perp Fret",        D(instrument.perpendicular_fret_index),      "");
+    addP("number_of_strings",        "String Count",     D((double)instrument.number_of_strings),     "");
+    addP("number_of_frets",          "Fret Count",       D((double)instrument.number_of_frets),       "");
+    addP("overhang_type",            "Overhang Type",    D((double)instrument.overhang_type),          "");
+    addP("right_handed",             "Right Handed",     D(instrument.right_handed   ? 1.0 : 0.0),    "");
+    addP("has_zero_fret",            "Has Zero Fret",    D(instrument.has_zero_fret  ? 1.0 : 0.0),    "");
+    addP("carve_nut_slot",           "Carve Nut Slot",   D(instrument.carve_nut_slot ? 1.0 : 0.0),    "");
+    addP("draw_strings",             "Draw Strings",     D(instrument.draw_strings   ? 1.0 : 0.0),    "");
+    addP("draw_frets",               "Draw Frets",       D(instrument.draw_frets     ? 1.0 : 0.0),    "");
+    addP("carve_fret_slots",         "Carve Fret Slots", D(instrument.carve_fret_slots ? 1.0 : 0.0),  "");
 }
 
 Instrument InstrumentFromCustomFeature(const Ptr<CustomFeature>& feature) {

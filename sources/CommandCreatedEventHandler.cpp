@@ -15,32 +15,38 @@ void OnExecuteEventHander::notify(const Ptr<CommandEventArgs>& eventArgs)
     if (!inputs)
         return;
 
+    // InstrumentFromInputs returns mm (calls scale(10) internally).
     auto instrument = InstrumentFromInputs(inputs);
-
-    Ptr<Base> firstFeature, lastFeature;
-    if (!createFretboard(instrument, firstFeature, lastFeature))
-        return;
-
-    if (!Fretboarder::customFeatureDef || !firstFeature || !lastFeature)
-        return;
 
     auto product = Fretboarder::app->activeProduct();
     auto design = product->cast<Design>();
     if (!design)
         return;
 
-    auto cfFeatures = design->rootComponent()->features()->customFeatures();
-    if (!cfFeatures)
-        return;
+    // Custom features require a parametric (timeline) document.
+    design->designType(ParametricDesignType);
 
-    auto cfInput = cfFeatures->createInput(Fretboarder::customFeatureDef);
-    if (!cfInput)
-        return;
+    // Try to wrap the fretboard in a Custom Feature (requires the
+    // "Custom Features API" preview to be enabled in Fusion preferences).
+    if (Fretboarder::customFeatureDef) {
+        auto cfFeatures = design->rootComponent()->features()->customFeatures();
+        if (cfFeatures) {
+            auto cfInput = cfFeatures->createInput(Fretboarder::customFeatureDef);
+            if (cfInput) {
+                InstrumentToCustomFeatureInput(cfInput, instrument);
+                auto cf = cfFeatures->add(cfInput);
+                if (cf)
+                    return; // success — compute handler will create the geometry
+            }
+        }
+    }
 
-    InstrumentToCustomFeatureInput(cfInput, instrument);
-    cfInput->setStartAndEndFeatures(firstFeature, lastFeature);
-
-    design->rootComponent()->features()->customFeatures()->add(cfInput);
+    // Fallback: Custom Features API not available in this document context
+    // (e.g. "Part Design" mode documents reject custom feature creation).
+    // Create the geometry directly — fretboard appears as individual timeline
+    // features rather than a single parametric node.
+    Ptr<Base> firstFeature, lastFeature;
+    createFretboard(instrument, firstFeature, lastFeature);
 }
 
 // CommandDestroyed event handler
