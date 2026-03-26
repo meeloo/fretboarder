@@ -26,37 +26,45 @@ void OnExecuteEventHander::notify(const Ptr<CommandEventArgs>& eventArgs)
     // Custom features require a parametric (timeline) document.
     design->designType(ParametricDesignType);
 
-    // If Custom Features API is available: create the CF node first, roll back
-    // to before it, create geometry in that slot, then set the CF bounds.
-    // NOTE: rollTo() works fine from the execute handler; it was only broken
-    // inside the compute handler (which also can't create solid bodies).
+    // If Custom Features API is available: create geometry first, then create
+    // the CF node that wraps it using cfInput->setStartAndEndFeatures before add().
     if (Fretboarder::customFeatureDef) {
         auto cfFeatures = design->rootComponent()->features()->customFeatures();
         if (cfFeatures) {
             auto cfInput = cfFeatures->createInput(Fretboarder::customFeatureDef);
             if (cfInput) {
                 InstrumentToCustomFeatureInput(cfInput, instrument);
-                gSkipNextCompute = true;
-                auto cf = cfFeatures->add(cfInput);
-                if (cf) {
-                    // Roll to just before the CF so geometry is inserted inside its range.
-                    auto tlo = cf->timelineObject();
-                    if (tlo) tlo->rollTo(true);
 
-                    Ptr<Base> firstFeature, lastFeature;
-                    if (createFretboard(instrument, firstFeature, lastFeature)) {
-                        if (firstFeature && lastFeature)
-                            cf->setStartAndEndFeatures(firstFeature, lastFeature);
+                auto timeline    = design->timeline();
+                int  beforeCount = timeline ? (int)timeline->count() : 0;
+
+                // Create geometry first — features land in the timeline before the CF node.
+                Ptr<Base> firstFeature, lastFeature;
+                if (createFretboard(instrument, firstFeature, lastFeature)) {
+                    int innerCount = (int)timeline->count() - beforeCount;
+
+                    // Tell the CF input which features it owns BEFORE calling add().
+                    if (firstFeature && lastFeature)
+                        cfInput->setStartAndEndFeatures(firstFeature, lastFeature);
+
+                    // Now create the CF node — it wraps the already-existing features.
+                    auto cf = cfFeatures->add(cfInput);
+                    if (cf) {
+                        // Store innerCount for the edit handler.
+                        auto attrs = cf->attributes();
+                        if (attrs)
+                            attrs->add("Fretboarder", "innerCount", std::to_string(innerCount));
+
+                        // Save parameters to the CF for future edits.
+                        InstrumentToCustomFeature(cf, instrument);
                     }
-                    return;
                 }
-                gSkipNextCompute = false; // add() failed, reset flag
+                return;
             }
         }
     }
 
-    // Fallback: Custom Features API not available — geometry appears as
-    // individual timeline features rather than a single parametric node.
+    // Fallback: Custom Features API not available.
     Ptr<Base> firstFeature, lastFeature;
     createFretboard(instrument, firstFeature, lastFeature);
 }

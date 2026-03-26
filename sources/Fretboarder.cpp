@@ -46,8 +46,8 @@ bool createFretboard(const fretboarder::Instrument& instrument,
                      Ptr<Base>& outLastFeature,
                      Ptr<Component> inComponent) {
 
-    // Use the caller-supplied component if provided (compute handler path),
-    // otherwise look up the root component from the active design (execute path).
+    // Use the caller-supplied component if provided, otherwise look up the
+    // root component from the active design.
     Ptr<Component> component = inComponent;
     if (!component) {
         Ptr<Product> product = Fretboarder::app->activeProduct();
@@ -61,7 +61,6 @@ bool createFretboard(const fretboarder::Instrument& instrument,
 
     fretboarder::Fretboard fretboard(instrument);
 
-    // Only show progress UI on the normal execute path (not inside a compute event).
     Ptr<ProgressDialog> progressDialog;
     if (!inComponent) {
         progressDialog = Fretboarder::ui->createProgressDialog();

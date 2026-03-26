@@ -9,11 +9,7 @@
 #ifndef CustomFeatureHandler_hpp
 #define CustomFeatureHandler_hpp
 
-// Set to true by the execute handler before calling cfFeatures->add() so the
-// compute handler knows geometry was already created and should not be recreated.
-extern bool gSkipNextCompute;
-
-// Handles recomputation of a Fretboard custom feature (delete old geometry + recreate)
+// Handles recomputation of a Fretboard custom feature
 class CustomFeatureComputeEventHandler : public adsk::fusion::CustomFeatureEventHandler
 {
 public:

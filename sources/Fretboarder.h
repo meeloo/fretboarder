@@ -69,9 +69,6 @@ Fretboarder::ui->messageBox(err); }
 #include "CustomFeatureHandler.hpp"
 #include "CommandCreatedEventHandler.hpp"
 
-// component: the component to create geometry in.  Pass nullptr to use the
-//            active design's root component (the normal create-command path).
-//            Pass customFeature->parentComponent() from the compute handler.
 bool createFretboard(const fretboarder::Instrument& instrument,
                      Ptr<Base>& outFirstFeature,
                      Ptr<Base>& outLastFeature,
