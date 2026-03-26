@@ -73,6 +73,11 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     progressDialog->show("creating fretboard", "", 0, 3 + instrument.number_of_strings + instrument.number_of_frets);
 
     progress(progressDialog, "create fretboard plank");
+    // Ensure the design is in parametric mode before adding sub-components.
+    // Part Design mode only allows a single component and addNewComponent() would fail.
+//    design->designType(DirectDesignType);
+    design->designType(ParametricDesignType);
+
     // create Fretboard component
     auto occurrence = rootComp->occurrences()->addNewComponent(Matrix3D::create());
     CHECK(occurrence, false);
@@ -82,8 +87,6 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     CHECK(component, false);
     component->name("Fretboard");
     occurrence->activate();
-//    design->designType(DirectDesignType);
-    design->designType(ParametricDesignType);
 
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
