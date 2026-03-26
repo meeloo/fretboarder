@@ -30,17 +30,8 @@ void CustomFeatureComputeEventHandler::notify(const Ptr<CustomFeatureEventArgs>&
     // Reconstruct instrument from the stored parameters (returned in mm).
     auto instrument = InstrumentFromCustomFeature(cf);
 
-    // Find and delete the old Fretboard occurrence (first grouped feature).
-    auto grouped = cf->features();
-    for (auto& f : grouped) {
-        auto occ = f->cast<Occurrence>();
-        if (occ) {
-            occ->deleteMe();
-            break;
-        }
-    }
-
-    // Recreate the fretboard geometry.
+    // Fusion has already rolled the timeline back past our grouped features
+    // before firing this event, so the old geometry is gone.  Just recreate it.
     Ptr<Base> firstFeature, lastFeature;
     if (!createFretboard(instrument, firstFeature, lastFeature))
         return;

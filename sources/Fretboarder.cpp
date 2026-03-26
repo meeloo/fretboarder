@@ -73,24 +73,18 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     progressDialog->show("creating fretboard", "", 0, 3 + instrument.number_of_strings + instrument.number_of_frets);
 
     progress(progressDialog, "create fretboard plank");
-    // Ensure the design is in parametric mode before adding sub-components.
-    // Part Design mode only allows a single component and addNewComponent() would fail.
-//    design->designType(DirectDesignType);
     design->designType(ParametricDesignType);
 
-    // create Fretboard component
-    auto occurrence = rootComp->occurrences()->addNewComponent(Matrix3D::create());
-    CHECK(occurrence, false);
-    outFirstFeature = occurrence;
-    outLastFeature  = occurrence;
-    auto component = occurrence->component();
-    CHECK(component, false);
-    component->name("Fretboard");
-    occurrence->activate();
+    // Work directly in the root component rather than creating a sub-component.
+    // In newer Fusion 360 "Part Design" documents addNewComponent() is forbidden;
+    // using rootComp avoids that restriction entirely.
+    auto component = rootComp;
 
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
     CHECK(strings_area_sketch, false);
+    // First timeline-visible item — used to anchor the CustomFeature group.
+    outFirstFeature = strings_area_sketch;
     strings_area_sketch->name("Strings area");
     strings_area_sketch->isComputeDeferred(true);
     create_closed_polygon(strings_area_sketch->sketchCurves()->sketchLines(), fretboard.strings_shape());
@@ -305,26 +299,13 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     auto nutslotCreationEndIndex = timeline->markerPosition();
     timelineGroups->add(fretboardCreationEndIndex + 1, nutslotCreationEndIndex - 1);
 
-    // duplicate main body to keep an unslotted version
-    auto unslotted = main_body->copyToComponent(occurrence);
-    CHECK(unslotted, false);
-    unslotted->name("Unslotted");
-    unslotted->isVisible(false);
-    
-    main_body->isVisible(false);
-
     main_body->isVisible(true);
 
     auto top = getFretboardTopSurface(component);
     CHECK(top, false);
     if (top) {
-        auto fretsOccurrence = component->occurrences()->addNewComponent(Matrix3D::create());
-        CHECK(fretsOccurrence, false);
-        outLastFeature = fretsOccurrence;
-        auto fretsComponent = fretsOccurrence->component();
-        CHECK(fretsComponent, false);
-        fretsComponent->name("Frets");
-        //occurrence->activate();
+        // Use the root component for frets too — no sub-component needed.
+        auto fretsComponent = rootComp;
 
         // Prepare material for frets
         //auto lib = Fretboarder::app->materialLibraries()->itemByName("Fusion 360 Material Library");
@@ -419,7 +400,8 @@ bool createFretboard(const fretboarder::Instrument& instrument,
             CHECK(combine_input, false);
             combine_input->isKeepToolBodies(true);
             combine_input->operation(FeatureOperations::CutFeatureOperation);
-            fretsComponent->features()->combineFeatures()->add(combine_input);
+            auto tangCombine = fretsComponent->features()->combineFeatures()->add(combine_input);
+            outLastFeature = tangCombine;
 
             // remote temp objects
             fret_tang_profile->isVisible(false);
@@ -498,7 +480,8 @@ bool createFretboard(const fretboarder::Instrument& instrument,
                 CHECK(combine_input, false);
                 combine_input->isKeepToolBodies(false);
                 combine_input->operation(FeatureOperations::NewBodyFeatureOperation);
-                fretsComponent->features()->combineFeatures()->add(combine_input);
+                auto wireCombine = fretsComponent->features()->combineFeatures()->add(combine_input);
+                outLastFeature = wireCombine;
 
                 for (int b = 0; b < fretsComponent->bRepBodies()->count(); b++)
                 {
