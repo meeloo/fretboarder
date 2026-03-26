@@ -26,25 +26,37 @@ void OnExecuteEventHander::notify(const Ptr<CommandEventArgs>& eventArgs)
     // Custom features require a parametric (timeline) document.
     design->designType(ParametricDesignType);
 
-    // Try to wrap the fretboard in a Custom Feature (requires the
-    // "Custom Features API" preview to be enabled in Fusion preferences).
+    // If Custom Features API is available: create the CF node first, roll back
+    // to before it, create geometry in that slot, then set the CF bounds.
+    // NOTE: rollTo() works fine from the execute handler; it was only broken
+    // inside the compute handler (which also can't create solid bodies).
     if (Fretboarder::customFeatureDef) {
         auto cfFeatures = design->rootComponent()->features()->customFeatures();
         if (cfFeatures) {
             auto cfInput = cfFeatures->createInput(Fretboarder::customFeatureDef);
             if (cfInput) {
                 InstrumentToCustomFeatureInput(cfInput, instrument);
+                gSkipNextCompute = true;
                 auto cf = cfFeatures->add(cfInput);
-                if (cf)
-                    return; // success — compute handler will create the geometry
+                if (cf) {
+                    // Roll to just before the CF so geometry is inserted inside its range.
+                    auto tlo = cf->timelineObject();
+                    if (tlo) tlo->rollTo(true);
+
+                    Ptr<Base> firstFeature, lastFeature;
+                    if (createFretboard(instrument, firstFeature, lastFeature)) {
+                        if (firstFeature && lastFeature)
+                            cf->setStartAndEndFeatures(firstFeature, lastFeature);
+                    }
+                    return;
+                }
+                gSkipNextCompute = false; // add() failed, reset flag
             }
         }
     }
 
-    // Fallback: Custom Features API not available in this document context
-    // (e.g. "Part Design" mode documents reject custom feature creation).
-    // Create the geometry directly — fretboard appears as individual timeline
-    // features rather than a single parametric node.
+    // Fallback: Custom Features API not available — geometry appears as
+    // individual timeline features rather than a single parametric node.
     Ptr<Base> firstFeature, lastFeature;
     createFretboard(instrument, firstFeature, lastFeature);
 }

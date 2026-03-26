@@ -8,6 +8,8 @@
 
 #include "Fretboarder.h"
 
+bool gSkipNextCompute = false;
+
 // ---------------------------------------------------------------------------
 // CustomFeatureComputeEventHandler
 //
@@ -16,10 +18,8 @@
 //
 // Strategy:
 //   1. Read the current instrument parameters from the custom feature.
-//   2. Delete the Fretboard Occurrence that was previously created (this
-//      cascades to all geometry inside it).
-//   3. Recreate the fretboard with the current parameters.
-//   4. Re-group the new geometry under the custom feature.
+//   2. Recreate the fretboard geometry inside the owning component.
+//   3. Re-group the new geometry under the custom feature.
 // ---------------------------------------------------------------------------
 void CustomFeatureComputeEventHandler::notify(const Ptr<CustomFeatureEventArgs>& eventArgs)
 {
@@ -27,11 +27,12 @@ void CustomFeatureComputeEventHandler::notify(const Ptr<CustomFeatureEventArgs>&
     if (!cf)
         return;
 
-    // Roll the timeline to just before this custom feature so that any new
-    // geometry is inserted at the correct position.
-    auto tlo = cf->timelineObject();
-    if (tlo)
-        tlo->rollTo(true);
+    // On initial creation the execute handler already created the geometry and
+    // will call setStartAndEndFeatures itself — nothing to do here.
+    if (gSkipNextCompute) {
+        gSkipNextCompute = false;
+        return;
+    }
 
     // Get the component that owns this custom feature.
     auto comp = cf->parentComponent();

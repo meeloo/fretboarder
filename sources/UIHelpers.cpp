@@ -10,6 +10,7 @@
 #include "UIHelpers.hpp"
 
 void progress(const Ptr<ProgressDialog>& dialog, const std::string& message) {
+    if (!dialog) return;
     dialog->message(message);
     dialog->progressValue(dialog->progressValue() + 1);
 }

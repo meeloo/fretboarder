@@ -45,32 +45,31 @@ bool createFretboard(const fretboarder::Instrument& instrument,
                      Ptr<Base>& outFirstFeature,
                      Ptr<Base>& outLastFeature,
                      Ptr<Component> inComponent) {
-    Ptr<Document> doc = Fretboarder::app->activeDocument();
-    CHECK(doc, false);
 
-    Ptr<Product> product = Fretboarder::app->activeProduct();
-    CHECK(product, false);
-
-    Ptr<Design> design = product;
-    CHECK(design, false);
-
-    // Get the root component of the active design
-    Ptr<Component> rootComp = design->rootComponent();
-    CHECK(rootComp, false);
+    // Use the caller-supplied component if provided (compute handler path),
+    // otherwise look up the root component from the active design (execute path).
+    Ptr<Component> component = inComponent;
+    if (!component) {
+        Ptr<Product> product = Fretboarder::app->activeProduct();
+        CHECK(product, false);
+        Ptr<Design> design = product;
+        CHECK(design, false);
+        design->designType(ParametricDesignType);
+        component = design->rootComponent();
+        CHECK(component, false);
+    }
 
     fretboarder::Fretboard fretboard(instrument);
 
-    auto progressDialog = Fretboarder::ui->createProgressDialog();
-    progressDialog->isCancelButtonShown(false);
-    //progressDialog->isBackgroundTranslucent(true);
-    progressDialog->show("creating fretboard", "", 0, 3 + instrument.number_of_strings + instrument.number_of_frets);
+    // Only show progress UI on the normal execute path (not inside a compute event).
+    Ptr<ProgressDialog> progressDialog;
+    if (!inComponent) {
+        progressDialog = Fretboarder::ui->createProgressDialog();
+        progressDialog->isCancelButtonShown(false);
+        progressDialog->show("creating fretboard", "", 0, 3 + instrument.number_of_strings + instrument.number_of_frets);
+    }
 
     progress(progressDialog, "create fretboard plank");
-    design->designType(ParametricDesignType);
-
-    // Use the caller-supplied component if provided (compute handler path),
-    // otherwise fall back to the root component (execute handler path).
-    auto component = inComponent ? inComponent : rootComp;
 
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
@@ -221,10 +220,12 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     CHECK(loft_features, false);
     auto loft_input = loft_features->createInput(adsk::fusion::FeatureOperations::NewBodyFeatureOperation);
     CHECK(loft_input, false);
-    loft_input->loftSections()->add(radius_1->profiles()->item(0));
-    //    loft_input->loftSections()->add(radius_2->profiles()->item(0));
-    //    loft_input->loftSections()->add(radius_3->profiles()->item(0));
-    loft_input->loftSections()->add(radius_4->profiles()->item(0));
+    auto profile_1 = radius_1->profiles()->item(0);
+    CHECK(profile_1, false);
+    auto profile_4 = radius_4->profiles()->item(0);
+    CHECK(profile_4, false);
+    CHECK(loft_input->loftSections()->add(profile_1), false);
+    CHECK(loft_input->loftSections()->add(profile_4), false);
     loft_input->isSolid(true);
     auto feature = loft_features->add(loft_input);
     CHECK(feature, false);
@@ -487,7 +488,8 @@ bool createFretboard(const fretboarder::Instrument& instrument,
         Fretboarder::ui->messageBox("Top not found");
     }
     
-    progressDialog->hide();
+    if (progressDialog)
+        progressDialog->hide();
 
     return true;
 }
