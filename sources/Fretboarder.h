@@ -28,6 +28,7 @@ public:
     static Ptr<Application> app;
     static Ptr<UserInterface> ui;
     static Ptr<CustomGraphicsGroups> cgGroups;
+    static Ptr<CustomFeatureDefinition> customFeatureDef;
 };
 
 static void DisplayError(const std::string& file, int line, const std::string& exp)
@@ -65,8 +66,11 @@ Fretboarder::ui->messageBox(err); }
 #include "UIHelpers.hpp"
 #include "OnInputChangedEventHander.hpp"
 #include "OnExecutePreviewEventHandler.hpp"
+#include "CustomFeatureHandler.hpp"
 #include "CommandCreatedEventHandler.hpp"
 
-bool createFretboard(const fretboarder::Instrument& instrument);
+bool createFretboard(const fretboarder::Instrument& instrument,
+                     Ptr<Base>& outFirstFeature,
+                     Ptr<Base>& outLastFeature);
 
 #endif /* Fretboarder_h */

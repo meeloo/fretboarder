@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="fretboarderLib\Fretboard.cpp" />
     <ClCompile Include="sources\CommandCreatedEventHandler.cpp" />
+    <ClCompile Include="sources\CustomFeatureHandler.cpp" />
     <ClCompile Include="sources\Fretboarder.cpp" />
     <ClCompile Include="fretboarderLib\Geometry.cpp" />
     <ClCompile Include="fretboarderLib\String.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="fretboarderLib\Geometry.hpp" />
     <ClInclude Include="fretboarderLib\String.hpp" />
     <ClInclude Include="sources\CommandCreatedEventHandler.hpp" />
+    <ClInclude Include="sources\CustomFeatureHandler.hpp" />
     <ClInclude Include="sources\Fretboarder.h" />
     <ClInclude Include="sources\Instruments+Inputs.hpp" />
     <ClInclude Include="sources\OnExecutePreviewEventHandler.hpp" />

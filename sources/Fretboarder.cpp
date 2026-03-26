@@ -3,7 +3,11 @@
 Ptr<Application> Fretboarder::app;
 Ptr<UserInterface> Fretboarder::ui;
 Ptr<CustomGraphicsGroups> Fretboarder::cgGroups;
+Ptr<CustomFeatureDefinition> Fretboarder::customFeatureDef;
+
 OnCommandCreatedEventHandler _cmdCreatedHandler;
+CustomFeatureComputeEventHandler _customFeatureComputeHandler;
+OnEditCommandCreatedEventHandler _editCmdCreatedHandler;
 
 Ptr<BRepFace> getFretboardTopSurface(const Ptr<Component>& component) {
     CHECK(component, nullptr);
@@ -37,7 +41,9 @@ Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path
     return fret;
 }
 
-bool createFretboard(const fretboarder::Instrument& instrument) {
+bool createFretboard(const fretboarder::Instrument& instrument,
+                     Ptr<Base>& outFirstFeature,
+                     Ptr<Base>& outLastFeature) {
     Ptr<Document> doc = Fretboarder::app->activeDocument();
     CHECK(doc, false);
 
@@ -70,6 +76,8 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     // create Fretboard component
     auto occurrence = rootComp->occurrences()->addNewComponent(Matrix3D::create());
     CHECK(occurrence, false);
+    outFirstFeature = occurrence;
+    outLastFeature  = occurrence;
     auto component = occurrence->component();
     CHECK(component, false);
     component->name("Fretboard");
@@ -301,14 +309,15 @@ bool createFretboard(const fretboarder::Instrument& instrument) {
     unslotted->isVisible(false);
     
     main_body->isVisible(false);
-    
+
     main_body->isVisible(true);
-    
+
     auto top = getFretboardTopSurface(component);
     CHECK(top, false);
     if (top) {
         auto fretsOccurrence = component->occurrences()->addNewComponent(Matrix3D::create());
         CHECK(fretsOccurrence, false);
+        outLastFeature = fretsOccurrence;
         auto fretsComponent = fretsOccurrence->component();
         CHECK(fretsComponent, false);
         fretsComponent->name("Frets");
@@ -561,6 +570,16 @@ extern "C" XI_EXPORT bool run(const char* context)
     //auto customFratureComputeEvent = customFeatureDefinition->customFeatureCompute();
 //    customFratureComputeEvent->add(customFratureComputeEventHandler);
 
+    // Register custom feature definition so that existing fretboard features can be recomputed
+    // and edited after the add-in is reloaded.
+    Fretboarder::customFeatureDef = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "");
+    if (Fretboarder::customFeatureDef) {
+        Fretboarder::customFeatureDef->editCommandId("editFretboard");
+        auto computeEvent = Fretboarder::customFeatureDef->customFeatureCompute();
+        if (computeEvent)
+            computeEvent->add(&_customFeatureComputeHandler);
+    }
+
     // Create the command definition.
     Ptr<CommandDefinitions> commandDefinitions = Fretboarder::ui->commandDefinitions();
     if (!commandDefinitions)
@@ -574,12 +593,25 @@ extern "C" XI_EXPORT bool run(const char* context)
                                                          "Fretboarder",
                                                          "Create fretboards for stringed instruments.");
     }
-    
+
     // Connect to the command created event.
     Ptr<CommandCreatedEvent> commandCreatedEvent = cmdDef->commandCreated();
     if (!commandCreatedEvent)
         return false;
     commandCreatedEvent->add(&_cmdCreatedHandler);
+
+    // Register the edit command definition (invoked when user double-clicks the feature).
+    Ptr<CommandDefinition> editCmdDef = commandDefinitions->itemById("editFretboard");
+    if (!editCmdDef)
+    {
+        editCmdDef = commandDefinitions->addButtonDefinition("editFretboard",
+                                                             "Edit Fretboard",
+                                                             "Edit an existing fretboard.");
+    }
+    Ptr<CommandCreatedEvent> editCommandCreatedEvent = editCmdDef->commandCreated();
+    if (!editCommandCreatedEvent)
+        return false;
+    editCommandCreatedEvent->add(&_editCmdCreatedHandler);
     
     // Execute the command definition.
     cmdDef->execute();
