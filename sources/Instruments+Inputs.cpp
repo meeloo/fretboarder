@@ -10,42 +10,42 @@
 #include "Instruments+Inputs.hpp"
 
 Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
-    Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
-    Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
-    Ptr<FloatSpinnerCommandInput> scale_length_treble = inputs->itemById("scale_length_treble");
-    Ptr<FloatSpinnerCommandInput> scale_length_bass = inputs->itemById("scale_length_bass");
-    Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
-    Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
-    Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
-    Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
-    Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
-    Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
-    Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
-    Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
+    Ptr<BoolValueCommandInput>    right_handed                   = inputs->itemById(Param::right_handed);
+    Ptr<IntegerSliderCommandInput>number_of_strings              = inputs->itemById(Param::number_of_strings);
+    Ptr<ValueCommandInput>        scale_length_treble            = inputs->itemById(Param::scale_length_treble);
+    Ptr<ValueCommandInput>        scale_length_bass              = inputs->itemById(Param::scale_length_bass);
+    Ptr<ValueCommandInput>        perpendicular_fret_index       = inputs->itemById(Param::perpendicular_fret_index);
+    Ptr<ValueCommandInput>        inter_string_spacing_at_nut    = inputs->itemById(Param::inter_string_spacing_at_nut);
+    Ptr<ValueCommandInput>        inter_string_spacing_at_bridge = inputs->itemById(Param::inter_string_spacing_at_bridge);
+    Ptr<BoolValueCommandInput>    has_zero_fret                  = inputs->itemById(Param::has_zero_fret);
+    Ptr<ValueCommandInput>        nut_to_zero_fret_offset        = inputs->itemById(Param::nut_to_zero_fret_offset);
+    Ptr<ValueCommandInput>        space_before_nut               = inputs->itemById(Param::space_before_nut);
+    Ptr<BoolValueCommandInput>    carve_nut_slot                 = inputs->itemById(Param::carve_nut_slot);
+    Ptr<ValueCommandInput>        nut_thickness                  = inputs->itemById(Param::nut_thickness);
+    Ptr<ValueCommandInput>        nut_height_under               = inputs->itemById(Param::nut_height_under);
+    Ptr<ValueCommandInput>        nut_width                      = inputs->itemById(Param::nut_width);
 
-    Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
-    Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
-    Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
-    Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
-    Ptr<BoolValueCommandInput> draw_strings = inputs->itemById("draw_strings");
-    Ptr<BoolValueCommandInput> draw_frets = inputs->itemById("draw_frets");
-    Ptr<BoolValueCommandInput> carve_fret_slots = inputs->itemById("carve_fret_slots");
-    Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
-    Ptr<FloatSpinnerCommandInput> overhangSingle = inputs->itemById("overhangSingle");
-    Ptr<FloatSpinnerCommandInput> overhangNut = inputs->itemById("overhangNut");
-    Ptr<FloatSpinnerCommandInput> overhangLast = inputs->itemById("overhangLast");
-    Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
-    Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
-    Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
-    Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
-    Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
-    Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
-    Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
-    Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
-    Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
-    Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
+    Ptr<ValueCommandInput>        radius_at_nut                  = inputs->itemById(Param::radius_at_nut);
+    Ptr<ValueCommandInput>        radius_at_last_fret            = inputs->itemById(Param::radius_at_last_fret);
+    Ptr<ValueCommandInput>        fretboard_thickness            = inputs->itemById(Param::fretboard_thickness);
+    Ptr<ValueCommandInput>        number_of_frets                = inputs->itemById(Param::number_of_frets);
+    Ptr<BoolValueCommandInput>    draw_strings                   = inputs->itemById(Param::draw_strings);
+    Ptr<BoolValueCommandInput>    draw_frets                     = inputs->itemById(Param::draw_frets);
+    Ptr<BoolValueCommandInput>    carve_fret_slots               = inputs->itemById(Param::carve_fret_slots);
+    Ptr<DropDownCommandInput>     overhang_type                  = inputs->itemById(Param::overhang_type);
+    Ptr<ValueCommandInput>        overhangSingle                 = inputs->itemById(Param::overhangSingle);
+    Ptr<ValueCommandInput>        overhangNut                    = inputs->itemById(Param::overhangNut);
+    Ptr<ValueCommandInput>        overhangLast                   = inputs->itemById(Param::overhangLast);
+    Ptr<ValueCommandInput>        overhang0                      = inputs->itemById(Param::overhang0);
+    Ptr<ValueCommandInput>        overhang1                      = inputs->itemById(Param::overhang1);
+    Ptr<ValueCommandInput>        overhang2                      = inputs->itemById(Param::overhang2);
+    Ptr<ValueCommandInput>        overhang3                      = inputs->itemById(Param::overhang3);
+    Ptr<ValueCommandInput>        hidden_tang_length             = inputs->itemById(Param::hidden_tang_length);
+    Ptr<ValueCommandInput>        fret_slots_width               = inputs->itemById(Param::fret_slots_width);
+    Ptr<ValueCommandInput>        fret_slots_height              = inputs->itemById(Param::fret_slots_height);
+    Ptr<ValueCommandInput>        fret_crown_width               = inputs->itemById(Param::fret_crown_width);
+    Ptr<ValueCommandInput>        fret_crown_height              = inputs->itemById(Param::fret_crown_height);
+    Ptr<ValueCommandInput>        last_fret_cut_offset           = inputs->itemById(Param::last_fret_cut_offset);
 
     fretboarder::Instrument instrument;
 
@@ -95,7 +95,7 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
     instrument.inter_string_spacing_at_bridge = inter_string_spacing_at_bridge->value();
     instrument.has_zero_fret = has_zero_fret->value();
     instrument.nut_to_zero_fret_offset = nut_to_zero_fret_offset->value();
-    instrument.number_of_frets = number_of_frets->valueOne();
+    instrument.number_of_frets = (int)round(number_of_frets->value());
     instrument.draw_frets = draw_frets->value();
     instrument.carve_fret_slots = carve_fret_slots->value();
     OverhangType t = single;
@@ -144,38 +144,38 @@ Instrument InstrumentFromInputs(const Ptr<CommandInputs>& inputs) {
 void InstrumentToInputs(const Ptr<CommandInputs>& inputs, const Instrument& i) {
     Instrument instrument = i;
 
-    Ptr<BoolValueCommandInput> right_handed = inputs->itemById("right_handed");
-    Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
-    Ptr<FloatSpinnerCommandInput> scale_length_treble = inputs->itemById("scale_length_treble");
-    Ptr<FloatSpinnerCommandInput> scale_length_bass = inputs->itemById("scale_length_bass");
-    Ptr<FloatSpinnerCommandInput> perpendicular_fret_index = inputs->itemById("perpendicular_fret_index");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_bridge = inputs->itemById("inter_string_spacing_at_bridge");
-    Ptr<BoolValueCommandInput> has_zero_fret = inputs->itemById("has_zero_fret");
-    Ptr<FloatSpinnerCommandInput> nut_to_zero_fret_offset = inputs->itemById("nut_to_zero_fret_offset");
-    Ptr<FloatSpinnerCommandInput> space_before_nut = inputs->itemById("space_before_nut");
-    Ptr<BoolValueCommandInput> carve_nut_slot = inputs->itemById("carve_nut_slot");
-    Ptr<FloatSpinnerCommandInput> nut_thickness = inputs->itemById("nut_thickness");
-    Ptr<FloatSpinnerCommandInput> nut_height_under = inputs->itemById("nut_height_under");
-    Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
-    Ptr<FloatSpinnerCommandInput> radius_at_nut = inputs->itemById("radius_at_nut");
-    Ptr<FloatSpinnerCommandInput> radius_at_last_fret = inputs->itemById("radius_at_last_fret");
-    Ptr<FloatSpinnerCommandInput> fretboard_thickness = inputs->itemById("fretboard_thickness");
-    Ptr<IntegerSliderCommandInput> number_of_frets = inputs->itemById("number_of_frets");
-    Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
-    Ptr<FloatSpinnerCommandInput> overhangSingle = inputs->itemById("overhangSingle");
-    Ptr<FloatSpinnerCommandInput> overhangNut = inputs->itemById("overhangNut");
-    Ptr<FloatSpinnerCommandInput> overhangLast = inputs->itemById("overhangLast");
-    Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
-    Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
-    Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
-    Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
-    Ptr<FloatSpinnerCommandInput> hidden_tang_length = inputs->itemById("hidden_tang_length");
-    Ptr<FloatSpinnerCommandInput> fret_slots_width = inputs->itemById("fret_slots_width");
-    Ptr<FloatSpinnerCommandInput> fret_slots_height = inputs->itemById("fret_slots_height");
-    Ptr<FloatSpinnerCommandInput> fret_crown_width = inputs->itemById("fret_crown_width");
-    Ptr<FloatSpinnerCommandInput> fret_crown_height = inputs->itemById("fret_crown_height");
-    Ptr<FloatSpinnerCommandInput> last_fret_cut_offset = inputs->itemById("last_fret_cut_offset");
+    Ptr<BoolValueCommandInput>    right_handed                   = inputs->itemById(Param::right_handed);
+    Ptr<IntegerSliderCommandInput>number_of_strings              = inputs->itemById(Param::number_of_strings);
+    Ptr<ValueCommandInput>        scale_length_treble            = inputs->itemById(Param::scale_length_treble);
+    Ptr<ValueCommandInput>        scale_length_bass              = inputs->itemById(Param::scale_length_bass);
+    Ptr<ValueCommandInput>        perpendicular_fret_index       = inputs->itemById(Param::perpendicular_fret_index);
+    Ptr<ValueCommandInput>        inter_string_spacing_at_nut    = inputs->itemById(Param::inter_string_spacing_at_nut);
+    Ptr<ValueCommandInput>        inter_string_spacing_at_bridge = inputs->itemById(Param::inter_string_spacing_at_bridge);
+    Ptr<BoolValueCommandInput>    has_zero_fret                  = inputs->itemById(Param::has_zero_fret);
+    Ptr<ValueCommandInput>        nut_to_zero_fret_offset        = inputs->itemById(Param::nut_to_zero_fret_offset);
+    Ptr<ValueCommandInput>        space_before_nut               = inputs->itemById(Param::space_before_nut);
+    Ptr<BoolValueCommandInput>    carve_nut_slot                 = inputs->itemById(Param::carve_nut_slot);
+    Ptr<ValueCommandInput>        nut_thickness                  = inputs->itemById(Param::nut_thickness);
+    Ptr<ValueCommandInput>        nut_height_under               = inputs->itemById(Param::nut_height_under);
+    Ptr<ValueCommandInput>        nut_width                      = inputs->itemById(Param::nut_width);
+    Ptr<ValueCommandInput>        radius_at_nut                  = inputs->itemById(Param::radius_at_nut);
+    Ptr<ValueCommandInput>        radius_at_last_fret            = inputs->itemById(Param::radius_at_last_fret);
+    Ptr<ValueCommandInput>        fretboard_thickness            = inputs->itemById(Param::fretboard_thickness);
+    Ptr<ValueCommandInput>        number_of_frets                = inputs->itemById(Param::number_of_frets);
+    Ptr<DropDownCommandInput>     overhang_type                  = inputs->itemById(Param::overhang_type);
+    Ptr<ValueCommandInput>        overhangSingle                 = inputs->itemById(Param::overhangSingle);
+    Ptr<ValueCommandInput>        overhangNut                    = inputs->itemById(Param::overhangNut);
+    Ptr<ValueCommandInput>        overhangLast                   = inputs->itemById(Param::overhangLast);
+    Ptr<ValueCommandInput>        overhang0                      = inputs->itemById(Param::overhang0);
+    Ptr<ValueCommandInput>        overhang1                      = inputs->itemById(Param::overhang1);
+    Ptr<ValueCommandInput>        overhang2                      = inputs->itemById(Param::overhang2);
+    Ptr<ValueCommandInput>        overhang3                      = inputs->itemById(Param::overhang3);
+    Ptr<ValueCommandInput>        hidden_tang_length             = inputs->itemById(Param::hidden_tang_length);
+    Ptr<ValueCommandInput>        fret_slots_width               = inputs->itemById(Param::fret_slots_width);
+    Ptr<ValueCommandInput>        fret_slots_height              = inputs->itemById(Param::fret_slots_height);
+    Ptr<ValueCommandInput>        fret_crown_width               = inputs->itemById(Param::fret_crown_width);
+    Ptr<ValueCommandInput>        fret_crown_height              = inputs->itemById(Param::fret_crown_height);
+    Ptr<ValueCommandInput>        last_fret_cut_offset           = inputs->itemById(Param::last_fret_cut_offset);
 
     CHECK2(right_handed);
     CHECK2(number_of_strings);
@@ -226,7 +226,7 @@ void InstrumentToInputs(const Ptr<CommandInputs>& inputs, const Instrument& i) {
     radius_at_nut->value(instrument.radius_at_nut);
     radius_at_last_fret->value(instrument.radius_at_last_fret);
     fretboard_thickness->value(instrument.fretboard_thickness);
-    number_of_frets->valueOne(instrument.number_of_frets);
+    number_of_frets->value((double)instrument.number_of_frets);
     OverhangType t = single;
     auto selected_item = overhang_type->selectedItem();
     if (selected_item != nullptr) {
@@ -300,148 +300,147 @@ void BuildFretboardDialogInputs(const Ptr<CommandInputs>& inputs) {
     group->addBoolValueInput("Load", "Load preset", false);
     group->addBoolValueInput("Save", "Save preset", false);
 
-    auto rightHanded = group->addBoolValueInput("right_handed", "Right handed", true, "", true);
+    auto rightHanded = group->addBoolValueInput(Param::right_handed, "Right handed", true, "", true);
     rightHanded->tooltip("Switch in between right and left handed string layout.");
     rightHanded->tooltipDescription("The left handed version just mirrors the layout of the strings.");
 
-    auto number_of_strings_slider = group->addIntegerSliderCommandInput("number_of_strings", "Count", 1, 15);
+    auto number_of_strings_slider = group->addIntegerSliderCommandInput(Param::number_of_strings, "Count", 1, 15);
     number_of_strings_slider->tooltip("Select the number of strings for your instrument.");
     number_of_strings_slider->tooltipDescription("Minimum is 1 string, maximum 15.");
     CHECK2(number_of_strings_slider);
     number_of_strings_slider->valueOne(6);
 
-    auto inter_string_spacing_at_nut = group->addFloatSpinnerCommandInput("inter_string_spacing_at_nut", "Spacing at nut", "mm", 0.1, 40, 0.1, 7.5);
+    auto inter_string_spacing_at_nut = group->addValueInput(Param::inter_string_spacing_at_nut, "Spacing at nut", "mm", ValueInput::createByString("7.5 mm"));
     inter_string_spacing_at_nut->tooltip("This is the distance in between each string on the nut (or the zero string if you have one)");
 
-    auto inter_string_spacing_at_bridge = group->addFloatSpinnerCommandInput("inter_string_spacing_at_bridge", "Spacing at bridge", "mm", 0.1, 40, 0.1, 12.0);
+    auto inter_string_spacing_at_bridge = group->addValueInput(Param::inter_string_spacing_at_bridge, "Spacing at bridge", "mm", ValueInput::createByString("12 mm"));
     inter_string_spacing_at_bridge->tooltip("This is the distance in between each string on the bridge.");
     inter_string_spacing_at_bridge->tooltipDescription("This may be dictated by the design of your bridge.");
 
-    auto overhang_type = group->addDropDownCommandInput("overhang_type", "Overhang type", TextListDropDownStyle);
+    auto overhang_type = group->addDropDownCommandInput(Param::overhang_type, "Overhang type", TextListDropDownStyle);
     auto overhang_items = overhang_type->listItems();
     overhang_items->add("single", true);
     overhang_items->add("nut and last fret", false);
     overhang_items->add("all", false);
 
-    auto overhangSingle = group->addFloatSpinnerCommandInput("overhangSingle", "Fret overhang", "mm", 0, 50, 0.1, 3.0);
+    auto overhangSingle = group->addValueInput(Param::overhangSingle, "Fret overhang", "mm", ValueInput::createByString("3 mm"));
     overhangSingle->tooltip("This is the distance in between the outer strings and the border of the fretboard");
 
-    auto overhangNut = group->addFloatSpinnerCommandInput("overhangNut", "Fret overhang at the nut", "mm", 0, 50, 0.1, 3.0);
+    auto overhangNut = group->addValueInput(Param::overhangNut, "Fret overhang at the nut", "mm", ValueInput::createByString("3 mm"));
     overhangNut->tooltip("This is the distance in between the outer string and the border of the fretboard at the nut");
     overhangNut->isVisible(false);
 
-    auto overhangLast = group->addFloatSpinnerCommandInput("overhangLast", "Fret overhang at last fret", "mm", 0, 50, 0.1, 3.0);
+    auto overhangLast = group->addValueInput(Param::overhangLast, "Fret overhang at last fret", "mm", ValueInput::createByString("3 mm"));
     overhangLast->tooltip("This is the distance in between the outer strings and the border of the fretboard at the last fret");
     overhangLast->isVisible(false);
 
-    auto overhang0 = group->addFloatSpinnerCommandInput("overhang0", "Fret overhang at nut (bass)", "mm", 0, 50, 0.1, 3.0);
+    auto overhang0 = group->addValueInput(Param::overhang0, "Fret overhang at nut (bass)", "mm", ValueInput::createByString("3 mm"));
     overhang0->tooltip("This is the distance in between the first string and the border of the fretboard at the nut");
     overhang0->isVisible(false);
 
-    auto overhang1 = group->addFloatSpinnerCommandInput("overhang1", "Fret overhang at last fret (bass)", "mm", 0, 50, 0.1, 3.0);
+    auto overhang1 = group->addValueInput(Param::overhang1, "Fret overhang at last fret (bass)", "mm", ValueInput::createByString("3 mm"));
     overhang1->tooltip("This is the distance in between the first string and the border of the fretboard at the last fret");
     overhang1->isVisible(false);
 
-    auto overhang2 = group->addFloatSpinnerCommandInput("overhang2", "Fret overhang at nut (treble)", "mm", 0, 50, 0.1, 3.0);
+    auto overhang2 = group->addValueInput(Param::overhang2, "Fret overhang at nut (treble)", "mm", ValueInput::createByString("3 mm"));
     overhang2->tooltip("This is the distance in between the last string and the border of the fretboard at the nut");
     overhang2->isVisible(false);
 
-    auto overhang3 = group->addFloatSpinnerCommandInput("overhang3", "Fret overhang at last fret (treble)", "mm", 0, 50, 0.1, 3.0);
+    auto overhang3 = group->addValueInput(Param::overhang3, "Fret overhang at last fret (treble)", "mm", ValueInput::createByString("3 mm"));
     overhang3->tooltip("This is the distance in between the last string and the border of the fretboard at last fret");
     overhang3->isVisible(false);
 
-    auto draw_strings = group->addBoolValueInput("draw_strings", "Draw strings", true, "", true);
+    auto draw_strings = group->addBoolValueInput(Param::draw_strings, "Draw strings", true, "", true);
     draw_strings->tooltip("Enabling this will create a sketch for the position of the strings following the ideal radius of the fretboard and the bridge.");
 
     group = inputs->addTabCommandInput("scale_length", "Scale length")->children();
-    auto scale_length_bass = group->addFloatSpinnerCommandInput("scale_length_bass", "Bass side", "in", 1, 10000, 0.1, 25.5);
+    auto scale_length_bass = group->addValueInput(Param::scale_length_bass, "Bass side", "in", ValueInput::createByString("25.5 in"));
     scale_length_bass->tooltip("Enter the scale length of the bass string");
     scale_length_bass->tooltipDescription("This is independent of the handedness of the instrument you are building. Use the 'right handed' switch above to control that instead.");
 
-    auto scale_length_treble = group->addFloatSpinnerCommandInput("scale_length_treble", "Treble side", "in", 1, 10000, 0.1, 25.0);
+    auto scale_length_treble = group->addValueInput(Param::scale_length_treble, "Treble side", "in", ValueInput::createByString("25 in"));
     scale_length_treble->tooltip("Enter the scale length of the treble string");
     scale_length_treble->tooltipDescription("This is independent of the handedness of the instrument you are building. Use the 'right handed' switch above to control that instead.");
 
     group = inputs->addTabCommandInput("fretboard_radius", "Fretboard")->children();
-    auto radius_at_nut = group->addFloatSpinnerCommandInput("radius_at_nut", "Radius at nut", "in", 0, 10000, 0.1, 9.5);
+    auto radius_at_nut = group->addValueInput(Param::radius_at_nut, "Radius at nut", "in", ValueInput::createByString("9.5 in"));
     radius_at_nut->tooltip("Enter the desired fretboard radius at the nut.");
     radius_at_nut->tooltipDescription("You can choose a different radius at the nut and at the last fret to create a compound radius.");
 
-    auto radius_at_last_fret = group->addFloatSpinnerCommandInput("radius_at_last_fret", "Radius at last fret", "in", 0, 10000, 0.1, 20.0);
+    auto radius_at_last_fret = group->addValueInput(Param::radius_at_last_fret, "Radius at last fret", "in", ValueInput::createByString("20 in"));
     radius_at_last_fret->tooltip("Enter the desired fretboard radius at the last fret.");
     radius_at_last_fret->tooltipDescription("You can choose a different radius at the nut and at the last fret to create a compound radius.");
 
-    auto fretboard_thickness = group->addFloatSpinnerCommandInput("fretboard_thickness", "Thickness", "mm", 0, 100, 0.1, 7.0);
+    auto fretboard_thickness = group->addValueInput(Param::fretboard_thickness, "Thickness", "mm", ValueInput::createByString("7 mm"));
     fretboard_thickness->tooltip("This is the thickness of your fretboard.");
     fretboard_thickness->tooltipDescription("This has to be less than thickness of the stock plank you will use.");
 
     group = inputs->addTabCommandInput("frets", "Frets")->children();
-    auto number_of_frets_slider = group->addIntegerSliderCommandInput("number_of_frets", "Number of frets", 0, 60);
-    number_of_frets_slider->tooltip("This is the number of frets not counting the zero fret.");
-    CHECK2(number_of_frets_slider);
-    number_of_frets_slider->valueOne(24);
+    auto number_of_frets_input = group->addValueInput(Param::number_of_frets, "Number of frets", "", ValueInput::createByString("24"));
+    number_of_frets_input->tooltip("This is the number of frets not counting the zero fret.");
+    CHECK2(number_of_frets_input);
 
-    auto perpendicular_fret_index = group->addFloatSpinnerCommandInput("perpendicular_fret_index", "Perpendicular Fret", "", -36, 100, 0.1, 0.0);
+    auto perpendicular_fret_index = group->addValueInput(Param::perpendicular_fret_index, "Perpendicular Fret", "", ValueInput::createByString("0"));
     perpendicular_fret_index->tooltip("This is the position of the perpendicular fret for multiscale instruments. Use 100 to have the bridge be perpendicular to the strings (i.e. not slanted)");
     perpendicular_fret_index->tooltipDescription("This number is a floating point representing the position of the fretboard. If you choose, say, 7.5, the perpandicular position will be calculated as if it was right in between the 7th and the 8th fret. You can also use a negative number to completely offset the slanting of the string.");
 
-    auto has_zero_fret = group->addBoolValueInput("has_zero_fret", "Zero fret", true, "", true);
+    auto has_zero_fret = group->addBoolValueInput(Param::has_zero_fret, "Zero fret", true, "", true);
     has_zero_fret->tooltip("Enable or disable the use of a zero-fret.");
     has_zero_fret->tooltipDescription("Seriously, why would you disable the zero fret? Are you nuts?");
 
-    auto nut_to_zero_fret_offset = group->addFloatSpinnerCommandInput("nut_to_zero_fret_offset", "Distance from nut to zero fret", "mm", 0, 200, 0.1, 3.0);
+    auto nut_to_zero_fret_offset = group->addValueInput(Param::nut_to_zero_fret_offset, "Distance from nut to zero fret", "mm", ValueInput::createByString("3 mm"));
     nut_to_zero_fret_offset->tooltip("This is the distance in between the zero fret's slot and the nut.");
     nut_to_zero_fret_offset->tooltipDescription("Is it ignored if you don't have a zero fret or if you choose not to carve the nut.");
 
-    auto draw_frets = group->addBoolValueInput("draw_frets", "Draw frets", true, "", true);
+    auto draw_frets = group->addBoolValueInput(Param::draw_frets, "Draw frets", true, "", true);
     draw_frets->tooltip("Enabling this will enable the creation of bodies that represent the frets.");
     draw_frets->tooltipDescription("This is purely for esthetics, if you want to create renders for a client with a fretboard that looks finished.");
 
-    auto carve_fret_slots = group->addBoolValueInput("carve_fret_slots", "Carve fret slots", true, "", true);
+    auto carve_fret_slots = group->addBoolValueInput(Param::carve_fret_slots, "Carve fret slots", true, "", true);
     carve_fret_slots->tooltip("Enabling this will enable the carving of fret slots in the fretboard.");
 
-    auto hidden_tang_length = group->addFloatSpinnerCommandInput("hidden_tang_length", "Blind tang length", "mm", 0, 50, 0.1, 2.0);
+    auto hidden_tang_length = group->addValueInput(Param::hidden_tang_length, "Blind tang length", "mm", ValueInput::createByString("2 mm"));
     hidden_tang_length->tooltip("This is the distance in between the tang of the frets and the border of the fretboard plank");
     hidden_tang_length->tooltipDescription("If you want to have the fret tangs appearing on the border of the fretboard, use 0mm. Any other number will create blind/hidden frets tangs.");
 
-    auto fret_slots_width = group->addFloatSpinnerCommandInput("fret_slots_width", "Fret slots width", "mm", 0, 2, 0.1, 0.6);
+    auto fret_slots_width = group->addValueInput(Param::fret_slots_width, "Fret slots width", "mm", ValueInput::createByString("0.6 mm"));
     fret_slots_width->tooltip("This is the kerf of the tool you will use to cut the fret slots and the thickness of the fret's tang. 0.5 to 0.6mm is generally a good range.");
     fret_slots_width->tooltipDescription("This is also used to model the fret tang bodies if you choose to draw the frets");
 
-    auto fret_slots_height = group->addFloatSpinnerCommandInput("fret_slots_height", "Fret slots height", "mm", 0, 10, 0.1, 1.5);
+    auto fret_slots_height = group->addValueInput(Param::fret_slots_height, "Fret slots height", "mm", ValueInput::createByString("1.5 mm"));
     fret_slots_height->tooltip("This is the depth of the fret slots.");
     fret_slots_height->tooltipDescription("This should be greater of equal than the height of the tang of the frets you are going to use.");
 
-    auto fret_crown_width = group->addFloatSpinnerCommandInput("fret_crown_width", "Fret crown width", "mm", 0, 10, 0.1, 2.34);
+    auto fret_crown_width = group->addValueInput(Param::fret_crown_width, "Fret crown width", "mm", ValueInput::createByString("2.34 mm"));
     fret_crown_width->tooltip("This is use to model the crown of the frets should you choose to draw them.");
     fret_crown_width->tooltipDescription("This is purely esthetic.");
 
-    auto fret_crown_height = group->addFloatSpinnerCommandInput("fret_crown_height", "Fret crown height", "mm", 0, 10, 0.1, 1.22);
+    auto fret_crown_height = group->addValueInput(Param::fret_crown_height, "Fret crown height", "mm", ValueInput::createByString("1.22 mm"));
     fret_crown_height->tooltip("This is use to model the crown of the frets should you choose to draw them.");
     fret_crown_height->tooltipDescription("This is purely esthetic.");
 
-    auto last_fret_cut_offset = group->addFloatSpinnerCommandInput("last_fret_cut_offset", "Last fret cut offset", "mm", 0, 10, 0.1, 0);
+    auto last_fret_cut_offset = group->addValueInput(Param::last_fret_cut_offset, "Last fret cut offset", "mm", ValueInput::createByString("0 mm"));
     last_fret_cut_offset->tooltip("This is an offset that is added after the last fret to choose the length of the fretboard.");
     last_fret_cut_offset->tooltipDescription("Using 0mm here will have your fretboard stopping one half fret after the last fret.");
 
     group = inputs->addTabCommandInput("nut", "Nut")->children();
-    auto space_before_nut = group->addFloatSpinnerCommandInput("space_before_nut", "Space before nut", "mm", 0, 100, 0.1, 7.0);
+    auto space_before_nut = group->addValueInput(Param::space_before_nut, "Space before nut", "mm", ValueInput::createByString("7 mm"));
     space_before_nut->tooltip("This is the amount of fretboard you need before in between it's start and the nut.");
     space_before_nut->tooltipDescription("This is probably 0 if you are using a Gibson type nut. Fender nuts typically need 3 to 5 mm here.");
 
-    auto nut_thickness = group->addFloatSpinnerCommandInput("nut_thickness", "Thickness", "mm", 0, 100, 0.1, 4.0);
+    auto nut_thickness = group->addValueInput(Param::nut_thickness, "Thickness", "mm", ValueInput::createByString("4 mm"));
     nut_thickness->tooltip("This is the thickness/width of the nut (as seen from above).");
 
-    auto carve_nut_slot = group->addBoolValueInput("carve_nut_slot", "Carve the nut slot", true, "", true);
+    auto carve_nut_slot = group->addBoolValueInput(Param::carve_nut_slot, "Carve the nut slot", true, "", true);
     carve_nut_slot->tooltip("You can disable carving the nut.");
     carve_nut_slot->tooltipDescription("Some headless instruments use the their mini head pieces as a nut/string guide.");
 
-    auto nut_height_under = group->addFloatSpinnerCommandInput("nut_height_under", "Slot depth", "mm", 0, 100, 0.1, 3.0);
+    auto nut_height_under = group->addValueInput(Param::nut_height_under, "Slot depth", "mm", ValueInput::createByString("3 mm"));
     nut_height_under->tooltip("This is the depth of the nut cavity from the top of the fretboard.");
 
     auto computed = inputs->addGroupCommandInput("global_values", "Computed values");
     computed->isEnabled(false);
-    auto nut_width = computed->children()->addFloatSpinnerCommandInput("nut_width", "Computed nut width", "mm", 0, 1000, 0.1, 45);
+    auto nut_width = computed->children()->addValueInput(Param::nut_width, "Computed nut width", "mm", ValueInput::createByString("45 mm"));
     nut_width->tooltip("This is calculated for you.");
     nut_width->tooltipDescription("It indicates the actual width of the nut/fretboard depending on the values you have used for the other parameters");
     CHECK2(nut_width);
@@ -464,7 +463,7 @@ void BuildFretboardDialogInputs(const Ptr<CommandInputs>& inputs) {
 // ---------------------------------------------------------------------------
 
 // Helper: value() returns 0 for a missing parameter (safe read)
-static double cfParamVal(const Ptr<CustomFeature>& feature, const std::string& id) {
+static double cfParamVal(const Ptr<CustomFeature>& feature, const char* id) {
     auto params = feature->parameters();
     if (!params) return 0.0;
     auto p = params->itemById(id);
@@ -472,92 +471,146 @@ static double cfParamVal(const Ptr<CustomFeature>& feature, const std::string& i
 }
 
 void InstrumentToCustomFeatureInput(const Ptr<CustomFeatureInput>& cfInput,
-                                    const Instrument& instrument) {
+                                    const Instrument& instrument,
+                                    const Ptr<CommandInputs>& inputs) {
     // instrument values are in mm (post scale(10)).
     // Fusion internal unit for length = cm, so divide by 10.
     auto L = [](double mm) { return ValueInput::createByReal(mm / 10.0); };
     auto D = [](double v)  { return ValueInput::createByReal(v); };
 
-    auto addP = [&](const std::string& id, const std::string& label,
+    // When dialog inputs are available, use the expression string verbatim so
+    // that user-parameter references (e.g. "myScale") are preserved.  Falls back
+    // to a literal real value when inputs are not provided (e.g. compute handler).
+    auto exprOrL = [&](const char* inputId, double fallbackMm) -> Ptr<ValueInput> {
+        if (inputs) {
+            auto input = inputs->itemById(inputId)->cast<ValueCommandInput>();
+            if (input && input->isValidExpression())
+                return ValueInput::createByString(input->expression());
+        }
+        return L(fallbackMm);
+    };
+
+    // Overhangs: map the visible dialog input to the appropriate CF param index.
+    auto overhangExpr = [&](int index) -> Ptr<ValueInput> {
+        if (inputs) {
+            const char* inputId;
+            if (instrument.overhang_type == single) {
+                inputId = Param::overhangSingle;
+            } else if (instrument.overhang_type == nut_and_last_fret) {
+                inputId = (index == 0 || index == 2) ? Param::overhangNut : Param::overhangLast;
+            } else {
+                // "all" mode: use overhang0..overhang3
+                switch (index) {
+                    case 0: inputId = Param::overhang0; break;
+                    case 1: inputId = Param::overhang1; break;
+                    case 2: inputId = Param::overhang2; break;
+                    default: inputId = Param::overhang3; break;
+                }
+            }
+            auto input = inputs->itemById(inputId)->cast<ValueCommandInput>();
+            if (input && input->isValidExpression())
+                return ValueInput::createByString(input->expression());
+        }
+        return L(instrument.overhangs[index]);
+    };
+
+    auto addP = [&](const char* id, const std::string& label,
                     const Ptr<ValueInput>& val, const std::string& units) {
         cfInput->addCustomParameter(id, label, val, units);
     };
 
-    addP("scale_length_bass",              "Bass Scale",            L(instrument.scale_length[0]),              "mm");
-    addP("scale_length_treble",            "Treble Scale",          L(instrument.scale_length[1]),              "mm");
-    addP("inter_string_spacing_at_nut",    "String Spacing Nut",    L(instrument.inter_string_spacing_at_nut),  "mm");
-    addP("inter_string_spacing_at_bridge", "String Spacing Bridge", L(instrument.inter_string_spacing_at_bridge),"mm");
-    addP("nut_to_zero_fret_offset",        "Nut-Zero Offset",       L(instrument.nut_to_zero_fret_offset),      "mm");
-    addP("overhangs_0",                    "Overhang Bass Nut",     L(instrument.overhangs[0]),                 "mm");
-    addP("overhangs_1",                    "Overhang Bass Last",    L(instrument.overhangs[1]),                 "mm");
-    addP("overhangs_2",                    "Overhang Treble Nut",   L(instrument.overhangs[2]),                 "mm");
-    addP("overhangs_3",                    "Overhang Treble Last",  L(instrument.overhangs[3]),                 "mm");
-    addP("hidden_tang_length",             "Hidden Tang",           L(instrument.hidden_tang_length),           "mm");
-    addP("fret_slots_width",               "Slot Width",            L(instrument.fret_slots_width),             "mm");
-    addP("fret_slots_height",              "Slot Height",           L(instrument.fret_slots_height),            "mm");
-    addP("fret_crown_width",               "Crown Width",           L(instrument.fret_crown_width),             "mm");
-    addP("fret_crown_height",              "Crown Height",          L(instrument.fret_crown_height),            "mm");
-    addP("last_fret_cut_offset",           "Last Fret Offset",      L(instrument.last_fret_cut_offset),         "mm");
-    addP("space_before_nut",               "Space Before Nut",      L(instrument.space_before_nut),             "mm");
-    addP("nut_thickness",                  "Nut Thickness",         L(instrument.nut_thickness),                "mm");
-    addP("nut_height_under",               "Nut Slot Depth",        L(instrument.nut_height_under),             "mm");
-    addP("radius_at_nut",                  "Radius Nut",            L(instrument.radius_at_nut),                "mm");
-    addP("radius_at_last_fret",            "Radius Last Fret",      L(instrument.radius_at_last_fret),          "mm");
-    addP("fretboard_thickness",            "Thickness",             L(instrument.fretboard_thickness),          "mm");
+    addP(Param::scale_length_bass,              "Bass Scale",            exprOrL(Param::scale_length_bass,              instrument.scale_length[0]),              "mm");
+    addP(Param::scale_length_treble,            "Treble Scale",          exprOrL(Param::scale_length_treble,            instrument.scale_length[1]),              "mm");
+    addP(Param::inter_string_spacing_at_nut,    "String Spacing Nut",    exprOrL(Param::inter_string_spacing_at_nut,    instrument.inter_string_spacing_at_nut),  "mm");
+    addP(Param::inter_string_spacing_at_bridge, "String Spacing Bridge", exprOrL(Param::inter_string_spacing_at_bridge, instrument.inter_string_spacing_at_bridge),"mm");
+    addP(Param::nut_to_zero_fret_offset,        "Nut-Zero Offset",       exprOrL(Param::nut_to_zero_fret_offset,        instrument.nut_to_zero_fret_offset),      "mm");
+    addP(Param::overhangs_0,                    "Overhang Bass Nut",     overhangExpr(0),                                                                         "mm");
+    addP(Param::overhangs_1,                    "Overhang Bass Last",    overhangExpr(1),                                                                         "mm");
+    addP(Param::overhangs_2,                    "Overhang Treble Nut",   overhangExpr(2),                                                                         "mm");
+    addP(Param::overhangs_3,                    "Overhang Treble Last",  overhangExpr(3),                                                                         "mm");
+    addP(Param::hidden_tang_length,             "Hidden Tang",           exprOrL(Param::hidden_tang_length,             instrument.hidden_tang_length),           "mm");
+    addP(Param::fret_slots_width,               "Slot Width",            exprOrL(Param::fret_slots_width,               instrument.fret_slots_width),             "mm");
+    addP(Param::fret_slots_height,              "Slot Height",           exprOrL(Param::fret_slots_height,              instrument.fret_slots_height),            "mm");
+    addP(Param::fret_crown_width,               "Crown Width",           exprOrL(Param::fret_crown_width,               instrument.fret_crown_width),             "mm");
+    addP(Param::fret_crown_height,              "Crown Height",          exprOrL(Param::fret_crown_height,              instrument.fret_crown_height),            "mm");
+    addP(Param::last_fret_cut_offset,           "Last Fret Offset",      exprOrL(Param::last_fret_cut_offset,           instrument.last_fret_cut_offset),         "mm");
+    addP(Param::space_before_nut,               "Space Before Nut",      exprOrL(Param::space_before_nut,               instrument.space_before_nut),             "mm");
+    addP(Param::nut_thickness,                  "Nut Thickness",         exprOrL(Param::nut_thickness,                  instrument.nut_thickness),                "mm");
+    addP(Param::nut_height_under,               "Nut Slot Depth",        exprOrL(Param::nut_height_under,               instrument.nut_height_under),             "mm");
+    addP(Param::radius_at_nut,                  "Radius Nut",            exprOrL(Param::radius_at_nut,                  instrument.radius_at_nut),                "mm");
+    addP(Param::radius_at_last_fret,            "Radius Last Fret",      exprOrL(Param::radius_at_last_fret,            instrument.radius_at_last_fret),          "mm");
+    addP(Param::fretboard_thickness,            "Thickness",             exprOrL(Param::fretboard_thickness,            instrument.fretboard_thickness),          "mm");
 
-    // Dimensionless / integer / boolean parameters (stored as plain real, no units).
-    addP("perpendicular_fret_index", "Perp Fret",        D(instrument.perpendicular_fret_index),      "");
-    addP("number_of_strings",        "String Count",     D((double)instrument.number_of_strings),     "");
-    addP("number_of_frets",          "Fret Count",       D((double)instrument.number_of_frets),       "");
-    addP("overhang_type",            "Overhang Type",    D((double)instrument.overhang_type),          "");
-    addP("right_handed",             "Right Handed",     D(instrument.right_handed   ? 1.0 : 0.0),    "");
-    addP("has_zero_fret",            "Has Zero Fret",    D(instrument.has_zero_fret  ? 1.0 : 0.0),    "");
-    addP("carve_nut_slot",           "Carve Nut Slot",   D(instrument.carve_nut_slot ? 1.0 : 0.0),    "");
-    addP("draw_strings",             "Draw Strings",     D(instrument.draw_strings   ? 1.0 : 0.0),    "");
-    addP("draw_frets",               "Draw Frets",       D(instrument.draw_frets     ? 1.0 : 0.0),    "");
-    addP("carve_fret_slots",         "Carve Fret Slots", D(instrument.carve_fret_slots ? 1.0 : 0.0),  "");
+    // Perpendicular fret index is dimensionless — no unit conversion.
+    auto perpExpr = [&]() -> Ptr<ValueInput> {
+        if (inputs) {
+            auto input = inputs->itemById(Param::perpendicular_fret_index)->cast<ValueCommandInput>();
+            if (input && input->isValidExpression())
+                return ValueInput::createByString(input->expression());
+        }
+        return D(instrument.perpendicular_fret_index);
+    };
+    addP(Param::perpendicular_fret_index, "Perp Fret",        perpExpr(),                                          "");
+    addP(Param::number_of_strings,        "String Count",     D((double)instrument.number_of_strings),             "");
+
+    auto fretCountExpr = [&]() -> Ptr<ValueInput> {
+        if (inputs) {
+            auto input = inputs->itemById(Param::number_of_frets)->cast<ValueCommandInput>();
+            if (input && input->isValidExpression())
+                return ValueInput::createByString(input->expression());
+        }
+        return D((double)instrument.number_of_frets);
+    };
+    addP(Param::number_of_frets,          "Fret Count",       fretCountExpr(),                                     "");
+    addP(Param::overhang_type,            "Overhang Type",    D((double)instrument.overhang_type),                 "");
+    addP(Param::right_handed,             "Right Handed",     D(instrument.right_handed     ? 1.0 : 0.0),          "");
+    addP(Param::has_zero_fret,            "Has Zero Fret",    D(instrument.has_zero_fret    ? 1.0 : 0.0),          "");
+    addP(Param::carve_nut_slot,           "Carve Nut Slot",   D(instrument.carve_nut_slot   ? 1.0 : 0.0),          "");
+    addP(Param::draw_strings,             "Draw Strings",     D(instrument.draw_strings     ? 1.0 : 0.0),          "");
+    addP(Param::draw_frets,               "Draw Frets",       D(instrument.draw_frets       ? 1.0 : 0.0),          "");
+    addP(Param::carve_fret_slots,         "Carve Fret Slots", D(instrument.carve_fret_slots ? 1.0 : 0.0),          "");
 }
 
 Instrument InstrumentFromCustomFeature(const Ptr<CustomFeature>& feature) {
     // Length params are stored in cm; multiply by 10 to restore mm.
-    auto L = [&](const std::string& id) { return cfParamVal(feature, id) * 10.0; };
-    auto D = [&](const std::string& id) { return cfParamVal(feature, id); };
-    auto B = [&](const std::string& id) { return (int)cfParamVal(feature, id) != 0; };
-    auto I = [&](const std::string& id) { return (int)cfParamVal(feature, id); };
+    auto L = [&](const char* id) { return cfParamVal(feature, id) * 10.0; };
+    auto D = [&](const char* id) { return cfParamVal(feature, id); };
+    auto B = [&](const char* id) { return (int)cfParamVal(feature, id) != 0; };
+    auto I = [&](const char* id) { return (int)cfParamVal(feature, id); };
 
     Instrument instrument;
-    instrument.scale_length[0]              = L("scale_length_bass");
-    instrument.scale_length[1]              = L("scale_length_treble");
-    instrument.inter_string_spacing_at_nut  = L("inter_string_spacing_at_nut");
-    instrument.inter_string_spacing_at_bridge = L("inter_string_spacing_at_bridge");
-    instrument.nut_to_zero_fret_offset      = L("nut_to_zero_fret_offset");
-    instrument.overhangs[0]                 = L("overhangs_0");
-    instrument.overhangs[1]                 = L("overhangs_1");
-    instrument.overhangs[2]                 = L("overhangs_2");
-    instrument.overhangs[3]                 = L("overhangs_3");
-    instrument.hidden_tang_length           = L("hidden_tang_length");
-    instrument.fret_slots_width             = L("fret_slots_width");
-    instrument.fret_slots_height            = L("fret_slots_height");
-    instrument.fret_crown_width             = L("fret_crown_width");
-    instrument.fret_crown_height            = L("fret_crown_height");
-    instrument.last_fret_cut_offset         = L("last_fret_cut_offset");
-    instrument.space_before_nut             = L("space_before_nut");
-    instrument.nut_thickness                = L("nut_thickness");
-    instrument.nut_height_under             = L("nut_height_under");
-    instrument.radius_at_nut                = L("radius_at_nut");
-    instrument.radius_at_last_fret          = L("radius_at_last_fret");
-    instrument.fretboard_thickness          = L("fretboard_thickness");
+    instrument.scale_length[0]              = L(Param::scale_length_bass);
+    instrument.scale_length[1]              = L(Param::scale_length_treble);
+    instrument.inter_string_spacing_at_nut  = L(Param::inter_string_spacing_at_nut);
+    instrument.inter_string_spacing_at_bridge = L(Param::inter_string_spacing_at_bridge);
+    instrument.nut_to_zero_fret_offset      = L(Param::nut_to_zero_fret_offset);
+    instrument.overhangs[0]                 = L(Param::overhangs_0);
+    instrument.overhangs[1]                 = L(Param::overhangs_1);
+    instrument.overhangs[2]                 = L(Param::overhangs_2);
+    instrument.overhangs[3]                 = L(Param::overhangs_3);
+    instrument.hidden_tang_length           = L(Param::hidden_tang_length);
+    instrument.fret_slots_width             = L(Param::fret_slots_width);
+    instrument.fret_slots_height            = L(Param::fret_slots_height);
+    instrument.fret_crown_width             = L(Param::fret_crown_width);
+    instrument.fret_crown_height            = L(Param::fret_crown_height);
+    instrument.last_fret_cut_offset         = L(Param::last_fret_cut_offset);
+    instrument.space_before_nut             = L(Param::space_before_nut);
+    instrument.nut_thickness                = L(Param::nut_thickness);
+    instrument.nut_height_under             = L(Param::nut_height_under);
+    instrument.radius_at_nut                = L(Param::radius_at_nut);
+    instrument.radius_at_last_fret          = L(Param::radius_at_last_fret);
+    instrument.fretboard_thickness          = L(Param::fretboard_thickness);
 
-    instrument.perpendicular_fret_index     = D("perpendicular_fret_index");
-    instrument.number_of_strings            = I("number_of_strings");
-    instrument.number_of_frets              = I("number_of_frets");
-    instrument.overhang_type                = (OverhangType)I("overhang_type");
-    instrument.right_handed                 = B("right_handed");
-    instrument.has_zero_fret                = B("has_zero_fret");
-    instrument.carve_nut_slot               = B("carve_nut_slot");
-    instrument.draw_strings                 = B("draw_strings");
-    instrument.draw_frets                   = B("draw_frets");
-    instrument.carve_fret_slots             = B("carve_fret_slots");
+    instrument.perpendicular_fret_index     = D(Param::perpendicular_fret_index);
+    instrument.number_of_strings            = I(Param::number_of_strings);
+    instrument.number_of_frets              = I(Param::number_of_frets);
+    instrument.overhang_type                = (OverhangType)I(Param::overhang_type);
+    instrument.right_handed                 = B(Param::right_handed);
+    instrument.has_zero_fret                = B(Param::has_zero_fret);
+    instrument.carve_nut_slot               = B(Param::carve_nut_slot);
+    instrument.draw_strings                 = B(Param::draw_strings);
+    instrument.draw_frets                   = B(Param::draw_frets);
+    instrument.carve_fret_slots             = B(Param::carve_fret_slots);
 
     instrument.validate();
     // Already in mm — do NOT call scale(10) again.
@@ -570,45 +623,102 @@ void InstrumentToCustomFeature(const Ptr<CustomFeature>& feature,
     auto params = feature->parameters();
     if (!params) return;
 
-    auto setL = [&](const std::string& id, double mm) {
+    auto setL = [&](const char* id, double mm) {
         auto p = params->itemById(id);
         if (p) p->value(mm / 10.0);
     };
-    auto setD = [&](const std::string& id, double v) {
+    auto setD = [&](const char* id, double v) {
         auto p = params->itemById(id);
         if (p) p->value(v);
     };
 
-    setL("scale_length_bass",              instrument.scale_length[0]);
-    setL("scale_length_treble",            instrument.scale_length[1]);
-    setL("inter_string_spacing_at_nut",    instrument.inter_string_spacing_at_nut);
-    setL("inter_string_spacing_at_bridge", instrument.inter_string_spacing_at_bridge);
-    setL("nut_to_zero_fret_offset",        instrument.nut_to_zero_fret_offset);
-    setL("overhangs_0",                    instrument.overhangs[0]);
-    setL("overhangs_1",                    instrument.overhangs[1]);
-    setL("overhangs_2",                    instrument.overhangs[2]);
-    setL("overhangs_3",                    instrument.overhangs[3]);
-    setL("hidden_tang_length",             instrument.hidden_tang_length);
-    setL("fret_slots_width",               instrument.fret_slots_width);
-    setL("fret_slots_height",              instrument.fret_slots_height);
-    setL("fret_crown_width",               instrument.fret_crown_width);
-    setL("fret_crown_height",              instrument.fret_crown_height);
-    setL("last_fret_cut_offset",           instrument.last_fret_cut_offset);
-    setL("space_before_nut",               instrument.space_before_nut);
-    setL("nut_thickness",                  instrument.nut_thickness);
-    setL("nut_height_under",               instrument.nut_height_under);
-    setL("radius_at_nut",                  instrument.radius_at_nut);
-    setL("radius_at_last_fret",            instrument.radius_at_last_fret);
-    setL("fretboard_thickness",            instrument.fretboard_thickness);
+    setL(Param::scale_length_bass,              instrument.scale_length[0]);
+    setL(Param::scale_length_treble,            instrument.scale_length[1]);
+    setL(Param::inter_string_spacing_at_nut,    instrument.inter_string_spacing_at_nut);
+    setL(Param::inter_string_spacing_at_bridge, instrument.inter_string_spacing_at_bridge);
+    setL(Param::nut_to_zero_fret_offset,        instrument.nut_to_zero_fret_offset);
+    setL(Param::overhangs_0,                    instrument.overhangs[0]);
+    setL(Param::overhangs_1,                    instrument.overhangs[1]);
+    setL(Param::overhangs_2,                    instrument.overhangs[2]);
+    setL(Param::overhangs_3,                    instrument.overhangs[3]);
+    setL(Param::hidden_tang_length,             instrument.hidden_tang_length);
+    setL(Param::fret_slots_width,               instrument.fret_slots_width);
+    setL(Param::fret_slots_height,              instrument.fret_slots_height);
+    setL(Param::fret_crown_width,               instrument.fret_crown_width);
+    setL(Param::fret_crown_height,              instrument.fret_crown_height);
+    setL(Param::last_fret_cut_offset,           instrument.last_fret_cut_offset);
+    setL(Param::space_before_nut,               instrument.space_before_nut);
+    setL(Param::nut_thickness,                  instrument.nut_thickness);
+    setL(Param::nut_height_under,               instrument.nut_height_under);
+    setL(Param::radius_at_nut,                  instrument.radius_at_nut);
+    setL(Param::radius_at_last_fret,            instrument.radius_at_last_fret);
+    setL(Param::fretboard_thickness,            instrument.fretboard_thickness);
 
-    setD("perpendicular_fret_index",       instrument.perpendicular_fret_index);
-    setD("number_of_strings",              (double)instrument.number_of_strings);
-    setD("number_of_frets",                (double)instrument.number_of_frets);
-    setD("overhang_type",                  (double)instrument.overhang_type);
-    setD("right_handed",                   instrument.right_handed  ? 1.0 : 0.0);
-    setD("has_zero_fret",                  instrument.has_zero_fret ? 1.0 : 0.0);
-    setD("carve_nut_slot",                 instrument.carve_nut_slot ? 1.0 : 0.0);
-    setD("draw_strings",                   instrument.draw_strings  ? 1.0 : 0.0);
-    setD("draw_frets",                     instrument.draw_frets    ? 1.0 : 0.0);
-    setD("carve_fret_slots",               instrument.carve_fret_slots ? 1.0 : 0.0);
+    setD(Param::perpendicular_fret_index,       instrument.perpendicular_fret_index);
+    setD(Param::number_of_strings,              (double)instrument.number_of_strings);
+    setD(Param::number_of_frets,                (double)instrument.number_of_frets);
+    setD(Param::overhang_type,                  (double)instrument.overhang_type);
+    setD(Param::right_handed,                   instrument.right_handed  ? 1.0 : 0.0);
+    setD(Param::has_zero_fret,                  instrument.has_zero_fret ? 1.0 : 0.0);
+    setD(Param::carve_nut_slot,                 instrument.carve_nut_slot ? 1.0 : 0.0);
+    setD(Param::draw_strings,                   instrument.draw_strings  ? 1.0 : 0.0);
+    setD(Param::draw_frets,                     instrument.draw_frets    ? 1.0 : 0.0);
+    setD(Param::carve_fret_slots,               instrument.carve_fret_slots ? 1.0 : 0.0);
+}
+
+// ---------------------------------------------------------------------------
+// CfExpressionsToInputs
+//
+// After calling InstrumentToInputs() to populate boolean/integer controls,
+// call this to restore expression strings for all float fields from the CF's
+// stored model parameters.  This preserves user-parameter references (e.g.
+// "myScale") when reopening the edit dialog.
+// ---------------------------------------------------------------------------
+void CfExpressionsToInputs(const Ptr<CommandInputs>& inputs,
+                           const Ptr<CustomFeature>& cf) {
+    auto params = cf->parameters();
+    if (!params) return;
+
+    // Copies the expression of a CF parameter into the matching ValueCommandInput.
+    auto setExpr = [&](const char* inputId, const char* cfParamId) {
+        auto p = params->itemById(cfParamId);
+        if (!p) return;
+        auto input = inputs->itemById(inputId)->cast<ValueCommandInput>();
+        if (!input) return;
+        input->expression(p->expression());
+    };
+
+    setExpr(Param::scale_length_bass,              Param::scale_length_bass);
+    setExpr(Param::scale_length_treble,            Param::scale_length_treble);
+    setExpr(Param::inter_string_spacing_at_nut,    Param::inter_string_spacing_at_nut);
+    setExpr(Param::inter_string_spacing_at_bridge, Param::inter_string_spacing_at_bridge);
+    setExpr(Param::nut_to_zero_fret_offset,        Param::nut_to_zero_fret_offset);
+    setExpr(Param::hidden_tang_length,             Param::hidden_tang_length);
+    setExpr(Param::fret_slots_width,               Param::fret_slots_width);
+    setExpr(Param::fret_slots_height,              Param::fret_slots_height);
+    setExpr(Param::fret_crown_width,               Param::fret_crown_width);
+    setExpr(Param::fret_crown_height,              Param::fret_crown_height);
+    setExpr(Param::last_fret_cut_offset,           Param::last_fret_cut_offset);
+    setExpr(Param::space_before_nut,               Param::space_before_nut);
+    setExpr(Param::nut_thickness,                  Param::nut_thickness);
+    setExpr(Param::nut_height_under,               Param::nut_height_under);
+    setExpr(Param::radius_at_nut,                  Param::radius_at_nut);
+    setExpr(Param::radius_at_last_fret,            Param::radius_at_last_fret);
+    setExpr(Param::fretboard_thickness,            Param::fretboard_thickness);
+    setExpr(Param::perpendicular_fret_index,       Param::perpendicular_fret_index);
+    setExpr(Param::number_of_frets,                Param::number_of_frets);
+
+    // Overhang fields: pick the visible input for the current overhang mode.
+    int overhangType = (int)cfParamVal(cf, Param::overhang_type);
+    if (overhangType == (int)single) {
+        setExpr(Param::overhangSingle, Param::overhangs_0);
+    } else if (overhangType == (int)nut_and_last_fret) {
+        setExpr(Param::overhangNut,  Param::overhangs_0);
+        setExpr(Param::overhangLast, Param::overhangs_1);
+    } else {
+        setExpr(Param::overhang0, Param::overhangs_0);
+        setExpr(Param::overhang1, Param::overhangs_1);
+        setExpr(Param::overhang2, Param::overhangs_2);
+        setExpr(Param::overhang3, Param::overhangs_3);
+    }
 }

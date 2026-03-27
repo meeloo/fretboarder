@@ -34,7 +34,7 @@ void OnExecuteEventHander::notify(const Ptr<CommandEventArgs>& eventArgs)
         if (cfFeatures) {
             auto cfInput = cfFeatures->createInput(Fretboarder::customFeatureDef);
             if (cfInput) {
-                InstrumentToCustomFeatureInput(cfInput, instrument);
+                InstrumentToCustomFeatureInput(cfInput, instrument, inputs);
 
                 // Create geometry first — features appear at the end of the timeline.
                 Ptr<Base> firstFeature, lastFeature;
@@ -42,9 +42,7 @@ void OnExecuteEventHander::notify(const Ptr<CommandEventArgs>& eventArgs)
                     if (firstFeature && lastFeature)
                         cfInput->setStartAndEndFeatures(firstFeature, lastFeature);
 
-                    auto cf = cfFeatures->add(cfInput);
-                    if (cf)
-                        InstrumentToCustomFeature(cf, instrument);
+                    cfFeatures->add(cfInput);
                 }
                 return;
             }
@@ -59,7 +57,8 @@ void OnExecuteEventHander::notify(const Ptr<CommandEventArgs>& eventArgs)
 // CommandDestroyed event handler
 void OnDestroyEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
 {
-    // Do not terminate the add-in; it must stay loaded to handle customFeatureCompute events.
+    // Do not terminate the add-in; it must stay loaded to handle events.
+    (void)eventArgs;
 }
 
 // CommandCreated event handler.
@@ -97,4 +96,3 @@ void OnCommandCreatedEventHandler::notify(const Ptr<CommandCreatedEventArgs>& ev
 
     BuildFretboardDialogInputs(inputs);
 }
-

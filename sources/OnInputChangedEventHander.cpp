@@ -71,7 +71,7 @@ void OnInputChangedEventHander::notify(const Ptr<InputChangedEventArgs>& eventAr
             }
         }
 
-    } else if (cmdInput->id() == "overhang_type") {
+    } else if (cmdInput->id() == Param::overhang_type) {
         Instrument instrument = InstrumentFromInputs(inputs);
         instrument.scale(0.1); // mm to cm
         InstrumentToInputs(inputs, instrument);
@@ -83,17 +83,17 @@ void OnInputChangedEventHander::notify(const Ptr<InputChangedEventArgs>& eventAr
 
 void OnInputChangedEventHander::UpdateNutWidget(const Ptr<CommandInputs>& inputs) {
     // update nut width
-    Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById("number_of_strings");
-    Ptr<FloatSpinnerCommandInput> inter_string_spacing_at_nut = inputs->itemById("inter_string_spacing_at_nut");
-    Ptr<DropDownCommandInput> overhang_type = inputs->itemById("overhang_type");
-    Ptr<FloatSpinnerCommandInput> overhangSingle = inputs->itemById("overhangSingle");
-    Ptr<FloatSpinnerCommandInput> overhangNut = inputs->itemById("overhangNut");
-    Ptr<FloatSpinnerCommandInput> overhangLast = inputs->itemById("overhangLast");
-    Ptr<FloatSpinnerCommandInput> overhang0 = inputs->itemById("overhang0");
-    Ptr<FloatSpinnerCommandInput> overhang1 = inputs->itemById("overhang1");
-    Ptr<FloatSpinnerCommandInput> overhang2 = inputs->itemById("overhang2");
-    Ptr<FloatSpinnerCommandInput> overhang3 = inputs->itemById("overhang3");
-    Ptr<FloatSpinnerCommandInput> nut_width = inputs->itemById("nut_width");
+    Ptr<IntegerSliderCommandInput> number_of_strings = inputs->itemById(Param::number_of_strings);
+    Ptr<ValueCommandInput> inter_string_spacing_at_nut = inputs->itemById(Param::inter_string_spacing_at_nut);
+    Ptr<DropDownCommandInput> overhang_type = inputs->itemById(Param::overhang_type);
+    Ptr<ValueCommandInput> overhangSingle = inputs->itemById(Param::overhangSingle);
+    Ptr<ValueCommandInput> overhangNut = inputs->itemById(Param::overhangNut);
+    Ptr<ValueCommandInput> overhangLast = inputs->itemById(Param::overhangLast);
+    Ptr<ValueCommandInput> overhang0 = inputs->itemById(Param::overhang0);
+    Ptr<ValueCommandInput> overhang1 = inputs->itemById(Param::overhang1);
+    Ptr<ValueCommandInput> overhang2 = inputs->itemById(Param::overhang2);
+    Ptr<ValueCommandInput> overhang3 = inputs->itemById(Param::overhang3);
+    Ptr<ValueCommandInput> nut_width = inputs->itemById(Param::nut_width);
     CHECK2(number_of_strings);
     CHECK2(inter_string_spacing_at_nut);
     CHECK2(overhang_type);

@@ -15,8 +15,9 @@ static Ptr<CustomFeature>   gEditedCF;
 // ---------------------------------------------------------------------------
 // CustomFeatureComputeEventHandler
 //
-// Geometry is managed by the execute/edit handlers.  This handler stays
-// resident so the add-in can service compute requests after reload.
+// Geometry is managed by the execute/edit handlers (create and edit flows).
+// This handler is intentionally a no-op — it exists only so the add-in stays
+// resident and can service any Fusion-internal recompute requests.
 // ---------------------------------------------------------------------------
 void CustomFeatureComputeEventHandler::notify(const Ptr<CustomFeatureEventArgs>& eventArgs)
 {
@@ -92,6 +93,7 @@ void OnEditCommandCreatedEventHandler::notify(const Ptr<CommandCreatedEventArgs>
     auto instrument = InstrumentFromCustomFeature(gEditedCF);
     instrument.scale(0.1);
     InstrumentToInputs(inputs, instrument);
+    CfExpressionsToInputs(inputs, gEditedCF);
 }
 
 // ---------------------------------------------------------------------------
@@ -155,7 +157,7 @@ void OnEditExecuteEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
     auto cfInput = cfFeatures->createInput(Fretboarder::customFeatureDef);
     if (!cfInput) return;
 
-    InstrumentToCustomFeatureInput(cfInput, instrument);
+    InstrumentToCustomFeatureInput(cfInput, instrument, inputs);
 
     Ptr<Base> firstFeature, lastFeature;
     if (!createFretboard(instrument, firstFeature, lastFeature)) return;
@@ -163,9 +165,7 @@ void OnEditExecuteEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
     if (firstFeature && lastFeature)
         cfInput->setStartAndEndFeatures(firstFeature, lastFeature);
 
-    auto cf = cfFeatures->add(cfInput);
-    if (cf)
-        InstrumentToCustomFeature(cf, instrument);
+    cfFeatures->add(cfInput);
 }
 
 // ---------------------------------------------------------------------------

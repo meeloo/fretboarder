@@ -295,11 +295,11 @@ private:
     int first_fret;
     int last_fret;
 
-    double _construction_distance_at_nut_side;
-    double _construction_distance_at_heel;
-    double _construction_distance_at_nut;
-    double _construction_distance_at_last_fret;
-    double _construction_distance_at_12th_fret;
+    double _construction_distance_at_nut_side = 0;
+    double _construction_distance_at_heel = 0;
+    double _construction_distance_at_nut = 0;
+    double _construction_distance_at_last_fret = 0;
+    double _construction_distance_at_12th_fret = 0;
     
     Quad _board_shape;
     Quad _nut_shape;

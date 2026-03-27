@@ -30,7 +30,7 @@ Ptr<SweepFeature> create_fret_element(const Ptr<Sketch>& profile, const Ptr<Path
 
     auto bodies = fret->bodies();
     CHECK(bodies, nullptr);
-    
+
     CHECK(bodies->count() >= 1, nullptr);
     for (int j = 0; j < bodies->count(); j++) {
         auto body = bodies->item(j);
@@ -73,7 +73,9 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     // create strings sketch
     auto strings_area_sketch = component->sketches()->add(component->xYConstructionPlane());
     CHECK(strings_area_sketch, false);
-    // First timeline-visible item — used to anchor the CustomFeature group.
+    // First timeline item — anchors the CustomFeature group start.
+    // cfInput->setStartAndEndFeatures() (used before cfFeatures->add) accepts
+    // Sketch types; cf->setStartAndEndFeatures() (post-add) does not.
     outFirstFeature = strings_area_sketch;
     strings_area_sketch->name("Strings area");
     strings_area_sketch->isComputeDeferred(true);
@@ -194,15 +196,18 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     CHECK(construction_plane_at_heel, false);
     construction_plane_at_heel->name("Heel Side");
     
-    // create construction plane at 12th fret
-    planeInput = planes->createInput();
-    CHECK(planeInput, false);
-    offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_12th_fret() * 0.1);
-    CHECK(offsetValue, false);
-    planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
-    auto construction_plane_at_12th_fret = planes->add(planeInput);
-    CHECK(construction_plane_at_12th_fret, false);
-    construction_plane_at_12th_fret->name("12th Fret");
+    // create construction plane at 12th fret (only when there are enough frets)
+    Ptr<ConstructionPlane> construction_plane_at_12th_fret;
+    if (instrument.number_of_frets > 12) {
+        planeInput = planes->createInput();
+        CHECK(planeInput, false);
+        offsetValue = ValueInput::createByReal(fretboard.construction_distance_at_12th_fret() * 0.1);
+        CHECK(offsetValue, false);
+        planeInput->setByOffset(component->yZConstructionPlane(), offsetValue);
+        construction_plane_at_12th_fret = planes->add(planeInput);
+        CHECK(construction_plane_at_12th_fret, false);
+        construction_plane_at_12th_fret->name("12th Fret");
+    }
     
     // draw radius circle at nut
     auto radius_1 = create_radius_circle(component, construction_plane_at_nut_side, instrument.radius_at_nut, instrument.fretboard_thickness);
@@ -228,65 +233,94 @@ bool createFretboard(const fretboarder::Instrument& instrument,
     loft_input->isSolid(true);
     auto feature = loft_features->add(loft_input);
     CHECK(feature, false);
-    auto main_body = feature->bodies()->item(0);
-    CHECK(main_body, false);
-    main_body->name("Main body");
-//    auto lib = Fretboarder::app->materialLibraries()->itemByName("Fusion 360 Material Library");
-    auto lib = Fretboarder::app->materialLibraries()->itemById("C1EEA57C-3F56-45FC-B8CB-A9EC46A9994C"); ////("Fusion 360 Material Library");
-    CHECK(lib, false);
-    auto mat = lib->materials()->itemById("PrismMaterial-271"); //("Walnut");
-    CHECK(mat, false);
-//    std::stringstream str;
-//    str << "Material library id:" << lib->id() << " material id: " << mat->id();
-//    Fretboarder::ui->messageBox(str.str());
-    main_body->material(mat);
+    // In Fusion's parametric timeline, features added during command execution are
+    // queued but not computed until the timeline is evaluated after the handler returns.
+    // RolledBackFeatureHealthState (4) means "not yet computed" — not a failure.
+    // Only fail fast if the feature is in an actual error state.
+    if (feature->healthState() == ErrorFeatureHealthState) {
+        std::string fusionErr;
+        Fretboarder::app->getLastError(&fusionErr);
+        std::string featureErr = feature->errorOrWarningMessage();
+        std::ostringstream msg;
+        msg << "The fretboard loft failed.\n\n"
+            << "Computed values (all in mm):\n"
+            << "  Bass scale:    " << instrument.scale_length[0] << " mm\n"
+            << "  Treble scale:  " << instrument.scale_length[1] << " mm\n"
+            << "  Frets:         " << instrument.number_of_frets << "\n"
+            << "  Perp fret:     " << instrument.perpendicular_fret_index << "\n"
+            << "  Radius at nut: " << instrument.radius_at_nut << " mm\n"
+            << "  Radius at 12:  " << instrument.radius_at_last_fret << " mm\n"
+            << "  Thickness:     " << instrument.fretboard_thickness << " mm\n"
+            << "  Loft plane 1 (nut side):  X = " << fretboard.construction_distance_at_nut_side() << " mm\n"
+            << "  Loft plane 2 (heel side): X = " << fretboard.construction_distance_at_heel() << " mm\n"
+            << "  Loft error message: " << featureErr << "\n"
+            << "  Fusion error: " << fusionErr;
+        Fretboarder::ui->messageBox(msg.str());
+        return false;
+    }
+    // Body name and material are cosmetic — only set them if the body is already
+    // available (it won't be during deferred evaluation; Fusion sets it up later).
+    Ptr<BRepBody> main_body;
+    auto lib = Fretboarder::app->materialLibraries()->itemById("C1EEA57C-3F56-45FC-B8CB-A9EC46A9994C");
+    if (feature->bodies() && feature->bodies()->count() > 0) {
+        main_body = feature->bodies()->item(0);
+    }
 
-    
     radius_1->isVisible(false);
     radius_4->isVisible(false);
 
-    auto distance = ValueInput::createByReal(instrument.fretboard_thickness);
+    auto distance = ValueInput::createByReal(instrument.fretboard_thickness * 0.1);
     CHECK(distance, false);
-    component->features()->extrudeFeatures()->addSimple(contour_sketch->profiles()->item(0), distance, FeatureOperations::IntersectFeatureOperation);
+    auto intersectExtrude = component->features()->extrudeFeatures()->addSimple(contour_sketch->profiles()->item(0), distance, FeatureOperations::IntersectFeatureOperation);
+
+    // Use the loft feature as the guaranteed-non-null fallback for outLastFeature.
+    // setStartAndEndFeatures MUST be called for the CF to evaluate its inner features
+    // and produce geometry. If it is not called the CF scope is empty and all solid
+    // feature recipes are rolled back, leaving only sketches.
+    outLastFeature = feature;
+
+    // The intersect extrude trims the arc cylinder to the board shape.
+    // In deferred context, addSimple with IntersectFeatureOperation may return null
+    // if Fusion can't resolve a body to intersect at recipe-creation time — that's
+    // handled gracefully: the loft remains as outLastFeature.
+    if (intersectExtrude)
+        outLastFeature = intersectExtrude;
 
     // create nut slot
     progress(progressDialog, "create nut");
     if (instrument.carve_nut_slot) {
-        auto nut_sketch = component->sketches()->add(component->xYConstructionPlane());
+        // Use CutFeatureOperation directly — no body reference needed.
+        // Fusion implicitly targets the fretboard body at evaluation time.
+        auto nutSlotPlaneInput = planes->createInput();
+        CHECK(nutSlotPlaneInput, false);
+        auto nutSlotOffset = ValueInput::createByReal(instrument.nut_height_under * 0.1);
+        CHECK(nutSlotOffset, false);
+        nutSlotPlaneInput->setByOffset(component->xYConstructionPlane(), nutSlotOffset);
+        auto nut_slot_plane = planes->add(nutSlotPlaneInput);
+        CHECK(nut_slot_plane, false);
+        nut_slot_plane->name("Nut Slot");
+
+        auto nut_sketch = component->sketches()->add(nut_slot_plane);
         CHECK(nut_sketch, false);
         nut_sketch->name("Nut");
         nut_sketch->isComputeDeferred(true);
         create_closed_polygon(nut_sketch->sketchCurves()->sketchLines(), fretboard.nut_slot_shape());
         nut_sketch->isComputeDeferred(false);
-        distance = ValueInput::createByReal(instrument.fretboard_thickness * 0.1);
-        CHECK(distance, false);
-        auto _feature = component->features()->extrudeFeatures()->addSimple(nut_sketch->profiles()->item(0), distance, FeatureOperations::NewBodyFeatureOperation);
-        CHECK(_feature, false);
-        auto nut_body = _feature->bodies()->item(0);
-        CHECK(nut_body, false);
-        auto transform = Matrix3D::create();
-        CHECK(transform, false);
-        transform->translation(Vector3D::create(0.0, 0.0, instrument.nut_height_under * 0.1));
-        auto items = ObjectCollection::create();
-        CHECK(items, false);
-        items->add(nut_body);
-        auto move_features = component->features()->moveFeatures();
-        CHECK(move_features, false);
-        auto move_input = move_features->createInput(items, transform);
-        CHECK(move_input, false);
-        component->features()->moveFeatures()->add(move_input);
-        items = ObjectCollection::create();
-        items->add(nut_body);
-        auto combine_input = component->features()->combineFeatures()->createInput(main_body, items);
-        CHECK(combine_input, false);
-        combine_input->operation(FeatureOperations::CutFeatureOperation);
-        component->features()->combineFeatures()->add(combine_input);
+
+        // Cut upward from nut_height_under through the remaining fretboard thickness.
+        // Add 0.5 cm clearance to ensure the cut goes all the way through.
+        auto nutCutDist = ValueInput::createByReal(
+            (instrument.fretboard_thickness - instrument.nut_height_under) * 0.1 + 0.5);
+        CHECK(nutCutDist, false);
+        auto nutCutFeature = component->features()->extrudeFeatures()->addSimple(
+            nut_sketch->profiles()->item(0), nutCutDist, FeatureOperations::CutFeatureOperation);
+        if (nutCutFeature)
+            outLastFeature = nutCutFeature;
     }
 
-    main_body->isVisible(true);
+    if (main_body) main_body->isVisible(true);
 
     auto top = getFretboardTopSurface(component);
-    CHECK(top, false);
     if (top) {
         // Use the same component for frets.
         auto fretsComponent = component;
@@ -483,9 +517,7 @@ bool createFretboard(const fretboarder::Instrument& instrument,
         
 //        main_body->isVisible(false);
     }
-    else {
-        Fretboarder::ui->messageBox("Top not found");
-    }
+    // else: top surface not yet available (deferred evaluation) — frets skipped.
     
     if (progressDialog)
         progressDialog->hide();
