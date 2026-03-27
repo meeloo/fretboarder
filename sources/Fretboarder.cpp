@@ -547,9 +547,7 @@ extern "C" XI_EXPORT bool run(const char* context)
     // Register the custom feature definition AFTER both commands are in the panel.
     Fretboarder::customFeatureDef = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "sources/icons");
     if (Fretboarder::customFeatureDef) {
-        bool eidOk = Fretboarder::customFeatureDef->editCommandId("editFretboard");
-        if (!eidOk)
-            Fretboarder::ui->messageBox("run(): editCommandId setter returned FALSE");
+        Fretboarder::customFeatureDef->editCommandId("editFretboard");
         auto computeEvent = Fretboarder::customFeatureDef->customFeatureCompute();
         if (computeEvent)
             computeEvent->add(&_customFeatureComputeHandler);
