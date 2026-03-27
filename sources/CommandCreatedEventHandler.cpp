@@ -26,8 +26,9 @@ void OnExecuteEventHander::notify(const Ptr<CommandEventArgs>& eventArgs)
     // Custom features require a parametric (timeline) document.
     design->designType(ParametricDesignType);
 
-    // If Custom Features API is available: create geometry first, then create
-    // the CF node that wraps it using cfInput->setStartAndEndFeatures before add().
+    // If Custom Features API is available: create geometry first, then wrap it
+    // in a CF node.  Using cfInput->setStartAndEndFeatures() before add() avoids
+    // the slow timeline-reorganization that happens when grouping after the fact.
     if (Fretboarder::customFeatureDef) {
         auto cfFeatures = design->rootComponent()->features()->customFeatures();
         if (cfFeatures) {
@@ -35,26 +36,41 @@ void OnExecuteEventHander::notify(const Ptr<CommandEventArgs>& eventArgs)
             if (cfInput) {
                 InstrumentToCustomFeatureInput(cfInput, instrument);
 
-                auto timeline    = design->timeline();
-                int  beforeCount = timeline ? (int)timeline->count() : 0;
-
-                // Create geometry first — features land in the timeline before the CF node.
+                // Create geometry first — features appear at the end of the timeline.
                 Ptr<Base> firstFeature, lastFeature;
                 if (createFretboard(instrument, firstFeature, lastFeature)) {
-                    int innerCount = (int)timeline->count() - beforeCount;
-
-                    // Tell the CF input which features it owns BEFORE calling add().
+                    // Group the features into the CF input before calling add().
+                    bool setOk = false;
                     if (firstFeature && lastFeature)
-                        cfInput->setStartAndEndFeatures(firstFeature, lastFeature);
+                        setOk = cfInput->setStartAndEndFeatures(firstFeature, lastFeature);
 
-                    // Now create the CF node — it wraps the already-existing features.
+                    // Create the CF node — it absorbs the grouped features.
                     auto cf = cfFeatures->add(cfInput);
-                    if (cf) {
-                        // Store innerCount for the edit handler.
-                        auto attrs = cf->attributes();
-                        if (attrs)
-                            attrs->add("Fretboarder", "innerCount", std::to_string(innerCount));
 
+                    std::string cfErr;
+                    Fretboarder::app->getLastError(&cfErr);
+                    int innerCount = cf ? (int)cf->features().size() : -1;
+
+                    // Check editCommandId from the CF's own definition (may differ from customFeatureDef)
+                    std::string cfDefEid = "NO CF";
+                    bool editCmdExists = false;
+                    if (cf) {
+                        auto def = cf->definition();
+                        cfDefEid = def ? def->editCommandId() : "NO DEF";
+                        auto editCmd = Fretboarder::ui->commandDefinitions()->itemById("editFretboard");
+                        editCmdExists = (editCmd != nullptr);
+                    }
+
+                    std::stringstream dbg;
+                    dbg << "setStartAndEndFeatures(cfInput): " << (setOk ? "OK" : "FAILED") << "\n"
+                        << "cfFeatures->add: " << (cf ? "OK" : "FAILED") << "\n"
+                        << "inner feature count: " << innerCount << "\n"
+                        << "cf->definition()->editCommandId(): " << cfDefEid << "\n"
+                        << "editFretboard cmd in commandDefs: " << (editCmdExists ? "YES" : "NO") << "\n"
+                        << "lastError: " << cfErr;
+                    Fretboarder::ui->messageBox(dbg.str());
+
+                    if (cf) {
                         // Save parameters to the CF for future edits.
                         InstrumentToCustomFeature(cf, instrument);
                     }
@@ -78,60 +94,38 @@ void OnDestroyEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
 // CommandCreated event handler.
 void OnCommandCreatedEventHandler::notify(const Ptr<CommandCreatedEventArgs>& eventArgs)
 {
-    if (eventArgs)
-    {
-        // Get the command that was created.
-        Ptr<Command> command = eventArgs->command();
-        if (command)
-        {
-            command->setDialogMinimumSize(300, 600);
+#define FAIL(msg) { Fretboarder::ui->messageBox("CommandCreated FAILED: " msg); return; }
+    if (!eventArgs) FAIL("no eventArgs");
 
-            // Connect to the command destroyed event.
-            Ptr<CommandEvent> onDestroy = command->destroy();
-            if (!onDestroy)
-                return;
-            bool isOk = onDestroy->add(&onDestroyHandler);
-            if (!isOk)
-                return;
+    Ptr<Command> command = eventArgs->command();
+    if (!command) FAIL("no command");
 
-            // Connect to the command execute event.
-            Ptr<CommandEvent> onExecute = command->execute();
-            if (!onExecute)
-                return;
-            isOk = onExecute->add(&onExecuteHandler);
-            if (!isOk)
-                return;
+    command->setDialogMinimumSize(300, 600);
 
-            Ptr<CommandEvent> onExecutePtrview = command->executePreview();
-            if (!onExecutePtrview)
-                return;
-            isOk = onExecutePtrview->add(&onExecutePreviewHandler);
-            if (!isOk)
-                return;
+    Ptr<CommandEvent> onDestroy = command->destroy();
+    if (!onDestroy) FAIL("destroy event null");
+    if (!onDestroy->add(&onDestroyHandler)) FAIL("add onDestroyHandler");
 
-            Ptr<ValidateInputsEvent> onValidateInputs = command->validateInputs();
-            if (!onValidateInputs)
-                return;
-            isOk = onValidateInputs->add(&onValidateInputsHandler);
-            if (!isOk)
-                return;
+    Ptr<CommandEvent> onExecute = command->execute();
+    if (!onExecute) FAIL("execute event null");
+    if (!onExecute->add(&onExecuteHandler)) FAIL("add onExecuteHandler");
 
+    Ptr<CommandEvent> onExecutePreview = command->executePreview();
+    if (!onExecutePreview) FAIL("executePreview event null");
+    if (!onExecutePreview->add(&onExecutePreviewHandler)) FAIL("add onExecutePreviewHandler");
 
-            // Connect to the input changed event.
-            Ptr<InputChangedEvent> onInputChanged = command->inputChanged();
-            if (!onInputChanged)
-                return;
-            isOk = onInputChanged->add(&onInputChangedHandler);
-            if (!isOk)
-                return;
+    Ptr<ValidateInputsEvent> onValidateInputs = command->validateInputs();
+    if (!onValidateInputs) FAIL("validateInputs event null");
+    if (!onValidateInputs->add(&onValidateInputsHandler)) FAIL("add onValidateInputsHandler");
 
-            // Get the CommandInputs collection associated with the command.
-            Ptr<CommandInputs> inputs = command->commandInputs();
-            if (!inputs)
-                return;
+    Ptr<InputChangedEvent> onInputChanged = command->inputChanged();
+    if (!onInputChanged) FAIL("inputChanged event null");
+    if (!onInputChanged->add(&onInputChangedHandler)) FAIL("add onInputChangedHandler");
 
-            BuildFretboardDialogInputs(inputs);
-        }
-    }
+    Ptr<CommandInputs> inputs = command->commandInputs();
+    if (!inputs) FAIL("commandInputs null");
+
+    BuildFretboardDialogInputs(inputs);
+#undef FAIL
 }
 

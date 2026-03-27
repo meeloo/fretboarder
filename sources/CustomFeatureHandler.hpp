@@ -23,6 +23,13 @@ public:
     void notify(const Ptr<CommandEventArgs>& eventArgs) override;
 };
 
+// Activate handler for the edit command
+class OnEditActivateEventHandler : public adsk::core::CommandEventHandler
+{
+public:
+    void notify(const Ptr<CommandEventArgs>& eventArgs) override;
+};
+
 // Destroy handler for the edit command (no-op, add-in stays loaded)
 class OnEditDestroyEventHandler : public adsk::core::CommandEventHandler
 {
@@ -38,6 +45,7 @@ public:
 
 private:
     OnEditExecuteEventHandler    onEditExecuteHandler;
+    OnEditActivateEventHandler   onEditActivateHandler;
     OnEditDestroyEventHandler    onEditDestroyHandler;
     OnInputChangedEventHander    onInputChangedHandler;
     OnValidateInputsEventHander  onValidateInputsHandler;

@@ -8,15 +8,18 @@
 
 #include "Fretboarder.h"
 
+// The custom feature currently being edited.  Set in commandCreated, used in
+// execute, cleared when done.
+static Ptr<CustomFeature>   gEditedCF;
+
 // ---------------------------------------------------------------------------
 // CustomFeatureComputeEventHandler
 //
-// Geometry is created in the execute/edit handlers; this handler stays
+// Geometry is managed by the execute/edit handlers.  This handler stays
 // resident so the add-in can service compute requests after reload.
 // ---------------------------------------------------------------------------
 void CustomFeatureComputeEventHandler::notify(const Ptr<CustomFeatureEventArgs>& eventArgs)
 {
-    // Geometry is managed by execute handlers — nothing to do here.
     (void)eventArgs;
 }
 
@@ -24,7 +27,8 @@ void CustomFeatureComputeEventHandler::notify(const Ptr<CustomFeatureEventArgs>&
 // OnEditCommandCreatedEventHandler
 //
 // Invoked when the user double-clicks a Fretboard custom feature in the
-// timeline.  Builds the dialog pre-populated with the current parameters.
+// timeline.  Gets the CF being edited from the active selection, builds the
+// dialog, and pre-populates the controls from the stored parameters.
 // ---------------------------------------------------------------------------
 void OnEditCommandCreatedEventHandler::notify(const Ptr<CommandCreatedEventArgs>& eventArgs)
 {
@@ -38,6 +42,10 @@ void OnEditCommandCreatedEventHandler::notify(const Ptr<CommandCreatedEventArgs>
     command->setDialogMinimumSize(300, 600);
 
     // Wire up sub-handlers.
+    auto onActivate = command->activate();
+    if (!onActivate) return;
+    onActivate->add(&onEditActivateHandler);
+
     auto onExecute = command->execute();
     if (!onExecute) return;
     onExecute->add(&onEditExecuteHandler);
@@ -58,52 +66,56 @@ void OnEditCommandCreatedEventHandler::notify(const Ptr<CommandCreatedEventArgs>
     if (!onInputChanged) return;
     onInputChanged->add(&onInputChangedHandler);
 
-    // Build all the dialog controls.
+    // Build dialog controls.
     auto inputs = command->commandInputs();
     if (!inputs) return;
     BuildFretboardDialogInputs(inputs);
 
-    // Find the rolled-back custom feature and pre-populate the controls.
-    auto product = Fretboarder::app->activeProduct();
-    if (!product) return;
-    auto design = product->cast<Design>();
-    if (!design) return;
-
-    auto cfCollection = design->rootComponent()->features()->customFeatures();
-    if (!cfCollection) return;
-
-    Ptr<CustomFeature> targetFeature;
-    for (size_t i = 0; i < cfCollection->count(); ++i) {
-        auto cf = cfCollection->item(i);
-        if (!cf) continue;
-        auto def = cf->definition();
-        if (!def) continue;
-        if (def->id() != "Fretboarder.Fretboard") continue;
-        auto tlo = cf->timelineObject();
-        if (tlo && tlo->isRolledBack()) {
-            targetFeature = cf;
-            break;
+    // Fusion selects the CF node before firing the edit command.
+    // Get it from the active selections rather than searching for isRolledBack().
+    gEditedCF = nullptr;
+    auto selections = Fretboarder::ui->activeSelections();
+    if (selections && selections->count() > 0) {
+        auto sel = selections->item(0);
+        if (sel) {
+            auto cf = sel->entity()->cast<CustomFeature>();
+            if (cf && cf->definition() && cf->definition()->id() == "Fretboarder.Fretboard")
+                gEditedCF = cf;
         }
     }
 
-    if (!targetFeature) return;
+    if (!gEditedCF)
+        return;
 
-    // InstrumentFromCustomFeature returns instrument in mm.
-    // InstrumentToInputs expects cm (internal Fusion units), so scale by 0.1.
-    auto instrument = InstrumentFromCustomFeature(targetFeature);
+    // Pre-populate the dialog.  InstrumentFromCustomFeature returns mm;
+    // InstrumentToInputs expects cm (Fusion internal units).
+    auto instrument = InstrumentFromCustomFeature(gEditedCF);
     instrument.scale(0.1);
     InstrumentToInputs(inputs, instrument);
 }
 
 // ---------------------------------------------------------------------------
+// OnEditActivateEventHandler
+//
+// The delete-and-recreate edit strategy doesn't need timeline rollback.
+// The timeline must stay at the end so the CF is active when execute fires.
+// ---------------------------------------------------------------------------
+void OnEditActivateEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
+{
+    (void)eventArgs;
+}
+
+// ---------------------------------------------------------------------------
 // OnEditExecuteEventHandler
 //
-// Called when the user clicks OK in the edit dialog.  Removes the existing
-// timeline group, deletes old inner features, recreates geometry, then wraps
-// everything in a new timeline group.
+// Called when the user clicks OK.  Detaches inner features from the CF,
+// deletes them, recreates geometry with the new parameters, re-groups the
+// new features under the CF, and restores the timeline marker.
 // ---------------------------------------------------------------------------
 void OnEditExecuteEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
 {
+    if (!gEditedCF) return;
+
     auto command = eventArgs->command();
     if (!command) return;
 
@@ -117,68 +129,43 @@ void OnEditExecuteEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
     auto design = product->cast<Design>();
     if (!design) return;
 
-    auto cfCollection = design->rootComponent()->features()->customFeatures();
-    if (!cfCollection) return;
+    // Snapshot inner features before deleting the CF.
+    // (deleteMe may or may not cascade-delete inner features.)
+    auto oldInnerFeatures = gEditedCF->features();
 
-    Ptr<CustomFeature> targetCF;
-    for (size_t i = 0; i < cfCollection->count(); ++i) {
-        auto cf = cfCollection->item(i);
-        if (!cf) continue;
-        auto def = cf->definition();
-        if (!def || def->id() != "Fretboarder.Fretboard") continue;
-        auto tlo = cf->timelineObject();
-        if (tlo && tlo->isRolledBack()) { targetCF = cf; break; }
-    }
-    if (!targetCF) return;
+    // Delete the existing CF.  This is the only reliable path since
+    // setStartAndEndFeatures on an existing CF requires Fusion's internal
+    // "Edit Feature" mode which we can't trigger (editCommandId setter fails).
+    gEditedCF->deleteMe();
+    gEditedCF = nullptr;
 
-    auto cfTlo    = targetCF->timelineObject();
-    auto timeline = design->timeline();
-    if (!timeline || !cfTlo) return;
-
-    // Read the stored inner feature count.
-    int innerCount = 0;
-    Ptr<Attribute> countAttr;
-    auto attrs = targetCF->attributes();
-    if (attrs) {
-        countAttr = attrs->itemByName("Fretboarder", "innerCount");
-        if (countAttr) innerCount = std::stoi(countAttr->value());
-    }
-
-    // Roll TO the CF node so new features land after it.
-    cfTlo->rollTo(false);
-    int cfIndex = (int)cfTlo->index();
-
-    // Delete old inner features high-to-low.
-    for (int i = cfIndex + innerCount; i > cfIndex; i--) {
-        auto innerTlo = timeline->item(i);
-        if (!innerTlo || !innerTlo->isValid()) continue;
-        auto entity = innerTlo->entity();
+    // Delete any inner features that weren't cascade-deleted with the CF.
+    for (int i = (int)oldInnerFeatures.size() - 1; i >= 0; --i) {
+        auto entity = oldInnerFeatures[i];
         if (!entity) continue;
         if (auto feat  = entity->cast<Feature>())                feat->deleteMe();
         else if (auto sk    = entity->cast<Sketch>())            sk->deleteMe();
         else if (auto plane = entity->cast<ConstructionPlane>()) plane->deleteMe();
     }
 
-    // Recreate geometry after the CF node.
-    int beforeCount = (int)timeline->count();
+    // Recreate using the same geometry-first approach as the create flow.
+    auto cfFeatures = design->rootComponent()->features()->customFeatures();
+    if (!cfFeatures) return;
+
+    auto cfInput = cfFeatures->createInput(Fretboarder::customFeatureDef);
+    if (!cfInput) return;
+
+    InstrumentToCustomFeatureInput(cfInput, instrument);
+
     Ptr<Base> firstFeature, lastFeature;
-    if (!createFretboard(instrument, firstFeature, lastFeature))
-        return;
+    if (!createFretboard(instrument, firstFeature, lastFeature)) return;
 
-    int newInnerCount = (int)timeline->count() - beforeCount;
-
-    // Update the stored inner count.
-    if (countAttr)
-        countAttr->value(std::to_string(newInnerCount));
-    else if (attrs)
-        attrs->add("Fretboarder", "innerCount", std::to_string(newInnerCount));
-
-    // Re-group inner features under the CF node.
     if (firstFeature && lastFeature)
-        targetCF->setStartAndEndFeatures(firstFeature, lastFeature);
+        cfInput->setStartAndEndFeatures(firstFeature, lastFeature);
 
-    // Persist updated parameters.
-    InstrumentToCustomFeature(targetCF, instrument);
+    auto cf = cfFeatures->add(cfInput);
+    if (cf)
+        InstrumentToCustomFeature(cf, instrument);
 }
 
 // ---------------------------------------------------------------------------
@@ -186,5 +173,7 @@ void OnEditExecuteEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
 // ---------------------------------------------------------------------------
 void OnEditDestroyEventHandler::notify(const Ptr<CommandEventArgs>& eventArgs)
 {
-    // Intentionally empty — do NOT call adsk::terminate().
+    (void)eventArgs;
+    gEditedCF = nullptr;
 }
+

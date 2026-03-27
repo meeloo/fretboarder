@@ -503,16 +503,6 @@ extern "C" XI_EXPORT bool run(const char* context)
     if (!Fretboarder::ui)
         return false;
 
-    // Register the custom feature definition so that existing Fretboard features
-    // can be recomputed and edited after the add-in is reloaded.
-    Fretboarder::customFeatureDef = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "sources/icons");
-    if (Fretboarder::customFeatureDef) {
-        Fretboarder::customFeatureDef->editCommandId("editFretboard");
-        auto computeEvent = Fretboarder::customFeatureDef->customFeatureCompute();
-        if (computeEvent)
-            computeEvent->add(&_customFeatureComputeHandler);
-    }
-
     // Create the command definition.
     Ptr<CommandDefinitions> commandDefinitions = Fretboarder::ui->commandDefinitions();
     if (!commandDefinitions)
@@ -531,7 +521,8 @@ extern "C" XI_EXPORT bool run(const char* context)
         return false;
     commandCreatedEvent->add(&_cmdCreatedHandler);
 
-    // Create (or reuse) the edit command definition (invoked when user double-clicks the feature).
+    // Create (or reuse) the edit command definition BEFORE defining the custom
+    // feature so that editCommandId can be validated when we set it below.
     Ptr<CommandDefinition> editCmdDef = commandDefinitions->itemById("editFretboard");
     if (!editCmdDef)
     {
@@ -546,8 +537,23 @@ extern "C" XI_EXPORT bool run(const char* context)
 
     // Add a button to the Solid > Create panel so the user can invoke the command.
     auto createPanel = Fretboarder::ui->allToolbarPanels()->itemById("SolidCreatePanel");
-    if (createPanel)
+    if (createPanel) {
         createPanel->controls()->addCommand(cmdDef, "", false);
+        // Also add the edit command to the same panel so Fusion considers it
+        // a "live" command that can be used as a custom feature editCommandId.
+        createPanel->controls()->addCommand(editCmdDef, "", false);
+    }
+
+    // Register the custom feature definition AFTER both commands are in the panel.
+    Fretboarder::customFeatureDef = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "sources/icons");
+    if (Fretboarder::customFeatureDef) {
+        bool eidOk = Fretboarder::customFeatureDef->editCommandId("editFretboard");
+        if (!eidOk)
+            Fretboarder::ui->messageBox("run(): editCommandId setter returned FALSE");
+        auto computeEvent = Fretboarder::customFeatureDef->customFeatureCompute();
+        if (computeEvent)
+            computeEvent->add(&_customFeatureComputeHandler);
+    }
 
     // Prevent this module from being terminated when the script returns,
     // because we are waiting for event handlers to fire.
@@ -561,12 +567,15 @@ extern "C" XI_EXPORT void stop(const char* context)
     if (!Fretboarder::ui)
         return;
 
-    // Remove the toolbar button.
+    // Remove the toolbar buttons.
     auto createPanel = Fretboarder::ui->allToolbarPanels()->itemById("SolidCreatePanel");
     if (createPanel) {
         auto ctrl = createPanel->controls()->itemById("cmdFretboarder");
         if (ctrl)
             ctrl->deleteMe();
+        auto editCtrl = createPanel->controls()->itemById("editFretboard");
+        if (editCtrl)
+            editCtrl->deleteMe();
     }
 
     // Remove the command definitions.
