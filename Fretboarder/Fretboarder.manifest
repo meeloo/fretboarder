@@ -1,0 +1,9 @@
+{
+    "autodeskProduct": "Fusion360",
+    "type": "addin",
+    "id": "Fretboarder.Fretboarder",
+    "author": "Sebastien Metrot",
+    "description": { "": "Generate parametric, editable fretboards for stringed instruments." },
+    "supportedOS": "windows|mac",
+    "runOnStartup": true
+}

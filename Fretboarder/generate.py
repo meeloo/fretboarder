@@ -53,16 +53,12 @@ def _offset_plane(component, base_plane, offset_cm, name):
     return plane
 
 
-def create_fretboard(design, instrument):
-    """Build the fretboard into a new 'Fretboard' component. Returns the component.
-    `instrument` must be millimetre-scaled."""
-    root = design.rootComponent
+def create_fretboard(design, instrument, component=None):
+    """Build the fretboard geometry into `component` (root by default). Returns
+    (component, main_body). `instrument` must be millimetre-scaled."""
+    if component is None:
+        component = design.rootComponent
     fretboard = Fretboard(instrument)
-
-    occurrence = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
-    component = occurrence.component
-    component.name = "Fretboard"
-    occurrence.activate()
 
     features = component.features
 
@@ -282,9 +278,8 @@ def _create_frets(component, main_body, fretboard, instrument, fret_slots_sketch
     matlib = app.materialLibraries.itemById(WALNUT_LIB)
     chrome = matlib.materials.itemById(CHROME_MAT) if matlib else None
 
-    frets_occ = component.occurrences.addNewComponent(adsk.core.Matrix3D.create())
-    frets = frets_occ.component
-    frets.name = "Frets"
+    # Build the frets in the same component (keeps everything under one custom feature).
+    frets = component
 
     faces = [top]
     C = fret_slots_sketch.sketchCurves
@@ -355,8 +350,7 @@ def _create_frets(component, main_body, fretboard, instrument, fret_slots_sketch
             frets.features.combineFeatures.add(merge)
 
             if chrome:
-                for b in range(frets.bRepBodies.count):
-                    frets.bRepBodies.item(b).material = chrome
+                frets.bRepBodies.item(frets.bRepBodies.count - 1).material = chrome
             wire_profile.isVisible = False
 
         projected_sketch.isVisible = False
