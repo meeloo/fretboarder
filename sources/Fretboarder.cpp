@@ -1,4 +1,5 @@
 #include "Fretboarder.h"
+#include "CustomFeatureSpike.hpp"
 
 Ptr<Application> Fretboarder::app;
 Ptr<UserInterface> Fretboarder::ui;
@@ -556,15 +557,14 @@ extern "C" XI_EXPORT bool run(const char* context)
     if (!Fretboarder::cgGroups)
         return false;
 
-    auto customFeatureDefinition = CustomFeatureDefinition::create("Fretboarder.Fretboard", "Fretboard", "");
-    customFeatureDefinition->editCommandId("editFretboard");
-    auto customFratureComputeEvent = customFeatureDefinition->customFeatureCompute();
-//    customFratureComputeEvent->add(customFratureComputeEventHandler);
+    // SPIKE: register the throwaway editable box custom feature to prove the
+    // create/edit/recompute lifecycle before porting the fretboard geometry.
+    register_custom_feature_spike();
 
     // Create the command definition.
     Ptr<CommandDefinitions> commandDefinitions = Fretboarder::ui->commandDefinitions();
     if (!commandDefinitions)
-        return nullptr;
+        return false;
     
     // Get the existing command definition or create it if it doesn't already exist.
     Ptr<CommandDefinition> cmdDef = commandDefinitions->itemById("cmdFretboarder");
@@ -581,13 +581,34 @@ extern "C" XI_EXPORT bool run(const char* context)
         return false;
     commandCreatedEvent->add(&_cmdCreatedHandler);
     
-    // Execute the command definition.
-    cmdDef->execute();
-    
+    // SPIKE: don't auto-open the Fretboarder dialog; drive everything from the
+    // Solid > Create panel buttons so the box lifecycle can be tested in isolation.
+    // cmdDef->execute();
+
     // Prevent this module from being terminated when the script returns, because we are waiting for event handlers to fire.
     adsk::autoTerminate(false);
-    
+
     return true;
+}
+
+extern "C" XI_EXPORT void stop(const char* context)
+{
+    unregister_custom_feature_spike();
+
+    if (!Fretboarder::ui)
+        return;
+    auto createPanel = Fretboarder::ui->allToolbarPanels()->itemById("SolidCreatePanel");
+    if (createPanel) {
+        auto ctrl = createPanel->controls()->itemById("cmdFretboarder");
+        if (ctrl)
+            ctrl->deleteMe();
+    }
+    auto commandDefinitions = Fretboarder::ui->commandDefinitions();
+    if (commandDefinitions) {
+        auto cmdDef = commandDefinitions->itemById("cmdFretboarder");
+        if (cmdDef)
+            cmdDef->deleteMe();
+    }
 }
 
 #ifdef XI_WIN

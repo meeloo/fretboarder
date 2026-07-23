@@ -12,6 +12,7 @@
 		9684F27A2713924B006BF53E /* Instruments+Inputs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F2782713924B006BF53E /* Instruments+Inputs.cpp */; };
 		9684F27B2713924B006BF53E /* Instruments+Inputs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F2792713924B006BF53E /* Instruments+Inputs.hpp */; };
 		9684F27E271392C2006BF53E /* SketchHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F27C271392C2006BF53E /* SketchHelpers.cpp */; };
+		AA11BB22CC33DD44EE550002 /* CustomFeatureSpike.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA11BB22CC33DD44EE550001 /* CustomFeatureSpike.cpp */; };
 		9684F27F271392C2006BF53E /* SketchHelpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F27D271392C2006BF53E /* SketchHelpers.hpp */; };
 		9684F28227139381006BF53E /* UIHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9684F28027139381006BF53E /* UIHelpers.cpp */; };
 		9684F28327139381006BF53E /* UIHelpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9684F28127139381006BF53E /* UIHelpers.hpp */; };
@@ -62,6 +63,8 @@
 		9684F2782713924B006BF53E /* Instruments+Inputs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "Instruments+Inputs.cpp"; sourceTree = "<group>"; };
 		9684F2792713924B006BF53E /* Instruments+Inputs.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Instruments+Inputs.hpp"; sourceTree = "<group>"; };
 		9684F27C271392C2006BF53E /* SketchHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SketchHelpers.cpp; sourceTree = "<group>"; };
+		AA11BB22CC33DD44EE550003 /* CustomFeatureSpike.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CustomFeatureSpike.hpp; sourceTree = "<group>"; };
+		AA11BB22CC33DD44EE550001 /* CustomFeatureSpike.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CustomFeatureSpike.cpp; sourceTree = "<group>"; };
 		9684F27D271392C2006BF53E /* SketchHelpers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SketchHelpers.hpp; sourceTree = "<group>"; };
 		9684F28027139381006BF53E /* UIHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIHelpers.cpp; sourceTree = "<group>"; };
 		9684F28127139381006BF53E /* UIHelpers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UIHelpers.hpp; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				9684F2782713924B006BF53E /* Instruments+Inputs.cpp */,
 				9684F2792713924B006BF53E /* Instruments+Inputs.hpp */,
 				9684F27C271392C2006BF53E /* SketchHelpers.cpp */,
+				AA11BB22CC33DD44EE550003 /* CustomFeatureSpike.hpp */,
+				AA11BB22CC33DD44EE550001 /* CustomFeatureSpike.cpp */,
 				9684F27D271392C2006BF53E /* SketchHelpers.hpp */,
 				9684F28027139381006BF53E /* UIHelpers.cpp */,
 				9684F28127139381006BF53E /* UIHelpers.hpp */,
@@ -357,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9684F27E271392C2006BF53E /* SketchHelpers.cpp in Sources */,
+				AA11BB22CC33DD44EE550002 /* CustomFeatureSpike.cpp in Sources */,
 				2BB196C61AD5940800164CD3 /* Fretboarder.cpp in Sources */,
 				9684F27A2713924B006BF53E /* Instruments+Inputs.cpp in Sources */,
 				9684F28E27139623006BF53E /* CommandCreatedEventHandler.cpp in Sources */,

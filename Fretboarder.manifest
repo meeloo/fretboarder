@@ -1,6 +1,7 @@
 {
 	"autodeskProduct":	"Fusion360",
-	"type":	"script",
+	"type":	"addin",
+	"runOnStartup":	true,
 	"author":	"Sebastien Metrot",
 	"description":	{
 		"":	"Create fretboards easily"
