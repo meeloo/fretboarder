@@ -82,9 +82,11 @@ static bool compute_profile_frame(const Ptr<ConstructionPlane>& plane,
         // Degenerate: the path tangent is vertical. Fall back to the plane's own axis.
         up = geom->vDirection();
     }
+    CHECK(up, false);
     up->normalize();
 
     across = normal->crossProduct(up);
+    CHECK(across, false);
     across->normalize();
     return true;
 }
